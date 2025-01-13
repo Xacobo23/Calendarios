@@ -1,0 +1,14 @@
+horario tabla para responsive que sexa un 
+
+
+
+Maña:
+8:45 - 9:35
+
+13:45 - 14:35
+
+
+Tarde:
+16:00 - 16:50
+
+21:50 - 22:40
