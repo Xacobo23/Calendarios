@@ -1,0 +1,42 @@
+services:
+  django:
+    build: .
+    container_name: django_app
+    volumes:
+      - ./django:/app
+    working_dir: /app
+    ports:
+      - '8000:8000'
+    environment:
+      DJANGO_DB_HOST: postgres
+      DJANGO_DB_PORT: 5432
+      DJANGO_DB_NAME: horario_db
+      DJANGO_DB_USER: postgres
+      DJANGO_DB_PASSWORD: abc123.
+    depends_on:
+      - postgres
+  
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: horario_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abc123.
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: a22julioaa@iessanclemente.net
+      PGADMIN_DEFAULT_PASSWORD: abc123.
+    ports:
+      - '8080:80'
+
+volumes:
+  postgres_data:
+  

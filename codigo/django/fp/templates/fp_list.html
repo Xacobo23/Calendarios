@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista FP</title>
+</head>
+
+<body>
+
+    <main>
+
+        <h1>Lista FP</h1>
+
+        <ul>
+            {% for fp in fps %}
+            <li>{{ fp.name }} - {{ fp.get_tipo_display }} - {{ fp.description }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><a href="{% url 'add_fp' %}">Agregar un nuevo FP</a></p>
+    </main>
+
+</body>
+
+</html>
