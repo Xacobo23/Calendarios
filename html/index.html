@@ -6,19 +6,35 @@
     <title>Document</title>
 </head>
 <body>
-    <table>
-        <thead>
-            <th>X</th>
-            <th>Lunes</th>
-            <th>Martes</th>
-            <th>Miercoles</th>
-            <th>Jueves</th>
-            <th>Viernes</th>
-        </thead>
-        <tbody>
-            <td>hol</td>
+    <nav>
+        <div id="navLogo">
+            <img src="logo.png" alt="IES San Clemente" id="logoSanClemente">
+            <hr style="width: 90%; border: 1px solid white; ">
+        </div>
         
-        </tbody>
-    </table>
+    </nav>
 </body>
 </html>
+
+
+<style>
+    nav{
+        width: 15%;
+        background-color: #468DAE;
+        height: 100vh;
+    }
+
+    #navLogo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #logoSanClemente{
+        width: 70%;
+        padding-top: 15%;
+        padding-bottom: 15%;
+        
+    }
+</style>
