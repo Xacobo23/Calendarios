@@ -19,7 +19,7 @@ def fp_list (request):
     fps = FP.objects.all()
     return render(request, 'fp_list.html', {'fps': fps})
 
-@user_passes_test(is_superuser)
+#@user_passes_test(is_superuser)
 def add_fp (request):
     if request.method == 'POST':
         form = FPForm(request.POST)
