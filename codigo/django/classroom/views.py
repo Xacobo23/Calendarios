@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 
-from .models import Class
+from .models import Classroom
 #from .forms import ClassForm
 
 def class_list (request):
-    classes = Class.objects.all()
+    classes = Classroom.objects.all()
     return render(request, 'class_list.html', {'classes': classes})

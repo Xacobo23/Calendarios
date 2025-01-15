@@ -17,6 +17,7 @@ def fp_list (request):
     # se podría pasar un {'title': 'Ejemeplo', 'fps': fps}. Esto haría que en el HTML se pueda llamar a un atributo llamado
     # title y fps y usarlos para pasarles datos o lo que haga falta.
     fps = FP.objects.all()
+    
     return render(request, 'fp_list.html', {'fps': fps})
 
 #@user_passes_test(is_superuser)
