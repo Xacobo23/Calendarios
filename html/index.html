@@ -1,46 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <nav>
         <div id="navLogo">
             <img src="logo.png" alt="IES San Clemente" id="logoSanClemente">
             <hr style="width: 90%; border: 1px solid white; ">
         </div>
-        <div id="navCentro">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+
+        <div id="navBottom">
+            <div id="navCentro">
+                <div>
+                    <img src="img/svg/person_svgrepo.com.svg" alt="Alumnos">
+                    <span>Alumnos</span>
+                </div>
+                <div>
+                    <img src="img/svg/book_svgrepo.com.svg" alt="Ciclos formativos">
+                    <span>Ciclos formativos</span>
+                </div>
+                <div>
+                    <img src="img/svg/books_svgrepo.com.svg" alt="Módulos">
+                    <span>Módulos</span>
+                </div>
+                <div>
+                    <img src="img/svg/time_svgrepo.com.svg" alt="Horarios">
+                    <span>Horarios</span>
+                </div>
+            </div>
+
+            <div id="navExit">
+                <span>Cerrar sesión</span>
+                <img src="img/svg/logout_svgrepo.com.svg" alt="Cerrar sesión">
+            </div>
         </div>
-        
     </nav>
 </body>
+
 </html>
 
 
 <style>
-    nav{
+    body{
+        margin: 0;
+    }
+
+    nav {
         width: 15%;
         background-color: #468DAE;
         height: 100vh;
+        
+        display: flex;
+        flex-direction: column;
+
     }
 
-    #navLogo{
+    #navLogo {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-    #logoSanClemente{
+    #logoSanClemente {
         width: 70%;
         padding-top: 15%;
         padding-bottom: 15%;
-        
+
+    }
+
+    #navCentro div{
+        display: flex;
+        align-items: center;
+        padding-left: 10%;
+        padding-bottom: 10%;
+    }
+
+    #navCentro div img{
+        width: 15%;
+        margin-right: 10%;
+    }
+
+    #navBottom{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        flex-grow: 1;
+    }
+
+    #navExit {
+        display: flex;
+        align-self: flex-end;
+        align-items: center;
+    }
+    #navExit span{
+        padding-right: 10px;
     }
 </style>
