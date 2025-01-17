@@ -1,0 +1,56 @@
+body{
+    margin: 0;
+}
+
+nav {
+    width: 15%;
+    background-color: #468DAE;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+
+}
+
+#navLogo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#logoSanClemente {
+    width: 70%;
+    padding-top: 15%;
+    padding-bottom: 15%;
+
+}
+
+#navCentro div{
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+    padding-bottom: 10%;
+}
+
+#navCentro div img{
+    width: 15%;
+    margin-right: 10%;
+}
+
+#navBottom{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    flex-grow: 1;
+}
+
+#navExit {
+    display: flex;
+    align-self: flex-end;
+    align-items: center;
+}
+#navExit span{
+    padding-right: 10px;
+}
