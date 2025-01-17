@@ -12,38 +12,49 @@
 </head>
 
 <body>
+    <!-- Menú de navegación -->
     <nav>
-        <div id="navLogo">
+        <a href="{% url 'homepage' %}"><div id="navLogo">
             <img src="{% static 'images/logo.png' %}" alt="IES San Clemente" id="logoSanClemente">
             <hr style="width: 90%; border: 1px solid white; ">
-        </div>
+        </div></a>
 
         <div id="navBottom">
             <div id="navCentro">
                 <div>
                     <img src="{% static 'images/svg/person_svgrepo.com.svg' %}" alt="Alumnos">
-                    <span>Alumnos</span>
+                    <span class="navItem">Alumnos</span>
                 </div>
                 <div>
                     <img src="{% static 'images/svg/book_svgrepo.com.svg' %}" alt="Ciclos formativos">
-                    <span>Ciclos formativos</span>
+                    <span class="navItem">Ciclos formativos</span>
                 </div>
                 <div>
                     <img src="{% static 'images/svg/books_svgrepo.com.svg' %}" alt="Módulos">
-                    <span>Módulos</span>
+                    <span class="navItem">Módulos</span>
                 </div>
                 <div>
                     <img src="{% static 'images/svg/time_svgrepo.com.svg' %}" alt="Horarios">
-                    <span>Horarios</span>
+                    <span class="navItem">Horarios</span>
                 </div>
             </div>
 
             <div id="navExit">
-                <span>Cerrar sesión</span>
-                <img src="img/svg/logout_svgrepo.com.svg" alt="Cerrar sesión">
+                {% if user.is_authenticated %}
+                    <span>Cerrar sesión</span>
+                    <img src="{% static 'images/svg/logout_svgrepo.com.svg' %}" alt="Cerrar sesión">
+                {% else %}
+                    <span>Iniciar sesión / Registrarse</span>
+                    <img src="{% static 'images/svg/login_svgrepo.com.svg' %}" alt="Iniciar sesión">
+                {% endif %}
+                
             </div>
         </div>
     </nav>
+
+    <main>
+        Hola
+    </main>
 </body>
 
 </html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba</title>
+
+    <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        .item-section {
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 8fr;
+            height: 100vh;
+        }
+
+        .item-title {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 1em;
+            color: #468DAE;
+            border-bottom: 1px solid rgba(0, 0, 0, .1);
+        }
+
+        .item-title i {
+            font-size: 1.5em;
+        }
+
+        .item-total {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 1em;
+        }
+
+        .item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #input-search {
+            padding: 1em 2em;
+            border: none;
+            border-radius: .5em;
+            outline: none;
+            background-color: rgba(242, 242, 242, .5);
+        }
+
+        .add-item-btn {
+            background-color: #7ED9AE;
+            color: white;
+            padding: 1em 2em;
+            border: none;
+            border-radius: .5em;
+        }
+
+        .item-table {
+            overflow: scroll;
+        }
+
+        .item-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .item-table thead {
+            background-color: #468DAE;
+            color: white;
+        }
+
+        .item-table th, .item-table td {
+            padding: 1em;
+        }
+
+        .item-table tbody tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        .item-table tbody tr:nth-child(even) {
+            background-color: rgba(242, 242, 242, .5); 
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="item-section">
+            <article class="item-title">
+                <i class="fa-solid fa-user"></i>
+                <h2>Alumnos</h2>
+            </article>
+            <article class="item-total">
+                <p>Número items: <b>20</b></p>
+            </article>
+            <article class="item-actions">
+                <form class="form-item-filters">
+                    <input type="search" placeholder="Buscar..." id="input-search">
+                </form>
+
+                <button class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo item</button>
+            </article>
+            <article class="item-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>12345678A</td>
+                            <td>Pepe</td>
+                            <td>Pérez</td>
+                            <td>600123456</td>
+                            <td>pepe@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>23456789B</td>
+                            <td>María</td>
+                            <td>García</td>
+                            <td>600234567</td>
+                            <td>maria@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>34567890C</td>
+                            <td>Antonio</td>
+                            <td>Ruiz</td>
+                            <td>600345678</td>
+                            <td>antonio@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>45678901D</td>
+                            <td>Laura</td>
+                            <td>López</td>
+                            <td>600456789</td>
+                            <td>laura@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>56789012E</td>
+                            <td>José</td>
+                            <td>Martín</td>
+                            <td>600567890</td>
+                            <td>jose@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>67890123F</td>
+                            <td>Ana</td>
+                            <td>Sánchez</td>
+                            <td>600678901</td>
+                            <td>ana@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>78901234G</td>
+                            <td>Carlos</td>
+                            <td>Torres</td>
+                            <td>600789012</td>
+                            <td>carlos@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>89012345H</td>
+                            <td>Bea</td>
+                            <td>Ramírez</td>
+                            <td>600890123</td>
+                            <td>bea@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>90123456I</td>
+                            <td>Juan</td>
+                            <td>Vega</td>
+                            <td>600901234</td>
+                            <td>juan@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>11234567J</td>
+                            <td>Elena</td>
+                            <td>Suárez</td>
+                            <td>600112345</td>
+                            <td>elena@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>22345678K</td>
+                            <td>Mario</td>
+                            <td>Gómez</td>
+                            <td>600223456</td>
+                            <td>mario@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>33456789L</td>
+                            <td>Patricia</td>
+                            <td>Moreno</td>
+                            <td>600334567</td>
+                            <td>patricia@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>44567890M</td>
+                            <td>Manuel</td>
+                            <td>Hernández</td>
+                            <td>600445678</td>
+                            <td>manuel@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>55678901N</td>
+                            <td>Raquel</td>
+                            <td>Martínez</td>
+                            <td>600556789</td>
+                            <td>raquel@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>66789012O</td>
+                            <td>David</td>
+                            <td>Fernández</td>
+                            <td>600667890</td>
+                            <td>david@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>77890123P</td>
+                            <td>Patricia</td>
+                            <td>Pérez</td>
+                            <td>600778901</td>
+                            <td>patricia.p@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>88901234Q</td>
+                            <td>Jorge</td>
+                            <td>García</td>
+                            <td>600889012</td>
+                            <td>jorge@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>99012345R</td>
+                            <td>Marina</td>
+                            <td>Jiménez</td>
+                            <td>600990123</td>
+                            <td>marina@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>10234567S</td>
+                            <td>Andrés</td>
+                            <td>López</td>
+                            <td>600102345</td>
+                            <td>andres@ejemplo.com</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>21345678T</td>
+                            <td>Lucía</td>
+                            <td>Pérez</td>
+                            <td>600213456</td>
+                            <td>lucia@ejemplo.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
