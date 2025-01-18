@@ -68,3 +68,9 @@ nav {
 #navExit span {
     padding-right: 10px;
 }
+
+.selected {
+    color: #F26B1D;
+
+    border-left: 4px solid #F26B1D;
+}

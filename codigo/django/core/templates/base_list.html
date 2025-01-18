@@ -8,8 +8,10 @@
     <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
         * {
-            font-family: Arial, Helvetica, sans-serif
+            font-family: 'Open Sans', serif;
+            font-weight: 100;
         }
 
         .item-section {
@@ -38,18 +40,50 @@
             gap: 1em;
         }
 
+        .item-total .number {
+            font-weight: bold;
+        }
+
         .item-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            margin-bottom: 1em;
         }
 
         #input-search {
             padding: 1em 2em;
+
             border: none;
             border-radius: .5em;
+
             outline: none;
+
             background-color: rgba(242, 242, 242, .5);
+        }
+
+        #select-item {
+            padding: 1em 2em;
+
+            border: none;
+            border-radius: .5em;
+
+            outline: none;
+
+            background-color: rgba(242, 242, 242, .5);
+        }
+
+        .btn-search {
+            color: white;
+            background-color: #F26B1D;
+
+            padding: 1em 2em;
+
+            border: none;
+            border-radius: .5em;
+
+            outline: none;
         }
 
         .add-item-btn {
@@ -85,6 +119,32 @@
         .item-table tbody tr:nth-child(even) {
             background-color: rgba(242, 242, 242, .5); 
         }
+
+        .td-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+        }
+
+        .btn-see {
+            background-color: #468DAE;
+            color: white;
+
+            border: none;
+            border-radius: .5em;
+
+            padding: .6em 2em;
+        }
+
+        .btn-delete {
+            background-color: #DB5D5D;
+            color: white;
+
+            border: none;
+            border-radius: .5em;
+
+            padding: .6em 2em;
+        }
     </style>
 </head>
 <body>
@@ -95,11 +155,19 @@
                 <h2>Alumnos</h2>
             </article>
             <article class="item-total">
-                <p>Número items: <b>20</b></p>
+                <p>Número items: <span class="number">20</span></p>
             </article>
             <article class="item-actions">
                 <form class="form-item-filters">
+                    <select name="select-item" id="select-item">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
                     <input type="search" placeholder="Buscar..." id="input-search">
+                    <button type="submit" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
 
                 <button class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo item</button>
@@ -114,6 +182,7 @@
                             <th>Apellidos</th>
                             <th>Teléfono</th>
                             <th>Email</th>
+                            <th>Gestión</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,6 +193,10 @@
                             <td>Pérez</td>
                             <td>600123456</td>
                             <td>pepe@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -132,6 +205,10 @@
                             <td>García</td>
                             <td>600234567</td>
                             <td>maria@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -140,6 +217,10 @@
                             <td>Ruiz</td>
                             <td>600345678</td>
                             <td>antonio@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>4</td>
@@ -148,6 +229,10 @@
                             <td>López</td>
                             <td>600456789</td>
                             <td>laura@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>5</td>
@@ -156,6 +241,10 @@
                             <td>Martín</td>
                             <td>600567890</td>
                             <td>jose@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>6</td>
@@ -164,6 +253,10 @@
                             <td>Sánchez</td>
                             <td>600678901</td>
                             <td>ana@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>7</td>
@@ -172,6 +265,10 @@
                             <td>Torres</td>
                             <td>600789012</td>
                             <td>carlos@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>8</td>
@@ -180,6 +277,10 @@
                             <td>Ramírez</td>
                             <td>600890123</td>
                             <td>bea@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>9</td>
@@ -188,6 +289,10 @@
                             <td>Vega</td>
                             <td>600901234</td>
                             <td>juan@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>10</td>
@@ -196,6 +301,10 @@
                             <td>Suárez</td>
                             <td>600112345</td>
                             <td>elena@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>11</td>
@@ -204,6 +313,10 @@
                             <td>Gómez</td>
                             <td>600223456</td>
                             <td>mario@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>12</td>
@@ -212,6 +325,10 @@
                             <td>Moreno</td>
                             <td>600334567</td>
                             <td>patricia@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>13</td>
@@ -220,6 +337,10 @@
                             <td>Hernández</td>
                             <td>600445678</td>
                             <td>manuel@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>14</td>
@@ -228,6 +349,10 @@
                             <td>Martínez</td>
                             <td>600556789</td>
                             <td>raquel@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>15</td>
@@ -236,6 +361,10 @@
                             <td>Fernández</td>
                             <td>600667890</td>
                             <td>david@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>16</td>
@@ -244,6 +373,10 @@
                             <td>Pérez</td>
                             <td>600778901</td>
                             <td>patricia.p@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>17</td>
@@ -252,6 +385,10 @@
                             <td>García</td>
                             <td>600889012</td>
                             <td>jorge@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>18</td>
@@ -260,6 +397,10 @@
                             <td>Jiménez</td>
                             <td>600990123</td>
                             <td>marina@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>19</td>
@@ -268,6 +409,10 @@
                             <td>López</td>
                             <td>600102345</td>
                             <td>andres@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>20</td>
@@ -276,6 +421,10 @@
                             <td>Pérez</td>
                             <td>600213456</td>
                             <td>lucia@ejemplo.com</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
