@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 from fp.models import FP
 
@@ -16,7 +16,7 @@ class Module(models.Model):
     
 # Tabla intermedia entre Module y User (Estudiante).
 class Enrolled (models.Model): 
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     course = models.CharField(max_length=10)
 

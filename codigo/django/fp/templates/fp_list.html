@@ -1,27 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base_list.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista FP</title>
-</head>
+{% block subtitle %} {{ title }} {% endblock %}
 
-<body>
+{% block itemName %} {{ title }} {% endblock %}
 
-    <main>
+{% block addItem %} {{ shortTitle}} {% endblock %}
 
-        <h1>Lista FP</h1>
+{% block tableHeader %}
 
-        <ul>
-            {% for fp in fps %}
-            <li>{{ fp.name }} - {{ fp.get_tipo_display }} - {{ fp.description }}</li>
+<tr>
+    {{ fps.0.keys }}
+    {% for field in fields %}
+        <th>
+            {{ field }}
+        </th>
+    {% endfor %}
+
+    <th>Gestión</th>
+</tr>
+
+{% endblock %}
+
+{% block tableBody %}
+
+    {% for fp in fps_data %}
+        <tr>
+            {% for value in fp.values %}
+                <td>{{ value }}</td>
             {% endfor %}
-        </ul>
+            <td class="td-buttons">
+                <button class="btn-see">Ver</button>
+                <button class="btn-delete">Eliminar</button>
+            </td>
+        </tr>
+    {% endfor %}
 
-        <p><a href="{% url 'add_fp' %}">Agregar un nuevo FP</a></p>
-    </main>
-
-</body>
-
-</html>
+{% endblock %}

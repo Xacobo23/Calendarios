@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    font-family: 'Open Sans', serif;
+    font-weight: 100;
+}
+
+.item-section {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 8fr;
+    height: 100vh;
+}
+
+.item-title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+    color: #468DAE;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.item-title i {
+    font-size: 1.5em;
+}
+
+.item-total {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+}
+
+.item-total .number {
+    font-weight: bold;
+}
+
+.item-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 1em;
+}
+
+#input-search {
+    padding: 1em 2em;
+
+    border: none;
+    border-radius: .5em;
+
+    outline: none;
+
+    background-color: rgba(242, 242, 242, .5);
+}
+
+#select-item {
+    padding: 1em 2em;
+
+    border: none;
+    border-radius: .5em;
+
+    outline: none;
+
+    background-color: rgba(242, 242, 242, .5);
+}
+
+.btn-search {
+    color: white;
+    background-color: #F26B1D;
+
+    padding: 1em 2em;
+
+    border: none;
+    border-radius: .5em;
+
+    outline: none;
+}
+
+.add-item-btn {
+    background-color: #7ED9AE;
+    color: white;
+    padding: 1em 2em;
+    border: none;
+    border-radius: .5em;
+}
+
+.item-table {
+    overflow: scroll;
+}
+
+.item-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.item-table thead {
+    background-color: #468DAE;
+    color: white;
+}
+
+.item-table th,
+.item-table td {
+    padding: 1em;
+}
+
+.item-table tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.item-table tbody tr:nth-child(even) {
+    background-color: rgba(242, 242, 242, .5);
+}
+
+.td-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.btn-see {
+    background-color: #468DAE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .6em 2em;
+}
+
+.btn-delete {
+    background-color: #DB5D5D;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .6em 2em;
+}

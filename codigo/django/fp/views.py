@@ -17,8 +17,22 @@ def fp_list (request):
     # se podría pasar un {'title': 'Ejemeplo', 'fps': fps}. Esto haría que en el HTML se pueda llamar a un atributo llamado
     # title y fps y usarlos para pasarles datos o lo que haga falta.
     fps = FP.objects.all()
+
+    fields = [field.verbose_name for field in FP._meta.fields]
+
+    fps_data = [
+        {field.name: getattr(fp, field.name) for field in FP._meta.fields}
+        for fp in fps
+    ]
+
+    data = {
+        'title': 'Ciclos formativos',
+        'shortTitle': 'FP',
+        'fps_data': fps_data,
+        'fields': fields
+    }
     
-    return render(request, 'fp_list.html', {'fps': fps})
+    return render(request, 'fp_list.html', data)
 
 #@user_passes_test(is_superuser)
 def add_fp (request):
