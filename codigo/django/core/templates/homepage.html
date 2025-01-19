@@ -1,62 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% block title %}{{ title }}{% endblock %}
 
-    {% load static %}
-
-    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
-</head>
-
-<body>
-    <!-- Menú de navegación -->
-    <nav>
-        <a href="{% url 'homepage' %}"><div id="navLogo">
-            <img src="{% static 'images/logo.png' %}" alt="IES San Clemente" id="logoSanClemente">
-            <hr style="width: 90%; border: 1px solid white; ">
-        </div></a>
-
-        <div id="navBottom">
-            <div id="navCentro">
-                <div class="selected">
-                    <img src="{% static 'images/svg/person_svgrepo.com.svg' %}" alt="Alumnos">
-                    <span class="navItem">Alumnos</span>
-                </div>
-                <div>
-                    <img src="{% static 'images/svg/book_svgrepo.com.svg' %}" alt="Ciclos formativos">
-                    <span class="navItem">Ciclos formativos</span>
-                </div>
-                <div>
-                    <img src="{% static 'images/svg/books_svgrepo.com.svg' %}" alt="Módulos">
-                    <span class="navItem">Módulos</span>
-                </div>
-                <div>
-                    <img src="{% static 'images/svg/time_svgrepo.com.svg' %}" alt="Horarios">
-                    <span class="navItem">Horarios</span>
-                </div>
-            </div>
-
-            <div id="navExit">
-                {% if user.is_authenticated %}
-                    <span>Cerrar sesión</span>
-                    <img src="{% static 'images/svg/logout_svgrepo.com.svg' %}" alt="Cerrar sesión">
-                {% else %}
-                    <span>Iniciar sesión / Registrarse</span>
-                    <img src="{% static 'images/svg/login_svgrepo.com.svg' %}" alt="Iniciar sesión">
-                {% endif %}
-                
-            </div>
-        </div>
-    </nav>
-
-    <main>
-        Hola
-    </main>
-</body>
-
-</html>
-
-
+{% block content %}
+    <h2>Esta es la página de inicio</h2>
+{% endblock %}

@@ -1,19 +1,88 @@
+/* Estilos comunes a todas las páginas */
+
 body {
     margin: 0;
+
+    display: flex;
+    flex-direction: row;
+
+    height: 100vh;
+}
+
+header {
+    flex: 0 0 15%;
 }
 
 nav {
-    width: 15%;
-    background-color: #468DAE;
+    width: 100%;
     height: 100vh;
+
+    background-color: #468DAE;
+    
     display: flex;
     flex-direction: column;
 }
 
+nav a {
+    color: white;
+
+    text-decoration: none;
+
+    transition: color .5s ease;
+}
+
+nav a:hover {
+    color: black;
+
+    transition: color .5s ease;
+}
+
 /* Cambiar el ancho del nav para pantallas medianas y pequeñas */
 @media (max-width: 1024px) {
-    nav {
+    header {
+        flex: 0 0 20%
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+            flex: 0 0 20%
+    }
+
+    #logoSanClemente {
+        width: 80%;
+
+        padding-top: 10%;
+        padding-bottom: 10%;
+    }
+
+    #navCentro div img {
         width: 20%;
+    }
+
+    .navItem {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        flex-direction: column;
+    }
+
+    header {
+        flex: 0 0 auto;
+
+        width: 100%;
+    }
+
+    nav {
+        height: auto;
+        width: 100%;
+
+        flex-direction: row;
+
+        overflow-x: auto;
     }
 }
 
@@ -28,13 +97,17 @@ nav {
     width: 70%;
     padding-top: 15%;
     padding-bottom: 15%;
+
+    width: clamp(50%, 10vw, 80%);
 }
 
 #navCentro div {
     display: flex;
     align-items: center;
+    align-content: center;
+
     padding-left: 10%;
-    padding-bottom: 10%;
+    margin-bottom: 10%;
 }
 
 #navCentro div img {
@@ -52,6 +125,8 @@ nav {
 .navItem {
     cursor: pointer;
     transition: color 0.5s ease;
+
+    font-size: clamp(.8rem, 2.5vw, 1rem);
 }
 
 .navItem:hover {
@@ -59,18 +134,33 @@ nav {
     transition: color 0.5s ease;
 }
 
-#navExit {
+#navUser {
     display: flex;
     align-self: flex-end;
     align-items: center;
+
+    width: 90%;
+    
+    margin: .5em auto;
+    padding-top: .5em;
+
+    border-top: 1px solid white;
 }
 
-#navExit span {
-    padding-right: 10px;
+#navUser span {
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
 }
 
 .selected {
     color: #F26B1D;
 
     border-left: 4px solid #F26B1D;
+}
+
+.selected a {
+    color: #F26B1D;
 }

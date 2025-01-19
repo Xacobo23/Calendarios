@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nombre | {% block title %}{% endblock %}</title>
+
+    {% load static %} {% block css %} {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
+
+    {% block js %} {% endblock %}
+  </head>
+
+  <body>
+    <!-- Cabecera de la web -->
+    <header id="header">
+      <!-- Menú de navegación -->
+      <nav>
+        <a href="{% url 'homepage' %}">
+          <div id="navLogo">
+            <img
+              src="{% static 'images/logo.png' %}"
+              alt="Logo IES San Clemente"
+              id="logoSanClemente"
+            />
+            <hr style="width: 90%; border: 1px solid white" />
+          </div>
+        </a>
+
+        <div id="navBottom">
+          <div id="navCentro">
+            <div class="selected">
+              <img
+                src="{% static 'images/svg/person_svgrepo.com.svg' %}"
+                alt="Alumnos"
+              />
+              <a href="#"><span class="navItem">Alumnos</span></a>
+            </div>
+            <div>
+              <img
+                src="{% static 'images/svg/book_svgrepo.com.svg' %}"
+                alt="Ciclos formativos"
+              />
+              <a href="#"><span class="navItem">Ciclos formativos</span></a>
+            </div>
+            <div>
+              <img
+                src="{% static 'images/svg/books_svgrepo.com.svg' %}"
+                alt="Módulos"
+              />
+              <a href="#"><span class="navItem">Módulos</span></a>
+            </div>
+            <div>
+              <img
+                src="{% static 'images/svg/time_svgrepo.com.svg' %}"
+                alt="Horarios"
+              />
+              <a href="#"><span class="navItem">Horarios</span></a>
+            </div>
+          </div>
+
+          <div id="navUser">
+            {% if user.is_authenticated %}
+            <span>Cerrar sesión</span>
+            <img
+              src="{% static 'images/svg/logout_svgrepo.com.svg' %}"
+              alt="Cerrar sesión"
+            />
+            {% else %}
+            <span>
+              <a href="#">Iniciar sesión</a> / <a href="#">Registrarse</a></span
+            >
+            <img
+              src="{% static 'images/svg/logout_svgrepo.com.svg' %}"
+              alt="Iniciar sesión"
+            />
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">{% block content %}{% endblock %}</main>
+  </body>
+</html>
