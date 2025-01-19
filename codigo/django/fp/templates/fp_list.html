@@ -1,38 +1,8 @@
-{% extends 'base_list.html' %}
+{% extends 'base_select.html' %}
 
 {% block subtitle %} {{ title }} {% endblock %}
 
-{% block itemName %} {{ title }} {% endblock %}
 
-{% block addItem %} {{ shortTitle}} {% endblock %}
+{% block itemName %} {{ title }}{% endblock %}
 
-{% block tableHeader %}
-
-<tr>
-    {{ fps.0.keys }}
-    {% for field in fields %}
-        <th>
-            {{ field }}
-        </th>
-    {% endfor %}
-
-    <th>Gestión</th>
-</tr>
-
-{% endblock %}
-
-{% block tableBody %}
-
-    {% for fp in fps_data %}
-        <tr>
-            {% for value in fp.values %}
-                <td>{{ value }}</td>
-            {% endfor %}
-            <td class="td-buttons">
-                <button class="btn-see">Ver</button>
-                <button class="btn-delete">Eliminar</button>
-            </td>
-        </tr>
-    {% endfor %}
-
-{% endblock %}
+{% block totalItem %} {{ totalFp }} {% endblock %}

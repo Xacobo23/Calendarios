@@ -25,11 +25,14 @@ def fp_list (request):
         for fp in fps
     ]
 
+    totalFp = fps.count()
+
     data = {
         'title': 'Ciclos formativos',
         'shortTitle': 'FP',
         'fps_data': fps_data,
-        'fields': fields
+        'fields': fields,
+        'totalFp': totalFp
     }
     
     return render(request, 'fp_list.html', data)
