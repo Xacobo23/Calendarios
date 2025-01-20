@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>Login</title>
+</head>
+
+<body>
+    <header>
+        <img src="{% static 'images/logo.png' %}" alt="Imagen logo IES San Clemente" class="logo">
+    </header>
+    <main>
+        <div class="login-container">
+            <div class="alumno-container">
+                <div class="smallTriangleWhite"> </div>
+                <img src="{% static 'images/home/alumno.png' %}" alt="Estudiante feliz" class="alumno">
+            </div>
+            <div class="form-container">
+                <h2 class="loginText">Login</h2>
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                    </div>
+                    <button type="submit" class="btn">Acceder</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
