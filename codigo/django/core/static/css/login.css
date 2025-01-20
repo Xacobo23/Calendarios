@@ -134,3 +134,9 @@ main {
 .register-link a:hover {
     text-decoration: underline;
 }
+
+.btn-register {
+    border: none;
+
+    background-color: #448aa6;
+}

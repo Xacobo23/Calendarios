@@ -1,23 +1,23 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login
 
-from .forms import RegisterForm
+from .forms import CustomUserCreationForm
 
 # Create your views here.
 
-def login (request):
-    return render(request, 'login.html', {'title': 'Login'})
-
 def register (request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
 
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password1'])
-            user.save()
+            user = form.save()
             login(request, user)
+            messages.success(request, 'Registro completado con éxito! Iniciando sesión...')
             return redirect('homepage')
+        else:
+            messages.error(request, 'Error en el registro. Verifica los datos.')
     else:
-        form = RegisterForm()
+        form = CustomUserCreationForm()
 
     return render (request, 'registration/register.html', {'form': form})
