@@ -8,9 +8,11 @@
 
 <style>
 .item-cards {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 1em;
+
+    justify-items: center;
 }
 
 .item-card {
@@ -20,7 +22,8 @@
     display: flex;
     flex-direction: column;
 
-    height: fit-content;
+    height: 100%;
+    width: 100%;
 }
 
 .card-title {
@@ -95,6 +98,54 @@
             <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Multiplataforma</p>
             <p class="card-duration">Duración: 2 años</p>
 
+            <section class="card-actions">
+                <button class="card-btn-see">Ver</button>
+                <button class="card-btn-delete">Eliminar</button>
+            </section>
+        </div>
+
+        <div class="item-card">
+            <h3 class="card-title">DAW</h3>
+        
+            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
+            <p class="card-duration">Duración: 2 años</p>
+        
+            <section class="card-actions">
+                <button class="card-btn-see">Ver</button>
+                <button class="card-btn-delete">Eliminar</button>
+            </section>
+        </div>
+
+        <div class="item-card">
+            <h3 class="card-title">DAW</h3>
+        
+            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
+            <p class="card-duration">Duración: 2 años</p>
+        
+            <section class="card-actions">
+                <button class="card-btn-see">Ver</button>
+                <button class="card-btn-delete">Eliminar</button>
+            </section>
+        </div>
+
+        <div class="item-card">
+            <h3 class="card-title">DAW</h3>
+        
+            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
+            <p class="card-duration">Duración: 2 años</p>
+        
+            <section class="card-actions">
+                <button class="card-btn-see">Ver</button>
+                <button class="card-btn-delete">Eliminar</button>
+            </section>
+        </div>
+
+        <div class="item-card">
+            <h3 class="card-title">DAW</h3>
+        
+            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
+            <p class="card-duration">Duración: 2 años</p>
+        
             <section class="card-actions">
                 <button class="card-btn-see">Ver</button>
                 <button class="card-btn-delete">Eliminar</button>
