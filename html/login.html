@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="logo" class="logo">
+    </header>
+    <main>
+        <div class="login-container">
+            <div class="alumno-container">
+                <div class="smallTriangleWhite"> </div>
+                <img src="/html/img/home/alumno.png" alt="alumno" class="alumno">
+            </div>
+            <div class="form-container">
+                <h2 class="loginText">Login</h2>
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Contrasinal" required>
+                    </div>
+                    <button type="submit" class="btn">Acceder</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

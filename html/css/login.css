@@ -1,0 +1,135 @@
+html, body{
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header{
+    position: absolute;
+    width: 100%;
+    background-color: #448aa6;
+}
+
+.logo{
+    width: 260px;
+    padding: 32px;
+}
+
+main{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background: #448aa6;
+  width: 55em;
+  height: 30em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.smallTriangleWhite{
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-right: 80px solid transparent; 
+  border-top: 80px solid #fff;   
+  z-index: 0;
+}
+
+.alumno-container{
+  background-color: #619EBA;
+  height: 30em;
+  width: 24em;
+  overflow: hidden; 
+}
+
+.alumno {
+  transform: translateX(-45px);
+  height: 720px;  
+  width: 100%;  
+  object-fit: cover;  
+  object-position: center; 
+  z-index: 100;
+}
+
+  .form-container{
+    padding-top: 20px;
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .loginText {
+    text-align: start;
+    margin-bottom: 20px;
+    color: #ffffff;
+    width: 100%;
+  }
+
+  .form-container form{
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .form-group input {
+    opacity: 75%;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #448aa6;
+    color: #fff;
+  }
+  
+  .form-group input::placeholder {
+    color: #fff;
+    font-size: 14px;
+  }
+
+  .form-group input:focus {
+    outline: none;
+  }
+
+  .btn {
+    display: block;
+    width: 25%;
+    padding: 10px;  
+    background-color: #F26B1D;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    justify-self: end;
+  }
+
+  .register-link {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .register-link a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+
+  .register-link a:hover {
+    text-decoration: underline;
+  }
