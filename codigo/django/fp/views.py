@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 
 from .models import FP
 from .forms import FPForm
@@ -41,13 +42,20 @@ def fp_list (request):
 def add_fp (request):
     if request.method == 'POST':
         form = FPForm(request.POST)
+
         if form.is_valid():
             form.save()
+            messages.success(request, 'Nuevo FP añadido correctamente.')
             return redirect('fp_list')
     else:
         form = FPForm()
 
-    return render(request, 'add_fp.html', {'form': form})
+    data = {
+        'title': 'Añadir FP',
+        'form': form
+    }
+
+    return render(request, 'fp_add.html', data)
 
 def edit_fp (request):
     data = {

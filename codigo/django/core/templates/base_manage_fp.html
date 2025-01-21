@@ -223,7 +223,8 @@
         <section class="item-edit-side">
             <h2>Datos</h2>
 
-            <form class="form-manage">
+            <form method="post" class="form-manage">
+                {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group">
                         <label for="code">Código</label>
@@ -237,8 +238,8 @@
                 </div>
                 <div class="form-row-large">
                     <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" name="name" id="name" placeholder="Nombre">
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label}} </label>
+                        {{ form.name }}
                     </div>
                 </div>
                 <div class="form-row">
@@ -253,8 +254,8 @@
                 </div>
                 <div class="form-row-large">
                     <div class="form-group">
-                        <label for="description">Descripción</label>
-                        <textarea name="description" id="description" placeholder="Descripción" rows="6"></textarea>
+                        <label for="{{ form.description.id_for_label}}">{{ form.description.label }}</label>
+                        {{ form.description }}
                     </div>
                 </div>
 
