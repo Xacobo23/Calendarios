@@ -48,3 +48,11 @@ def add_fp (request):
         form = FPForm()
 
     return render(request, 'add_fp.html', {'form': form})
+
+def edit_fp (request):
+    data = {
+        'title': 'Editar FP',
+        'shortTitle': 'Editar FP'
+    }
+
+    return render(request, 'fp_edit.html', data)

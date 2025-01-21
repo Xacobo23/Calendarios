@@ -19,7 +19,9 @@
     justify-content: start;
     align-items: center;
     gap: 1em;
+
     color: #468DAE;
+
     border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
@@ -83,7 +85,9 @@
 .add-item-btn {
     background-color: #7ED9AE;
     color: white;
+
     padding: 1em 2em;
+
     border: none;
     border-radius: .5em;
 }
@@ -94,6 +98,7 @@
 
 .item-table table {
     width: 100%;
+    
     border-collapse: collapse;
 }
 

@@ -7,37 +7,37 @@
 <link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
 {% endblock %}
 
-{% block js %} 
+{% block js %}
 <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
 {% endblock %}
 {% block content %}
-        <section class="item-section">
-            <article class="item-title">
-                <i class="fa-solid fa-user"></i>
-                <h2>{% block itemName %}{% endblock %}</h2>
-            </article>
-            <article class="item-total">
-                <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
-            </article>
-            <article class="item-actions">
-                <form class="form-item-filters">
-                    <select name="select-item" id="select-item">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                    <input type="search" placeholder="Buscar..." id="input-search">
-                    <button type="submit" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
+<section class="item-section">
+    <article class="item-title">
+        <i class="fa-solid fa-user"></i>
+        <h2>{% block itemName %}{% endblock %}</h2>
+    </article>
+    <article class="item-total">
+        <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
+    </article>
+    <article class="item-actions">
+        <form class="form-item-filters">
+            <select name="select-item" id="select-item">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <input type="search" placeholder="Buscar..." id="input-search">
+            <button type="submit" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
 
-                <button class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
-            </article>
-            <article class="item-table">
-                <table>
-                    <thead>
-                        <!-- <tr>
+        <button class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
+    </article>
+    <article class="item-table">
+        <table>
+            <thead>
+                <!-- <tr>
                             <th>ID</th>
                             <th>DNI</th>
                             <th>Nombre</th>
@@ -46,10 +46,10 @@
                             <th>Email</th>
                             <th>Gestión</th>
                         </tr> -->
-                        {% block tableHeader %} {% endblock %}
-                    </thead>
-                    <tbody>
-                        <!-- <tr>
+                {% block tableHeader %} {% endblock %}
+            </thead>
+            <tbody>
+                <!-- <tr>
                             <td>1</td>
                             <td>12345678A</td>
                             <td>Pepe</td>
@@ -289,9 +289,9 @@
                                 <button class="btn-delete">Eliminar</button>
                             </td>
                         </tr> -->
-                        {% block tableBody %} {% endblock %}
-                    </tbody>
-                </table>
-            </article>
-        </section>
+                {% block tableBody %} {% endblock %}
+            </tbody>
+        </table>
+    </article>
+</section>
 {% endblock %}

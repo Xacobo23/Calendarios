@@ -1,0 +1,360 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block js %}
+<script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+    * {
+        font-family: 'Open Sans', serif;
+        font-weight: 100;
+    }
+
+    .item-title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1em;
+
+        color: #468DAE;
+
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    .item-title i {
+        font-size: 1.5em;
+    }
+
+    .item-title h2 {
+        font-weight: bold;
+    }
+
+    .display-id {
+        display: flex;
+        gap: 1em;
+        flex-direction: row;
+    }
+
+    .item-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding-top: 1em;
+
+        margin-bottom: 1em;
+    }
+
+    .btn {
+        color: white;
+
+        padding: 1em 4em;
+
+        border: none;
+        border-radius: .5em;
+    }
+
+    .btn-schedule {
+        background-color: #468DAE;
+    }
+
+    .btn-edit {
+        background-color: #F26B1C;
+    }
+
+    .btn-delete {
+        background-color: #DB5D5D;
+    }
+
+    .item-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2em;
+    }
+
+    .item-edit-side h2,
+    .item-items-asociated h2 {
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+        font-weight: 500;
+    }
+
+    .form-manage {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
+    }
+
+    .form-row-large {}
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+
+    .form-group input {
+        padding: 1em 1em 1em .6em;
+
+        border: none;
+        border-radius: .5em;
+
+        outline: none;
+
+        background-color: rgba(242, 242, 242, .5);
+    }
+
+    .form-group textarea {
+        resize: none;
+
+        padding: 1em 1em 1em .6em;
+
+        border: none;
+        border-radius: .5em;
+
+        outline: none;
+
+        background-color: rgba(242, 242, 242, .5);
+    }
+
+    .btn-save {
+        background-color: #468DAE;
+    }
+
+    .item-more-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .btn-add-subitem {
+        background-color: #7ED9AE;
+
+        width: fit-content;
+    }
+
+    .subitem-table {
+        overflow: scroll;
+
+        width: 100%;
+
+        border-collapse: collapse;
+    }
+
+    .subitem-table thead {
+        background-color: #468DAE;
+        color: white;
+    }
+
+    .center-td {
+        text-align: center;
+    }
+
+    .subitem-table th,
+    .subitem-table td {
+        padding: 1em;
+    }
+
+    .subitem-table tbody tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    .subitem-table tbody tr:nth-child(even) {
+        background-color: rgba(242, 242, 242, .5);
+    }
+
+    .td-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+    }
+
+    .btn-see {
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+    }
+
+    .btn-delete {
+        background-color: #DB5D5D;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="item-section">
+    <article class="item-title">
+        <i class="fa-solid fa-book"></i>
+        <h2>Ciclos Formativo/<small>DAM</small></h2>
+    </article>
+    <article class="item-actions">
+        <div class="display-id">
+            <span>ID</span>
+            <input type="text" value="3455" disabled>
+        </div>
+        <div class="action-buttons">
+            <button class="btn btn-schedule"><i class="fa-regular fa-clock"></i> Horario</button>
+            <button class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button class="btn btn-delete"><i class="fa-regular fa-user"></i> Eliminar</button>
+        </div>
+    </article>
+    <article class="item-main">
+        <section class="item-edit-side">
+            <h2>Datos</h2>
+
+            <form class="form-manage">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="code">Código</label>
+                        <input type="text" id="code" name="code" placeholder="Código">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="initials">Siglas</label>
+                        <input type="text" name="initials" id="initials" placeholder="Siglas">
+                    </div>
+                </div>
+                <div class="form-row-large">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" name="name" id="name" placeholder="Nombre">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="code">Duración (años)</label>
+                        <input type="text" id="duration" name="duration" placeholder="Duración">
+                    </div>
+                    <!-- <div class="form-group">
+                            <label for="code">Código</label>
+                            <input type="text" id="code" name="code" placeholder="Código">
+                        </div> AÑADIR MÁS CAMPOS AQUÍ -->
+                </div>
+                <div class="form-row-large">
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <textarea name="description" id="description" placeholder="Descripción" rows="6"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-save">Guardar</button>
+            </form>
+        </section>
+        <section class="item-items-asociated">
+            <h2>Módulos impartidos</h2>
+
+            <div class="item-more-info">
+                <button class="btn btn-add-subitem">Añadir módulo</button>
+
+                <table class="subitem-table">
+                    <thead>
+                        <tr>
+                            <td>Código</td>
+                            <td>Nombre</td>
+                            <td>Curso</td>
+                            <td class="center-td">Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0443</td>
+                            <td>Diseño de interfaces</td>
+                            <td>2º</td>
+                            <td class="td-buttons">
+                                <button class="btn-see">Ver</button>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </article>
+
+</section>
+
+{% endblock %}
