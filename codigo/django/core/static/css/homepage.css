@@ -1,4 +1,10 @@
 /* Estilos comunes a todas las páginas */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    font-family: 'Open Sans', serif;
+    font-weight: 100;
+}
 
 body {
     margin: 0;
@@ -29,12 +35,6 @@ nav a {
     color: white;
 
     text-decoration: none;
-
-    transition: color .5s ease;
-}
-
-nav a:hover {
-    color: black;
 
     transition: color .5s ease;
 }
@@ -114,6 +114,7 @@ nav a:hover {
 
 #navCentro div img {
     width: 15%;
+
     margin-right: 10%;
 }
 
@@ -132,12 +133,14 @@ nav a:hover {
 }
 
 .navItem:hover {
-    color: white;
+    color: black;
+
     transition: color 0.5s ease;
 }
 
 #navUser {
     display: flex;
+    justify-content: right;
     align-self: flex-end;
     align-items: center;
 
@@ -149,7 +152,8 @@ nav a:hover {
     border-top: 1px solid white;
 }
 
-#navUser span {
+#navUser a:hover {
+    color: black;
 }
 
 main {

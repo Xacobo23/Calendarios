@@ -7,6 +7,6 @@ from . import views
 # parámetro es importante porque luego se usa para redirigir las páginas con ese nombre.
 urlpatterns = [
     # path('add/', views.add_module, name='add_module'),  
-    path('list/', views.module_list, name='list_module'),  
+    path('list/', views.module_list, name='module_list'),  
     # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]

@@ -17,7 +17,16 @@ def module_list (request):
     # se podría pasar un {'title': 'Ejemeplo', 'fps': fps}. Esto haría que en el HTML se pueda llamar a un atributo llamado
     # title y fps y usarlos para pasarles datos o lo que haga falta.
     modules = Module.objects.all()
-    return render(request, 'list_module.html', {'modules': modules})
+
+    total_modules = modules.count()
+
+    data = {
+        'title': 'Módulos',
+        'shortTitle': 'Módulo',
+        'modules': modules,
+        'totalModules': total_modules
+    }
+    return render(request, 'module_list.html', data)
 
 # @user_passes_test(is_superuser)
 # def add_fp (request):
