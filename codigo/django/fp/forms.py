@@ -10,11 +10,14 @@ class FPForm (forms.ModelForm):
     # Se indica el modelo (FP) y los campos que queremos que tenga el formulario (en este caso todos).
     class Meta:
         model = FP
-        fields = ['name', 'fp_type', 'description']
+        fields = '__all__'
         labels = {
+            'code': ('Código'),
             'name': ('Nombre'),
             'fp_type': ('Tipo'),
-            'description': ('Descripción')
+            'description': ('Descripción'),
+            'short_name': ('Nombre corto'),
+            'duration': ('Duración')
         }
         # Aquí se pueden definir atributos como clases, placeholders etc. También se puede en el HTML.
         widgets = {
