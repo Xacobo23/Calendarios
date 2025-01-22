@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'core',
     #'bootstrap5',
     'student',
-    'user'
+    'user',
+    'schedule',
 ]
 
 MIDDLEWARE = [
