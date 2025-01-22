@@ -16,6 +16,7 @@ class FPType(Enum):
 # se van a almacenar. Dentro de los paréntesis se pueden establecer los atributos que se quiera, por ejemplo
 # unique = True, max_legth = 100... Se pueden mirar todos los posibles aquí: https://neunapp.com/contenido/tipos-de-campos-de-un-modelo-en-django-fields-in-models-18329
 class FP(models.Model):
+    code = models.CharField(max_length=10, unique=True)
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=1024)
     fp_type = models.CharField(
@@ -23,6 +24,8 @@ class FP(models.Model):
         choices=FPType.choices(),
         default=FPType.MEDIO.name
     )
+    short_name = models.CharField(max_length=10)
+    duration = models.IntegerField()
 
     def __str__(self):
         return f'{self.name} ({self.get_fp_type_display()})'

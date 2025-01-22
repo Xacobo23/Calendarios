@@ -58,10 +58,6 @@ nav a {
         padding-bottom: 10%;
     }
 
-    #navCentro div img {
-        width: 20%;
-    }
-
     .navItem {
         font-size: .9rem;
     }
@@ -105,17 +101,26 @@ nav a {
 
 #navCentro div {
     display: flex;
+    gap: 1em;
     align-items: center;
     align-content: center;
 
     padding-left: 10%;
     margin-bottom: 10%;
+
+    color: white;
 }
 
-#navCentro div img {
-    width: 15%;
+#navCentro div:hover {
+    color: black;
 
-    margin-right: 10%;
+    transition: all .5s ease;
+}
+
+#navCentro div i {
+    font-size: 1.5rem;
+
+    transition: all .5s ease;
 }
 
 #navBottom {
@@ -161,8 +166,9 @@ main {
     overflow-y: auto;
 }
 
+/* TODO: Quitar important */
 .selected {
-    color: #F26B1D;
+    color: #F26B1D !important;
 
     border-left: 4px solid #F26B1D;
 }
