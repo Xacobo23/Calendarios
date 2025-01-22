@@ -9,6 +9,7 @@
   {% load static %} {% block css %} {% endblock %}
   <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
 
+  <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
   {% block js %} {% endblock %}
 </head>
 
@@ -27,19 +28,19 @@
       <div id="navBottom">
         <div id="navCentro">
           <div class="selected">
-            <img src="{% static 'images/svg/person_svgrepo.com.svg' %}" alt="Alumnos" />
+            <i class="fa-solid fa-user"></i>
             <a href="{% url 'student_list' %}"><span class="navItem">Alumnos</span></a>
           </div>
           <div>
-            <img src="{% static 'images/svg/book_svgrepo.com.svg' %}" alt="Ciclos formativos" />
+            <i class="fa-solid fa-book"></i>
             <a href="{% url 'fp_list' %}"><span class="navItem">Ciclos formativos</span></a>
           </div>
           <div>
-            <img src="{% static 'images/svg/books_svgrepo.com.svg' %}" alt="Módulos" />
+            <i class="fa-solid fa-graduation-cap"></i>
             <a href="{% url 'module_list' %}"><span class="navItem">Módulos</span></a>
           </div>
           <div>
-            <img src="{% static 'images/svg/time_svgrepo.com.svg' %}" alt="Horarios" />
+            <i class="fa-regular fa-clock"></i>
             <a href="#"><span class="navItem">Horarios</span></a>
           </div>
         </div>

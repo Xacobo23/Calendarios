@@ -7,5 +7,9 @@ class FPAdmin(admin.ModelAdmin):
     list_filter = ('fp_type', )
     search_fields = ('name', )
 
+    class Meta:
+        verbose_name = 'Ciclo Formativo'
+        verbose_name_plural = 'Ciclos Formativos'
+
 admin.site.register(FP, FPAdmin)
 
