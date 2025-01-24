@@ -32,7 +32,7 @@
             <button type="submit" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 
-        <button class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
+        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
     </article>
     <article class="item-table">
         <table>
@@ -49,249 +49,18 @@
                 {% block tableHeader %} {% endblock %}
             </thead>
             <tbody>
-                <!-- <tr>
-                            <td>1</td>
-                            <td>12345678A</td>
-                            <td>Pepe</td>
-                            <td>Pérez</td>
-                            <td>600123456</td>
-                            <td>pepe@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>23456789B</td>
-                            <td>María</td>
-                            <td>García</td>
-                            <td>600234567</td>
-                            <td>maria@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>34567890C</td>
-                            <td>Antonio</td>
-                            <td>Ruiz</td>
-                            <td>600345678</td>
-                            <td>antonio@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>45678901D</td>
-                            <td>Laura</td>
-                            <td>López</td>
-                            <td>600456789</td>
-                            <td>laura@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>56789012E</td>
-                            <td>José</td>
-                            <td>Martín</td>
-                            <td>600567890</td>
-                            <td>jose@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>67890123F</td>
-                            <td>Ana</td>
-                            <td>Sánchez</td>
-                            <td>600678901</td>
-                            <td>ana@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>78901234G</td>
-                            <td>Carlos</td>
-                            <td>Torres</td>
-                            <td>600789012</td>
-                            <td>carlos@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>89012345H</td>
-                            <td>Bea</td>
-                            <td>Ramírez</td>
-                            <td>600890123</td>
-                            <td>bea@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>90123456I</td>
-                            <td>Juan</td>
-                            <td>Vega</td>
-                            <td>600901234</td>
-                            <td>juan@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>11234567J</td>
-                            <td>Elena</td>
-                            <td>Suárez</td>
-                            <td>600112345</td>
-                            <td>elena@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>22345678K</td>
-                            <td>Mario</td>
-                            <td>Gómez</td>
-                            <td>600223456</td>
-                            <td>mario@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>33456789L</td>
-                            <td>Patricia</td>
-                            <td>Moreno</td>
-                            <td>600334567</td>
-                            <td>patricia@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>44567890M</td>
-                            <td>Manuel</td>
-                            <td>Hernández</td>
-                            <td>600445678</td>
-                            <td>manuel@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>55678901N</td>
-                            <td>Raquel</td>
-                            <td>Martínez</td>
-                            <td>600556789</td>
-                            <td>raquel@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td>66789012O</td>
-                            <td>David</td>
-                            <td>Fernández</td>
-                            <td>600667890</td>
-                            <td>david@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>16</td>
-                            <td>77890123P</td>
-                            <td>Patricia</td>
-                            <td>Pérez</td>
-                            <td>600778901</td>
-                            <td>patricia.p@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>17</td>
-                            <td>88901234Q</td>
-                            <td>Jorge</td>
-                            <td>García</td>
-                            <td>600889012</td>
-                            <td>jorge@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td>99012345R</td>
-                            <td>Marina</td>
-                            <td>Jiménez</td>
-                            <td>600990123</td>
-                            <td>marina@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>19</td>
-                            <td>10234567S</td>
-                            <td>Andrés</td>
-                            <td>López</td>
-                            <td>600102345</td>
-                            <td>andres@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>20</td>
-                            <td>21345678T</td>
-                            <td>Lucía</td>
-                            <td>Pérez</td>
-                            <td>600213456</td>
-                            <td>lucia@ejemplo.com</td>
-                            <td class="td-buttons">
-                                <button class="btn-see">Ver</button>
-                                <button class="btn-delete">Eliminar</button>
-                            </td>
-                        </tr> -->
                 {% block tableBody %} {% endblock %}
             </tbody>
         </table>
     </article>
 </section>
+
+<script defer>
+    const btnAñadir = document.getElementById('add-item-btn');
+
+    btnAñadir.addEventListener('click', () => {
+        window.location.href = '/student/add/';
+    });
+
+</script>
 {% endblock %}

@@ -145,3 +145,11 @@
 
     padding: .6em 2em;
 }
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: .8;
+}
