@@ -12,7 +12,7 @@
         <nav class="navAll" id="navAll">
             <div id="navLogo">
                 <img src="logo.png" alt="IES San Clemente" id="logoSanClemente">
-                <hr style="width: 90%; border: 1px solid white;">
+                <hr id="hrSep1" >
                 <div class="hamburger">
                     <div class="_layer -top"></div>
                     <div class="_layer -mid"></div>
@@ -41,6 +41,8 @@
                 </div>
 
                 <div id="navExit">
+                    <hr id="hrSep2">
+
                     <span>Cerrar sesión</span>
                     <img src="img/svg/logout_svgrepo.com.svg" alt="Cerrar sesión">
                 </div>
@@ -68,6 +70,9 @@
 <style>
     body {
         margin: 0;
+    }
+    hr{
+        width: 90%; border: 1px solid white;
     }
 
     nav {
@@ -132,6 +137,11 @@
     #divNavAlumno {
         border-left: 6px solid #F26B1D;
     }
+    body{
+        border: 0;
+        padding: 0;
+        margin: 0;;
+    }
 </style>
 <style>
     @media (width <600px) {
@@ -141,6 +151,7 @@
             display: flex;
             justify-content: center;
             align-items: start;
+            width: 100%;
         }
 
         #navLogo img {
@@ -163,12 +174,32 @@
             padding: 0;
 
         }
-        #navCentro{
+
+        #navCentro {
             height: 5%;
+            
         }
     }
 
+    @media (width > 1000px){
+        #hrSep2{
+            display: none;
+        }
+    }
     @media (width < 1000px) {
+
+        #heSep1{
+            display: none;
+        }
+
+        #navCentro{
+            width: 80%;
+            margin-top: 8%;
+            border: 0;
+        }
+        #navCentro div{
+            margin-left: 0;
+        }
 
         #navBottom.is_active {
             display: flex;
@@ -176,15 +207,18 @@
             flex-direction: column;
             flex-grow: 1;
 
-            
-  transform: translate3d(0px, 0px, 0px) scaleY(1);
+
+            transform: translate3d(0px, 0px, 0px) scaleY(1);
         }
 
         #navBottom {
+            border: 0;
+            padding: 0;
+            margin: 0;
             z-index: 1001;
             background-color: #468DAE;
             transform: translate3d(0px, -70%, 0px) scaleY(0);
-            transition: transform 0.35s cubic-bezier(0.05, 1.04, 0.72, 0.98) 0s;
+            transition: transform 0.5s; /*cubic-bezier(0.05, 1.04, 0.72, 0.98) 0s;*/
         }
 
         #navLogo hr {
@@ -195,6 +229,8 @@
             height: 70px;
             background-color: #468DAE;
             z-index: 1002;
+            width: 100%;
+
         }
 
         #navAll.is_active {
@@ -206,7 +242,14 @@
             width: 100%;
             position: fixed;
             background-color: transparent;
+            margin: 0;
 
+        }
+
+        main{
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         .hamburger {
