@@ -1,12 +1,14 @@
 html, body{
   width: 100%;
-  height: 100%;
+  height: 100vh;
   margin: 0px;
   font-family: 'Open Sans', sans-serif;
+
+  display: flex;
+  flex-direction: column;
 }
 
 header{
-    position: absolute;
     width: 100%;
     background-color: #448aa6;
 }
@@ -17,7 +19,6 @@ header{
 }
 
 main{
-  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -78,6 +79,7 @@ main{
 
   .form-group {
     margin-bottom: 15px;
+    margin-left: 5%;
   }
 
   .form-group label {
@@ -108,7 +110,6 @@ main{
   }
 
   .btn {
-    display: block;
     width: 25%;
     padding: 10px;  
     background-color: #F26B1D;
@@ -132,4 +133,67 @@ main{
 
   .register-link a:hover {
     text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .estatua{
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body{
+      background-color: #448aa6;
+    }
+
+    .smallTriangleWhite{
+      display: none;
+    }
+
+    .form-group input{
+      opacity: 100%;
+      background-color: transparent;
+    }
+
+    .alumno-container{
+      height: 0px;
+      width: 0px;
+    }
+
+    .loginText{
+      z-index: 100;
+    }
+
+    form{
+      z-index: 100;
+    }
+
+    .estatua{
+      position: absolute;
+      bottom: 0;
+      opacity: 20%;
+      width: 100%;
+      transform: translateX(25%);
+      z-index: 0;
+    }
+
+    .login-container {
+      width: 90%;
+      height: auto;
+      grid-template-columns: 1fr;
+      padding: 20px;
+    }
+  
+    .alumno {
+      display: none; 
+    }
+  
+    .form-container {
+      padding-right: 0;
+    }
+  
+    .btn {
+      width: 100%; /* Button spans full width on mobile */
+      z-index: 100;
+    }
   }
