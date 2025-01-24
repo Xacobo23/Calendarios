@@ -50,3 +50,4 @@ def student_delete (request, student_id):
         return redirect('student_list')
     
     return redirect('student_list')
+
