@@ -7,5 +7,6 @@ from . import views
 # parámetro es importante porque luego se usa para redirigir las páginas con ese nombre.
 urlpatterns = [
     path('list/', views.student_list, name='student_list'),  
+    path('add/', views.student_add, name='student_add'),
     # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]
