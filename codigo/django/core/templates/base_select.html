@@ -89,7 +89,7 @@
         <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
     </article>
     <article class="item-actions">
-        <button class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
+        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
     </article>
     <article class="item-cards">
         <div class="item-card">
@@ -165,4 +165,12 @@
         </div>
     </article>
 </section>
+
+<script defer>
+    const addBtn = document.getElementById('add-item-btn');
+
+    addBtn.addEventListener('click', () => {
+        window.location.href = '/fp/add/';
+    });
+</script>
 {% endblock %}

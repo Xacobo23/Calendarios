@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model  
 from django.contrib import messages
 
@@ -41,3 +41,12 @@ def student_add (request):
     }
 
     return render(request, 'student_add.html', data)
+
+def student_delete (request, student_id):
+    if request.method == 'POST':
+        student = get_object_or_404(User, id=student_id)
+        student.delete()
+        messages.success(request, 'Estudiante eliminado correctamente.')
+        return redirect('student_list')
+    
+    return redirect('student_list')

@@ -2,6 +2,32 @@
 
 {% block subtitle %} {{ title }} {% endblock %}
 
+{% block js %}
+    <script defer>
+        function deleteStudent (studentId) {
+            if (confirm('¿Estás seguro de eliminar este estudiante?')) {
+                fetch (`/student/delete/${studentId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ 'id': studentId})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Estudiante eliminado correctamente');
+                        document.getElementById(`student-${studentId}`).remove();
+                    } else {
+                        alert('Error al eliminar el estudiante');
+                    }
+                });
+            }
+        }
+    </script>
+{% endblock %}
+
 {% block itemName %} {{ title }} {% endblock %}
 
 {% block totalItem %} {{ totalStudents }} {% endblock %}
@@ -25,7 +51,7 @@
 {% block tableBody %}
 
 {% for student in students %}
-<tr>
+<tr id="student-{{ student.id }}">
     <td>{{ student.id }}</td>
     <td>{{ student.dni }}</td>
     <td>{{ student.first_name }}</td>
@@ -34,7 +60,7 @@
     <td>{{ student.email }}</td>
     <td class="td-buttons">
         <button class="btn-see">Ver</button>
-        <button class="btn-delete">Eliminar</button>
+        <button class="btn-delete" onclick="deleteStudent({{ student.id }})">Eliminar</button>
     </td>
 </tr>
 {% endfor %}
