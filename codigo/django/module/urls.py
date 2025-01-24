@@ -8,6 +8,6 @@ from . import views
 urlpatterns = [
     # path('add/', views.add_module, name='add_module'),
     path("list/", views.module_list, name="module_list"),
-    path("add/", views.module_add, name="module_add"),
+    path("add/<int:module_id>", views.module_add, name="module_add"),
     # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]

@@ -33,7 +33,7 @@ def module_list(request):
     return render(request, "module_list.html", data)
 
 
-def module_add(request):
+def module_add(request, module_id):
     if request.method == "POST":
         form = ModuleForm(request.POST)
 
@@ -44,7 +44,7 @@ def module_add(request):
     else:
         form = ModuleForm()
 
-    data = {"title": "Añadir Módulo", "form": form}
+    data = {"title": "Añadir Módulo", "form": form, "id": module_id}
 
     return render(request, "module_add.html", data)
 

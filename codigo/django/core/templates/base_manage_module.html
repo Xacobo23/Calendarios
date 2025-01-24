@@ -53,6 +53,10 @@
         border-radius: .5em;
     }
 
+    .btn:hover {
+        cursor: pointer;
+    }
+
     .btn-schedule {
         background-color: #468DAE;
     }
@@ -164,7 +168,7 @@
 <section class="item-section">
     <article class="item-title">
         <i class="fa-solid fa-book"></i>
-        <h2>Módulos/<small>1234</small></h2>
+        <h2>Módulos/<small>{{ id }}</small></h2>
     </article>
     <article class="item-actions">
         <div class="display-id">
@@ -172,7 +176,7 @@
             <input type="text" value="1234" disabled>
         </div>
         <div class="action-buttons">
-            <button class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
             <button class="btn btn-delete"><i class="fa-regular fa-user"></i> Eliminar</button>
         </div>
     </article>
@@ -186,18 +190,19 @@
                 <div class="form-group">
                     <label for="fp">Ciclo Formativo</label>
                     <input type="text" name="fp" id="fp"
-                        placeholder="DAM - Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplatafo">
+                        placeholder="DAM - Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma"
+                        disabled>
 
                     <br>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="initials">Código</label>
-                            <input type="text" name="initials" id="initials" placeholder="Siglas">
+                            <input type="text" name="initials" id="initials" placeholder="Siglas" disabled>
                         </div>
 
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="text" name="name" id="name" placeholder="Diseño de Interfaces Web">
+                            <input type="text" name="name" id="name" placeholder="Diseño de Interfaces Web" disabled>
                         </div>
                     </div>
                 </div>
@@ -205,24 +210,33 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="hours">Horas</label>
-                        <input type="text" id="hours" name="hours" placeholder="45">
+                        <input type="text" id="hours" name="hours" placeholder="45" disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="teacher">Profesor</label>
-                        <input type="text" name="teacher" id="teacher" placeholder="Jorge Blanco Mariño">
+                        <input type="text" name="teacher" id="teacher" placeholder="Jorge Blanco Mariño" disabled>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="shortname">Siglas</label>
-                    <input type="text" name="shortname" id="shortname" placeholder="DIW">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="shortname">Siglas</label>
+                        <input type="text" name="shortname" id="shortname" placeholder="DIW" disabled>
+                    </div>
                 </div>
-
-
 
                 <button type="submit" class="btn btn-save">Guardar</button>
             </form>
         </section>
     </article>
 </section>
+<script defer>
+    let btnEdit = document.getElementById('btn-edit');
+    btnEdit.addEventListener('click', () => {
+        let inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.disabled = false;
+        });
+    });
+</script>
 {% endblock %}
