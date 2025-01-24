@@ -1,6 +1,4 @@
 {% extends 'base_list.html' %}
-{% load slippers %}
-
 
 {% block subtitle %} {{ title }} {% endblock %}
 
@@ -11,6 +9,7 @@
 {% block addItem %} {{ shortTitle }} {% endblock %}
 
 {% block tableHeader %}
+
 <tr>
     <td>ID</td>
     <td>Código</td>
@@ -37,10 +36,4 @@
     </td>
 </tr>
 {% endfor %}
-
-{% block extraContent %}
-{% card heading="Mi Título"
-content="Este es el contenido de la tarjeta." %}
-{% endblock %}
-
 {% endblock %}

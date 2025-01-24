@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     #'bootstrap5',
     "student",
     "user",
-    "slippers",
 ]
 
 MIDDLEWARE = [
