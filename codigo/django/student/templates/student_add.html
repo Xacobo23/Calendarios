@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+
+<style>
+
+#add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<form id="add-form" method="post">
+    {% csrf_token %}
+    
+    <label for="first_name">Nombre: </label>
+    {{ form.first_name }}
+
+    <label for="last_name">Apellidos: </label>
+    {{ form.last_name }}
+
+    <label for="username">Nombre de usuario: </label>
+    {{ form.username }}
+
+    <label for="email">Correo electrónico: </label>
+    {{ form.email }}
+
+    <label for="password1">Contraseña: </label>
+    {{ form.password1 }}
+
+    <label for="password2">Repetir contraseña: </label>
+    {{ form.password2 }}
+
+    <label for="telephone">Teléfono: </label>
+    {{ form.phone }}
+
+    <label for="dni">DNI: </label>
+    {{ form.dni }}
+
+    <button type="submit">Añadir usuario</button>
+</form>
+
+
+{% endblock %}

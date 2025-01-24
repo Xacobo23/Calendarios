@@ -140,3 +140,9 @@ main {
 
     background-color: #448aa6;
 }
+
+.alert-error {
+    color: black;
+
+    margin-bottom: 1em;
+}
