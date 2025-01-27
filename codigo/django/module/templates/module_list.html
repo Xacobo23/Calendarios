@@ -10,30 +10,92 @@
 
 {% block tableHeader %}
 
-<tr>
-    <td>ID</td>
-    <td>Código</td>
-    <td>Nombre</td>
-    <td>Ciclo Formativo</td>
-    <td>Profesor</td>
-    <td>Curso</td>
-    <td>Gestión</td>
-</tr>
+<div class="tableHeaderCSS">
+    <h3 class="tableHeaderTitleCSS">ID</h3>
+    <h3 class="tableHeaderTitleCSS">Código</h3>
+    <h3 class="tableHeaderTitleCSS">Nombre</h3>
+    <h3 class="tableHeaderTitleCSS">Ciclo Formativo</h3>
+    <h3 class="tableHeaderTitleCSS">Profesor</h3>
+    <h3 class="tableHeaderTitleCSS">Curso</h3>
+    <div class="tableHeaderTitleCSS"> </div>
+</div>
+
 {% endblock %}
 
 {% block tableBody %}
+
 {% for module in modules %}
-<tr>
-    <td>{{ module.id }}</td>
-    <td>{{ module.code }}</td>
-    <td>{{ module.name }}</td>
-    <td>{{ module.fp_id }}</td>
-    <td>Juan</td>
-    <td>2</td>
-    <td class="td-buttons">
-        <button class="btn-see">Ver</button>
-        <button class="btn-delete">Eliminar</button>
-    </td>
-</tr>
+<div class="tableRowCSS">
+    <p>{{ module.id }}</p>
+    <p>{{ module.code }}</p>
+    <p>{{ module.name }}</p>
+    <p>{{ module.fp_id }}</p>
+    <p>Juan</p>
+    <p>2</p>
+    <div class="tableBottomsCSS">
+        <button class="bottomSee">Ver</button>
+        <button class="bottomDelete">Eliminar</button>
+    </div>
+</div>
 {% endfor %}
+
+{% block extra_css %}
+<style>
+    .tableHeaderCSS{
+        display: grid;
+        grid-template-columns: 1fr 1fr 3fr 2fr 1fr 1fr 5fr;
+        justify-items: start;
+        padding-left: 1rem;
+        background-color: #468DAE;
+        color: white;
+    }
+
+    .tableHeaderTitleCSS{
+        color: white;
+    }
+
+    .tableRowCSS{
+        display: grid;
+        grid-template-columns: 1fr 1fr 3fr 2fr 1fr 1fr 5fr;
+        justify-items: start;
+        padding-left: 1.5rem;
+    }
+
+    .tableBottomsCSS {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-self: end;
+        padding-right: 5rem;
+        align-items: center;
+        gap: 1em;
+    }
+
+    .bottomSee {
+        background-color: #468DAE;
+        color: white;
+
+        height: 60%;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+    }
+
+    .bottomDelete {
+        background-color: #DB5D5D;
+        color: white;
+
+        height: 60%;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+    }
+
+</style>
 {% endblock %}
+
+{% endblock %}
+
