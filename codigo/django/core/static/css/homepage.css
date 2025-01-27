@@ -21,6 +21,13 @@ header {
     margin-right: 1em;
 }
 
+#navLogo a{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 nav {
     width: 100%;
     height: 100vh;
@@ -38,11 +45,92 @@ nav a {
 
     transition: color .5s ease;
 }
+#navAll {
+    overflow-x: hidden;
+}
 
 /* Cambiar el ancho del nav para pantallas medianas y pequeñas */
 @media (max-width: 1024px) {
     header {
         flex: 0 0 20%
+    }
+    #navLogo {
+        height: 70px;
+        background-color: #468DAE;
+        z-index: 1002;
+        width: 100%;
+
+    }
+    .hamburger {
+        position: fixed;
+        background-color: transparent;
+        right: 0;
+        top: 0;
+        height: 34px;
+        width: 30px;
+        padding: 20px 20px 16px 20px;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-transition: -webkit-transform 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+        transition: transform 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+        z-index: 1002;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hamburger.is-active {
+        background-color: none;
+    }
+
+    ._layer {
+        background: white;
+        margin-bottom: 4px;
+        border-radius: 2px;
+        width: 28px;
+        height: 4px;
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-transition: all 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+        transition: all 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+    }
+
+    .hamburger:hover .-top {
+        -webkit-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        transform: translateY(-100%);
+    }
+
+    .hamburger:hover .-bottom {
+        -webkit-transform: translateY(50%);
+        -ms-transform: translateY(100%);
+        transform: translateY(100%);
+    }
+
+    .hamburger.is-active .-top {
+        opacity: 1;
+        -webkit-transform: translateY(200%) rotate(45deg) !important;
+        -ms-transform: translateY(200%) rotate(45deg) !important;
+        transform: translateY(200%) translateX(-40%) rotate(90deg) !important;
+    }
+
+    .hamburger.is-active .-mid {
+        opacity: 1;
+        -webkit-transform: translateY(200%) rotate(45deg) !important;
+        -ms-transform: translateY(200%) rotate(45deg) !important;
+        transform: rotate(90deg) !important;
+    }
+
+    .hamburger.is-active .-bottom {
+        -webkit-transform: translateY(-200%) rotate(135deg) !important;
+        -ms-transform: translateY(-200%) rotate(135deg) !important;
+        transform: translateY(-200%) translateX(40%) rotate(90deg) !important;
     }
 }
 
@@ -64,6 +152,23 @@ nav a {
 }
 
 @media (max-width: 576px) {
+    #navLogo {
+        padding-left: 5%;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        width: 100%;
+    }
+    #navLogo a{
+        align-items: self-start;
+    }
+
+    #navLogo img {
+        width: 50%;
+        padding: 0;
+
+    }
     body {
         flex-direction: column;
     }
@@ -78,9 +183,64 @@ nav a {
         height: auto;
         width: 100%;
 
-        flex-direction: row;
+        flex-direction: column;
 
         overflow-x: auto;
+    }
+    #navCentro {
+        width: 80%;
+        margin-top: 8%;
+        border: 0;
+    }
+
+    #navCentro div {
+        margin-left: 0;
+    }
+
+    #navBottom.is_active {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-grow: 1;
+
+
+        transform: translate3d(0px, 0px, 0px) scaleY(1);
+    }
+
+    #navBottom {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        z-index: 1001;
+        background-color: #468DAE;
+        transform: translate3d(0px, -70%, 0px) scaleY(0);
+        transition: transform 0.5s;
+        /*cubic-bezier(0.05, 1.04, 0.72, 0.98) 0s;*/
+    }
+
+    #navLogo hr {
+        display: none;
+    }
+
+    #navLogo {
+        height: 70px;
+        background-color: #468DAE;
+        z-index: 1002;
+        width: 100%;
+
+    }
+
+    #navAll.is_active {
+        height: 100vh;
+    }
+
+    #navAll {
+        height: fit-content;
+        width: 100%;
+        position: fixed;
+        background-color: transparent;
+        margin: 0;
+
     }
 }
 
