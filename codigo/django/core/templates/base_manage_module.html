@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block js %}
+<script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+    * {
+        font-family: 'Open Sans', serif;
+        font-weight: 100;
+    }
+
+    .item-title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1em;
+        color: #468DAE;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    .item-title i {
+        font-size: 1.5em;
+    }
+
+    .item-title h2 {
+        font-weight: bold;
+    }
+
+    .display-id {
+        display: flex;
+        gap: 1em;
+        flex-direction: row;
+    }
+
+    .item-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    .btn {
+        color: white;
+        padding: 1em 4em;
+        border: none;
+        border-radius: .5em;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+    }
+
+    .btn-schedule {
+        background-color: #468DAE;
+    }
+
+    .btn-edit {
+        background-color: #F26B1C;
+    }
+
+    .btn-delete {
+        background-color: #DB5D5D;
+    }
+
+    .item-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2em;
+    }
+
+    .item-edit-side h2,
+    .item-items-asociated h2 {
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+        font-weight: 500;
+    }
+
+    .form-manage {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 1em 1em 1em .6em;
+        border: none;
+        border-radius: .5em;
+        outline: none;
+        background-color: rgba(242, 242, 242, .5);
+    }
+
+    .btn-save {
+        background-color: #468DAE;
+    }
+
+    .item-more-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .btn-add-subitem {
+        background-color: #7ED9AE;
+        width: fit-content;
+    }
+
+    .subitem-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) auto;
+        gap: 1em;
+        align-items: center;
+        padding: 1em;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    .subitem-header {
+        font-weight: bold;
+        background-color: #468DAE;
+        color: white;
+        padding: 1em;
+        border-radius: .5em .5em 0 0;
+    }
+
+    .subitem-actions {
+        display: flex;
+        gap: 1em;
+        justify-content: flex-end;
+    }
+
+    .btn-see,
+    .btn-delete {
+        color: white;
+        border: none;
+        border-radius: .5em;
+        padding: .6em 2em;
+    }
+
+    .btn-see {
+        background-color: #468DAE;
+    }
+
+    .btn-delete {
+        background-color: #DB5D5D;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="item-section">
+    <article class="item-title">
+        <i class="fa-solid fa-book"></i>
+        <h2>Módulos/<small>{{ id }}</small></h2>
+    </article>
+    <article class="item-actions">
+        <div class="display-id">
+            <span>ID</span>
+            <input type="text" value="1234" disabled>
+        </div>
+        <div class="action-buttons">
+            <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button class="btn btn-delete"><i class="fa-regular fa-user"></i> Eliminar</button>
+        </div>
+    </article>
+    <article class="item-main">
+        <section class="item-edit-side">
+            <h2>Datos del módulo</h2>
+            <form method="post" class="form-manage">
+                {% csrf_token %}
+
+
+                <div class="form-group">
+                    <label for="fp">Ciclo Formativo</label>
+                    <input type="text" name="fp" id="fp"
+                        placeholder="DAM - Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma"
+                        disabled>
+
+                    <br>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="initials">Código</label>
+                            <input type="text" name="initials" id="initials" placeholder="Siglas" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" name="name" id="name" placeholder="Diseño de Interfaces Web" disabled>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hours">Horas</label>
+                        <input type="text" id="hours" name="hours" placeholder="45" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacher">Profesor</label>
+                        <input type="text" name="teacher" id="teacher" placeholder="Jorge Blanco Mariño" disabled>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="shortname">Siglas</label>
+                        <input type="text" name="shortname" id="shortname" placeholder="DIW" disabled>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-save">Guardar</button>
+            </form>
+        </section>
+    </article>
+</section>
+<script defer>
+    let btnEdit = document.getElementById('btn-edit');
+    btnEdit.addEventListener('click', () => {
+        let inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.disabled = false;
+        });
+    });
+</script>
+{% endblock %}
