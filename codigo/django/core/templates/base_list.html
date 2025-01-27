@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title%} {% block subtitle %}{% endblock %} {% endblock %}
+{% block title%} {% block subtitle %}
+{% endblock %}
+{% endblock %}
 
 {% load static %}
 {% block css %}
@@ -32,11 +34,18 @@
             <button type="submit" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 
-        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
+        <button id="add-item-btn" class="add-item-btn">
+            <div class="noMostrarMovil">
+                <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
+                {%endblock %}
+            </div>
+            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc"> 
+        </button>
+
     </article>
     <article class="item-table">
-        <table>
-            <thead>
+        <div class="table">
+            <div class="tableHeag">
                 <!-- <tr>
                             <th>ID</th>
                             <th>DNI</th>
@@ -47,20 +56,42 @@
                             <th>Gestión</th>
                         </tr> -->
                 {% block tableHeader %} {% endblock %}
-            </thead>
-            <tbody>
+            </div>
+            <div class="tableBody">
                 {% block tableBody %} {% endblock %}
-            </tbody>
-        </table>
+            </div>
+        </div>
     </article>
 </section>
-
 <script defer>
     const btnAñadir = document.getElementById('add-item-btn');
 
     btnAñadir.addEventListener('click', () => {
-        window.location.href = '/student/add/';
+        let currentUrl = window.location.href;
+        let newUrl = currentUrl.replace('/list', '/add');
+        window.location.href = newUrl;
     });
+
+    const btnVer = document.querySelectorAll('.bottomSee');
+
+    btnVer.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let module_id = btn.getAttribute('data-module-id'); // Obtener el ID del módulo
+            let currentUrl = window.location.href;
+
+            if (currentUrl.endsWith('/')) {
+                currentUrl = currentUrl.slice(0, -1);
+            }
+
+            let newUrl = currentUrl.includes('/list')
+                ? currentUrl.replace('/list', '/edit/' + module_id)
+                : currentUrl + '/edit/' + module_id;
+
+            window.location.href = newUrl;
+        });
+    });
+
+
 
 </script>
 {% endblock %}

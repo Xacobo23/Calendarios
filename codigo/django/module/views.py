@@ -44,19 +44,12 @@ def module_add(request, module_id):
     else:
         form = ModuleForm()
 
-    data = {"title": "Añadir Módulo", "form": form, "id": module_id}
+    data = {"title": "Añadir Módulo", "form": form, "id": module_id, "type": "Módulo"}
 
     return render(request, "module_add.html", data)
 
 
-# @user_passes_test(is_superuser)
-# def add_fp (request):
-#     if request.method == 'POST':
-#         form = FPForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('fp_list')
-#     else:
-#         form = FPForm()
+def module_edit(request, module_id):
+    data = {"title": "Editar Módulo", "id": module_id, "type": "Módulo"}
 
-#     return render(request, 'add_fp.html', {'form': form})
+    return render(request, "fp_edit.html", data)

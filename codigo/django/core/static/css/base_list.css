@@ -1,257 +1,283 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 * {
-    font-family: 'Open Sans', serif;
-    font-weight: 100;
+  font-family: "Open Sans", serif;
+  font-weight: 100;
 }
 
 .item-section {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 8fr;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 8fr;
 
-    height: 100vh;
-    
-    margin-right: 1em;
+  height: 100vh;
+
+  margin-right: 1em;
 }
 
 .item-title {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1em;
 
-    color: #468DAE;
+  color: #468dae;
 
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .item-title i {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .item-total {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1em;
 }
 
 .item-total .number {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .item-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #input-search {
-    padding: 1em 2em;
+  padding: 1em 2em;
 
-    border: none;
-    border-radius: .5em;
+  border: none;
+  border-radius: 0.5em;
 
-    outline: none;
+  outline: none;
 
-    background-color: rgba(242, 242, 242, .5);
+  background-color: rgba(242, 242, 242, 0.5);
 }
 
 #select-item {
-    padding: 1em 2em;
+  padding: 1em 2em;
 
-    border: none;
-    border-radius: .5em;
+  border: none;
+  border-radius: 0.5em;
 
-    outline: none;
+  outline: none;
 
-    background-color: rgba(242, 242, 242, .5);
+  background-color: rgba(242, 242, 242, 0.5);
 }
 
 .btn-search {
-    color: white;
-    background-color: #F26B1D;
+  color: white;
+  background-color: #f26b1d;
 
-    padding: 1em 2em;
+  padding: 1em 2em;
 
-    border: none;
-    border-radius: .5em;
+  border: none;
+  border-radius: 0.5em;
 
-    outline: none;
-}
-
-.add-item-btn {
-    background-color: #7ED9AE;
-    color: white;
-
-    padding: 1em 2em;
-
-    border: none;
-    border-radius: .5em;
+  outline: none;
 }
 
 .item-table {
-    overflow: scroll;
+  overflow: scroll;
 }
 
 .item-table table {
-    width: 100%;
-    
-    border-collapse: collapse;
+  width: 100%;
+
+  border-collapse: collapse;
 }
 
 .item-table thead {
-    background-color: #468DAE;
-    color: white;
+  background-color: #468dae;
+  color: white;
 }
 
 .item-table th,
 .item-table td {
-    padding: 1em;
+  padding: 1em;
 }
 
 .item-table tbody tr:nth-child(odd) {
-    background-color: white;
+  background-color: white;
 }
 
 .item-table tbody tr:nth-child(even) {
-    background-color: rgba(242, 242, 242, .5);
+  background-color: rgba(242, 242, 242, 0.5);
 }
 
 .td-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1em;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 .btn-see {
-    background-color: #468DAE;
-    color: white;
+  background-color: #468dae;
+  color: white;
 
-    border: none;
-    border-radius: .5em;
+  border: none;
+  border-radius: 0.5em;
 
-    padding: .6em 2em;
+  padding: 0.6em 2em;
 }
 
 .btn-delete {
-    background-color: #DB5D5D;
-    color: white;
+  background-color: #db5d5d;
+  color: white;
 
-    border: none;
-    border-radius: .5em;
+  border: none;
+  border-radius: 0.5em;
 
-    padding: .6em 2em;
+  padding: 0.6em 2em;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 button:hover {
-    opacity: .8;
+  opacity: 0.8;
 }
-
 
 /*
  * Tablas
  */
 
-.tableHeaderCSS{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
-    justify-items: start;
-    padding-left: 1rem;
-    background-color: #468DAE;
-    color: white;
+.tableHeaderCSS {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
+  justify-items: start;
+  padding-left: 1rem;
+  background-color: #468dae;
+  color: white;
 }
 
-.tableHeaderTitleCSS{
-    color: white;
+.tableHeaderTitleCSS {
+  color: white;
 }
 
-.tableRowCSS{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
-    justify-items: start;
-    padding-left: 1.5rem;
+.tableRowCSS {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
+  justify-items: start;
+  padding-left: 1.5rem;
 }
 
 .evenRow {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .oddRow {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .tableBottomsCSS {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-self: end;
-    padding-right: 5rem;
-    align-items: center;
-    gap: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-self: end;
+  padding-right: 5rem;
+  align-items: center;
+  gap: 1em;
 }
 
-.tableBottomsCSS button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.tableBottomsCSS button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    color: white;
+  color: white;
 
-    height: 60%;
+  height: 60%;
 
-    border: none;
-    border-radius: .5em;
+  border: none;
+  border-radius: 0.5em;
 
-    padding: .6em 2em;
+  padding: 0.6em 2em;
 }
 
 .bottomSee {
-    background-color: #468DAE;
+  background-color: #468dae;
 }
 
 .bottomDelete {
-    background-color: #DB5D5D;
+  background-color: #db5d5d;
 }
 
 
-@media (min-width: 700px){
-    .noMostrarPc{
-        display: none;
-    }    
+.add-item-btn {
+  background-color: #7ed9ae;
+  color: white;
+
+  padding: 1em 2em;
+
+  border: none;
+  border-radius: 0.5em;
 }
 
-@media (max-width: 700px){
-    .noMostrarMovil{
-        display: none;
-    }
+@media (min-width: 700px) {
+  .noMostrarPc {
+    display: none;
+  }
+}
 
-    .tableHeaderCSS{
-        display: grid;
-        grid-template-columns: 1fr 1fr 2fr;
-        justify-items: start;
-        padding-left: 1rem;
-    }
-    
-    .tableRowCSS{
-        display: grid;
-        grid-template-columns: 1fr 1fr 2fr;
-        justify-items: start;
-        padding-left: 1.5rem;
-    } 
-    
-    .tableBottomsCSS {
-        padding-right: 1rem;
-        gap: 0.5em;
-    }
+@media (max-width: 700px) {
+  .item-actions {
+    width: 100%;
+  }
 
-    .tableBottomsCSS button{
-        height: 2rem;
-        width: 2rem;
-    }
+  .item-section {
+    margin-left: 1em;
+  }
+
+  .add-item-btn {
+    position: fixed;
+    padding: 1em;
+
+    bottom: 1em;
+    right: 1em;
+    opacity: 1;
+  }
+  /*
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  #add-item-btn.is_active {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  */
+  
+  .noMostrarMovil {
+    display: none;
+  }
+
+  .tableHeaderCSS {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    justify-items: start;
+    padding-left: 1rem;
+  }
+
+  .tableRowCSS {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    justify-items: start;
+    padding-left: 1.5rem;
+  }
+
+  .tableBottomsCSS {
+    padding-right: 1rem;
+    gap: 0.5em;
+  }
+
+  .tableBottomsCSS button {
+    height: 2rem;
+    width: 2rem;
+  }
 }
