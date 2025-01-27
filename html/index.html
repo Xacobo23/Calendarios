@@ -12,7 +12,7 @@
         <nav class="navAll" id="navAll">
             <div id="navLogo">
                 <img src="logo.png" alt="IES San Clemente" id="logoSanClemente">
-                <hr id="hrSep1" >
+                <hr id="hrSep1">
                 <div class="hamburger">
                     <div class="_layer -top"></div>
                     <div class="_layer -mid"></div>
@@ -41,10 +41,12 @@
                 </div>
 
                 <div id="navExit">
+                    <span id="navCorreo">correo@allla.as</span>
                     <hr id="hrSep2">
-
-                    <span>Cerrar sesión</span>
-                    <img src="img/svg/logout_svgrepo.com.svg" alt="Cerrar sesión">
+                    <div>
+                        <span>Cerrar sesión</span>
+                        <img src="img/svg/logout_svgrepo.com.svg" alt="Cerrar sesión">
+                    </div>
                 </div>
             </div>
         </nav>
@@ -68,11 +70,38 @@
 </script>
 
 <style>
+    @font-face {
+        font-family: futuraCM;
+        src: url('fonts/Futura_Condensed_Medium_Font/@font-face/da950f2527dc01bebcbedd536e38c145.woff2') format('woff2'),
+            url('fonts/Futura_Condensed_Medium_Font/@font-face/da950f2527dc01bebcbedd536e38c145.woff') format('woff'),
+            url('fonts/Futura_Condensed_Medium_Font/@font-face/da950f2527dc01bebcbedd536e38c145.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: OpenSans;
+        src: url('fonts/OpenSans-VariableFont_wdth\,wght.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: OpenSansI;
+        src: url('fonts/OpenSans-Italic-VariableFont_wdth\,wght.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     body {
         margin: 0;
+        color: white;
+        font-family: OpenSans;
+        font-size: small;
     }
-    hr{
-        width: 90%; border: 1px solid white;
+
+    hr {
+        width: 90%;
+        border: 1px solid white;
     }
 
     nav {
@@ -102,7 +131,6 @@
     #navCentro div {
         display: flex;
         align-items: center;
-        margin-left: 10%;
         padding-left: 5%;
         padding-top: 2%;
         padding-bottom: 2%;
@@ -124,23 +152,42 @@
     }
 
     #navExit {
+        width: 100%;
         display: flex;
-        align-self: flex-end;
-        align-items: center;
-        padding: 7%;
+        align-items: start;
+        flex-direction: column;
+        padding-bottom: 6%;
+
     }
 
     #navExit span {
         padding-right: 10px;
     }
 
-    #divNavAlumno {
-        border-left: 6px solid #F26B1D;
+    #navExit div {
+        display: flex;
+        padding-left: 10%;
+        padding-top: 4%;
     }
-    body{
+    #navExit div span {
+        padding-bottom: 3%;
+        align-self: center;
+    }
+
+    #navCorreo {
+        padding-left: 5%;
+        color: #c7d8e1;
+    }
+
+    #divNavAlumno {
+        border-left: 8px solid #F26B1D;
+    }
+
+    body {
         border: 0;
         padding: 0;
-        margin: 0;;
+        margin: 0;
+        ;
     }
 </style>
 <style>
@@ -177,27 +224,25 @@
 
         #navCentro {
             height: 5%;
-            
+
         }
     }
 
-    @media (width > 1000px){
-        #hrSep2{
-            display: none;
-        }
-    }
+    @media (width > 1000px) {}
+
     @media (width < 1000px) {
 
-        #heSep1{
+        #heSep1 {
             display: none;
         }
 
-        #navCentro{
+        #navCentro {
             width: 80%;
             margin-top: 8%;
             border: 0;
         }
-        #navCentro div{
+
+        #navCentro div {
             margin-left: 0;
         }
 
@@ -218,7 +263,8 @@
             z-index: 1001;
             background-color: #468DAE;
             transform: translate3d(0px, -70%, 0px) scaleY(0);
-            transition: transform 0.5s; /*cubic-bezier(0.05, 1.04, 0.72, 0.98) 0s;*/
+            transition: transform 0.5s;
+            /*cubic-bezier(0.05, 1.04, 0.72, 0.98) 0s;*/
         }
 
         #navLogo hr {
@@ -246,7 +292,7 @@
 
         }
 
-        main{
+        main {
             width: 100%;
             margin: 0;
             padding: 0;
