@@ -139,6 +139,14 @@ main{
     .estatua{
       display: none;
     }
+
+    header{
+      position: fixed;
+    }
+
+    main{
+      height: 100%;
+    }
   }
 
   @media (max-width: 768px) {
