@@ -19,11 +19,9 @@
     <td>Curso</td>
     <td>Gestión</td>
 </tr>
-
 {% endblock %}
 
 {% block tableBody %}
-
 {% for module in modules %}
 <tr>
     <td>{{ module.id }}</td>
@@ -38,5 +36,4 @@
     </td>
 </tr>
 {% endfor %}
-
 {% endblock %}
