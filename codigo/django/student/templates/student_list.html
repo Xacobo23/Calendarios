@@ -1,5 +1,7 @@
 {% extends 'base_list.html' %}
 
+{% load static %}
+
 {% block subtitle %} {{ title }} {% endblock %}
 
 {% block js %}
@@ -37,12 +39,12 @@
 {% block tableHeader %}
 
 <div class="tableHeaderCSS">
-    <h3 class="tableHeaderTitleCSS">ID</h3>
-    <h3 class="tableHeaderTitleCSS">DNI</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
+    <h3 class="tableHeaderTitleCSS ">DNI</h3>
     <h3 class="tableHeaderTitleCSS">Nombre</h3>
-    <h3 class="tableHeaderTitleCSS">Apellidos</h3>
-    <h3 class="tableHeaderTitleCSS">Teléfono</h3>
-    <h3 class="tableHeaderTitleCSS">Email</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Apellidos</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Teléfono</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Email</h3>
 </div>
 
 {% endblock %}
@@ -50,84 +52,24 @@
 {% block tableBody %}
 
 {% for student in students %}
-<div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}" id="student-{{ student.id }}">
-    <p>{{ student.id }}</p>
-    <p>{{ student.dni }}</p>
+<div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+    <p class="noMostrarMovil">{{ student.id }}</p>
+    <p class="">{{ student.dni }}</p>
     <p>{{ student.first_name }}</p>
-    <p>{{ student.last_name }}</p>
-    <p>{{ student.phone }}</p>
-    <p>{{ student.email }}</p>
+    <p class="noMostrarMovil">{{ student.last_name }}</p>
+    <p class="noMostrarMovil">{{ student.phone }}</p>
+    <p class="noMostrarMovil">{{ student.email }}</p>
     <div class="tableBottomsCSS">
-        <button class="bottomSee">Ver</button>
-        <button class="bottomDelete" onclick="deleteStudent({{ student.id }})">Eliminar</button>
+        <button class="bottomSee">
+            <p class="noMostrarMovil">Ver</p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+        </button>
+        <button class="bottomDelete" onclick="deleteStudent({{ student.id }})">    
+            <p class="noMostrarMovil">Eliminar</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+        </button>
     </div>
 </div>
 {% endfor %}
-
-{% block extra_css %}
-<style>
-    .tableHeaderCSS{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
-        justify-items: start;
-        padding-left: 1rem;
-        background-color: #468DAE;
-        color: white;
-    }
-
-    .tableHeaderTitleCSS{
-        color: white;
-    }
-
-    .tableRowCSS{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
-        justify-items: start;
-        padding-left: 1.5rem;
-    }
-
-    .evenRow {
-        background-color: #f2f2f2;
-    }
-
-    .oddRow {
-        background-color: #ffffff;
-    }
-
-    .tableBottomsCSS {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        justify-self: end;
-        padding-right: 5rem;
-        align-items: center;
-        gap: 1em;
-    }
-
-    .bottomSee {
-        background-color: #468DAE;
-        color: white;
-
-        height: 60%;
-
-        border: none;
-        border-radius: .5em;
-
-        padding: .6em 2em;
-    }
-
-    .bottomDelete {
-        background-color: #DB5D5D;
-        color: white;
-
-        height: 60%;
-
-        border: none;
-        border-radius: .5em;
-
-        padding: .6em 2em;
-    }
-
-</style>
-{% endblock %}
 
 {% endblock %}
