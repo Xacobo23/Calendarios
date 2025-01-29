@@ -25,7 +25,7 @@
 {% block tableBody %}
 
 {% for module in modules %}
-<div class="tableRowCSS">
+<div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p>{{ module.id }}</p>
     <p>{{ module.code }}</p>
     <p>{{ module.name }}</p>
@@ -43,7 +43,7 @@
 <style>
     .tableHeaderCSS{
         display: grid;
-        grid-template-columns: 1fr 1fr 3fr 2fr 1fr 1fr 5fr;
+        grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
         justify-items: start;
         padding-left: 1rem;
         background-color: #468DAE;
@@ -56,7 +56,7 @@
 
     .tableRowCSS{
         display: grid;
-        grid-template-columns: 1fr 1fr 3fr 2fr 1fr 1fr 5fr;
+        grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
         justify-items: start;
         padding-left: 1.5rem;
     }
