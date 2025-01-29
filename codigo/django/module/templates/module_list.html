@@ -28,11 +28,11 @@
     <td>{{ module.code }}</td>
     <td>{{ module.name }}</td>
     <td>{{ module.fp_id }}</td>
-    <td>Juan</td>
-    <td>2</td>
+    <td>{{ module.teacher }}</td>
+    <td>{{ module.curso }}</td>
     <td class="td-buttons">
-        <button class="btn-see">Ver</button>
-        <button class="btn-delete">Eliminar</button>
+        <button class="btn-see" data-module-id="{{ module.id }}">Ver</button>
+        <button class="btn-delete" data-module-id="{{ module.id }}">Eliminar</button>
     </td>
 </tr>
 {% endfor %}
