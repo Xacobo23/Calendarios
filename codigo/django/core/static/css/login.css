@@ -1,13 +1,15 @@
 html,
 body {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     margin: 0px;
     font-family: 'Open Sans', sans-serif;
+
+    display: flex;
+    flex-direction: column;
 }
 
 header {
-    position: absolute;
     width: 100%;
     background-color: #448aa6;
 }
@@ -18,7 +20,6 @@ header {
 }
 
 main {
-    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -79,6 +80,7 @@ main {
 
 .form-group {
     margin-bottom: 15px;
+    margin-left: 5%;
 }
 
 .form-group label {
@@ -109,7 +111,6 @@ main {
 }
 
 .btn {
-    display: block;
     width: 25%;
     padding: 10px;
     background-color: #F26B1D;
@@ -135,14 +136,153 @@ main {
     text-decoration: underline;
 }
 
-.btn-register {
-    border: none;
+@media (min-width: 768px) {
+    .estatua {
+        display: none;
+    }
 
-    background-color: #448aa6;
+    header {
+        position: fixed;
+    }
+
+    main {
+        height: 100vh;
+    }
 }
 
-.alert-error {
-    color: black;
+@media (max-width: 768px) {
 
-    margin-bottom: 1em;
+    html {
+        overflow: hidden;
+    }
+
+    body {
+        background-color: #448aa6;
+        overflow: hidden;
+    }
+
+    .smallTriangleWhite {
+        display: none;
+    }
+
+
+    #form-group1 input {
+        margin-top: 5%;
+    }
+
+    #form-group2 input {
+        margin-top: 10%;
+    }
+
+    .form-group input {
+        opacity: 100%;
+        background-color: transparent;
+    }
+
+    .alumno-container {
+        height: 0px;
+        width: 0px;
+    }
+
+    .loginText {
+        z-index: 100;
+    }
+
+    form {
+        z-index: 100;
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenedor-estatua {
+        position: absolute;
+        opacity: 20%;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga */
+    }
+    .estatua {
+        width: 125%; /* Si necesitas que sea más grande */
+        transform: translateY(20%) translateX(25%);
+        overflow: hidden;
+    }
+
+    .login-container {
+        width: 90%;
+        height: auto;
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .alumno {
+        display: none;
+    }
+
+    .form-container {
+        padding-right: 0;
+    }
+
+    .btn {
+        margin-top: 20%;
+        height: 22%;
+        margin-left: 5%;
+        width: 95%;
+        /* Button spans full width on mobile */
+        z-index: 100;
+        border-radius: 5px;
+    }
+
+    main {
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+        height: fit-content;
+    }
+
+    #container-icons {
+        margin-bottom: 15%;
+        display: flex;
+        gap: 10px;
+        z-index: 100;
+        background-color: transparent;
+        /* Espacio entre los iconos */
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        /* Tamaño del círculo */
+        height: 40px;
+        background-color: white;
+        /* Fondo blanco */
+        border-radius: 50%;
+        /* Hace el fondo redondo */
+        text-decoration: none;
+        /* Elimina el subrayado del enlace */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        /* Sombra ligera */
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .icon i {
+        font-size: 20px;
+        /* Tamaño del icono */
+        color: #333;
+        /* Color del icono */
+        transition: color 0.3s;
+    }
+
+    .icon:hover {
+        background-color: #e0e0e0;
+        /* Color gris al pasar el mouse */
+        transform: scale(1.1);
+        /* Efecto de crecimiento */
+    }
+
 }
