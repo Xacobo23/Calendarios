@@ -11,13 +11,13 @@
 {% block tableHeader %}
 
 <div class="tableHeaderCSS">
-    <h3 class="tableHeaderTitleCSS">ID</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
     <h3 class="tableHeaderTitleCSS">Código</h3>
     <h3 class="tableHeaderTitleCSS">Nombre</h3>
-    <h3 class="tableHeaderTitleCSS">Ciclo Formativo</h3>
-    <h3 class="tableHeaderTitleCSS">Profesor</h3>
-    <h3 class="tableHeaderTitleCSS">Curso</h3>
-    <div class="tableHeaderTitleCSS"> </div>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Ciclo Formativo</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Profesor</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Curso</h3>
+    <div class="tableHeaderTitleCSS"></div>
 </div>
 
 {% endblock %}
@@ -26,75 +26,25 @@
 
 {% for module in modules %}
 <div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
-    <p>{{ module.id }}</p>
+    <p class="noMostrarMovil">{{ module.id }}</p>
     <p>{{ module.code }}</p>
     <p>{{ module.name }}</p>
-    <p>{{ module.fp_id }}</p>
-    <p>Juan</p>
-    <p>2</p>
+    <p class="noMostrarMovil">{{ module.fp_id }}</p>
+    <p class="noMostrarMovil">Juan</p>
+    <p class="noMostrarMovil">2</p>
     <div class="tableBottomsCSS">
-        <button class="bottomSee">Ver</button>
-        <button class="bottomDelete">Eliminar</button>
+        <button class="bottomSee">
+            <p class="noMostrarMovil">Ver</p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+        </button>
+        <button class="bottomDelete" onclick="deleteStudent({{ module.id }})">    
+            <p class="noMostrarMovil">Eliminar</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+        </button>
     </div>
 </div>
 {% endfor %}
 
-{% block extra_css %}
-<style>
-    .tableHeaderCSS{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
-        justify-items: start;
-        padding-left: 1rem;
-        background-color: #468DAE;
-        color: white;
-    }
-
-    .tableHeaderTitleCSS{
-        color: white;
-    }
-
-    .tableRowCSS{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
-        justify-items: start;
-        padding-left: 1.5rem;
-    }
-
-    .tableBottomsCSS {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        justify-self: end;
-        padding-right: 5rem;
-        align-items: center;
-        gap: 1em;
-    }
-
-    .bottomSee {
-        background-color: #468DAE;
-        color: white;
-
-        height: 60%;
-
-        border: none;
-        border-radius: .5em;
-
-        padding: .6em 2em;
-    }
-
-    .bottomDelete {
-        background-color: #DB5D5D;
-        color: white;
-
-        height: 60%;
-
-        border: none;
-        border-radius: .5em;
-
-        padding: .6em 2em;
-    }
-
-</style>
 {% endblock %}
 
 {% endblock %}
