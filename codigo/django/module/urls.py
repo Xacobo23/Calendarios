@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     # path('add/', views.add_module, name='add_module'),
     path("list/", views.module_list, name="module_list"),
-    path("add/<int:module_id>", views.module_add, name="module_add"),
+    path("add/", views.module_add, name="module_add"),
     path("edit/<int:module_id>", views.module_edit, name="module_edit"),
     # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]
