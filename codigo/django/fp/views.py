@@ -5,13 +5,15 @@ from django.contrib import messages
 from .models import FP
 from .forms import FPForm
 
+
 # Esta función solo comprueba si el usuario que quiere acceder es superusuario(admin).
 def is_superuser(user):
     return user.is_superuser
 
+
 # Cada función (def xxxx(request): ) representa una vista. La vista va a tener el nombre de la función.
 # El parámetro request es necesario siempre en las vistas, ponérselo y listo.
-def fp_list (request):
+def fp_list(request):
     # Para recuperar los FPs de la base de datos simplemente se llama al modelo FP y con el método .objects.all() se
     # obtienen todas las entradas que tenga la tabla FP. Luego siemplemente se devuelve un renderizado de la request con
     # el nombre del html creado en la carpeta /templates. A mayores se le puede pasar un objeto {} con datos. Por ejemplo
@@ -22,45 +24,45 @@ def fp_list (request):
     fields = [field.verbose_name for field in FP._meta.fields]
 
     fps_data = [
-        {field.name: getattr(fp, field.name) for field in FP._meta.fields}
-        for fp in fps
+        {field.name: getattr(fp, field.name) for field in FP._meta.fields} for fp in fps
     ]
 
     totalFp = fps.count()
 
     data = {
-        'title': 'Ciclos formativos',
-        'shortTitle': 'FP',
-        'fps_data': fps_data,
-        'fields': fields,
-        'totalFp': totalFp
+        "title": "Ciclos formativos",
+        "shortTitle": "FP",
+        "fps_data": fps_data,
+        "fields": fields,
+        "totalFp": totalFp,
     }
-    
-    return render(request, 'fp_list.html', data)
 
-#@user_passes_test(is_superuser)
-def add_fp (request):
-    if request.method == 'POST':
+    return render(request, "fp_list.html", data)
+
+
+# @user_passes_test(is_superuser)
+def add_fp(request):
+    if request.method == "POST":
         form = FPForm(request.POST)
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'Nuevo FP añadido correctamente.')
-            return redirect('fp_list')
+            messages.success(request, "Nuevo FP añadido correctamente.")
+            return redirect("fp_list")
     else:
         form = FPForm()
 
+    data = {"title": "Añadir FP", "form": form, "type": "Ciclos Formativos"}
+
+    return render(request, "fp_add.html", data)
+
+
+def edit_fp(request):
     data = {
-        'title': 'Añadir FP',
-        'form': form
+        "title": "Editar FP",
+        "shortTitle": "Editar FP",
+        "form": FPForm(),
+        "type": "Ciclos Formativos",
     }
 
-    return render(request, 'fp_add.html', data)
-
-def edit_fp (request):
-    data = {
-        'title': 'Editar FP',
-        'shortTitle': 'Editar FP'
-    }
-
-    return render(request, 'fp_edit.html', data)
+    return render(request, "fp_edit.html", data)

@@ -20,6 +20,7 @@
 
     <label for="first_name">Nombre: </label>
     {{ form.first_name }}
+    <input type="text" value="{{ user.first_name }}" name="first_name" id="first_name" required>
 
     <label for="last_name">Apellidos: </label>
     {{ form.last_name }}

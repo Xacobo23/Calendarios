@@ -33,30 +33,38 @@ def module_list(request):
     return render(request, "module_list.html", data)
 
 
-def module_add(request, module_id):
+def module_add(request):
     if request.method == "POST":
-        form = ModuleForm(request.POST)
+        data = request.POST.copy()
+        data["color"] = "#112233"  # Valor por defecto
+        data["course"] = 1
+
+        form = ModuleForm(data)
 
         if form.is_valid():
+            print("adios")
             form.save()
             messages.success(request, "Nuevo módulo añadido correctamente.")
             return redirect("module_list")
+        if not form.is_valid():
+            print(
+                form.errors
+            )  # Esto imprimirá los errores del formulario en la consola
+
     else:
         form = ModuleForm()
 
-    data = {"title": "Añadir Módulo", "form": form, "id": module_id}
+    data = {"title": "Añadir Módulo", "form": form, "type": "Módulo"}
 
     return render(request, "module_add.html", data)
 
 
-# @user_passes_test(is_superuser)
-# def add_fp (request):
-#     if request.method == 'POST':
-#         form = FPForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('fp_list')
-#     else:
-#         form = FPForm()
+def module_edit(request, module_id):
+    data = {
+        "title": "Editar Módulo",
+        "id": module_id,
+        "type": "Módulo",
+        "form": ModuleForm(instance=Module.objects.get(id=module_id)),
+    }
 
-#     return render(request, 'add_fp.html', {'form': form})
+    return render(request, "module_edit.html", data)

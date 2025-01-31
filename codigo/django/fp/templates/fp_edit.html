@@ -1,1 +1,79 @@
-{% extends 'base_manage_fp.html' %}
+{% extends 'base_manage_item.html' %}
+
+{% block buttons %}
+<div class="action-buttons">
+    <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+    <button class="btn btn-delete"><i class="fa-regular fa-user"></i> Eliminar</button>
+</div>
+{% endblock %}
+
+{% block form %}
+<article class="item-main">
+    <section class="item-edit-side">
+        <h2>Datos</h2>
+
+        <form method="post" class="form-manage">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="code">Código</label>
+                    <input type="text" id="code" name="code" placeholder="Código">
+                </div>
+
+                <div class="form-group">
+                    <label for="initials">Siglas</label>
+                    <input type="text" name="initials" id="initials" placeholder="Siglas">
+                </div>
+            </div>
+            <div class="form-row-large">
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">{{ form.name.label}} </label>
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="code">Duración (años)</label>
+                    <input type="text" id="duration" name="duration" placeholder="Duración">
+                </div>
+            </div>
+            <div class="form-row-large">
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label}}">{{ form.description.label }}</label>
+                    {{ form.description }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-save">Guardar</button>
+        </form>
+    </section>
+    {% endblock %}
+
+    {% block side %}
+    <section>
+        <h2>Módulos impartidos</h2>
+        <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
+            <i class="fa-solid fa-plus"></i> Añadir módulo
+        </button>
+
+        <!-- TODO: SUB-query modules -->
+        <table>
+            <tr class="table-header">
+                <td>Código</td>
+                <td>Nombre</td>
+                <td>Curso</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>FP123543</td>
+                <td>Despregamento</td>
+                <td>2</td>
+                <td class="td-buttons">
+                    <button type="button" class="btn-see">Ver</button>
+                    <button type="button" class="btn-delete">Eliminar</button>
+                </td>
+            </tr>
+        </table>
+    </section>
+    {% endblock %}
+</article>
