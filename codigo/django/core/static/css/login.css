@@ -148,6 +148,10 @@ main {
     main {
         height: 100vh;
     }
+
+    #container-icons{
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
