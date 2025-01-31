@@ -35,11 +35,11 @@
     <p class="noMostrarMovil">Juan</p>
     <p class="noMostrarMovil">2</p>
     <div class="tableBottomsCSS">
-        <button class="bottomSee">
+        <button class="bottomSee" data-module-id="{{ module.id }}">
             <p class="noMostrarMovil">Ver</p>
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
-        <button class="bottomDelete" onclick="deleteStudent({{ module.id }})">    
+        <button class="bottomDelete" onclick="deleteStudent({{ module.id }})">
             <p class="noMostrarMovil">Eliminar</p>
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
@@ -49,4 +49,3 @@
 
 
 {% endblock %}
-
