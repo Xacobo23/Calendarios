@@ -45,15 +45,9 @@ INSTALLED_APPS = [
     #'admin',
     "core",
     #'bootstrap5',
-<<<<<<< HEAD
     'student',
     'user',
     'schedule',
-=======
-    "student",
-    "user",
-    "slippers",
->>>>>>> 344e9d6 (Prueba slippers)
 ]
 
 MIDDLEWARE = [
@@ -80,7 +74,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
-            "builtins": ["slippers.templatetags.slippers"],
         },
     },
 ]
