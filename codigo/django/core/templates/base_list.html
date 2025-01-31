@@ -34,12 +34,18 @@
             <button type="submit" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 
-        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
-            {%endblock %}</button>
+        <button id="add-item-btn" class="add-item-btn">
+            <div class="noMostrarMovil">
+                <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
+                {%endblock %}
+            </div>
+            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc"> 
+        </button>
+        
     </article>
     <article class="item-table">
-        <table>
-            <thead>
+        <div class="table">
+            <div class="tableHeag">
                 <!-- <tr>
                             <th>ID</th>
                             <th>DNI</th>
@@ -50,11 +56,11 @@
                             <th>Gestión</th>
                         </tr> -->
                 {% block tableHeader %} {% endblock %}
-            </thead>
-            <tbody>
+            </div>
+            <div class="tableBody">
                 {% block tableBody %} {% endblock %}
-            </tbody>
-        </table>
+            </div>
+        </div>
     </article>
 </section>
 <script defer>
