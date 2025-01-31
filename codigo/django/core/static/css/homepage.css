@@ -240,7 +240,7 @@ nav a {
         position: fixed;
         background-color: transparent;
         margin: 0;
-        z-index: ;
+        z-index: 1000;
     }
 }
 

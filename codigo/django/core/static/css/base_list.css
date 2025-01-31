@@ -229,6 +229,11 @@ button:hover {
     display: none;
   }
 
+  .add-item-btn {
+    position: absolute;
+    padding: 1em;
+  }
+
   .tableHeaderCSS {
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;
