@@ -19,11 +19,16 @@
     border: 1px solid rgba(242, 242, 242, 1);
     border-radius: .5em;
 
-    display: flex;
+    display: grid;
     flex-direction: column;
+    justify-content: space-between;
 
     height: 100%;
     width: 100%;
+}
+
+.item-message {
+    margin-top: 1em;
 }
 
 .card-title {
@@ -45,6 +50,10 @@
 
 .card-duration {
     padding: .6em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end
 }
 
 .card-actions {
@@ -52,6 +61,8 @@
     flex-direction: row;
     gap: 1em;
     justify-content: end;
+
+    padding: .5em;
 }
 
 .card-btn-see {
@@ -85,84 +96,21 @@
         <i class="fa-solid fa-user"></i>
         <h2>{% block itemName %}{% endblock %}</h2>
     </article>
-    <article class="item-total">
+    <article class="item-message">
+        {% block welcomeMessage %}
+
+        {% endblock %}
+    </article>
+    <!-- <article class="item-total">
         <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
     </article>
     <article class="item-actions">
         <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
-    </article>
+    </article> -->
     <article class="item-cards">
-        <div class="item-card">
-            <h3 class="card-title">DAM</h3>
+        {% block cards %}
 
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Multiplataforma</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-        
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-        
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-        
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-        
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-        
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-        
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-        
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-        
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-        
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-        
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
+        {% endblock %}
     </article>
 </section>
 

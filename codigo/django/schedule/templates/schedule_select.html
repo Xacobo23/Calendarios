@@ -1,0 +1,39 @@
+{% extends 'base_select.html' %}
+
+{% block subtitle %} {{ title }} {% endblock %}
+
+{% block itemName %} {{ title }}{% endblock %}
+
+{% block totalItem %} {{ totalFp }} {% endblock %}
+
+{% block welcomeMessage %}
+Selecciona un ciclo para ver el horario. 
+{% endblock %}
+
+{% block cards %}
+
+{% for fp in fps %}
+<div class="item-card">
+    <h3 class="card-title">{{ fp.initials }}</h3>
+
+    <p class="card-description">{{ fp.short_name }}</p>
+    <p class="card-duration">Duración: {{ fp.duration }} años</p>
+
+    <section class="card-actions">
+        <button class="card-btn-see" data-fp-id="{{ fp.id }}">Ver</button>
+    </section>
+</div>
+{% endfor %}
+
+<script>
+    const seeButtons = document.querySelectorAll('.card-btn-see');
+
+    seeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const fpId = button.getAttribute('data-fp-id');
+            window.location.href = `/schedule/view-schedule/${fpId}`;
+        });
+    });
+</script>
+
+{% endblock %}
