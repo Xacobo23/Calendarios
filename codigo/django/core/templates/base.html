@@ -17,15 +17,22 @@
   <!-- Cabecera de la web -->
   <header id="header">
     <!-- Menú de navegación -->
-    <nav>
+    <nav class="navAll" id="navAll">
+      <div id="navLogo">
       <a href="{% url 'homepage' %}">
-        <div id="navLogo">
+     
           <img src="{% static 'images/logo.png' %}" alt="Logo IES San Clemente" id="logoSanClemente" />
           <hr style="width: 90%; border: 1px solid white" />
-        </div>
+        
       </a>
+    </div>
+      <div class="hamburger">
+        <div class="_layer -top"></div>
+        <div class="_layer -mid"></div>
+        <div class="_layer -bottom"></div>
+    </div>
 
-      <div id="navBottom">
+      <div class="navBottom" id="navBottom">
         <div id="navCentro">
           <div class="selected">
             <i class="fa-solid fa-user"></i>
@@ -57,9 +64,24 @@
         </div>
       </div>
     </nav>
+    
   </header>
 
   <main id="main-content">{% block content %}{% endblock %}</main>
 </body>
 
 </html>
+
+<script>
+  var menu = document.querySelector('.hamburger');
+
+  function toggleMenu(event) {
+      menu.classList.toggle('is-active');
+      document.querySelector(".navBottom").classList.toggle("is_active");
+      document.querySelector(".navAll").classList.toggle("is_active");
+
+      event.preventDefault();
+  }
+
+  menu.addEventListener('click', toggleMenu, false);
+</script>

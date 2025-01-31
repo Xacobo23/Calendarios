@@ -10,19 +10,22 @@
 
 {% block tableHeader %}
 
-<tr>
-    <td>ID</td>
-    <td>Código</td>
-    <td>Nombre</td>
-    <td>Ciclo Formativo</td>
-    <td>Profesor</td>
-    <td>Curso</td>
-    <td>Gestión</td>
-</tr>
+<div class="tableHeaderCSS">
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
+    <h3 class="tableHeaderTitleCSS">Código</h3>
+    <h3 class="tableHeaderTitleCSS">Nombre</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Ciclo Formativo</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Profesor</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Curso</h3>
+    <div class="tableHeaderTitleCSS"></div>
+</div>
+
 {% endblock %}
 
 {% block tableBody %}
+
 {% for module in modules %}
+<<<<<<< HEAD
 <tr>
     <td>{{ module.id }}</td>
     <td>{{ module.code }}</td>
@@ -35,5 +38,29 @@
         <button class="btn-delete" data-module-id="{{ module.id }}">Eliminar</button>
     </td>
 </tr>
+=======
+<div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+    <p class="noMostrarMovil">{{ module.id }}</p>
+    <p>{{ module.code }}</p>
+    <p>{{ module.name }}</p>
+    <p class="noMostrarMovil">{{ module.fp_id }}</p>
+    <p class="noMostrarMovil">Juan</p>
+    <p class="noMostrarMovil">2</p>
+    <div class="tableBottomsCSS">
+        <button class="bottomSee">
+            <p class="noMostrarMovil">Ver</p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+        </button>
+        <button class="bottomDelete" onclick="deleteStudent({{ module.id }})">    
+            <p class="noMostrarMovil">Eliminar</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+        </button>
+    </div>
+</div>
+>>>>>>> e328cfc9362064d203c58153dd12a73e2aa30927
 {% endfor %}
+
 {% endblock %}
+
+{% endblock %}
+

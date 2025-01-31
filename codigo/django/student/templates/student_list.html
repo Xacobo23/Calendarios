@@ -1,5 +1,7 @@
 {% extends 'base_list.html' %}
 
+{% load static %}
+
 {% block subtitle %} {{ title }} {% endblock %}
 
 {% block js %}
@@ -36,33 +38,38 @@
 
 {% block tableHeader %}
 
-<tr>
-    <td>ID</td>
-    <td>DNI</td>
-    <td>Nombre</td>
-    <td>Apellidos</td>
-    <td>Teléfono</td>
-    <td>Email</td>
-    <td>Gestión</td>
-</tr>
+<div class="tableHeaderCSS">
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
+    <h3 class="tableHeaderTitleCSS ">DNI</h3>
+    <h3 class="tableHeaderTitleCSS">Nombre</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Apellidos</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Teléfono</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Email</h3>
+</div>
 
 {% endblock %}
 
 {% block tableBody %}
 
 {% for student in students %}
-<tr id="student-{{ student.id }}">
-    <td>{{ student.id }}</td>
-    <td>{{ student.dni }}</td>
-    <td>{{ student.first_name }}</td>
-    <td>{{ student.last_name }}</td>
-    <td>{{ student.phone }}</td>
-    <td>{{ student.email }}</td>
-    <td class="td-buttons">
-        <button class="btn-see">Ver</button>
-        <button class="btn-delete" onclick="deleteStudent({{ student.id }})">Eliminar</button>
-    </td>
-</tr>
+<div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+    <p class="noMostrarMovil">{{ student.id }}</p>
+    <p class="">{{ student.dni }}</p>
+    <p>{{ student.first_name }}</p>
+    <p class="noMostrarMovil">{{ student.last_name }}</p>
+    <p class="noMostrarMovil">{{ student.phone }}</p>
+    <p class="noMostrarMovil">{{ student.email }}</p>
+    <div class="tableBottomsCSS">
+        <button class="bottomSee">
+            <p class="noMostrarMovil">Ver</p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+        </button>
+        <button class="bottomDelete" onclick="deleteStudent({{ student.id }})">    
+            <p class="noMostrarMovil">Eliminar</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+        </button>
+    </div>
+</div>
 {% endfor %}
 
 {% endblock %}
