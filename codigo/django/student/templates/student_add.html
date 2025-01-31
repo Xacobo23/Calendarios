@@ -3,45 +3,131 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block css %}
-
 <style>
-    #add-form {
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+    * {
+        font-family: 'Open Sans', serif;
+        font-weight: 100;
+    }
+
+    .form-manage {
         display: flex;
         flex-direction: column;
+        gap: 1.5em;
+    }
+
+    .form-section {
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+        padding-bottom: 1em;
+    }
+
+    .form-section h3 {
+        font-weight: 500;
+        color: #468DAE;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1em;
     }
-</style>
 
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+
+    .form-group input {
+        padding: 1em;
+        border: none;
+        border-radius: .5em;
+        outline: none;
+        background-color: rgba(242, 242, 242, .5);
+    }
+
+    .btn-save {
+        background-color: #468DAE;
+        color: white;
+        border: none;
+        border-radius: .5em;
+        padding: 1em 4em;
+        cursor: pointer;
+    }
+</style>
 {% endblock %}
 
 {% block form %}
-<form id="add-form" method="post">
-    {% csrf_token %}
+<article class="item-main">
+    <section class="item-edit-side">
+        <h2>Añadir usuario</h2>
 
-    <label for="first_name">Nombre: </label>
-    {{ form.first_name }}
+        <form method="post" class="form-manage">
+            {% csrf_token %}
 
-    <label for="last_name">Apellidos: </label>
-    {{ form.last_name }}
+            <!-- DATOS PERSONALES -->
+            <div class="form-section">
+                <h3>Datos Personales</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.dni.id_for_label }}">{{ form.dni.label }}</label>
+                        {{ form.dni }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                        {{ form.first_name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                        {{ form.last_name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.apel2.id_for_label }}">{{ form.apel2.label }}</label>
+                        {{ form.apel2 }}
+                    </div>
+                </div>
+            </div>
 
-    <label for="username">Nombre de usuario: </label>
-    {{ form.username }}
+            <!-- CONTACTO -->
+            <div class="form-section">
+                <h3>Contacto</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                        {{ form.phone }}
+                    </div>
+                </div>
+            </div>
 
-    <label for="email">Correo electrónico: </label>
-    {{ form.email }}
+            <!-- LOGIN -->
+            <div class="form-section">
+                <h3>Login</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.force_password_change.id_for_label }}">
+                            <input type="checkbox" id="{{ form.force_password_change.id_for_label }}"
+                                name="{{ form.force_password_change.name }}">
+                            Cambio de contraseña en el siguiente login
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-    <label for="password1">Contraseña: </label>
-    {{ form.password1 }}
-
-    <label for="password2">Repetir contraseña: </label>
-    {{ form.password2 }}
-
-    <label for="telephone">Teléfono: </label>
-    {{ form.phone }}
-
-    <label for="dni">DNI: </label>
-    {{ form.dni }}
-
-    <button type="submit">Añadir usuario</button>
-</form>
+            <button type="submit" class="btn btn-save">Añadir usuario</button>
+        </form>
+    </section>
+</article>
 {% endblock %}
