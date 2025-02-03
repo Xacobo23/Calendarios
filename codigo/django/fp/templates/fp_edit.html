@@ -2,7 +2,7 @@
 
 {% block buttons %}
 <div class="action-buttons">
-    <button class="btn btn-schedule"><i class="fa-regular fa-clock"></i> Horario</button>
+    <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i> Horario</button>
     <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
     <button class="btn btn-delete-top"><i class="fa-regular fa-user"></i> Eliminar</button>
 </div>
@@ -109,5 +109,14 @@
             </tbody>
         </table>
     </section>
+
+    <script defer>
+        const btnToSchedule = document.getElementById('btn-to-schedule');
+
+        btnToSchedule.addEventListener('click', () => {
+                const fp_id = btnToSchedule.getAttribute('data-fp-id');
+                window.location.href = `/schedule/view-schedule/${fp_id}`;
+            });
+    </script>
     {% endblock %}
 </article>
