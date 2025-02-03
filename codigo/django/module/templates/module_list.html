@@ -11,7 +11,7 @@
 {% block addItem %} {{ shortTitle }} {% endblock %}
 
 {% block tableHeader %}
-<div class="tableHeaderCSS">
+<div class="tableHeaderCSS moduleList">
     <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
     <h3 class="tableHeaderTitleCSS">Código</h3>
     <h3 class="tableHeaderTitleCSS">Nombre</h3>
@@ -24,7 +24,7 @@
 
 {% block tableBody %}
 {% for module in modules %}
-<div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+<div class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ module.id }}</p>
     <p>{{ module.code }}</p>
     <p>{{ module.name }}</p>

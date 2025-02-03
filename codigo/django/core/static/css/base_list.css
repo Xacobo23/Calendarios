@@ -10,6 +10,8 @@
   grid-template-rows: 1fr 1fr 1fr 8fr;
 
   height: 100vh;
+
+  margin-right: 1em;
 }
 
 .item-title {
@@ -42,8 +44,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 1em;
-  margin-right: 1em;
 
   margin-bottom: 1em;
 }
@@ -190,7 +190,7 @@ button:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-self: end;
-  padding-right: 5rem;
+  padding-right: 10%;
   align-items: center;
   gap: 1em;
 }
@@ -220,8 +220,18 @@ button:hover {
 
 .form-item-filters{
   display: grid;
-  width: 100%;
-  gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  width: calc(100%-16px);
+}
+
+.form-item-filters button{
+  max-width: fit-content;
+}
+
+.moduleList{
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr 2fr 2fr 1fr 6fr;
 }
 
 @media (min-width: 700px) {
@@ -230,7 +240,8 @@ button:hover {
   }
 
   .form-item-filters{
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
@@ -239,10 +250,19 @@ button:hover {
     display: none;
   }
 
+
+  #input-search {
+    padding: 5% 10%;
+  }
+
   .form-item-filters{
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
   }
   
+  .item-section {
+    margin-left: 1rem;
+  }
 
   .add-item-btn {
     position: absolute;
@@ -254,20 +274,20 @@ button:hover {
 
   .tableHeaderCSS {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 2fr 3fr 5fr;
     justify-items: start;
-    padding-left: 1rem;
+    padding-left: 5%;
   }
 
   .tableRowCSS {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 2fr 3fr 5fr;
     justify-items: start;
-    padding-left: 1.5rem;
+    padding-left: 8%;
   }
 
   .tableBottomsCSS {
-    padding-right: 1rem;
+    padding-right: 10%;
     gap: 0.5em;
   }
 

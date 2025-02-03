@@ -326,8 +326,6 @@ nav a {
 main {
     flex: 1;
     overflow-y: auto;
-
-    padding-right: 1em;
 }
 
 /* TODO: Quitar important */
