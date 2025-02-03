@@ -5,16 +5,16 @@
 {% block subtitle %} {{ title }} {% endblock %}
 
 {% block js %}
-    <script defer>
-        function deleteStudent (studentId) {
-            if (confirm('¿Estás seguro de eliminar este estudiante?')) {
-                fetch (`/student/delete/${studentId}/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({ 'id': studentId})
+<script defer>
+    function deleteStudent(studentId) {
+        if (confirm('¿Estás seguro de eliminar este estudiante?')) {
+            fetch(`/student/delete/${studentId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ 'id': studentId })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -25,9 +25,30 @@
                         alert('Error al eliminar el estudiante');
                     }
                 });
-            }
         }
-    </script>
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnVer = document.querySelectorAll('.bottomSee');
+
+        btnVer.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let student_id = btn.getAttribute('data-student-id'); // Obtener el ID del estudiante
+                let currentUrl = window.location.href;
+
+                if (currentUrl.endsWith('/')) {
+                    currentUrl = currentUrl.slice(0, -1);
+                }
+
+                let newUrl = currentUrl.includes('/list')
+                    ? currentUrl.replace('/list', '/edit/' + student_id)
+                    : currentUrl + '/edit/' + student_id;
+
+                window.location.href = newUrl;
+            });
+        });
+    });
+</script>
 {% endblock %}
 
 {% block itemName %} {{ title }} {% endblock %}
@@ -60,11 +81,11 @@
     <p class="noMostrarMovil">{{ student.phone }}</p>
     <p class="noMostrarMovil">{{ student.email }}</p>
     <div class="tableBottomsCSS">
-        <button class="bottomSee">
+        <button class="bottomSee" data-student-id="{{ student.id }}">
             <p class="noMostrarMovil">Ver</p>
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
-        <button class="bottomDelete" onclick="deleteStudent({{ student.id }})">    
+        <button class="bottomDelete" onclick="deleteStudent({{ student.id }})">
             <p class="noMostrarMovil">Eliminar</p>
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>

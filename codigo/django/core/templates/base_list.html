@@ -72,26 +72,6 @@
         window.location.href = newUrl;
     });
 
-    const btnVer = document.querySelectorAll('.bottomSee');
-
-    btnVer.forEach(btn => {
-        btn.addEventListener('click', () => {
-            let module_id = btn.getAttribute('data-module-id'); // Obtener el ID del módulo
-            let currentUrl = window.location.href;
-
-            if (currentUrl.endsWith('/')) {
-                currentUrl = currentUrl.slice(0, -1);
-            }
-
-            let newUrl = currentUrl.includes('/list')
-                ? currentUrl.replace('/list', '/edit/' + module_id)
-                : currentUrl + '/edit/' + module_id;
-
-            window.location.href = newUrl;
-        });
-    });
-
-
 
 </script>
 {% endblock %}

@@ -17,7 +17,7 @@ def student_list(request):
     total_students = students.count()
 
     data = {
-        "title": "Estudiantes",
+        "title": "Alumnos",
         "shortTitle": "Estudiante",
         "students": students,
         "totalStudents": total_students,
