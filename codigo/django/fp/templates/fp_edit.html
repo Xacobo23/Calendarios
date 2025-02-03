@@ -37,10 +37,22 @@
                     {{ form.name }}
                 </div>
             </div>
+            <div class="form-row-large">
+                <div class="form-group">
+                    <label for="{{ form.short_name.id_for_label}}">{{ form.short_name.label }}</label>
+                    {{ form.short_name }}
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="code">Duración (años)</label>
+                    <label for="duration">Duración (años)</label>
                     {{ form.duration }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fp_type">Tipo de FP</label>
+                    {{ form.fp_type }}
                 </div>
             </div>
             <div class="form-row-large">
@@ -49,6 +61,16 @@
                     {{ form.description }}
                 </div>
             </div>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
             <button type="submit" class="btn btn-save">Guardar</button>
         </form>
@@ -79,8 +101,8 @@
                         <td>{{ module.name }}</td>
                         <td>{{ module.course }}</td>
                         <td class="td-buttons">
-                            <button type="button" class="btn-see">Ver</button>
-                            <button type="button" class="btn-delete">Eliminar</button>
+                            <button type="button" class="btn-see" data-module-id="{{ module.id }}">Ver</button>
+                            <button type="button" class="btn-delete" data-module-id="{{ module.id }}">Eliminar</button>
                         </td>
                     </tr>
                 {% endfor %}

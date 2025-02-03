@@ -24,7 +24,7 @@ class FPForm (forms.ModelForm):
         widgets = {
             # 'name': forms.TextInput(attrs={'class': 'ejemplo', 'placeholder': 'Indica el nombre del FP'}),
             'name': forms.TextInput(attrs={'placeholder': 'Indica el nombre del FP'}),
-            'fp_type': forms.Select(attrs={''}),
+            'fp_type': forms.Select(attrs={}),
             'description': forms.Textarea(attrs={'rows': 5, 'placeholder': 'Descripción'})
         }
         # help_texts = {

@@ -69,7 +69,11 @@ def edit_fp(request, fp_id):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'FP actualizado correctamente.')
             return redirect('fp_list')
+        else:
+            error_messages = " ".join([f"{field}: {', '.join(errors)}" for field, errors in form.errors.items()])
+            messages.error(request, f"Error al editar el FP: {error_messages}")
     else:
         form = FPForm(instance=fp_instance)
 

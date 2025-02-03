@@ -11,7 +11,7 @@ class FPType(Enum):
 
     @classmethod
     def choices(cls):
-        return [(item.name, item.value) for item in cls]
+        return [(item.name, item.value.upper()) for item in cls]
 
 
 # Se establece el nombre de la tabla(FP) y sus campos. El CharField, TextField... son los tipos de datos que
