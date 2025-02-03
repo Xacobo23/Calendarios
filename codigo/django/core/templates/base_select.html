@@ -91,6 +91,7 @@
 <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
 {% endblock %}
 {% block content %}
+
 <section class="item-section">
     <article class="item-title">
         <i class="fa-solid fa-user"></i>
@@ -101,12 +102,18 @@
 
         {% endblock %}
     </article>
-    <!-- <article class="item-total">
+
+
+    <article class="item-total">
         <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
     </article>
     <article class="item-actions">
-        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}{% endblock %}</button>
-    </article> -->
+        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo
+            {% block addItem %}
+            {%endblock %}</button>
+    </article>
+
+
     <article class="item-cards">
         {% block cards %}
 
