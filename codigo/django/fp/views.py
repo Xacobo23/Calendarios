@@ -57,12 +57,15 @@ def add_fp(request):
     return render(request, "fp_add.html", data)
 
 
-def edit_fp(request):
+def edit_fp(request, fp_id):
     data = {
         "title": "Editar FP",
+        "id": fp_id,
         "shortTitle": "Editar FP",
         "form": FPForm(),
         "type": "Ciclos Formativos",
     }
 
     return render(request, "fp_edit.html", data)
+
+
