@@ -72,15 +72,19 @@
                     <td></td>
                 </tr>
             </thead>
-            <tr>
-                <td>FP123543</td>
-                <td>Despregamento</td>
-                <td>2</td>
-                <td class="td-buttons">
-                    <button type="button" class="btn-see">Ver</button>
-                    <button type="button" class="btn-delete">Eliminar</button>
-                </td>
-            </tr>
+            <tbody>
+                {% for module in asociated_modules %}
+                    <tr>
+                        <td>{{ module.code }}</td>
+                        <td>{{ module.name }}</td>
+                        <td>{{ module.course }}</td>
+                        <td class="td-buttons">
+                            <button type="button" class="btn-see">Ver</button>
+                            <button type="button" class="btn-delete">Eliminar</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </section>
     {% endblock %}

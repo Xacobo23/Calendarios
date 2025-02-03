@@ -59,6 +59,10 @@ def add_fp(request):
 
 def edit_fp(request, fp_id):
     fp_instance = get_object_or_404(FP, id=fp_id)
+    asociated_modules = []
+
+    if fp_instance is not None:
+        asociated_modules = fp_instance.modulos.all()
 
     if request.method == 'POST':
         form = FPForm(request.POST, instance=fp_instance)
