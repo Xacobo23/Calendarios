@@ -24,7 +24,7 @@
     <article class="item-actions">
         <form class="form-item-filters">
             <select name="select-item" id="select-item">
-                <option value="0">0</option>
+                <option value="default">Todos</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -46,15 +46,6 @@
     <article class="item-table">
         <div class="table">
             <div class="tableHeag">
-                <!-- <tr>
-                            <th>ID</th>
-                            <th>DNI</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Gestión</th>
-                        </tr> -->
                 {% block tableHeader %} {% endblock %}
             </div>
             <div class="tableBody">

@@ -24,4 +24,30 @@
     </section>
 </div>
 {% endfor %}
+<script defer>
+    const addBtn = document.getElementById('add-item-btn');
+
+    addBtn.addEventListener('click', () => {
+        window.location.href = '/fp/add/';
+    });
+
+    const btnVer = document.querySelectorAll('.bottomSee');
+
+    btnVer.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let fp_id = btn.getAttribute('data-fp-id'); // Obtener el ID del módulo
+            let currentUrl = window.location.href;
+
+            if (currentUrl.endsWith('/')) {
+                currentUrl = currentUrl.slice(0, -1);
+            }
+
+            let newUrl = currentUrl.includes('/list')
+                ? currentUrl.replace('/list', '/edit/' + fp_id)
+                : currentUrl + '/edit/' + fp_id;
+
+            window.location.href = newUrl;
+        });
+    });
+</script>
 {% endblock %}
