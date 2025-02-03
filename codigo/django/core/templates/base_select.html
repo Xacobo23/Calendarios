@@ -5,172 +5,41 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
+<link rel="stylesheet" href="{% static 'css/base_select.css' %}">
 
-<style>
-    .item-cards {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1em;
-
-        justify-items: center;
-    }
-
-    .item-card {
-        border: 1px solid rgba(242, 242, 242, 1);
-        border-radius: .5em;
-
-        display: flex;
-        flex-direction: column;
-
-        height: 100%;
-        width: 100%;
-    }
-
-    .card-title {
-        background-color: #468DAE;
-        color: white;
-
-        font-weight: 400;
-
-        margin: 0;
-        padding: .5em;
-
-        border-top-left-radius: .5em;
-        border-top-right-radius: .5em;
-    }
-
-    .card-description {
-        padding: .6em;
-    }
-
-    .card-duration {
-        padding: .6em;
-    }
-
-    .card-actions {
-        display: flex;
-        flex-direction: row;
-        gap: 1em;
-        justify-content: end;
-    }
-
-    .card-btn-see {
-        background-color: #468DAE;
-        color: white;
-
-        border: none;
-        border-radius: .5em;
-
-        padding: .6em 2em;
-    }
-
-    .card-btn-delete {
-        background-color: #DB5D5D;
-        color: white;
-
-        border: none;
-        border-radius: .5em;
-
-        padding: .6em 2em;
-    }
-</style>
-<style>
-    @media (max-width: 768px) {
-        .item-cards {
-            grid-template-columns: repeat(1, 1fr);
-        }
-    }
-</style>
 {% endblock %}
 
 {% block js %}
 <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
 {% endblock %}
 {% block content %}
+
 <section class="item-section">
     <article class="item-title">
         <i class="fa-solid fa-user"></i>
         <h2>{% block itemName %}{% endblock %}</h2>
     </article>
+    <article class="item-message">
+        {% block welcomeMessage %}
+
+        {% endblock %}
+    </article>
+
+
     <article class="item-total">
         <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
     </article>
     <article class="item-actions">
-        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
-            {% endblock %}</button>
+        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo
+            {% block addItem %}
+            {%endblock %}</button>
     </article>
+
+
     <article class="item-cards">
-        <div class="item-card">
-            <h3 class="card-title">DAM</h3>
+        {% block cards %}
 
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Multiplataforma</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see bottomSee">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
+        {% endblock %}
     </article>
 </section>
 

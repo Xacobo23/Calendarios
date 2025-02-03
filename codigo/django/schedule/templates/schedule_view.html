@@ -117,12 +117,12 @@
 <section class="schedule-section">
     <article class="item-title">
         <i class="fa-regular fa-clock"></i>
-        <h2>Horario/<small>DAM</small></h2>
+        <h2>Horario/<small>{{ fp.initials }}</small></h2>
     </article>
     <article class="item-actions">
         <div class="display-id">
             <span>Ciclo</span>
-            <input type="text" value="DAM" disabled>
+            <input type="text" value="{{ fp.initials }}" disabled>
         </div>
         <div class="action-buttons">
             <button class="btn btn-save"><i class="fa-regular fa-floppy-disk"></i> Guardar</button>

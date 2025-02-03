@@ -288,6 +288,8 @@ nav a {
     justify-content: space-between;
     flex-direction: column;
     flex-grow: 1;
+
+    margin-top: 2em;
 }
 
 .navItem {

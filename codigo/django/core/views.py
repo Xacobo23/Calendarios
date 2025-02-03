@@ -1,4 +1,4 @@
 from django.shortcuts import render, redirect
 
 def homepage (request):
-    return render(request, 'homepage.html', {'title': 'Inicio'})
+    return redirect('student_list')
