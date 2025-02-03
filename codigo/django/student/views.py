@@ -45,10 +45,12 @@ def student_add(request):
 
 
 def student_edit(request, student_id):
+    student_dni = User.objects.filter(id=student_id).values_list('dni', flat=True).first()
+
     data = {
         "title": "Añadir Estudiante",
         "type": "Alumnos",
-        "id": student_id,
+        "dni": student_dni,
         "form": CustomUserCreationForm(),
     }
     return render(request, "student_edit.html", data)

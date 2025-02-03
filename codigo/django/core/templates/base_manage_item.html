@@ -169,7 +169,7 @@
     {% block header %}
     <article class="item-title">
         <i class="fa-solid fa-book"></i>
-        <h2>{{ type }}/<small>{{ id }}</small></h2>
+        <h2>{{ type }}/<small>{% block identifier %}{% endblock %}</small></h2>
     </article>
     {% endblock %}
     <article class="item-actions">

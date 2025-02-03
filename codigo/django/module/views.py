@@ -60,9 +60,11 @@ def module_add(request):
 
 
 def module_edit(request, module_id):
+    module_code = Module.objects.filter(id=module_id).values_list('code', flat=True).first()
+
     data = {
         "title": "Editar Módulo",
-        "id": module_id,
+        "module_code": module_code,
         "type": "Módulo",
         "form": ModuleForm(instance=Module.objects.get(id=module_id)),
     }
