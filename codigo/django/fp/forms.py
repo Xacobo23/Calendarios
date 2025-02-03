@@ -17,7 +17,8 @@ class FPForm (forms.ModelForm):
             'fp_type': ('Tipo'),
             'description': ('Descripción'),
             'short_name': ('Nombre corto'),
-            'duration': ('Duración')
+            'duration': ('Duración'),
+            'initials': ('Iniciales')
         }
         # Aquí se pueden definir atributos como clases, placeholders etc. También se puede en el HTML.
         widgets = {

@@ -2,10 +2,16 @@
 
 {% block buttons %}
 <div class="action-buttons">
+    <button class="btn btn-schedule"><i class="fa-regular fa-clock"></i> Horario</button>
     <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-    <button class="btn btn-delete"><i class="fa-regular fa-user"></i> Eliminar</button>
+    <button class="btn btn-delete-top"><i class="fa-regular fa-user"></i> Eliminar</button>
 </div>
 {% endblock %}
+
+{% block identifier %}
+{{ fp_code }}
+{% endblock %}
+
 
 {% block form %}
 <article class="item-main">
@@ -17,12 +23,12 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="code">Código</label>
-                    <input type="text" id="code" name="code" placeholder="Código">
+                    {{ form.code }}
                 </div>
 
                 <div class="form-group">
                     <label for="initials">Siglas</label>
-                    <input type="text" name="initials" id="initials" placeholder="Siglas">
+                    {{ form.initials }}
                 </div>
             </div>
             <div class="form-row-large">
@@ -34,7 +40,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="code">Duración (años)</label>
-                    <input type="text" id="duration" name="duration" placeholder="Duración">
+                    {{ form.duration }}
                 </div>
             </div>
             <div class="form-row-large">
@@ -50,20 +56,22 @@
     {% endblock %}
 
     {% block side %}
-    <section>
+    <section class="side-section">
         <h2>Módulos impartidos</h2>
         <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
             <i class="fa-solid fa-plus"></i> Añadir módulo
         </button>
 
         <!-- TODO: SUB-query modules -->
-        <table>
-            <tr class="table-header">
-                <td>Código</td>
-                <td>Nombre</td>
-                <td>Curso</td>
-                <td></td>
-            </tr>
+        <table class="modules-table">
+            <thead>
+                <tr>
+                    <td>Código</td>
+                    <td>Nombre</td>
+                    <td>Curso</td>
+                    <td></td>
+                </tr>
+            </thead>
             <tr>
                 <td>FP123543</td>
                 <td>Despregamento</td>

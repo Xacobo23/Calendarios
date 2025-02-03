@@ -4,6 +4,9 @@
     gap: 1em;
 
     justify-items: center;
+
+    padding: 1em;
+
 }
 
 .item-card {
@@ -13,6 +16,14 @@
     width: 100%;
     
     
+}
+
+.manage-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 1em 1em 0 1em;
 }
 
 

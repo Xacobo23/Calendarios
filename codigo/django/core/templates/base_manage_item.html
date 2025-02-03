@@ -15,6 +15,10 @@
         font-weight: 100;
     }
 
+    .item-section {
+        padding-right: 1em;
+    }
+
     .item-title {
         display: flex;
         justify-content: start;
@@ -158,9 +162,39 @@
         background-color: #468DAE;
     }
 
-    .btn-delete {
+    .btn-delete-top {
         background-color: #DB5D5D;
     }
+
+    .btn-schedule {
+        background-color: #468DAE;
+    }
+
+    .btn:hover {
+        opacity: .8;
+    }
+
+    .side-section h2 {
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+        font-weight: 500;
+    }   
+
+    .modules-table {
+        border-collapse: collapse;
+
+        margin-top: 1em;
+    }
+    
+    .modules-table thead{
+        background-color: #468DAE;
+        color: white;
+    }
+
+    th, td {
+        padding: 1em;
+    }
+
 </style>
 {% endblock %}
 
@@ -175,7 +209,7 @@
     <article class="item-actions">
         <div class="display-id">
             <span>ID</span>
-            <input type="text" value="1234" disabled>
+            <input type="text" value="{{ fp_code }}" disabled>
         </div>
         {% block buttons %}
         {% endblock %}

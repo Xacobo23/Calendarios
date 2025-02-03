@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 
@@ -58,12 +58,25 @@ def add_fp(request):
 
 
 def edit_fp(request, fp_id):
+    fp_instance = get_object_or_404(FP, id=fp_id)
+
+    if request.method == 'POST':
+        form = FPForm(request.POST, instance=fp_instance)
+
+        if form.is_valid():
+            form.save()
+            return redirect('fp_list')
+    else:
+        form = FPForm(instance=fp_instance)
+
     data = {
         "title": "Editar FP",
         "id": fp_id,
+        "fp_code": fp_instance.code,
         "shortTitle": "Editar FP",
-        "form": FPForm(),
+        "form": form,
         "type": "Ciclos Formativos",
+        "asociated_modules": asociated_modules
     }
 
     return render(request, "fp_edit.html", data)
