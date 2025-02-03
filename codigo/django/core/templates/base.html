@@ -34,19 +34,19 @@
 
       <div class="navBottom" id="navBottom">
         <div id="navCentro">
-          <div class="selected">
+          <div id="navStudent">
             <i class="fa-solid fa-user"></i>
             <a href="{% url 'student_list' %}"><span class="navItem">Alumnos</span></a>
           </div>
-          <div>
+          <div id="navFP">
             <i class="fa-solid fa-book"></i>
             <a href="{% url 'fp_list' %}"><span class="navItem">Ciclos formativos</span></a>
           </div>
-          <div>
+          <div id="navModule">
             <i class="fa-solid fa-graduation-cap"></i>
             <a href="{% url 'module_list' %}"><span class="navItem">Módulos</span></a>
           </div>
-          <div>
+          <div id="navSchedule">
             <i class="fa-regular fa-clock"></i>
             <a href="{% url 'select_schedule' %}"><span class="navItem">Horarios</span></a>
           </div>
@@ -73,7 +73,16 @@
 </html>
 
 <script>
-  var menu = document.querySelector('.hamburger');
+  const currentPath = window.location.pathname;
+
+  const routes = {
+      '/student': '#navStudent',
+      '/fp': '#navFP',
+      '/module': '#navModule',
+      '/schedule': '#navSchedule'
+    };
+  
+  const menu = document.querySelector('.hamburger');
 
   function toggleMenu(event) {
       menu.classList.toggle('is-active');
@@ -84,4 +93,10 @@
   }
 
   menu.addEventListener('click', toggleMenu, false);
+
+  for (let route in routes) {
+    if (currentPath.startsWith(route)) {
+      document.querySelector(routes[route]).classList.add('selected');
+    }
+  }
 </script>
