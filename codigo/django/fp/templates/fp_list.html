@@ -15,13 +15,20 @@
 <div class="item-card">
     <h3 class="card-title">{{ fp.initials }}</h3>
 
-    <p class="card-description">{{ fp.short_name }}</p>
-    <p class="card-duration">Duración: {{ fp.duration }} años</p>
+    <div class="noTitleGroup">
+        <textarea class="card-description textarea-span">{{ fp.short_name }}</textarea>
 
-    <section class="card-actions">
-        <button class="card-btn-see bottomSee" data-fp-id="{{ fp.id }}">Ver</button>
-        <button class="card-btn-delete">Eliminar</button>
-    </section>
+        <div class="DurationActionGroup">
+            <p class="card-duration">Duración: {{ fp.duration }} años</p>
+        
+            <section class="card-actions">
+                <button class="card-btn-see bottomSee" data-fp-id="{{ fp.id }}">Ver</button>
+                <button class="card-btn-delete">Eliminar</button>
+            </section>
+        </div>
+    </div>
+
+    
 </div>
 {% endfor %}
 <script defer>
