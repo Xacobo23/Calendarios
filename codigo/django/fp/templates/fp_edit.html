@@ -4,7 +4,7 @@
 <div class="action-buttons">
     <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i> Horario</button>
     <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-    <button class="btn btn-delete-top"><i class="fa-regular fa-user"></i> Eliminar</button>
+    <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i> Eliminar</button>
 </div>
 {% endblock %}
 
@@ -114,9 +114,7 @@
         const btnToSchedule = document.getElementById('btn-to-schedule');
         const btnEdit = document.getElementById('btn-edit');
         const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
-
-        console.log(btnEdit);
-        console.log(formElements);
+        const btnDelete = document.getElementById('btn-delete');
 
         formElements.forEach(element => {
             element.disabled = true;
@@ -134,6 +132,59 @@
                 const fp_id = btnToSchedule.getAttribute('data-fp-id');
                 window.location.href = `/schedule/view-schedule/${fp_id}`;
             });
+
+
+            btnDelete.addEventListener('click', () => {
+                const fp_id = btnDelete.getAttribute('data-fp-id');
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    customClass: {
+                        confirmButton: 'btn-swal-confirm',
+                        cancelButton: 'btn-swal-cancel'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/fp/delete/${fp_id}/`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRFToken': '{{ csrf_token }}',
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    Swal.fire(
+                                        'Eliminado!',
+                                        'El FP ha sido eliminado.',
+                                        'success'
+                                    ).then(() => {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'Hubo un problema al eliminar el FP.',
+                                        'error'
+                                    );
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                Swal.fire(
+                                    'Error!',
+                                    'Hubo un problema al eliminar el FP.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+            
 
             
     </script>

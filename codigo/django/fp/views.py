@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import FP
 from .forms import FPForm
@@ -93,5 +94,16 @@ def edit_fp(request, fp_id):
     }
 
     return render(request, "fp_edit.html", data)
+
+@csrf_exempt
+def delete_fp(request, fp_id):
+    if request.method == 'DELETE':
+        fp = get_object_or_404(FP, id=fp_id)
+
+        fp.delete()
+
+        return redirect('fp_list')
+    
+    return redirect('fp_list')
 
 

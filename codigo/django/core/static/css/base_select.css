@@ -144,3 +144,11 @@
         width: 100%;
     }
 }
+
+.swal2-confirm.btn-swal-confirm {
+    background-color: #468DAE;
+}
+
+.swal2-cancel.btn-swal-cancel {
+    background-color: #DB5D5D;
+}
