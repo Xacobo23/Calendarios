@@ -52,7 +52,12 @@ def add_fp(request):
     else:
         form = FPForm()
 
-    data = {"title": "Añadir FP", "form": form, "type": "Ciclos Formativos"}
+    data = {
+        "title": "Añadir FP",
+        "form": form,
+        "type": "Ciclos Formativos",
+        'fp_code': '-'
+        }
 
     return render(request, "fp_add.html", data)
 
