@@ -18,7 +18,7 @@
     <section class="item-edit-side">
         <h2>Datos</h2>
 
-        <form method="post" class="form-manage">
+        <form method="post" class="form-manage" id="form-manage">
             {% csrf_token %}
             <div class="form-row">
                 <div class="form-group">
@@ -112,11 +112,30 @@
 
     <script defer>
         const btnToSchedule = document.getElementById('btn-to-schedule');
+        const btnEdit = document.getElementById('btn-edit');
+        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
+
+        console.log(btnEdit);
+        console.log(formElements);
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        })
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+            });
+
+            btnEdit.disabled = true;
+        })
 
         btnToSchedule.addEventListener('click', () => {
                 const fp_id = btnToSchedule.getAttribute('data-fp-id');
                 window.location.href = `/schedule/view-schedule/${fp_id}`;
             });
+
+            
     </script>
     {% endblock %}
 </article>
