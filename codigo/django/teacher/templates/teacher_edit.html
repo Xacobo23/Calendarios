@@ -1,0 +1,161 @@
+{% extends 'base_manage_item.html' %}
+
+{% block inputValue %} {{ id }} {% endblock %}
+
+{% block buttons %}
+<div class="action-buttons">
+    <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+    <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
+        Eliminar</button>
+</div>
+{% endblock %}
+
+{% block identifier %}
+{{ teacher_email }}
+{% endblock %}
+
+{% block form %}
+<article class="item-main">
+    <section class="item-edit-side">
+        <h2>Datos del profesor</h2>
+
+        <form method="post" class="form-manage" id="form-manage">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">{{ form.name.label}}</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="las_name">Apellidos</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <div class="form-row-large">
+                
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.dni.id_for_dni}}">{{ form.dni.label }}</label>
+                    {{ form.dni }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_email }}">{{ form.email.label }}</label>
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="form-row-large">
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    {{ form.phone }}
+                </div>
+            </div>
+            <div class="form-row-large">
+                <div class="form-group">
+                    <label for="{{ form.modules.id_for_modules }}">Módulos</label>
+                    {{ form.modules }}
+                </div>
+            </div>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-save">Guardar</button>
+        </form>
+    </section>
+    {% endblock %}
+
+    {% block side %}
+
+    <script defer>
+        const btnToSchedule = document.getElementById('btn-to-schedule');
+        const btnEdit = document.getElementById('btn-edit');
+        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
+        const btnDelete = document.getElementById('btn-delete');
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        })
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+            });
+
+            btnEdit.disabled = true;
+        })
+
+        btnToSchedule.addEventListener('click', () => {
+            const fp_id = btnToSchedule.getAttribute('data-fp-id');
+            window.location.href = `/schedule/view-schedule/${fp_id}`;
+        });
+
+
+        btnDelete.addEventListener('click', () => {
+            const fp_id = btnDelete.getAttribute('data-fp-id');
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                    confirmButton: 'btn-swal-confirm',
+                    cancelButton: 'btn-swal-cancel'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/fp/delete/${fp_id}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'El FP ha sido eliminado.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    'Hubo un problema al eliminar el FP.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Hubo un problema al eliminar el FP.',
+                                'error'
+                            );
+                        });
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('.form-control').select2();
+        });
+
+
+
+    </script>
+    {% endblock %}
+</article>

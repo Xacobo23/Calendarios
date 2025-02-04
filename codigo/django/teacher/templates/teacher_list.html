@@ -1,0 +1,85 @@
+{% extends 'base_list.html' %}
+
+{% load static %}
+
+{% block subtitle %} {{ title }} {% endblock %}
+
+{% block itemName %} {{ title }} {% endblock %}
+
+{% block totalItem %} {{ totalTeachers }} {% endblock %}
+
+{% block addItem %} {{ shortTitle }} {% endblock %}
+
+{% block icon %}
+<i class="fa-solid fa-chalkboard-user"></i>
+{% endblock %}
+
+{% block tableHeader %}
+
+<div class="tableHeaderCSS moduleList">
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
+    <h3 class="tableHeaderTitleCSS">Nombre Completo</h3>
+    <h3 class="tableHeaderTitleCSS">DNI</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Email</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Teléfono</h3>
+    <h3 class="tableHeaderTitleCSS noMostrarMovil">Módulos</h3>
+    <div class="tableHeaderTitleCSS"></div>
+</div>
+
+{% endblock %}
+
+{% block tableBody %}
+{% for teacher in teachers %}
+<div class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+    <p class="noMostrarMovil">{{ teacher.id }}</p>
+    <p>{{ teacher.name }} {{ teacher.last_name }}</p>
+    <p>{{ teacher.dni }}</p>
+    <p class="noMostrarMovil">{{ teacher.email }}</p>
+    <p class="noMostrarMovil">+34 {{ teacher.phone }}</p>
+    <p class="noMostrarMovil">
+        {% if teacher.modules.all %}
+        {% for module in teacher.modules.all %}
+        <a href="#">{{ module.initials }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        {% else %}
+        No imparte
+        {% endif %}
+    </p>
+    <div class="tableBottomsCSS">
+        <button class="bottomSee" data-teacher-id="{{ teacher.id }}">
+            <p class="noMostrarMovil">Ver</p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+        </button>
+        <button class="bottomDelete">
+            <p class="noMostrarMovil">Eliminar</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+        </button>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnVer = document.querySelectorAll('.bottomSee');
+
+        btnVer.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let teacher_id = btn.getAttribute('data-teacher-id'); // Obtener el ID del módulo
+                let currentUrl = window.location.href;
+
+                if (currentUrl.endsWith('/')) {
+                    currentUrl = currentUrl.slice(0, -1);
+                }
+
+                let newUrl = currentUrl.includes('/list')
+                    ? currentUrl.replace('/list', '/edit/' + teacher_id)
+                    : currentUrl + '/edit/' + teacher_id;
+
+                window.location.href = newUrl;
+            });
+        });
+    });
+</script>
+{% endblock %}

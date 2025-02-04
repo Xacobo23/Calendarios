@@ -2,39 +2,34 @@
 # bien, pero para que quede bonito :)
 
 from django import forms
-from django_select2.forms import Select2MultipleWidget
 
-# Importamos el modelo para poder usarlo.
-from .models import Module
-from teacher.models import Teacher
+from .models import Teacher, TeacherModule
+from module.models import Module
 
-class ModuleForm(forms.ModelForm):
-    teachers = forms.ModelMultipleChoiceField(
-        queryset=Teacher.objects.all(),
+class TeacherForm(forms.ModelForm):
+    modules = forms.ModelMultipleChoiceField(
+        queryset=Module.objects.all(),
         required=False,
-        widget=Select2MultipleWidget(attrs={'class': 'form-control'}),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
     )
-
-    # Se indica el modelo (FP) y los campos que queremos que tenga el formulario (en este caso todos).
     class Meta:
-        model = Module
+        model = Teacher
         fields = "__all__"
         labels = {
-            "code": ("Código"),
             "name": ("Nombre"),
-            "color": ("Color"),
-            "fp": ("FP"),
-            "initials": ("Siglas"),
-            "course": ("Curso"),
+            "last_name": ("Apellidos"),
+            "dni": ("DNI"),
+            "email": ("Email"),
+            "phone": ("Teléfono"),
+            "modules": ("Módulos")
         }
         # Aquí se pueden definir atributos como clases, placeholders etc. También se puede en el HTML.
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Indica el nombre del Módulo'}),
-            'fp': forms.Select(attrs={}),
-            'color': forms.TextInput(attrs={'type': 'text', 'data-coloris': '', 'style': 'width: 100%'}),
-            'code': forms.TextInput(attrs={'placeholder': 'Código de Módulo'}),
-            'initials': forms.TextInput(attrs={'placeholder': 'Siglas'}),
-            'course': forms.TextInput(attrs={'type': 'number', 'min': 1, 'max': 2})
+            'name': forms.TextInput(attrs={'placeholder': 'Indica el nombre del Profesor'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Indica los apellidos del Profesor'}),
+            'dni': forms.TextInput(attrs={'placeholder': 'DNI'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email del Profesor'}),
+            'phone': forms.TextInput(attrs={'type': 'phone', 'placeholder': '+34'}),
         }
         # help_texts = {
         #     'name': 'Introduce el nombre del FP',
@@ -83,3 +78,16 @@ class ModuleForm(forms.ModelForm):
             raise forms.ValidationError("El nombre debe tener al menos 3 caracteres.")
 
         return name
+    
+    def save(self, commit=True):
+        teacher = super().save(commit=False)
+
+        if commit:
+            teacher.save()
+            # Actualizamos la relación en la tabla intermedia
+            selected_modules = self.cleaned_data["modules"]
+            TeacherModule.objects.filter(teacher=teacher).delete()
+            for module in selected_modules:
+                TeacherModule.objects.create(teacher=teacher, module=module, cursoEscolar="2024/25")  # Puedes cambiar esto para que el usuario elija el curso escolar
+
+        return teacher

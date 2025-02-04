@@ -8,7 +8,9 @@
 
   {% load static %} {% block css %} {% endblock %}
   <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
+  
+  <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
   <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   {% block js %} {% endblock %}
@@ -51,6 +53,10 @@
             <i class="fa-regular fa-clock"></i>
             <a href="{% url 'select_schedule' %}"><span class="navItem">Horarios</span></a>
           </div>
+          <div id="navTeacher">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <a href="{% url 'teacher_list' %}"><span class="navItem">Profesores</span></a>
+          </div>
         </div>
 
         <div id="navUser">
@@ -82,7 +88,8 @@
       '/student': '#navStudent',
       '/fp': '#navFP',
       '/module': '#navModule',
-      '/schedule': '#navSchedule'
+      '/schedule': '#navSchedule',
+      '/teacher': '#navTeacher'
     };
   
   const menu = document.querySelector('.hamburger');
