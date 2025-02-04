@@ -8,6 +8,7 @@ from . import views
 urlpatterns = [
     path('add/', views.add_fp, name='add_fp'),  
     path('list/', views.fp_list, name='fp_list'),  
-    path('edit/<int:fp_id>', views.edit_fp, name='fp_edit')
+    path('edit/<int:fp_id>', views.edit_fp, name='fp_edit'),
+    path('delete/<int:fp_id>/', views.delete_fp, name='delete_fp')
     # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]
