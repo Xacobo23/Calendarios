@@ -8,6 +8,7 @@ class FPType(Enum):
     BASICO = "basico"
     MEDIO = "medio"
     SUPERIOR = "superior"
+    CURSO_ESPECIALIZACION = "especializacion"
 
     @classmethod
     def choices(cls):
@@ -22,7 +23,7 @@ class FP(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=1024)
     fp_type = models.CharField(
-        max_length=20, choices=FPType.choices(), default=FPType.MEDIO.name
+        max_length=40, choices=FPType.choices(), default=FPType.MEDIO.name
     )
     short_name = models.CharField(max_length=100)
     duration = models.IntegerField()

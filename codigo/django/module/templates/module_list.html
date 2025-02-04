@@ -33,14 +33,23 @@
     <p>{{ module.code }}</p>
     <p>{{ module.name }}</p>
     <p class="noMostrarMovil">{{ module.fp_id }}</p>
-    <p class="noMostrarMovil">Juan</p>
-    <p class="noMostrarMovil">2</p>
+    <p class="noMostrarMovil">
+        {% if module.teachers.all %}
+        {% for teacher in module.teachers.all %}
+        <a href="#">{{ teacher.name }} {{ teacher.last_name }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        {% else %}
+        No asignado
+        {% endif %}
+    </p>
+
+    <p class="noMostrarMovil">{{ module.course }}º</p>
     <div class="tableBottomsCSS">
         <button class="bottomSee" data-module-id="{{ module.id }}">
             <p class="noMostrarMovil">Ver</p>
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
-        <button class="bottomDelete" onclick="deleteStudent({{ module.id }})">
+        <button class="bottomDelete">
             <p class="noMostrarMovil">Eliminar</p>
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>

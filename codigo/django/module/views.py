@@ -30,6 +30,7 @@ def module_list(request):
         "modules": modules,
         "totalModules": total_modules,
     }
+
     return render(request, "module_list.html", data)
 
 
