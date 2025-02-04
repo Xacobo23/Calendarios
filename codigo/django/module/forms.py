@@ -2,14 +2,19 @@
 # bien, pero para que quede bonito :)
 
 from django import forms
+from django_select2.forms import Select2MultipleWidget
 
 # Importamos el modelo para poder usarlo.
 from .models import Module
-from fp.models import FP
-from fp.forms import FPForm
-
+from teacher.models import Teacher
 
 class ModuleForm(forms.ModelForm):
+    teachers = forms.ModelMultipleChoiceField(
+        queryset=Teacher.objects.all(),
+        required=False,
+        widget=Select2MultipleWidget(attrs={'class': 'form-control'}),
+    )
+
     # Se indica el modelo (FP) y los campos que queremos que tenga el formulario (en este caso todos).
     class Meta:
         model = Module
@@ -17,22 +22,19 @@ class ModuleForm(forms.ModelForm):
         labels = {
             "code": ("Código"),
             "name": ("Nombre"),
-            "fp_id": ("FP"),
-            "credits": ("Créditos"),
-            "teacher": ("Profesor"),
+            "color": ("Color"),
+            "fp": ("FP"),
             "initials": ("Siglas"),
+            "course": ("Curso"),
         }
         # Aquí se pueden definir atributos como clases, placeholders etc. También se puede en el HTML.
         widgets = {
-            # 'name': forms.TextInput(attrs={'class': 'ejemplo', 'placeholder': 'Indica el nombre del FP'}),
-            "code": forms.TextInput(attrs={"class": "form-control"}),
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "fp_id": forms.Select(attrs={"class": "form-control"}),
-            "codigo": forms.TextInput(attrs={"class": "form-control"}),
-            "nombre": forms.TextInput(attrs={"class": "form-control"}),
-            "creditos": forms.NumberInput(attrs={"class": "form-control"}),
-            "profesor": forms.TextInput(attrs={"class": "form-control"}),
-            "siglas": forms.TextInput(attrs={"class": "form-control"}),
+            'name': forms.TextInput(attrs={'placeholder': 'Indica el nombre del Módulo'}),
+            'fp': forms.Select(attrs={}),
+            'color': forms.TextInput(attrs={'type': 'color'}),
+            'code': forms.TextInput(attrs={'placeholder': 'Código de Módulo'}),
+            'initials': forms.TextInput(attrs={'placeholder': 'Siglas'}),
+            'course': forms.TextInput(attrs={'type': 'number', 'min': 1, 'max': 2})
         }
         # help_texts = {
         #     'name': 'Introduce el nombre del FP',

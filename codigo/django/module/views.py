@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 
 from django.contrib import messages
 
 from .forms import ModuleForm
 from .models import Module
+from teacher.models import TeacherModule, Teacher
 
 
 # Esta función solo comprueba si el usuario que quiere acceder es superusuario(admin).
@@ -36,38 +37,62 @@ def module_list(request):
 
 def module_add(request):
     if request.method == "POST":
-        data = request.POST.copy()
-        data["color"] = "#112233"  # Valor por defecto
-        data["course"] = 1
-
-        form = ModuleForm(data)
+        form = ModuleForm(request.POST)
 
         if form.is_valid():
-            print("adios")
-            form.save()
-            messages.success(request, "Nuevo módulo añadido correctamente.")
-            return redirect("module_list")
-        if not form.is_valid():
-            print(
-                form.errors
-            )  # Esto imprimirá los errores del formulario en la consola
+            module_instance = form.save()
 
+            selected_teachers = form.cleaned_data['teachers']
+
+            for teacher in selected_teachers:
+                TeacherModule.objects.create(teacher=teacher, module=module_instance, cursoEscolar="2024/25")
+            
+            messages.success(request, "Nuevo Módulo añadido correctamente.")
+            return redirect("module_list")
     else:
         form = ModuleForm()
 
-    data = {"title": "Añadir Módulo", "form": form, "type": "Módulo"}
+    data = {
+        "title": "Añadir Módulo",
+        "form": form,
+        "type": "Módulos",
+        'module_code': '-'
+        }
 
     return render(request, "module_add.html", data)
 
 
 def module_edit(request, module_id):
-    module_code = Module.objects.filter(id=module_id).values_list('code', flat=True).first()
+    module_instance = get_object_or_404(Module, id=module_id)
+    asociated_modules = []
+
+    if request.method == 'POST':
+        form = ModuleForm(request.POST, instance=module_instance)
+
+        if form.is_valid():
+            form.save()
+
+            selected_teachers = form.cleaned_data['teachers']
+            TeacherModule.objects.filter(module=module_instance).delete()
+            for teacher in selected_teachers:
+                TeacherModule.objects.create(teacher=teacher, module=module_instance, cursoEscolar="2024/25")
+
+            messages.success(request, 'Módulo actualizado correctamente.')
+            return redirect('module_list')
+        else:
+            error_messages = " ".join([f"{field}: {', '.join(errors)}" for field, errors in form.errors.items()])
+            messages.error(request, f"Error al editar el Módulo: {error_messages}")
+    else:
+        form = ModuleForm(instance=module_instance)
+        form.fields['teachers'].initial = Teacher.objects.filter(teachermodule__module=module_instance)
 
     data = {
         "title": "Editar Módulo",
-        "module_code": module_code,
-        "type": "Módulo",
-        "form": ModuleForm(instance=Module.objects.get(id=module_id)),
+        "id": module_id,
+        "module_code": module_instance.code,
+        "shortTitle": "Editar Módulo",
+        "form": form,
+        "type": "Módulos",
     }
 
     return render(request, "module_edit.html", data)

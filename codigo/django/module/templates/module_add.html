@@ -1,51 +1,66 @@
 {% extends 'base_manage_item.html' %}
+
+{% block identifier %} Nuevo {% endblock %}
+
+{% block inputValue %} {{ module_code }} {% endblock %}
+
 {% block form %}
 <article class="item-main">
     <section class="item-edit-side">
-        <h2>Datos del módulo</h2>
+        <h2>Datos</h2>
 
-        <form method="post" class="form-manage">
+        <form method="post" class="form-manage" id="form-manage">
             {% csrf_token %}
             <div class="form-row">
                 <div class="form-group">
-                    <label for="{{ form.code.id_for_label }}">{{ form.code.label }}</label>
+                    <label for="code">Código</label>
                     {{ form.code }}
                 </div>
-
+        
                 <div class="form-group">
-                    <label for="{{ form.initials.id_for_label }}">{{ form.initials.label }}</label>
+                    <label for="initials">Siglas</label>
                     {{ form.initials }}
                 </div>
             </div>
-
             <div class="form-row-large">
                 <div class="form-group">
-                    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    <label for="{{ form.name.id_for_label }}">{{ form.name.label}}</label>
                     {{ form.name }}
                 </div>
             </div>
-
             <div class="form-row">
                 <div class="form-group">
-                    <label for="{{ form.credits.id_for_label }}">{{ form.credits.label }}</label>
-                    {{ form.credits }}
+                    <label for="{{ form.color.id_for_color}}">{{ form.color.label }}</label>
+                    {{ form.color }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.course.id_for_course }}">{{ form.course.label }}</label>
+                    {{ form.course }}
                 </div>
             </div>
-
-            <div class="form-row">
+            <div class="form-row-large">
                 <div class="form-group">
-                    <label for="{{ form.teacher.id_for_label }}"> </label>{{ form.teacher.label }}</label>
-                    {{ form.teacher }}
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="{{ form.fp.id_for_label }}">{{ form.fp.label }}</label>
+                    <label for="fp">Ciclo Formativo</label>
                     {{ form.fp }}
                 </div>
             </div>
-
+            <div class="form-row-large">
+                <div class="form-group">
+                    <label for="{{ form.teachers.id_for_label}}">Profesores</label>
+                    {{ form.teachers }}
+                </div>
+            </div>
+        
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        
             <button type="submit" class="btn btn-save">Guardar</button>
         </form>
     </section>

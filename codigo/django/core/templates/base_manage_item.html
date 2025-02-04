@@ -4,9 +4,16 @@
 
 {% block js %}
 <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
+
+<!-- Agregar JS de Select2 -->
+<script defer src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 {% endblock %}
 
 {% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
@@ -229,7 +236,7 @@
     <article class="item-actions">
         <div class="display-id">
             <span>ID</span>
-            <input type="text" value="{{ fp_code }}" disabled>
+            <input type="text" value="{% block inputValue %}{% endblock %}" disabled>
         </div>
         {% block buttons %}
         {% endblock %}

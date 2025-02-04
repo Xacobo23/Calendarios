@@ -13,7 +13,6 @@ class Module(models.Model):
     name = models.CharField(max_length=200)
     color = models.CharField(max_length=7, default="#007bff")
     initials = models.CharField(max_length=10)
-    # credits = models.IntegerField() ???
     course = models.IntegerField()
 
     fp = models.ForeignKey(FP, on_delete=models.CASCADE, related_name="modulos")
