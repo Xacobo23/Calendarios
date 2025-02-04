@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import user_passes_test
 
 from django.contrib import messages
@@ -23,6 +24,27 @@ def teacher_list(request):
     }
 
     return render(request, "teacher_list.html", data)
+
+def teacher_add(request):
+    if request.method == "POST":
+        form = TeacherForm(request.POST)
+
+        if form.is_valid():
+            teacher_instance = form.save()
+
+            messages.success(request, "Nuevo Profesor añadido correctamente.")
+            return redirect("teacher_list")
+    else:
+        form = TeacherForm()
+
+    data = {
+        "title": "Añadir Profesor",
+        "form": form,
+        "type": "Profesores",
+        'teacher_code': '-'
+        }
+
+    return render(request, "teacher_add.html", data)
 
 def teacher_edit(request, teacher_id):
     teacher_instance = get_object_or_404(Teacher, id=teacher_id)
@@ -52,3 +74,14 @@ def teacher_edit(request, teacher_id):
     }
 
     return render(request, "teacher_edit.html", data)
+
+@csrf_exempt
+def delete_teacher(request, teacher_id):
+    if request.method == 'DELETE':
+        teacher = get_object_or_404(Teacher, id=teacher_id)
+
+        teacher.delete()
+
+        return redirect('teacher_list')
+    
+    return redirect('teacher_list')

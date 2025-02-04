@@ -50,7 +50,7 @@
             <p class="noMostrarMovil">Ver</p>
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
-        <button class="bottomDelete">
+        <button class="bottomDelete card-btn-delete" data-teacher-id="{{ teacher.id }}">
             <p class="noMostrarMovil">Eliminar</p>
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
@@ -62,24 +62,78 @@
 {% block js %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const btnVer = document.querySelectorAll('.bottomSee');
+            const btnVer = document.querySelectorAll('.bottomSee');
+            const deleteBtns = document.querySelectorAll('.card-btn-delete'); // Se obtiene aquí
 
-        btnVer.forEach(btn => {
-            btn.addEventListener('click', () => {
-                let teacher_id = btn.getAttribute('data-teacher-id'); // Obtener el ID del módulo
-                let currentUrl = window.location.href;
+            btnVer.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    let teacher_id = btn.getAttribute('data-teacher-id');
+                    let currentUrl = window.location.href;
 
-                if (currentUrl.endsWith('/')) {
-                    currentUrl = currentUrl.slice(0, -1);
-                }
+                    if (currentUrl.endsWith('/')) {
+                        currentUrl = currentUrl.slice(0, -1);
+                    }
 
-                let newUrl = currentUrl.includes('/list')
-                    ? currentUrl.replace('/list', '/edit/' + teacher_id)
-                    : currentUrl + '/edit/' + teacher_id;
+                    let newUrl = currentUrl.includes('/list')
+                        ? currentUrl.replace('/list', '/edit/' + teacher_id)
+                        : currentUrl + '/edit/' + teacher_id;
 
-                window.location.href = newUrl;
+                    window.location.href = newUrl;
+                });
+            });
+
+            deleteBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const teacher_id = btn.getAttribute('data-teacher-id');
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: 'Esta acción no se puede deshacer',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar',
+                        customClass: {
+                            confirmButton: 'btn-swal-confirm',
+                            cancelButton: 'btn-swal-cancel'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(`/teacher/delete/${teacher_id}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'X-CSRFToken': '{{ csrf_token }}',
+                                }
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        Swal.fire(
+                                            'Eliminado!',
+                                            'El Profesor ha sido eliminado.',
+                                            'success'
+                                        ).then(() => {
+                                            window.location.reload();
+                                        });
+                                    } else {
+                                        Swal.fire(
+                                            'Error!',
+                                            'Hubo un problema al eliminar el Profesor.',
+                                            'error'
+                                        );
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    Swal.fire(
+                                        'Error!',
+                                        'Hubo un problema al eliminar el Profesor.',
+                                        'error'
+                                    );
+                                });
+                        }
+                    });
+                });
             });
         });
-    });
 </script>
 {% endblock %}

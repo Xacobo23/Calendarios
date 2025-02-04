@@ -103,8 +103,8 @@
                         <td>{{ module.name }}</td>
                         <td>{{ module.course }}</td>
                         <td class="td-buttons">
-                            <button type="button" class="btn-see" data-module-id="{{ module.id }}">Ver</button>
-                            <button type="button" class="btn-delete" data-module-id="{{ module.id }}">Eliminar</button>
+                            <button type="button" class="btn-see" id="btn-to-module" data-module-id="{{ module.id }}">Ver</button>
+                            <button type="button" class="btn-delete" id="btn-delete-module" data-module-id="{{ module.id }}">Eliminar</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -117,6 +117,7 @@
         const btnEdit = document.getElementById('btn-edit');
         const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
         const btnDelete = document.getElementById('btn-delete');
+        const btnToModule = document.getElementById('btn-to-module')
 
         formElements.forEach(element => {
             element.disabled = true;
@@ -133,7 +134,12 @@
         btnToSchedule.addEventListener('click', () => {
                 const fp_id = btnToSchedule.getAttribute('data-fp-id');
                 window.location.href = `/schedule/view-schedule/${fp_id}`;
-            });
+        });
+
+        btnToModule.addEventListener('click', () => {
+                const module_id = btnToModule.getAttribute('data-module-id');
+                window.location.href = `/module/edit/${module_id}`;
+        });
 
 
             btnDelete.addEventListener('click', () => {
