@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block css %} 
+<style>
+    .schedule-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        margin-right: 1em;
+    }
+
+    .item-title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1em;
+
+        color: #468DAE;
+
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    .item-title i {
+        font-size: 1.5em;
+    }
+
+    .item-title h2 {
+        font-weight: bold;
+    }
+
+    .display-id {
+        display: flex;
+        gap: 1em;
+        flex-direction: row;
+    }
+
+    .item-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding-top: 1em;
+
+        margin-bottom: 1em;
+    }
+
+    .btn {
+        color: white;
+
+        padding: 1em 4em;
+
+        border: none;
+        border-radius: .5em;
+
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        opacity: .8;
+    }
+
+    .btn-save {
+        background-color: #468DAE;
+    }
+
+    .btn-export {
+        background-color: #F26B1D;
+    }
+
+    .table {
+        display: table;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1em 0em;
+        margin-right: 1em;
+    }
+
+    .table-row {
+        display: table-row;
+    }
+
+    .table-header {
+        display: table-cell;
+        text-align: center;
+        padding: 1em;
+        border: 1px solid #ddd;
+        background-color: #468DAE;
+        color: white;
+    }
+
+    .table-cell {
+        display: table-cell;
+        text-align: center;
+        padding: 1em;
+    }
+
+    .table-cell div {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+    }
+
+    .table-cell .empty {
+        background-color: white;
+        color: black;
+    }
+
+    .module-1 { background-color: #F26B1D; }
+    .module-2 { background-color: #468DAE; }
+    .module-3 { background-color: #32CD32; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="schedule-section">
+    <article class="item-title">
+        <i class="fa-regular fa-clock"></i>
+        <h2>Horario/<small>{{ fp.initials }}</small></h2>
+    </article>
+    <article class="item-actions">
+        <div class="display-id"></div>
+        <div class="action-buttons">
+            <button class="btn btn-export"><i class="fa-regular fa-file-pdf"></i> Exportar a PDF</button>
+        </div>
+    </article>
+    <article class="schedule-table">
+        <div class="table">
+            <div class="table-row">
+                <div class="table-header">Hora</div>
+                <div class="table-header">Lunes</div>
+                <div class="table-header">Martes</div>
+                <div class="table-header">Miércoles</div>
+                <div class="table-header">Jueves</div>
+                <div class="table-header">Viernes</div>
+            </div>
+
+            {% for hour, modules in schedule %}
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>{{ hour }}</span>
+                    </div>
+                    {% for day in week_days %}
+                        <div class="table-cell">
+                            {{ modules.0 }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </article>
+</section>
+{% endblock %}

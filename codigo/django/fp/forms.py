@@ -14,17 +14,20 @@ class FPForm (forms.ModelForm):
         labels = {
             'code': ('Código'),
             'name': ('Nombre'),
-            'fp_type': ('Tipo'),
+            'fp_type': ('Tipo de FP'),
             'description': ('Descripción'),
             'short_name': ('Nombre corto'),
-            'duration': ('Duración')
+            'duration': ('Duración'),
+            'initials': ('Siglas')
         }
         # Aquí se pueden definir atributos como clases, placeholders etc. También se puede en el HTML.
         widgets = {
-            # 'name': forms.TextInput(attrs={'class': 'ejemplo', 'placeholder': 'Indica el nombre del FP'}),
             'name': forms.TextInput(attrs={'placeholder': 'Indica el nombre del FP'}),
-            'fp_type': forms.Select(attrs={''}),
-            'description': forms.Textarea(attrs={'rows': 5, 'placeholder': 'Descripción'})
+            'fp_type': forms.Select(attrs={}),
+            'description': forms.Textarea(attrs={'rows': 5, 'placeholder': 'Descripción', 'style': 'resize: none;'}),
+            'code': forms.TextInput(attrs={'placeholder': 'Código de FP'}),
+            'initials': forms.TextInput(attrs={'placeholder': 'Siglas'}),
+            'short_name': forms.TextInput(attrs={'placeholder': 'Nombre Corto (Nombre sin especificaciones)'})
         }
         # help_texts = {
         #     'name': 'Introduce el nombre del FP',

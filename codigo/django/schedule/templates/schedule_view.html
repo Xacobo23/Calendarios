@@ -8,7 +8,6 @@
         display: flex;
         flex-direction: column;
         gap: 1em;
-        margin-right: 1em;
     }
 
     .item-title {
@@ -44,6 +43,7 @@
         padding-top: 1em;
 
         margin-bottom: 1em;
+        margin-right: 1em;
     }
 
     .btn {
@@ -72,7 +72,7 @@
     .table {
         display: table;
         
-        width: 100%;
+        width: calc(100% - 1em);
 
         border-collapse: collapse;
 
@@ -112,6 +112,98 @@
         background-color: white;
     }
 
+    .schedule-table{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    @media (max-width: 700px) {
+        .schedule-table{
+            padding: 1em;
+        }
+    }
+
+    .selected-day{
+        width: calc(100% - 2.4em);
+        color: white;
+        background-color: #468DAE;
+        padding: 1.2em;
+        margin-left: 1em;
+        margin-right: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-list{
+        width: 100%;
+        margin: 1em;
+        display: flex;
+        gap: 5%;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .btn-list button {
+        background-color: #F2F2F2;
+        width: 20%;
+        color: black;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .btn-list button.active {
+        color: white;
+        background-color: #468dae;
+    }
+
+    .divisor{
+        display: table-row;
+        width: 100%;
+        height: 2px;
+        border-bottom: #F2F2F2 solid 1px;
+    }
+
+    @media (max-width: 700px) {
+
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            margin-left: 1em;
+            gap: 1.2em;
+        }
+
+        .display-id{
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            align-items: start;
+        }
+
+        .action-buttons{
+            width: 100%;
+            gap: 1em;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-export{
+            width: 100%;
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+
+        .btn-save{
+            width: 100%;
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+    }
+
 </style>
 {% endblock %}
 
@@ -132,340 +224,499 @@
         </div>
     </article>
     <article class="schedule-table">
-        <div class="table">
-            <div class="table-row">
-                <div class="table-header">Hora</div>
-                <div class="table-header">Lunes</div>
-                <div class="table-header">Martes</div>
-                <div class="table-header">Miércoles</div>
-                <div class="table-header">Jueves</div>
-                <div class="table-header">Viernes</div>
-            </div>
-            <div class="table-row">
-                <div class="table-cell">
-                    <span>8:45-9:35</span>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">DAM</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                
-            </div>
-            <div class="table-row">
-                <div class="table-cell">
-                    <span>9:35-10:25</span>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">DAM</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                
-            </div>
-            <div class="table-row">
-                <div class="table-cell">
-                    <span>10:25-11:15</span>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">DAM</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                
-            </div>
-            <div class="table-row">
-                <div class="table-cell">
-                    <span>11:15-12:05</span>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">DAM</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                
-            </div>
-            <div class="table-row">
-                <div class="table-cell">
-                    <span>12:05-12:55</span>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">DAM</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                
-            </div>
-            <div class="table-row">
-                <div class="table-cell">
-                    <span>12:55-13:45</span>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">DAM</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="table-row">
-                <div class="table-cell">
-                    <span>13:45-14:35</span>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">DAM</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                <div class="table-cell">
-                    <select>
-                        <option value="">Seleccionar</option>
-                        <option value="op1">Opción 1</option>
-                        <option value="op2">Opción 2</option>
-                        <option value="op3">Opción 3</option>
-                    </select>
-                </div>
-                
-            </div>
-        </div>
-        
-
     </article>
 </section>
 
+<script>
+    
+    function adaptScheduleTable() {
+        const container = document.querySelector(".schedule-table");
+        const btnSave = document.querySelector(".btn-save");
+        const btnExport = document.querySelector(".btn-export");
+        const movileHtml = `
+            <div class="btn-list">
+                <button onclick="activateButton(this, 'lu')">lu</button>
+                <button onclick="activateButton(this, 'ma')">ma</button>
+                <button onclick="activateButton(this, 'mi')">mi</button>
+                <button onclick="activateButton(this, 'xo')">xo</button>
+                <button onclick="activateButton(this, 'vi')">vi</button>
+            </div>
+            <div id="selected-day" class="selected-day">Seleccione un día</div>
+            <div class="table">
+                <div class="table-row">
+                <div class="table-cell">
+                    <span>8:45-9:35</span>
+                </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="divisor"></div>
+
+                <div class="table-row">
+                <div class="table-cell">
+                    <span>9:35-10:25</span>
+                </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="divisor"></div>
+
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>10:25-11:15</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="divisor"></div>
+
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>12:05-12:55</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="divisor"></div>
+
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>12:55-13:45</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="divisor"></div>
+
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>13:45-14:35</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            `;
+
+            const pcHtml = `
+                <div class="table">
+                <div class="table-row">
+                    <div class="table-header">Hora</div>
+                    <div class="table-header">Lunes</div>
+                    <div class="table-header">Martes</div>
+                    <div class="table-header">Miércoles</div>
+                    <div class="table-header">Jueves</div>
+                    <div class="table-header">Viernes</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>8:45-9:35</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>  
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>9:35-10:25</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>10:25-11:15</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>11:15-12:05</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>12:05-12:55</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>12:55-13:45</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <span>13:45-14:35</span>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">DAM</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                    <div class="table-cell">
+                        <select>
+                            <option value="">Seleccionar</option>
+                            <option value="op1">Opción 1</option>
+                            <option value="op2">Opción 2</option>
+                            <option value="op3">Opción 3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            `;
+        
+        if (window.innerWidth <= 767) {
+            // 🌟 Modo móvil: Lista
+            container.innerHTML = movileHtml;
+            btnSave.innerHTML = "Guardar";
+            btnExport.innerHTML = `<i class="fa-regular fa-file-pdf"></i> Exportar`;
+        } else {
+            // 🖥️ Modo PC: Tabla
+            container.innerHTML = pcHtml;
+            btnSave.innerHTML = `<i class="fa-regular fa-floppy-disk"></i> Guardar`;
+            btnExport.innerHTML = `<i class="fa-regular fa-file-pdf"></i> Exportar a PDF`;
+        }
+    }
+
+    function activateButton(clickedButton, day) {
+        const buttons = document.querySelectorAll(".btn-list button");
+        buttons.forEach(button => button.classList.remove("active"));
+        clickedButton.classList.add("active");
+
+        // Actualizar la tabla con datos de ese día (ejemplo estático)
+        const scheduleBody = document.getElementById("selected-day");
+        switch(day){
+            case "lu":
+                scheduleBody.innerHTML = "Luns";
+                break;
+            case "ma":
+                scheduleBody.innerHTML = "Martes";
+                break;
+            case "mi":
+                scheduleBody.innerHTML = "Mercores";
+                break;
+            case "xo":
+                scheduleBody.innerHTML = "Xoves";
+                break;
+            case "vi":
+                scheduleBody.innerHTML = "Viernes";
+                break;
+            default:
+                scheduleBody.innerHTML = "Seleccione un día";
+                break;
+        }
+    }
+    
+    
+    // Ejecutar al cargar y al cambiar tamaño de pantalla
+    document.addEventListener("DOMContentLoaded", adaptScheduleTable);
+    window.addEventListener("resize", adaptScheduleTable);
+    </script>
+    
 {% endblock %}

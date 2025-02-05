@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import FP
 from .forms import FPForm
@@ -52,20 +53,57 @@ def add_fp(request):
     else:
         form = FPForm()
 
-    data = {"title": "Añadir FP", "form": form, "type": "Ciclos Formativos"}
+    data = {
+        "title": "Añadir FP",
+        "form": form,
+        "type": "Ciclos Formativos",
+        'fp_code': '-'
+        }
 
     return render(request, "fp_add.html", data)
 
 
 def edit_fp(request, fp_id):
+    fp_instance = get_object_or_404(FP, id=fp_id)
+    asociated_modules = []
+
+    if fp_instance is not None:
+        asociated_modules = fp_instance.modulos.all()
+
+    if request.method == 'POST':
+        form = FPForm(request.POST, instance=fp_instance)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'FP actualizado correctamente.')
+            return redirect('fp_list')
+        else:
+            error_messages = " ".join([f"{field}: {', '.join(errors)}" for field, errors in form.errors.items()])
+            messages.error(request, f"Error al editar el FP: {error_messages}")
+    else:
+        form = FPForm(instance=fp_instance)
+
     data = {
         "title": "Editar FP",
         "id": fp_id,
+        "fp_code": fp_instance.code,
         "shortTitle": "Editar FP",
-        "form": FPForm(),
+        "form": form,
         "type": "Ciclos Formativos",
+        "asociated_modules": asociated_modules
     }
 
     return render(request, "fp_edit.html", data)
+
+@csrf_exempt
+def delete_fp(request, fp_id):
+    if request.method == 'DELETE':
+        fp = get_object_or_404(FP, id=fp_id)
+
+        fp.delete()
+
+        return redirect('fp_list')
+    
+    return redirect('fp_list')
 
 

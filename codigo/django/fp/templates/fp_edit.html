@@ -2,27 +2,35 @@
 
 {% block buttons %}
 <div class="action-buttons">
+    <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i> Horario</button>
     <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-    <button class="btn btn-delete"><i class="fa-regular fa-user"></i> Eliminar</button>
+    <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i> Eliminar</button>
 </div>
 {% endblock %}
+
+{% block identifier %}
+{{ fp_code }}
+{% endblock %}
+
+{% block inputValue %} {{ fp_code }} {% endblock %}
+
 
 {% block form %}
 <article class="item-main">
     <section class="item-edit-side">
         <h2>Datos</h2>
 
-        <form method="post" class="form-manage">
+        <form method="post" class="form-manage" id="form-manage">
             {% csrf_token %}
             <div class="form-row">
                 <div class="form-group">
                     <label for="code">Código</label>
-                    <input type="text" id="code" name="code" placeholder="Código">
+                    {{ form.code }}
                 </div>
 
                 <div class="form-group">
                     <label for="initials">Siglas</label>
-                    <input type="text" name="initials" id="initials" placeholder="Siglas">
+                    {{ form.initials }}
                 </div>
             </div>
             <div class="form-row-large">
@@ -31,10 +39,22 @@
                     {{ form.name }}
                 </div>
             </div>
+            <div class="form-row-large">
+                <div class="form-group">
+                    <label for="{{ form.short_name.id_for_label}}">{{ form.short_name.label }}</label>
+                    {{ form.short_name }}
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="code">Duración (años)</label>
-                    <input type="text" id="duration" name="duration" placeholder="Duración">
+                    <label for="duration">Duración (años)</label>
+                    {{ form.duration }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fp_type">Tipo de FP</label>
+                    {{ form.fp_type }}
                 </div>
             </div>
             <div class="form-row-large">
@@ -44,36 +64,138 @@
                 </div>
             </div>
 
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <button type="submit" class="btn btn-save">Guardar</button>
         </form>
     </section>
     {% endblock %}
 
     {% block side %}
-    <section>
+    <section class="side-section">
         <h2>Módulos impartidos</h2>
-        <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
-            <i class="fa-solid fa-plus"></i> Añadir módulo
-        </button>
+        <a href="{% url 'module_add' %}">
+            <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
+                <i class="fa-solid fa-plus"></i> Añadir módulo
+            </button>
+        </a>
 
-        <!-- TODO: SUB-query modules -->
-        <table>
-            <tr class="table-header">
-                <td>Código</td>
-                <td>Nombre</td>
-                <td>Curso</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>FP123543</td>
-                <td>Despregamento</td>
-                <td>2</td>
-                <td class="td-buttons">
-                    <button type="button" class="btn-see">Ver</button>
-                    <button type="button" class="btn-delete">Eliminar</button>
-                </td>
-            </tr>
+        <table class="modules-table">
+            <thead>
+                <tr>
+                    <td>Código</td>
+                    <td>Nombre</td>
+                    <td>Curso</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for module in asociated_modules %}
+                    <tr>
+                        <td>{{ module.code }}</td>
+                        <td>{{ module.name }}</td>
+                        <td>{{ module.course }}</td>
+                        <td class="td-buttons">
+                            <button type="button" class="btn-see" id="btn-to-module" data-module-id="{{ module.id }}">Ver</button>
+                            <button type="button" class="btn-delete" id="btn-delete-module" data-module-id="{{ module.id }}">Eliminar</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </section>
+
+    <script defer>
+        const btnToSchedule = document.getElementById('btn-to-schedule');
+        const btnEdit = document.getElementById('btn-edit');
+        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
+        const btnDelete = document.getElementById('btn-delete');
+        const btnToModule = document.getElementById('btn-to-module')
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        })
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+            });
+
+            btnEdit.disabled = true;
+        })
+
+        btnToSchedule.addEventListener('click', () => {
+                const fp_id = btnToSchedule.getAttribute('data-fp-id');
+                window.location.href = `/schedule/view-schedule/${fp_id}`;
+        });
+
+        btnToModule.addEventListener('click', () => {
+                const module_id = btnToModule.getAttribute('data-module-id');
+                window.location.href = `/module/edit/${module_id}`;
+        });
+
+
+            btnDelete.addEventListener('click', () => {
+                const fp_id = btnDelete.getAttribute('data-fp-id');
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    customClass: {
+                        confirmButton: 'btn-swal-confirm',
+                        cancelButton: 'btn-swal-cancel'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/fp/delete/${fp_id}/`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRFToken': '{{ csrf_token }}',
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    Swal.fire(
+                                        'Eliminado!',
+                                        'El FP ha sido eliminado.',
+                                        'success'
+                                    ).then(() => {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'Hubo un problema al eliminar el FP.',
+                                        'error'
+                                    );
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                Swal.fire(
+                                    'Error!',
+                                    'Hubo un problema al eliminar el FP.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+            
+
+            
+    </script>
     {% endblock %}
 </article>

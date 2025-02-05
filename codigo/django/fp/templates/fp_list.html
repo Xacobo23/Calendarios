@@ -6,9 +6,13 @@
 
 {% block totalItem %} {{ totalFp }} {% endblock %}
 
-{% block welcomeMessage %}
-{% block addItem %}
+{% block addItem %} {{ shortTitle }} {% endblock %}
+
+{% block icon %}
+<i class="fa-solid fa-book"></i>
 {% endblock %}
+
+{% block welcomeMessage %}
 {% endblock %}
 {% block cards %}
 {% for fp in fps_data %}
@@ -29,7 +33,7 @@
 
             <section class="card-actions">
                 <button class="card-btn-see bottomSee" data-fp-id="{{ fp.id }}">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
+                <button class="card-btn-delete" data-fp-id="{{ fp.id }}">Eliminar</button>
             </section>
         </div>
     </div>
@@ -47,6 +51,7 @@
 </script>
 <script defer>
     const addBtn = document.getElementById('add-item-btn');
+    const deleteBtn = document.querySelectorAll('.card-btn-delete');
 
     addBtn.addEventListener('click', () => {
         window.location.href = '/fp/add/';
@@ -56,7 +61,7 @@
 
     btnVer.forEach(btn => {
         btn.addEventListener('click', () => {
-            let fp_id = btn.getAttribute('data-fp-id'); // Obtener el ID del módulo
+            let fp_id = btn.getAttribute('data-fp-id'); 
             let currentUrl = window.location.href;
 
             if (currentUrl.endsWith('/')) {
@@ -68,6 +73,59 @@
                 : currentUrl + '/edit/' + fp_id;
 
             window.location.href = newUrl;
+        });
+    });
+
+    deleteBtn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const fp_id = btn.getAttribute('data-fp-id');
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn-swal-confirm',
+                cancelButton: 'btn-swal-cancel'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/fp/delete/${fp_id}/`, {
+                    method: 'DELETE',  
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',  
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            Swal.fire(
+                                'Eliminado!',
+                                'El FP ha sido eliminado.',
+                                'success'
+                            ).then(() => {
+                                window.location.reload();  
+                            });
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'Hubo un problema al eliminar el FP.',
+                                'error'
+                            );
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire(
+                            'Error!',
+                            'Hubo un problema al eliminar el FP.',
+                            'error'
+                        );
+                    });
+            }
+            });
         });
     });
 </script>

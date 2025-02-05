@@ -4,6 +4,9 @@
     gap: 1em;
 
     justify-items: center;
+
+    padding: 1em;
+
 }
 
 .item-card {
@@ -13,6 +16,14 @@
     width: 100%;
 
 
+}
+
+.manage-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 1em 1em 0 1em;
 }
 
 
@@ -110,6 +121,7 @@
     .item-card {
         width: 100%;
     }
+<<<<<<< HEAD
     .item-card:last-of-type {
         margin-bottom: 20%;
     }
@@ -206,3 +218,14 @@
         transform: translateY(0%) translateX(0%) rotate(-45deg) !important;
     }
 }
+=======
+}
+
+.swal2-confirm.btn-swal-confirm {
+    background-color: #468DAE;
+}
+
+.swal2-cancel.btn-swal-cancel {
+    background-color: #DB5D5D;
+}
+>>>>>>> 08e9697e7d99d1a47098d8c4503c45b6e0480b9d

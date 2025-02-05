@@ -4,15 +4,26 @@
 
 {% block js %}
 <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
+
+<!-- Agregar JS de Select2 -->
+<script defer src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 {% endblock %}
 
 {% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
     * {
         font-family: 'Open Sans', serif;
         font-weight: 100;
+    }
+
+    .item-section {
+        padding-right: 1em;
     }
 
     .item-title {
@@ -146,6 +157,10 @@
         justify-content: flex-end;
     }
 
+    button {
+        cursor: pointer;
+    }
+
     .btn-see,
     .btn-delete {
         color: white;
@@ -158,9 +173,64 @@
         background-color: #468DAE;
     }
 
-    .btn-delete {
+    .btn-delete-top {
         background-color: #DB5D5D;
     }
+
+    .btn-schedule {
+        background-color: #468DAE;
+    }
+
+    .btn:hover {
+        opacity: .8;
+    }
+
+    .side-section h2 {
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+        font-weight: 500;
+    }
+
+    .modules-table {
+        border-collapse: collapse;
+
+        margin-top: 1em;
+    }
+
+    .modules-table thead {
+        background-color: #468DAE;
+        color: white;
+    }
+
+    th,
+    td {
+        padding: 1em;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: rgba(242, 242, 242, 0.5);
+    }
+
+    #id_fp_type {
+        padding: 1em;
+
+        border: none;
+
+        background-color: rgba(242, 242, 242, .5);
+    }
+
+    .btn-add-subitem {
+        color: white;
+
+        text-decoration: none;
+
+        font-weight: 500;
+    }
+
 </style>
 {% endblock %}
 
@@ -168,104 +238,25 @@
 <section class="item-section">
     {% block header %}
     <article class="item-title">
-        <i class="fa-solid fa-book"></i>
-        <h2>{{ type }}/<small>{{ id }}</small></h2>
+        {% block icon %}
+        {% endblock %}
+        <h2>{{ type }}/<small>{% block identifier %}{% endblock %}</small></h2>
     </article>
     {% endblock %}
     <article class="item-actions">
         <div class="display-id">
             <span>ID</span>
-            <input type="text" value="1234" disabled>
+            <input type="text" value="{% block id %}{% endblock %}" disabled>
+
         </div>
         {% block buttons %}
         {% endblock %}
     </article>
     {%block form%} {% endblock %}
     {% block side %}
-    <!--
-    <article class="item-cards">
-        <div class="item-card">
-            <h3 class="card-title">DAM</h3>
 
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Multiplataforma</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-
-        <div class="item-card">
-            <h3 class="card-title">DAW</h3>
-
-            <p class="card-description">Ciclo superior en Desarrollo de Aplicaciones Web</p>
-            <p class="card-duration">Duración: 2 años</p>
-
-            <section class="card-actions">
-                <button class="card-btn-see">Ver</button>
-                <button class="card-btn-delete">Eliminar</button>
-            </section>
-        </div>
-    </article>
-    -->
     {% endblock %}
 </section>
 <script defer>
-    let btnEdit = document.getElementById('btn-edit');
-    btnEdit.addEventListener('click', () => {
-        let inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.disabled = false;
-        });
-    });
 </script>
 {% endblock %}
