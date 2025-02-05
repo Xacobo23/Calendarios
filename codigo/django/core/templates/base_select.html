@@ -16,8 +16,7 @@
 
 <section class="item-section">
     <article class="item-title">
-        {% block icon %}
-        {% endblock %}
+        <i class="fa-solid fa-user"></i>
         <h2>{% block itemName %}{% endblock %}</h2>
     </article>
     <article class="item-message">
@@ -26,23 +25,18 @@
         {% endblock %}
     </article>
 
-    <section class="manage-items">
-        <article class="item-total">
-            <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
-        </article>
-        <article class="item-actions">
-            <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo
-                {% block addItem %}
-                {%endblock %}</button>
-        </article>
-    </section>
+
+    <article class="item-total">
+        <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
+    </article>
+    <article class="item-actions">
+        <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo
+            {% block addItem %}
+            {%endblock %}</button>
+    </article>
 
 
     <article class="item-cards">
-<<<<<<< HEAD
-                   
-=======
->>>>>>> 08e9697e7d99d1a47098d8c4503c45b6e0480b9d
         {% block cards %}
 
         {% endblock %}
