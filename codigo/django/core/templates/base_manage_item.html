@@ -189,20 +189,21 @@
         border-bottom: 1px solid rgba(0, 0, 0, .1);
 
         font-weight: 500;
-    }   
+    }
 
     .modules-table {
         border-collapse: collapse;
 
         margin-top: 1em;
     }
-    
-    .modules-table thead{
+
+    .modules-table thead {
         background-color: #468DAE;
         color: white;
     }
 
-    th, td {
+    th,
+    td {
         padding: 1em;
     }
 
@@ -218,10 +219,9 @@
         padding: 1em;
 
         border: none;
-        
+
         background-color: rgba(242, 242, 242, .5);
     }
-
 </style>
 {% endblock %}
 
@@ -229,14 +229,16 @@
 <section class="item-section">
     {% block header %}
     <article class="item-title">
-        <i class="fa-solid fa-book"></i>
+        {% block icon %}
+        {% endblock %}
         <h2>{{ type }}/<small>{% block identifier %}{% endblock %}</small></h2>
     </article>
     {% endblock %}
     <article class="item-actions">
         <div class="display-id">
             <span>ID</span>
-            <input type="text" value="{% block inputValue %}{% endblock %}" disabled>
+            <input type="text" value="{% block id %}{% endblock %}" disabled>
+
         </div>
         {% block buttons %}
         {% endblock %}

@@ -63,6 +63,9 @@
 {% endblock %}
 
 {% block form %}
+{% block icon %}
+<i class="fa-solid fa-user"></i>
+{% endblock %}
 <article class="item-main">
     <section class="item-edit-side">
         <h2>Añadir usuario</h2>
@@ -85,8 +88,8 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                        {{ form.last_name }}
+                        <label for="{{ form.apel1.id_for_label }}">{{ form.apel1.label }}</label>
+                        {{ form.apel1 }}
                     </div>
                     <div class="form-group">
                         <label for="{{ form.apel2.id_for_label }}">{{ form.apel2.label }}</label>
@@ -110,25 +113,6 @@
                 </div>
             </div>
 
-            <!-- LOGIN -->
-            <div class="form-section">
-                <h3>Login</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-                        {{ form.username }}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="{{ form.force_password_change.id_for_label }}">
-                            <input type="checkbox" id="{{ form.force_password_change.id_for_label }}"
-                                name="{{ form.force_password_change.name }}">
-                            Cambio de contraseña en el siguiente login
-                        </label>
-                    </div>
-                </div>
-            </div>
 
             <button type="submit" class="btn btn-save">Añadir usuario</button>
         </form>
