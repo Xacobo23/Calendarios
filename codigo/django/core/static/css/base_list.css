@@ -88,7 +88,7 @@
   color: white;
 
   padding: 1em 2em;
-
+  z-index: 100;
   border: none;
   border-radius: 0.5em;
 }
@@ -268,7 +268,7 @@ button:hover {
   .add-item-btn {
     position: absolute;
     padding: 1em;
-
+    z-index: 100;
     bottom: 1em;
     right: 1em;
   }

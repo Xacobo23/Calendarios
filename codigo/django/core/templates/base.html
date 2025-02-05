@@ -19,18 +19,18 @@
     <!-- Menú de navegación -->
     <nav class="navAll" id="navAll">
       <div id="navLogo">
-      <a href="{% url 'homepage' %}">
-     
+        <a href="{% url 'homepage' %}">
+
           <img src="{% static 'images/logo.png' %}" alt="Logo IES San Clemente" id="logoSanClemente" />
           <hr style="width: 90%; border: 1px solid white" />
-        
-      </a>
-    </div>
+
+        </a>
+      </div>
       <div class="hamburger">
         <div class="_layer -top"></div>
         <div class="_layer -mid"></div>
         <div class="_layer -bottom"></div>
-    </div>
+      </div>
 
       <div class="navBottom" id="navBottom">
         <div id="navCentro">
@@ -64,7 +64,7 @@
         </div>
       </div>
     </nav>
-    
+
   </header>
 
   <main id="main-content">{% block content %}{% endblock %}</main>
@@ -78,23 +78,38 @@
   const currentPath = window.location.pathname;
 
   const routes = {
-      '/student': '#navStudent',
-      '/fp': '#navFP',
-      '/module': '#navModule',
-      '/schedule': '#navSchedule'
-    };
-  
+    '/student': '#navStudent',
+    '/fp': '#navFP',
+    '/module': '#navModule',
+    '/schedule': '#navSchedule'
+  };
+
   const menu = document.querySelector('.hamburger');
 
   function toggleMenu(event) {
-      menu.classList.toggle('is-active');
-      document.querySelector(".navBottom").classList.toggle("is_active");
-      document.querySelector(".navAll").classList.toggle("is_active");
+    menu.classList.toggle('is-active');
+    document.querySelector(".navBottom").classList.toggle("is_active");
+    document.querySelector(".navAll").classList.toggle("is_active");
 
-      event.preventDefault();
+    event.preventDefault();
   }
 
   menu.addEventListener('click', toggleMenu, false);
+
+  const expandElements = document.querySelectorAll("#titleCard");
+
+  function toggleExpand(event) {
+    // Aquí, el 'this' se refiere al elemento clickeado
+    this.classList.toggle('is-active');
+    this.closest(".item-card").querySelector(".expand").classList.toggle("is-active");
+    this.closest(".item-card").querySelector(".noTitleGroup").classList.toggle("is-active");
+    this.closest(".item-card").querySelector("#titleCard").classList.toggle("is-active");
+  }
+
+  expandElements.forEach(expand => {
+    expand.addEventListener('click', toggleExpand, false);
+  });
+
 
   for (let route in routes) {
     if (currentPath.startsWith(route)) {

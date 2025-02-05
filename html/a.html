@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Círculo con Más</title>
+    <style>
+        
+        .plus {
+            position: absolute;
+            width: 300px; /* Igual al tamaño del círculo */
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bar {
+            position: absolute;
+            background-color: pink; /* Mismo color que el borde */
+        }
+
+        /* Línea vertical del "+" */
+        .vertical {
+            width: 12px;  /* Grosor */
+            height: 80%;
+            border-radius: 20px;
+
+        }
+
+        /* Línea horizontal del "+" */
+        .horizontal {
+            width: 80%;
+            height: 12px;  /* Grosor */
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+        <div class="expand">
+            <div class="bar vertical"></div>
+            <div class="bar horizontal"></div>
+        </div>
+
+</body>
+</html>
