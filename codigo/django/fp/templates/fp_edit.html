@@ -82,11 +82,12 @@
     {% block side %}
     <section class="side-section">
         <h2>Módulos impartidos</h2>
-        <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
-            <i class="fa-solid fa-plus"></i> Añadir módulo
-        </button>
+        <a href="{% url 'module_add' %}">
+            <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
+                <i class="fa-solid fa-plus"></i> Añadir módulo
+            </button>
+        </a>
 
-        <!-- TODO: SUB-query modules -->
         <table class="modules-table">
             <thead>
                 <tr>

@@ -2,7 +2,6 @@
 # bien, pero para que quede bonito :)
 
 from django import forms
-
 # from django_select2.forms import Select2MultipleWidget
 
 # Importamos el modelo para poder usarlo.

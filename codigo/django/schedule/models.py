@@ -52,4 +52,4 @@ class ClassSession(models.Model):
 
     class Meta:
         # Evita duplicados en la combinación de módulo, día y número de clase
-        unique_together = ("module", "weekday", "class_number")
+        unique_together = ("module", "session", "class_number")
