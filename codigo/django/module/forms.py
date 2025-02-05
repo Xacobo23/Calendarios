@@ -2,17 +2,19 @@
 # bien, pero para que quede bonito :)
 
 from django import forms
-from django_select2.forms import Select2MultipleWidget
+
+# from django_select2.forms import Select2MultipleWidget
 
 # Importamos el modelo para poder usarlo.
 from .models import Module
 from teacher.models import Teacher
 
+
 class ModuleForm(forms.ModelForm):
     teachers = forms.ModelMultipleChoiceField(
         queryset=Teacher.objects.all(),
         required=False,
-        widget=Select2MultipleWidget(attrs={'class': 'form-control'}),
+        # widget=Select2MultipleWidget(attrs={'class': 'form-control'}),
     )
 
     # Se indica el modelo (FP) y los campos que queremos que tenga el formulario (en este caso todos).
@@ -29,12 +31,16 @@ class ModuleForm(forms.ModelForm):
         }
         # Aquí se pueden definir atributos como clases, placeholders etc. También se puede en el HTML.
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Indica el nombre del Módulo'}),
-            'fp': forms.Select(attrs={}),
-            'color': forms.TextInput(attrs={'type': 'text', 'data-coloris': '', 'style': 'width: 100%'}),
-            'code': forms.TextInput(attrs={'placeholder': 'Código de Módulo'}),
-            'initials': forms.TextInput(attrs={'placeholder': 'Siglas'}),
-            'course': forms.TextInput(attrs={'type': 'number', 'min': 1, 'max': 2})
+            "name": forms.TextInput(
+                attrs={"placeholder": "Indica el nombre del Módulo"}
+            ),
+            "fp": forms.Select(attrs={}),
+            "color": forms.TextInput(
+                attrs={"type": "text", "data-coloris": "", "style": "width: 100%"}
+            ),
+            "code": forms.TextInput(attrs={"placeholder": "Código de Módulo"}),
+            "initials": forms.TextInput(attrs={"placeholder": "Siglas"}),
+            "course": forms.TextInput(attrs={"type": "number", "min": 1, "max": 2}),
         }
         # help_texts = {
         #     'name': 'Introduce el nombre del FP',

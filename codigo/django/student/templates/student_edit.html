@@ -11,6 +11,15 @@
         font-weight: 100;
     }
 
+    main {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    form {
+        width: 50%;
+    }
+
     .form-manage {
         display: flex;
         flex-direction: column;
@@ -136,5 +145,10 @@
 </article>
 {% endblock %}
 {% block side %}
-Hola
+<section>
+    <h2>Acciones</h2>
+    <ul>
+        <li><a href="{% url 'student_list' %}">Volver al listado</a></li>
+    </ul>
+</section>
 {% endblock %}
