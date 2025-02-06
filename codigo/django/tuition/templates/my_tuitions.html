@@ -58,7 +58,6 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     width: 75%;
 
-    margin: 0 auto;
     padding: 1em;
 }
 
@@ -161,7 +160,7 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 <section class="item-section">
     <article class="item-title">
         <i class="fa-solid fa-graduation-cap"></i>
-        <h2>{{ title }}</h2>
+        <h2><span style="font-weight: 500;">{{ title }}</span></h2>
     </article>
     <article class="item-message">
         {% block welcomeMessage %}
@@ -171,10 +170,12 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     <article class="main-tuitions">
         <section class="section-add-tuition">
+            <a href="{% url 'select_tuition' %}">
             <button class="btn btn-add-tuition">
                 <i class="fa-solid fa-plus"></i>
                 Realizar nueva matrícula
             </button>
+            </a>
             
         </section>
         <h2 class="title-active-tuitions">Matrículas activas:</h2>

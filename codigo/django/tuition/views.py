@@ -13,3 +13,14 @@ def my_tuitions (request):
     }
 
     return render(request, 'my_tuitions.html', data)
+
+def select_tuition (request):
+    fps = FP.objects.all()
+
+    data = {
+        'title': 'Mis matrículas',
+        'subTitle': 'Nueva',
+        'fps': fps
+    }
+
+    return render(request, 'tuition_select.html', data)
