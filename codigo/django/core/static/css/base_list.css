@@ -312,3 +312,11 @@ button:hover {
 .teacher-btn:hover {
   background-color: #356d8c;
 }
+
+.info-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+}

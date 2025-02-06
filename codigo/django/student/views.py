@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 from student.forms import CustomUserChangeForm
+from user.models import CustomUser
 
 User = get_user_model()
 
@@ -85,11 +87,13 @@ def student_edit(request, student_id):
     }
     return render(request, "student_edit.html", data)
 
-def student_delete(request, student_id):
-    if request.method == "POST":
-        student = get_object_or_404(User, id=student_id)
-        student.delete()
-        messages.success(request, "Estudiante eliminado correctamente.")
-        return redirect("student_list")
+@csrf_exempt
+def delete_student(request, student_id):
+    if request.method == 'DELETE':
+        student = get_object_or_404(CustomUser, id=student_id)
 
-    return redirect("student_list")
+        student.delete()
+
+        return redirect('student_list')
+    
+    return redirect('student_list')
