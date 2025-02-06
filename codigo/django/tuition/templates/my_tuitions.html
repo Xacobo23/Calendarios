@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block css %}
+<style>
+.item-title {
+display: flex;
+justify-content: start;
+align-items: center;
+gap: 1em;
+
+color: #468dae;
+
+border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.item-title i {
+    font-size: 1.5em;
+}
+
+.section-add-tuition {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10em;
+}
+
+.btn-add-tuition {
+    background-color: #7ed9ae;
+    color: white;
+
+    padding: 1em 2em;
+
+    font-size: 1.5em;
+
+    border: none;
+    border-radius: .5em;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.title-active-tuitions {
+    font-weight: 500;
+}
+
+.section-active-tuitions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+
+    justify-content: center;
+
+    background-color: #f9f9f9;
+
+    width: 75%;
+
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.card-title {
+    background-color: #468DAE;
+    color: white;
+
+    font-weight: 400;
+
+    margin: 0;
+    padding: .5em;
+
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.card-description {
+    border: white .6em solid;
+    height: 20%;
+}
+
+.card-duration {
+    padding: .6em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: end;
+
+    padding: .5em;
+}
+
+.card-btn-see {
+    background-color: #468DAE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .6em 2em;
+}
+
+.tuition-card {
+    width: 100%;
+
+    border-radius: .5em;
+    border: 1px solid rgba(242, 242, 242, 1);
+}
+
+.item-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+
+    justify-items: center;
+
+
+}
+
+.bottomSee:hover {
+    cursor: pointer;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+
+    padding: .5em;
+}
+
+.see-fp {
+    text-align: end;
+}
+
+.btn-see {
+    background-color: #468DAE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .6em 2em;
+
+    cursor: pointer;
+}
+
+.btn-see:hover {
+    opacity: .8em;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="item-section">
+    <article class="item-title">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h2>{{ title }}</h2>
+    </article>
+    <article class="item-message">
+        {% block welcomeMessage %}
+
+        {% endblock %}
+    </article>
+
+    <article class="main-tuitions">
+        <section class="section-add-tuition">
+            <button class="btn btn-add-tuition">
+                <i class="fa-solid fa-plus"></i>
+                Realizar nueva matrícula
+            </button>
+            
+        </section>
+        <h2 class="title-active-tuitions">Matrículas activas:</h2>
+        <section class="section-active-tuitions">
+            {% for fp in fps %}
+                <div class="tuition-card">
+                    <div id="titleCard">
+                        <h3 class="card-title">{{ fp.initials }}</h3>
+                        <div class="expand">
+                            <div class="_layerm -vertical"></div>
+                            <div class="_layerm -horizontal"></div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="fp-name">{{ fp.short_name }}</p>
+                        <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
+                        <p class="see-fp"><button class="btn-see">Ver</button></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </article>
+</section>
+{% endblock %}
+
+
