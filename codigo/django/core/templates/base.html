@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nombre | {% block title %}{% endblock %}</title>
 
-  {% load static %} {% block css %} {% endblock %}
+  {% load static %} 
   <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
+  {% block css %} {% endblock %}
   
   <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
   <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
@@ -19,7 +20,6 @@
 <body>
   <!-- Cabecera de la web -->
   <header id="header">
-    <!-- Menú de navegación -->
     <nav class="navAll" id="navAll">
       <div id="navLogo">
         <a href="{% url 'homepage' %}">
@@ -35,6 +35,7 @@
         <div class="_layer -bottom"></div>
       </div>
 
+      <!-- Menú de navegación -->
       <div class="navBottom" id="navBottom">
         <div id="navCentro">
           {% if request.user.is_superuser %}

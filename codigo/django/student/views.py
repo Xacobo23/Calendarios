@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 
-from student.forms import UsuarioForm
+from student.forms import CustomUserChangeForm
 
 User = get_user_model()
 
@@ -57,52 +57,40 @@ def student_add(request):
 
 
 def student_edit(request, student_id):
-    student = get_object_or_404(User, id=student_id)
+    student = get_object_or_404(get_user_model(), id=student_id)
+
+    dni = student.dni
 
     if request.method == "POST":
-        form = UsuarioForm(request.POST)
+        form = CustomUserChangeForm(request.POST, instance=student)  # Asociar el form con el usuario
         if form.is_valid():
-            data = form.cleaned_data
-            student.dni = data["dni"]
-            student.first_name = data["first_name"]
-            student.last_name = (
-                data["apel1"] + " " + (data["apel2"] if data["apel2"] else "")
-            )
-            student.email = data["email"]
-            student.username = data["loginEmail"]
-            student.phone = data["phone"]
-            student.save()
-
-            messages.success(request, "Estudiante actualizado correctamente.")
+            student = form.save()
+            messages.success(request, 'Estudiante actualizado correctamente.')
             return redirect("student_list")
         else:
+            for field in form:
+                for error in field.errors:
+                    messages.error(request, f"Error en el campo {field.label}: {error}")
             messages.error(request, "Error al actualizar el estudiante.")
     else:
-        form = UsuarioForm(
+        # Usar instance=student para evitar errores en la inicialización
+        form = CustomUserChangeForm(
+            instance=student,
             initial={
-                "dni": student.dni,
-                "first_name": student.first_name,
                 "apel1": student.last_name.split()[0] if student.last_name else "",
-                "apel2": (
-                    student.last_name.split()[1]
-                    if len(student.last_name.split()) > 1
-                    else ""
-                ),
-                "email": student.email,
-                "phone": student.phone,
+                "apel2": student.last_name.split()[1] if len(student.last_name.split()) > 1 else "",
                 "loginEmail": student.username,
-            }
+            },
         )
 
     data = {
         "title": "Editar Estudiante",
         "type": "Alumnos",
-        "dni": student.dni,
         "form": form,
         "student_id": student_id,
+        'dni': dni
     }
     return render(request, "student_edit.html", data)
-
 
 def student_delete(request, student_id):
     if request.method == "POST":

@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.conf.urls import handler404
+from django.shortcuts import redirect
 
+# Vista principal al abrir la página (todo redirecciones).
 def homepage (request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
