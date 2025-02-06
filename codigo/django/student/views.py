@@ -32,8 +32,14 @@ def student_add(request):
     if request.method == "POST":
         form = CustomUserChangeForm(request.POST)
         if form.is_valid():
-            form.save()
+            student = form.save(commit=False)
+
+            student.set_password('abc123.')
+
+            student.save()
+
             messages.success(request, "Estudiante añadido correctamente.")
+            
             return redirect("student_list")  
         else:
             messages.error(request, "Error al añadir el estudiante.")
