@@ -28,31 +28,24 @@ def student_list(request):
 
 def student_add(request):
     if request.method == "POST":
-        form = UsuarioForm(request.POST)
-
+        form = CustomUserChangeForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-
-            user = User.objects.create(
-                dni=data["dni"],
-                first_name=data["first_name"],
-                last_name=data["apel1"]
-                + " "
-                + (data["apel2"] if data["apel2"] else ""),
-                email=data["email"],
-                username=data["loginEmail"],
-                phone=data["phone"],
-            )
-            user.save()
-
+            form.save()
             messages.success(request, "Estudiante añadido correctamente.")
-            return redirect("student_add")
+            return redirect("student_list")  
         else:
             messages.error(request, "Error al añadir el estudiante.")
     else:
-        form = UsuarioForm()
+        form = CustomUserChangeForm()
 
-    data = {"title": "Añadir Estudiante", "form": form, "type": "Alumnos"}
+    data = {
+        "title": "Añadir Estudiante",
+        "form": form,
+        "type": "Alumnos",
+        "identifier": 'Nuevo',
+        'id': '-'
+    }
+
     return render(request, "student_add.html", data)
 
 
@@ -62,7 +55,7 @@ def student_edit(request, student_id):
     dni = student.dni
 
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, instance=student)  # Asociar el form con el usuario
+        form = CustomUserChangeForm(request.POST, instance=student)  
         if form.is_valid():
             student = form.save()
             messages.success(request, 'Estudiante actualizado correctamente.')

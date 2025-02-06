@@ -79,7 +79,7 @@
 {% for student in students %}
 <div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ student.id }}</p>
-    <p class="">{{ student.dni }}</p>
+    <p class="">{{ student.dni | upper }}</p>
     <p>{{ student.first_name }}</p>
     <p class="noMostrarMovil">{{ student.last_name }}</p>
     <p class="noMostrarMovil">{{ student.phone }}</p>
