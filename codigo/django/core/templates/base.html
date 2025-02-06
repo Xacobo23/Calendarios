@@ -37,6 +37,7 @@
 
       <div class="navBottom" id="navBottom">
         <div id="navCentro">
+          {% if request.user.is_superuser %}
           <div id="navStudent">
             <i class="fa-solid fa-user"></i>
             <a href="{% url 'student_list' %}"><span class="navItem">Alumnos</span></a>
@@ -57,6 +58,20 @@
             <i class="fa-solid fa-chalkboard-user"></i>
             <a href="{% url 'teacher_list' %}"><span class="navItem">Profesores</span></a>
           </div>
+          {% else %}
+          <div id="navSchedule">
+            <i class="fa-regular fa-clock"></i>
+            <a href="{% url 'my_schedules' %}"><span class="navItem">Mis horarios</span></a>
+          </div>
+          <div id="navMyTuitions">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <a href="{% url 'my_schedules' %}"><span class="navItem">Mis matrículas</span></a>
+          </div>
+          <div id="navFP">
+            <i class="fa-solid fa-book"></i>
+            <a href="{% url 'fp_list' %}"><span class="navItem">Ciclos formativos</span></a>
+          </div>
+          {% endif %}
         </div>
 
         <div id="navUser">
@@ -89,7 +104,7 @@
       '/fp': '#navFP',
       '/module': '#navModule',
       '/schedule': '#navSchedule',
-      '/teacher': '#navTeacher'
+      '/teacher': '#navTeacher',
     };
   
   const menu = document.querySelector('.hamburger');
