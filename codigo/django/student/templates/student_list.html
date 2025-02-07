@@ -20,7 +20,7 @@
 
 {% block tableHeader %}
 
-<div class="tableHeaderCSS">
+<div class="tableHeaderCSS studentList">
     <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
     <h3 class="tableHeaderTitleCSS ">DNI</h3>
     <h3 class="tableHeaderTitleCSS">Nombre</h3>
@@ -34,7 +34,7 @@
 {% block tableBody %}
 
 {% for student in students %}
-<div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+<div class="tableRowCSS studentRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ student.id }}</p>
     <p class="">{{ student.dni | upper }}</p>
     <p>{{ student.first_name }}</p>

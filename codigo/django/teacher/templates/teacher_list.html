@@ -16,7 +16,7 @@
 
 {% block tableHeader %}
 
-<div class="tableHeaderCSS moduleList">
+<div class="tableHeaderCSS teacherList">
     <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
     <h3 class="tableHeaderTitleCSS">Nombre Completo</h3>
     <h3 class="tableHeaderTitleCSS">DNI</h3>
@@ -30,7 +30,7 @@
 
 {% block tableBody %}
 {% for teacher in teachers %}
-<div class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+<div class="tableRowCSS teacherRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ teacher.id }}</p>
     <p>{{ teacher.name }} {{ teacher.last_name }}</p>
     <p>{{ teacher.dni }}</p>
