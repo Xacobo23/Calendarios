@@ -35,7 +35,7 @@ def my_schedules(request):
         'title': 'Mis horarios',
     }
 
-    return render(request, 'my-schedules.html', data)
+    return render(request, 'my_schedules_jorge.html', data)
 
 def my_schedule(request, fp_id):
     fp = get_object_or_404(FP, id=fp_id)

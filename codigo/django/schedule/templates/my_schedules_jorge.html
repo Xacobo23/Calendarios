@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
+<link rel="stylesheet" href="{% static 'css/base_select.css' %}">
+
+<style>
+
+.main-body-margins{
+    background-color: antiquewhite;
+    margin: 50px 10px 20px 40px;
+    height: 83vh;
+}
+    #multiple-courses-body{
+        display: flex;
+        flex-direction: column;
+        padding: 10% 5% 15% 10%;
+        gap: 20px;
+    }
+        #multiple-courses-title{
+            font-size: 24px;
+            font-weight: bold;
+            max-width: 49ch;
+        }
+        #available-courses-schedule{
+            padding: 20px;
+            background-color: rgba(242, 242, 242, 0.5);
+        }
+            .available-course-chedule{
+                background-color: white;
+                height: 250px;
+                width: 350px; <!-- tou con esto -->
+                display: flex;
+                flex-direction: column;
+                border-radius: 5px;
+            }
+                .course-header{
+                    height: 20%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-content: center;
+                    background-color: #468DAE;
+                }
+        #see-all-courses{
+            color: #468DAE;
+            display: contents;
+        }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<article class="item-title">
+    <i class="fa-solid fa-clock"></i>
+    <h2>{{ title }}</h2>
+</article>
+
+<div class="main-body-margins">
+    <article id="multiple-courses-body">
+        <p id="multiple-courses-title">Parece estar matriculado en más de un ciclo formativo, puede:</p>
+        <div>Seleccionar un ciclo para ver el horario:</div>
+        <section id="available-courses-schedule">
+            <div class="available-course-chedule">
+                <div class="course-header">
+                    <span class="course-acronym">DAM</span>
+                    <span class="course-modality">distancia</span>
+                </div>
+                <div class="course-body">
+                    <div class="course-body-info">
+                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
+                        <div class="course-duration">Duración: <b>2</b> años</div>
+                    </div>
+                    <div class="course-body-action-buttons">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <a href="" id="see-all-courses">Ver los horarios fusionados</a>
+    </article>
+
+</div>
+
+{% endblock %}
