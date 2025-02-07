@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from fp.models import FP
+from module.models import Module
 
 def my_tuitions (request):
     user = request.user
@@ -24,3 +25,18 @@ def select_tuition (request):
     }
 
     return render(request, 'tuition_select.html', data)
+
+def create_tuition (request, fp_id):
+    fp_instance = get_object_or_404(FP, id=fp_id)
+    modules = []
+
+    if fp_instance is not None:
+        modules = fp_instance.modulos.all()
+
+    data = {
+        'title': 'Mis matrículas',
+        'subTitle': 'Nueva',
+        'modules': modules
+    }
+
+    return render(request, 'tuition_create.html', data)
