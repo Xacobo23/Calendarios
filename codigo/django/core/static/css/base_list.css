@@ -100,7 +100,7 @@
 
 .item-table {
   display: flex;
-  overflow: ;
+  flex-direction: column;
   height: 70%;
 }
 

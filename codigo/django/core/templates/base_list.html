@@ -41,18 +41,16 @@
                 <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
                 {%endblock %}
             </div>
-            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc"> 
+            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
         </button>
-        
+
     </article>
     <article class="item-table">
-        <div class="table">
-            <div class="tableHeag">
-                {% block tableHeader %} {% endblock %}
-            </div>
-            <div class="tableBody">
-                {% block tableBody %} {% endblock %}
-            </div>
+        <div class="tableHeag">
+            {% block tableHeader %} {% endblock %}
+        </div>
+        <div class="tableBody">
+            {% block tableBody %} {% endblock %}
         </div>
     </article>
 </section>
