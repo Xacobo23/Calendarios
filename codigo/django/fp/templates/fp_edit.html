@@ -1,10 +1,20 @@
 {% extends 'base_manage_item.html' %}
 
+{% load static %}
+
 {% block buttons %}
+<div class="hidden phone-buttons">
+    <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
+    <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos Impartidos</button>
+</div>
 <div class="action-buttons">
-    <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i> Horario</button>
-    <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-    <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i> Eliminar</button>
+    <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
+        Horario</button>
+    <div class="bottom-buttons">
+        <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+        <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
+            Eliminar</button>
+    </div>
 </div>
 {% endblock %}
 
@@ -65,22 +75,186 @@
             </div>
 
             {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                        <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                    {{ message }}
                 </div>
+                {% endfor %}
+            </div>
             {% endif %}
 
             <button type="submit" class="btn btn-save">Guardar</button>
         </form>
     </section>
+    <style>
+
+        .item-main{
+            display: flex;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .tableHeaderCSS {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr 3fr;
+            justify-items: start;
+            padding-left: 1rem;
+
+            background-color: #468dae;
+            color: white;
+        }
+
+        .tableHeaderTitleCSS {
+            color: white;
+        }
+
+        .tableBody {
+            overflow-y: scroll;
+            height: 580px;
+        }
+
+        .tableRowCSS {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr 3fr;
+            justify-items: start;
+            padding-left: 1.5rem;
+        }
+
+        .evenRow {
+            background-color: #f2f2f2;
+        }
+
+        .oddRow {
+            background-color: #ffffff;
+        }
+
+        .tableBottomsCSS {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-self: end;
+            padding-right: 10%;
+            align-items: center;
+            gap: 1em;
+        }
+
+        .tableBottomsCSS button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+
+            height: 60%;
+
+            border: none;
+            border-radius: 0.5em;
+
+            padding: 0.6em 2em;
+        }
+
+        .bottomSee {
+            background-color: #468dae;
+        }
+
+        .bottomDelete {
+            background-color: #db5d5d;
+        }
+
+
+        @media (max-width: 700px) {
+            .item-title {
+                margin-top: 75px;
+                margin-left: 20px;
+            }
+
+            .item-actions {
+                width: calc(100%-2em);
+                gap: 2em;
+                padding-left: 1em;
+                padding-right: 1em;
+                display: flex;
+                flex-direction: column-reverse;
+            }
+
+            .phone-buttons {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                order: 3;
+            }
+
+            .btn-simple {
+                background: none;
+                border: none;
+                color: inherit;
+                font-size: 1em;
+                padding: 0;
+                cursor: pointer;
+            }
+
+            .action-buttons {
+                width: 100%;
+                order: 2;
+            }
+
+            .btn-schedule {
+                width: 100%;
+                margin-bottom: 1em;
+            }
+
+            .bottom-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+            }
+
+            .display-id {
+                order: 1;
+                align-self: stretch;
+            }
+
+            .item-edit-side {
+                width: 100%;
+                padding-left: 1em;
+            }
+
+            .side-section {
+                width: calc(100%-2em);
+                padding: 1em;
+            }
+
+            .item-edit-side{
+                padding-right: 1em;
+            }
+
+            .item-section{
+                padding: 0px;
+            }
+
+            .btn-add-subitem {
+                width: 100%;
+            }
+
+            .side-section{
+                width: 100%;
+            }
+
+            .noMostrarMovil{
+                display: none;
+            }
+
+            .modules-table{
+                margin-top: 1em;
+            }
+        }
+    </style>
     {% endblock %}
 
     {% block side %}
-    <section class="side-section">
+    <section class="side-section hidden">
         <h2>Módulos impartidos</h2>
         <a href="{% url 'module_add' %}">
             <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
@@ -88,29 +262,32 @@
             </button>
         </a>
 
-        <table class="modules-table">
-            <thead>
-                <tr>
-                    <td>Código</td>
-                    <td>Nombre</td>
-                    <td>Curso</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="modules-table">
+            <div class="tableHeaderCSS moduleList">
+                <h3 class="tableHeaderTitleCSS">Código</h3>
+                <h3 class="tableHeaderTitleCSS">Nombre</h3>
+                <h3 class="tableHeaderTitleCSS">Curso</h3>
+                <div class="tableHeaderTitleCSS"></div> <!-- Espacio para los botones -->
+            </div>
                 {% for module in asociated_modules %}
-                    <tr>
-                        <td>{{ module.code }}</td>
-                        <td>{{ module.name }}</td>
-                        <td>{{ module.course }}</td>
-                        <td class="td-buttons">
-                            <button type="button" class="btn-see" id="btn-to-module" data-module-id="{{ module.id }}">Ver</button>
-                            <button type="button" class="btn-delete" id="btn-delete-module" data-module-id="{{ module.id }}">Eliminar</button>
-                        </td>
-                    </tr>
+                <div
+                    class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+                    <p>{{ module.code }}</p>
+                    <p>{{ module.name }}</p>
+                    <p>{{ module.course }}</p>
+                    <div class="tableBottomsCSS">
+                        <button class="bottomSee" data-module-id="{{ module.id }}">
+                            <p class="noMostrarMovil">Ver</p>
+                            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+                        </button>
+                        <button class="bottomDelete">
+                            <p class="noMostrarMovil">Eliminar</p>
+                            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+                        </button>
+                    </div>
+                </div>
                 {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </section>
 
     <script defer>
@@ -118,7 +295,7 @@
         const btnEdit = document.getElementById('btn-edit');
         const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
         const btnDelete = document.getElementById('btn-delete');
-        const btnToModule = document.getElementById('btn-to-module')
+        const btnToModule = document.querySelectorAll(".btn-see"); // Seleccionamos correctamente todos los botones "Ver"
 
         formElements.forEach(element => {
             element.disabled = true;
@@ -133,69 +310,108 @@
         })
 
         btnToSchedule.addEventListener('click', () => {
-                const fp_id = btnToSchedule.getAttribute('data-fp-id');
-                window.location.href = `/schedule/view-schedule/${fp_id}`;
+            const fp_id = btnToSchedule.getAttribute('data-fp-id');
+            window.location.href = `/schedule/view-schedule/${fp_id}`;
         });
 
-        btnToModule.addEventListener('click', () => {
-                const module_id = btnToModule.getAttribute('data-module-id');
+        // Bucle para asignar eventos a todos los botones "Ver"
+        btnToModule.forEach(button => {
+            button.addEventListener("click", () => {
+                const module_id = button.getAttribute("data-module-id");
                 window.location.href = `/module/edit/${module_id}`;
+            });
         });
 
 
-            btnDelete.addEventListener('click', () => {
-                const fp_id = btnDelete.getAttribute('data-fp-id');
+        btnDelete.addEventListener('click', () => {
+            const fp_id = btnDelete.getAttribute('data-fp-id');
 
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: 'Esta acción no se puede deshacer',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí, eliminar',
-                    cancelButtonText: 'Cancelar',
-                    customClass: {
-                        confirmButton: 'btn-swal-confirm',
-                        cancelButton: 'btn-swal-cancel'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`/fp/delete/${fp_id}/`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRFToken': '{{ csrf_token }}',
-                            }
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    Swal.fire(
-                                        'Eliminado!',
-                                        'El FP ha sido eliminado.',
-                                        'success'
-                                    ).then(() => {
-                                        window.location.reload();
-                                    });
-                                } else {
-                                    Swal.fire(
-                                        'Error!',
-                                        'Hubo un problema al eliminar el FP.',
-                                        'error'
-                                    );
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                    confirmButton: 'btn-swal-confirm',
+                    cancelButton: 'btn-swal-cancel'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/fp/delete/${fp_id}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'El FP ha sido eliminado.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
                                 Swal.fire(
                                     'Error!',
                                     'Hubo un problema al eliminar el FP.',
                                     'error'
                                 );
-                            });
-                    }
-                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Hubo un problema al eliminar el FP.',
+                                'error'
+                            );
+                        });
+                }
             });
-            
+        });
 
-            
+
+        function toggleHiddenClass() {
+            const phoneButtons = document.querySelector('.phone-buttons');
+            const sideSection = document.querySelector('.side-section');
+
+            if (window.innerWidth <= 700) {
+                phoneButtons.classList.remove('hidden');
+                sideSection.classList.add('hidden');
+            } else {
+                phoneButtons.classList.add('hidden');
+                sideSection.classList.remove('hidden');
+            }
+        }
+
+        toggleHiddenClass();
+
+        window.addEventListener('resize', toggleHiddenClass);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const btnDatos = document.getElementById("btn-datos");
+            const btnModulos = document.getElementById("btn-modulos");
+            const itemEditSide = document.querySelector(".item-edit-side");
+            const sideSection = document.querySelector(".side-section");
+
+            function toggleSections(showEdit) {
+                if (showEdit) {
+                    itemEditSide.classList.remove("hidden");
+                    sideSection.classList.add("hidden");
+                } else {
+                    itemEditSide.classList.add("hidden");
+                    sideSection.classList.remove("hidden");
+                }
+            }
+
+            btnDatos.addEventListener("click", () => toggleSections(true));
+            btnModulos.addEventListener("click", () => toggleSections(false));
+        });
+
     </script>
     {% endblock %}
 </article>
