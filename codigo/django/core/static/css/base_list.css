@@ -94,7 +94,8 @@
 }
 
 .item-table {
-  overflow: scroll;
+  overflow: hidden;
+  height: ;
 }
 
 .item-table table {
@@ -171,6 +172,11 @@ button:hover {
 
 .tableHeaderTitleCSS {
   color: white;
+}
+
+.tableBody{
+  overflow-y: scroll;
+  height: 580px;
 }
 
 .tableRowCSS {
@@ -298,7 +304,7 @@ button:hover {
     width: 2rem;
   }
   .tableRowCSS:last-of-type{
-    margin-bottom: 20%;
+    margin-bottom: 5%;
   }
 }
 
@@ -321,5 +327,4 @@ button:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
 }
