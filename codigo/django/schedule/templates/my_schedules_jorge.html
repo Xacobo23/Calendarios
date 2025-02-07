@@ -11,8 +11,7 @@
 <style>
 
 .main-body-margins{
-    background-color: antiquewhite;
-    margin: 50px 10px 20px 40px;
+    margin: 20px 10px 20px 40px;
     height: 83vh;
 }
     #multiple-courses-body{
@@ -29,11 +28,14 @@
         #available-courses-schedule{
             padding: 20px;
             background-color: rgba(242, 242, 242, 0.5);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
             .available-course-chedule{
                 background-color: white;
                 height: 250px;
-                width: 350px; <!-- tou con esto -->
+                width: 350px;
                 display: flex;
                 flex-direction: column;
                 border-radius: 5px;
@@ -45,10 +47,55 @@
                     justify-content: space-between;
                     align-content: center;
                     background-color: #468DAE;
+                    align-items: center;
+                    padding: 0 15px;
+                    color: white;
+                    border-top-left-radius: inherit;
+                    border-top-right-radius: inherit;
                 }
+                    .course-acronym{
+                        font-weight: bold;
+                    }
+                    .course-modality{
+                        font-size: 12px;
+                    }
+                .course-body{
+                    margin: 15px 15px 10px 15px;
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                }
+                    .course-body-info{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                        flex-grow: 1;
+                    }
+                        .course-duration{
+                            font-size: 14px;
+                        }
+                            .course-duration b{
+                                font-weight: bold;
+                            }
+                    .course-body-action-buttons{
+                        display: flex;
+                        flex-direction: row;
+                        gap: 15px;
+                        height: 30px;
+                        width: 100%;
+                        justify-content: end;
+                    }
+                        .btn-primary{
+                            padding: 10px;
+                            background-color: rgba(70, 141, 174, 0.85);
+                            color: white;
+                            border-radius: 5px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
         #see-all-courses{
             color: #468DAE;
-            display: contents;
         }
 
 </style>
@@ -76,7 +123,37 @@
                         <div class="course-duration">Duración: <b>2</b> años</div>
                     </div>
                     <div class="course-body-action-buttons">
-
+                        <div class="btn-primary">Ver horario</div>
+                    </div>
+                </div>
+            </div>
+            <div class="available-course-chedule">
+                <div class="course-header">
+                    <span class="course-acronym">DAM</span>
+                    <span class="course-modality">distancia</span>
+                </div>
+                <div class="course-body">
+                    <div class="course-body-info">
+                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
+                        <div class="course-duration">Duración: <b>2</b> años</div>
+                    </div>
+                    <div class="course-body-action-buttons">
+                        <div class="btn-primary">Ver horario</div>
+                    </div>
+                </div>
+            </div>
+            <div class="available-course-chedule">
+                <div class="course-header">
+                    <span class="course-acronym">DAM</span>
+                    <span class="course-modality">distancia</span>
+                </div>
+                <div class="course-body">
+                    <div class="course-body-info">
+                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
+                        <div class="course-duration">Duración: <b>2</b> años</div>
+                    </div>
+                    <div class="course-body-action-buttons">
+                        <div class="btn-primary">Ver horario</div>
                     </div>
                 </div>
             </div>
