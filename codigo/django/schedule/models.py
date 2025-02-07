@@ -1,15 +1,7 @@
 from django.db import models
 from module.models import Module
 
-
-class ClassSession(models.Model):
-    # Clave externa que relaciona la sesión con un módulo
-    module = models.ForeignKey(
-        Module, on_delete=models.CASCADE, related_name="class_sessions"
-    )
-
-    # Día de la semana (ej: "Lunes", "Martes", etc.)
-    WEEKDAYS = [
+WEEKDAYS = [
         ("L", "Lunes"),
         ("M", "Martes"),
         ("X", "Miércoles"),
@@ -18,6 +10,15 @@ class ClassSession(models.Model):
         ("S", "Sábado"),
         ("D", "Domingo"),
     ]
+
+class ClassSession(models.Model):
+    # Clave externa que relaciona la sesión con un módulo
+    module = models.ForeignKey(
+        Module, on_delete=models.CASCADE, related_name="class_sessions"
+    )
+
+    # Día de la semana (ej: "Lunes", "Martes", etc.)
+    
     weekday = models.CharField(max_length=1, choices=WEEKDAYS)  # Día de la semana
 
     # Sesiones predefinidas
@@ -53,3 +54,12 @@ class ClassSession(models.Model):
     class Meta:
         # Evita duplicados en la combinación de módulo, día y número de clase
         unique_together = ("module", "session", "class_number")
+
+class ScheduleConfig (models.Model):
+    morning_start_time = models.TimeField()
+    morning_end_time = models.TimeField()
+
+    afternoon_start_time = models.TimeField()
+    afternoon_end_time = models.TimeField()
+
+    session_duration = models.DurationField()

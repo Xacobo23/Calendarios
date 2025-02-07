@@ -68,3 +68,4 @@ def my_schedule(request, fp_id):
 
     return render(request, 'my-schedule.html', data)
 
+
