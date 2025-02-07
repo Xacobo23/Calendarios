@@ -20,10 +20,14 @@
   justify-content: start;
   align-items: center;
   gap: 1em;
-
+  height: 8.5%;
   color: #468dae;
 
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.item-section hr {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .item-title i {
@@ -35,6 +39,7 @@
   justify-content: start;
   align-items: center;
   gap: 1em;
+  height: 8%;
 }
 
 .item-total .number {
@@ -45,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  height: 7%;
   margin-bottom: 1em;
 }
 
@@ -94,14 +99,19 @@
 }
 
 .item-table {
-  overflow: hidden;
-  height: ;
+  display: flex;
+  overflow: ;
+  height: 70%;
 }
 
 .item-table table {
   width: 100%;
-
+  height: 100%;
   border-collapse: collapse;
+}
+
+.tableHeag{
+  height: 15%;
 }
 
 .item-table thead {
@@ -176,7 +186,7 @@ button:hover {
 
 .tableBody{
   overflow-y: scroll;
-  height: 580px;
+  height: 85%;
 }
 
 .tableRowCSS {
@@ -304,7 +314,7 @@ button:hover {
     width: 2rem;
   }
   .tableRowCSS:last-of-type{
-    margin-bottom: 5%;
+    margin-bottom: 15%;
   }
 }
 
