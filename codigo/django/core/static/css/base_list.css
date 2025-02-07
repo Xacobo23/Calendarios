@@ -297,6 +297,9 @@ button:hover {
     height: 2rem;
     width: 2rem;
   }
+  .tableRowCSS:last-of-type{
+    margin-bottom: 20%;
+  }
 }
 
 .teacher-btn {
