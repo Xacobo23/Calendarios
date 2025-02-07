@@ -30,12 +30,12 @@
 
 {% block tableBody %}
 {% for module in modules %}
-<div class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+<div class="tableRowCSS moduleRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ module.id }}</p>
     <p>{{ module.code }}</p>
     <p>{{ module.name }}</p>
-    <p class="noMostrarMovil">{{ module.fp_id }}</p>
-    <p class="noMostrarMovil">{{ module.course }}º</p>
+    <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.fp_id }}</p>
+    <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.course }}º</p>
     <p class="noMostrarMovil">
         {% if module.teachers.all %}
         {% for teacher in module.teachers.all %}
