@@ -4,17 +4,31 @@
 
 {% block itemName %} {{ title }}{% endblock %}
 
-{% block totalItem %} {{ totalFp }} {% endblock %}
-
 {% block addItem %} {{ shortTitle }} {% endblock %}
 
 {% block icon %}
 <i class="fa-solid fa-book"></i>
 {% endblock %}
 
+{% block total %}
+
+<article class="item-total">
+    <p>Número items: <span class="number">{{ totalFp }}</span></p>
+</article>
+
+{% endblock %}
+
+{% block itemActions %}
+<article class="item-actions">
+    <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {{ shortTitle }}</button>
+</article>
+{% endblock %}
+
 {% block welcomeMessage %}
 {% endblock %}
+
 {% block cards %}
+
 {% for fp in fps_data %}
 <div class="item-card">
     <div id="titleCard">
@@ -124,7 +138,7 @@
                             'error'
                         );
                     });
-            }
+                }
             });
         });
     });

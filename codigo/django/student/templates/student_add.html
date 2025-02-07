@@ -1,121 +1,164 @@
 {% extends 'base_manage_item.html' %}
 
-{% block title %}{{ title }}{% endblock %}
-
-{% block css %}
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
-    * {
-        font-family: 'Open Sans', serif;
-        font-weight: 100;
-    }
-
-    form {
-        width: 50%;
-    }
-
-    .form-manage {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5em;
-    }
-
-    .form-section {
-        border-bottom: 1px solid rgba(0, 0, 0, .1);
-        padding-bottom: 1em;
-    }
-
-    .form-section h3 {
-        font-weight: 500;
-        color: #468DAE;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1em;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: .5em;
-    }
-
-    .form-group input {
-        padding: 1em;
-        border: none;
-        border-radius: .5em;
-        outline: none;
-        background-color: rgba(242, 242, 242, .5);
-    }
-
-    .btn-save {
-        background-color: #468DAE;
-        color: white;
-        border: none;
-        border-radius: .5em;
-        padding: 1em 4em;
-        cursor: pointer;
-    }
-</style>
-{% endblock %}
-
-{% block form %}
 {% block icon %}
 <i class="fa-solid fa-user"></i>
 {% endblock %}
+
+{% block identifier %}
+{{ identifier }}
+{% endblock %}
+
+{% block inputValue %} {{ id }} {% endblock %}
+
+
+{% block form %}
 <article class="item-main">
     <section class="item-edit-side">
-        <h2>Añadir usuario</h2>
-
-        <form method="post" class="form-manage">
+        <form method="post" class="form-manage" id="form-manage">
+            <h2>Datos personales</h2>
             {% csrf_token %}
-
-            <!-- DATOS PERSONALES -->
-            <div class="form-section">
-                <h3>Datos Personales</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="{{ form.dni.id_for_label }}">{{ form.dni.label }}</label>
-                        {{ form.dni }}
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                        {{ form.first_name }}
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.dni.id_for_dni }}">{{ form.dni.label }}</label>
+                    {{ form.dni }}
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="{{ form.apel1.id_for_label }}">{{ form.apel1.label }}</label>
-                        {{ form.apel1 }}
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.apel2.id_for_label }}">{{ form.apel2.label }}</label>
-                        {{ form.apel2 }}
-                    </div>
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_username }}">{{ form.username.label }}</label>
+                    {{ form.username }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_first_name }}">{{ form.first_name.label }}</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_last_name }}">{{ form.last_name.label}} </label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <h2>Contacto</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_email }}">{{ form.email.label }}</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.phone.id_for_phone }}">{{ form.phone.label }}</label>
+                    {{ form.phone }}
+                </div>
+            </div>
+            <h2>Inicio de sesión</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email_login">Email de inicio de sesión</label>
+                    <input type="email">
+                </div>
+                <div class="form-group restart_password_container">
+                    <label for="restart_password" class="checkbox-label">
+                        <input type="checkbox" id="restart_password" class="styled-checkbox">
+                        <span class="checkbox-text">Cambio de contraseña en el siguiente inicio de sesión</span>
+                    </label>
                 </div>
             </div>
 
-            <!-- CONTACTO -->
-            <div class="form-section">
-                <h3>Contacto</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                        {{ form.email }}
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
-                        {{ form.phone }}
-                    </div>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                    {{ message }}
                 </div>
+                {% endfor %}
             </div>
+            {% endif %}
 
-
-            <button type="submit" class="btn btn-save">Añadir usuario</button>
+            <button type="submit" class="btn btn-save">Guardar</button>
         </form>
     </section>
+    {% endblock %}
+
+    <script defer>
+        const btnToSchedule = document.getElementById('btn-to-schedule');
+        const btnEdit = document.getElementById('btn-edit');
+        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
+        const btnDelete = document.getElementById('btn-delete');
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        })
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+            });
+
+            btnEdit.disabled = true;
+        })
+
+        btnToSchedule.addEventListener('click', () => {
+            const fp_id = btnToSchedule.getAttribute('data-fp-id');
+            window.location.href = `/schedule/view-schedule/${fp_id}`;
+        });
+
+
+        btnDelete.addEventListener('click', () => {
+            const fp_id = btnDelete.getAttribute('data-fp-id');
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                    confirmButton: 'btn-swal-confirm',
+                    cancelButton: 'btn-swal-cancel'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/fp/delete/${fp_id}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'El FP ha sido eliminado.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    'Hubo un problema al eliminar el FP.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Hubo un problema al eliminar el FP.',
+                                'error'
+                            );
+                        });
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('.form-control').select2();
+        });
+
+
+
+    </script>
 </article>
-{% endblock %}

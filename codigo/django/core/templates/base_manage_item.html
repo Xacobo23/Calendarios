@@ -47,6 +47,16 @@
         display: flex;
         gap: 1em;
         flex-direction: row;
+        align-items: center;
+    }
+
+    .display-id input {
+        padding: 1em;
+
+        background-color: #f9f9f9;
+
+        border: none;
+        border-radius: .5em;
     }
 
     .item-actions {
@@ -231,6 +241,109 @@
         font-weight: 500;
     }
 
+    select {
+        padding: .5em;
+
+        border: none;
+        border-radius: .5em;
+
+        background-color: #f9f9f9;
+    }
+
+/* Estilos generales de los mensajes */
+.message-box {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+}
+
+/* Botón para cerrar el mensaje */
+.close-message {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Estilos según el tipo de mensaje */
+.success {
+    background-color: #28a745;
+}
+
+.error {
+    background-color: #dc3545;
+}
+
+.warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.info {
+    background-color: #17a2b8;
+}
+
+/* Efecto de aparición suave */
+.message-box {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos para el contenedor del checkbox */
+.restart_password_container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+/* Estilo para el checkbox */
+.styled-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.styled-checkbox:checked {
+    background-color: #4CAF50; /* Verde */
+    border-color: #4CAF50;
+}
+
+.styled-checkbox:checked::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 6px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+/* Texto del checkbox */
+.checkbox-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+
 </style>
 {% endblock %}
 
@@ -240,14 +353,13 @@
     <article class="item-title">
         {% block icon %}
         {% endblock %}
-        <h2>{{ type }}/<small>{% block identifier %}{% endblock %}</small></h2>
+        <h2>{{ type }} / <small>{% block identifier %}{% endblock %}</small></h2>
     </article>
     {% endblock %}
     <article class="item-actions">
         <div class="display-id">
             <span>ID</span>
-            <input type="text" value="{% block id %}{% endblock %}" disabled>
-
+            <input class="inputId" type="text" value="{% block inputValue %}{% endblock %}" disabled>
         </div>
         {% block buttons %}
         {% endblock %}

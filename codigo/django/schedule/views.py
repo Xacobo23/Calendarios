@@ -9,9 +9,13 @@ from session.models import Session
 def select_schedule(request):
     fps = FP.objects.all()
 
+    total_fp = fps.count()
+
     data = {
         'title': 'Horarios',
         'fps': fps,
+        'shortTitle': 'Horario',
+        'totalFp': total_fp
     }
 
     return render(request, 'schedule_select.html', data)

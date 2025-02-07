@@ -161,9 +161,10 @@ button:hover {
 
 .tableHeaderCSS {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr 4fr 2fr;
   justify-items: start;
   padding-left: 1rem;
+
   background-color: #468dae;
   color: white;
 }
@@ -296,4 +297,26 @@ button:hover {
     height: 2rem;
     width: 2rem;
   }
+}
+
+.teacher-btn {
+  display: inline-block;
+  padding: 0em .5em;
+  background-color: #468dae;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.teacher-btn:hover {
+  background-color: #356d8c;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
 }

@@ -224,3 +224,16 @@
 .swal2-cancel.btn-swal-cancel {
     background-color: #DB5D5D;
 }
+
+.btn-add-tuition {
+    background-color: #7ED9AE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: 1em 2em;
+
+    font-size: 1.5em;
+
+}

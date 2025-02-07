@@ -4,6 +4,7 @@ from django.conf.urls import handler404
 
 from . import views
 
+# En esta vista se define la vista cuando no se encuentra una página.
 def error_404_view (request, exception):
     data = {
         'title': 'Not Found',
@@ -16,5 +17,4 @@ handler404 = error_404_view
 
 urlpatterns = [
     path('', views.homepage, name='homepage'),  
-    # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]

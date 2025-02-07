@@ -9,50 +9,7 @@
 {% endblock %}
 
 {% block js %}
-<script defer>
-    function deleteStudent(studentId) {
-        if (confirm('¿Estás seguro de eliminar este estudiante?')) {
-            fetch(`/student/delete/${studentId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ 'id': studentId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Estudiante eliminado correctamente');
-                        document.getElementById(`student-${studentId}`).remove();
-                    } else {
-                        alert('Error al eliminar el estudiante');
-                    }
-                });
-        }
-    }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const btnVer = document.querySelectorAll('.bottomSee');
-
-        btnVer.forEach(btn => {
-            btn.addEventListener('click', () => {
-                let student_id = btn.getAttribute('data-student-id'); // Obtener el ID del estudiante
-                let currentUrl = window.location.href;
-
-                if (currentUrl.endsWith('/')) {
-                    currentUrl = currentUrl.slice(0, -1);
-                }
-
-                let newUrl = currentUrl.includes('/list')
-                    ? currentUrl.replace('/list', '/edit/' + student_id)
-                    : currentUrl + '/edit/' + student_id;
-
-                window.location.href = newUrl;
-            });
-        });
-    });
-</script>
 {% endblock %}
 
 {% block itemName %} {{ title }} {% endblock %}
@@ -79,7 +36,7 @@
 {% for student in students %}
 <div class="tableRowCSS {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ student.id }}</p>
-    <p class="">{{ student.dni }}</p>
+    <p class="">{{ student.dni | upper }}</p>
     <p>{{ student.first_name }}</p>
     <p class="noMostrarMovil">{{ student.last_name }}</p>
     <p class="noMostrarMovil">{{ student.phone }}</p>
@@ -89,12 +46,90 @@
             <p class="noMostrarMovil">Ver</p>
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
-        <button class="bottomDelete" onclick="deleteStudent({{ student.id }})">
+        <button class="bottomDelete" data-student-id="{{ student.id }}">
             <p class="noMostrarMovil">Eliminar</p>
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
     </div>
 </div>
 {% endfor %}
+
+<script defer>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnVer = document.querySelectorAll('.bottomSee');
+
+        btnVer.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let student_id = btn.getAttribute('data-student-id'); // Obtener el ID del estudiante
+                let currentUrl = window.location.href;
+
+                if (currentUrl.endsWith('/')) {
+                    currentUrl = currentUrl.slice(0, -1);
+                }
+
+                let newUrl = currentUrl.includes('/list')
+                    ? currentUrl.replace('/list', '/edit/' + student_id)
+                    : currentUrl + '/edit/' + student_id;
+
+                window.location.href = newUrl;
+            });
+        });
+    });
+
+    const deleteBtn = document.querySelectorAll('.bottomDelete');
+
+    deleteBtn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const student_id = btn.getAttribute('data-student-id');
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                    confirmButton: 'btn-swal-confirm',
+                    cancelButton: 'btn-swal-cancel'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/student/delete/${student_id}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'El alumno ha sido eliminado.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    'Hubo un problema al eliminar el alumno.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Hubo un problema al eliminar el alumno.',
+                                'error'
+                            );
+                        });
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock %}

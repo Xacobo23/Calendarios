@@ -42,12 +42,11 @@ INSTALLED_APPS = [
     "classroom",
     "teacher",
     "session",
-    #'admin',
     "core",
-    #'bootstrap5',
     "student",
     "user",
     "schedule",
+    'tuition',
 ]
 
 MIDDLEWARE = [

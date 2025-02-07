@@ -335,11 +335,11 @@ main {
 
 /* TODO: Quitar important */
 .selected {
-    color: #F26B1D !important;
+    /* color: #F26B1D !important; */
 
     border-left: 4px solid #F26B1D;
 }
 
-.selected a {
+.selected i {
     color: #F26B1D;
 }

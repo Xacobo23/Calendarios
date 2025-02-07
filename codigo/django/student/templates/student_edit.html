@@ -1,6 +1,8 @@
 {% extends 'base_manage_item.html' %}
 
-{% block inputValue %} {{ id }} {% endblock %}
+{% block icon %}
+<i class="fa-solid fa-user"></i>
+{% endblock %}
 
 {% block buttons %}
 <div class="action-buttons">
@@ -14,79 +16,112 @@
 {{ dni }}
 {% endblock %}
 
-{% block id %}
-{{ student_id }}
-{% endblock %}
+{% block inputValue %} {{ student_id }} {% endblock %}
+
 
 {% block form %}
 <article class="item-main">
     <section class="item-edit-side">
-        <h2>Datos del alumno</h2>
-
         <form method="post" class="form-manage" id="form-manage">
+            <h2>Datos personales</h2>
             {% csrf_token %}
             <div class="form-row">
                 <div class="form-group">
-                    <label for="{{ form.dni.id_for_dni}}">{{ form.dni.label }}</label>
+                    <label for="{{ form.dni.id_for_dni }}">{{ form.dni.label }}</label>
                     {{ form.dni }}
                 </div>
+
                 <div class="form-group">
-                    <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label}}</label>
-                    {{ form.first_name }}
+                    <label for="{{ form.username.id_for_username }}">{{ form.username.label }}</label>
+                    {{ form.username }}
                 </div>
             </div>
-
             <div class="form-row">
                 <div class="form-group">
-                    <label for="{{ form.apel1.id_for_apel1}}">{{ form.apel1.label }}</label>
-                    {{ form.apel1 }}
+                    <label for="{{ form.first_name.id_for_first_name }}">{{ form.first_name.label }}</label>
+                    {{ form.first_name }}
                 </div>
                 <div class="form-group">
-                    <label for="{{ form.apel2.id_for_apel1}}">{{ form.apel2.label }}</label>
-                    {{ form.apel2 }}
+                    <label for="{{ form.last_name.id_for_last_name }}">{{ form.last_name.label}} </label>
+                    {{ form.last_name }}
                 </div>
             </div>
-
             <h2>Contacto</h2>
-
             <div class="form-row">
                 <div class="form-group">
                     <label for="{{ form.email.id_for_email }}">{{ form.email.label }}</label>
                     {{ form.email }}
                 </div>
+            
                 <div class="form-group">
-                    <label for="phone">Teléfono</label>
+                    <label for="{{ form.phone.id_for_phone }}">{{ form.phone.label }}</label>
                     {{ form.phone }}
                 </div>
             </div>
-
-            <h2>Login</h2>
+            <h2>Inicio de sesión</h2>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="{{ form.loginEmail.id_for_loginEmail }}">{{ form.loginEmail.label }}</label>
-                    {{ form.loginEmail }}
+                    <label for="email_login">Email de inicio de sesión</label>
+                    <input type="email">
                 </div>
-                <div class="form-group">
-                    <label for="{{ form.loginPassword.id_for_loginPassword }}">{{ form.loginPassword.label }}</label>
-                    {{ form.loginPassword }}
+                <div class="form-group restart_password_container">
+                    <label for="restart_password" class="checkbox-label">
+                        <input type="checkbox" id="restart_password" class="styled-checkbox">
+                        <span class="checkbox-text">Cambio de contraseña en el siguiente inicio de sesión</span>
+                    </label>
                 </div>
+            </div>
 
-                {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                    <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
-                        {{ message }}
-                    </div>
-                    {% endfor %}
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                    {{ message }}
                 </div>
-                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
 
-                <button type="submit" class="btn btn-save">Guardar</button>
+            <button type="submit" class="btn btn-save">Guardar</button>
         </form>
     </section>
     {% endblock %}
 
     {% block side %}
+    <section class="side-section">
+        <h2>Módulos impartidos</h2>
+        <a href="{% url 'module_add' %}">
+            <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
+                <i class="fa-solid fa-plus"></i> Añadir módulo
+            </button>
+        </a>
+
+        <table class="modules-table">
+            <thead>
+                <tr>
+                    <td>Código</td>
+                    <td>Nombre</td>
+                    <td>Curso</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for module in asociated_modules %}
+                <tr>
+                    <td>{{ module.code }}</td>
+                    <td>{{ module.name }}</td>
+                    <td>{{ module.course }}</td>
+                    <td class="td-buttons">
+                        <button type="button" class="btn-see" id="btn-to-module"
+                            data-module-id="{{ module.id }}">Ver</button>
+                        <button type="button" class="btn-delete" id="btn-delete-module"
+                            data-module-id="{{ module.id }}">Eliminar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 
     <script defer>
         const btnToSchedule = document.getElementById('btn-to-schedule');
