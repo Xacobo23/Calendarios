@@ -43,11 +43,11 @@
     <p class="noMostrarMovil">{{ student.email }}</p>
     <div class="tableBottomsCSS">
         <button class="bottomSee" data-student-id="{{ student.id }}">
-            <p class="noMostrarMovil">Ver</p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
         <button class="bottomDelete" data-student-id="{{ student.id }}">
-            <p class="noMostrarMovil">Eliminar</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin">
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
     </div>
@@ -60,7 +60,7 @@
 
         btnVer.forEach(btn => {
             btn.addEventListener('click', () => {
-                let student_id = btn.getAttribute('data-student-id'); // Obtener el ID del estudiante
+                let student_id = btn.getAttribute('data-student-id'); 
                 let currentUrl = window.location.href;
 
                 if (currentUrl.endsWith('/')) {
