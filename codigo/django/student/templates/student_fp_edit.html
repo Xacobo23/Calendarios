@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% load static %}
+
+{% block css %}
+<style>
+
+.item-section {
+    margin-right: 1em;
+}
+
+.item-title {
+    color: #468dae;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+}
+
+.item-title i {
+    font-size: 1.5em;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.item-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-delete {
+  background-color: #db5d5d;
+  color: white;
+
+  border: none;
+  border-radius: 0.5em;
+
+  padding: 1em 2em;
+
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+    opacity: .8em;
+}
+
+label[for='student'] {
+    font-weight: bold;
+}
+
+#input-student {
+    border: none;
+    border-radius: .5em;
+
+    padding: .5em;
+
+    background-color: #f9f9f9;
+}
+
+.item-tables {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.card-title {
+    background-color: #468DAE;
+    color: white;
+
+    font-weight: 400;
+
+    margin: 0;
+    padding: .5em;
+
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.card-description {
+    border: white .6em solid;
+    height: 20%;
+
+}
+
+.card-duration {
+    padding: .6em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: end;
+
+    padding: .5em;
+}
+
+.card-btn-see {
+    background-color: #468DAE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .6em 2em;
+}
+
+.see-fp {
+       display: flex; 
+       justify-content: end;
+}
+
+.tuition-card {
+    width: 100%;
+
+    border-radius: .5em;
+    border: 1px solid rgba(242, 242, 242, 1);
+}
+
+.tableFpCard {
+    padding: 1em;
+}
+
+.tableHeaderCSS {
+    background-color: #468DAE;
+    color: white;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr 3fr;
+
+    padding: .5em;
+}
+
+.evenRow {
+    background-color: #f9f9f9;
+}
+
+.tableRowCSS {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr 3fr;
+
+    padding: .5em;
+}
+
+.tableBody {
+    margin-top: 1em;
+}
+
+.teacher-btn {
+  display: inline-block;
+  padding: 0em .5em;
+  background-color: #468dae;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.teacher-btn:hover {
+  background-color: #356d8c;
+}
+
+.tableBottomsCSS {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.tableBottomsCSS button {
+    border: none;   
+    border-radius: .5em;
+
+    padding: 0 2em;
+
+    cursor: pointer;
+}
+
+.bottomSee {
+    background-color: #356d8c;
+}
+
+.bottomDelete {
+    background-color: #db5d5d;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="item-section">
+    <article class="item-title">
+        <i class="fa-solid fa-user"></i>
+        <h2 class="general-title"><span class="title">Alumnos</span> / <small>{{ student_dni }} / {{ fp.initials }}</small></h2>
+    </article>
+    <hr style="opacity: .2;">
+    <article class="item-actions">
+        <form class="form-item-filters">
+            <label for="student">Alumno: </label>
+            <input type="text" id="input-student" value="{{ student.first_name }} {{ student.last_name }}" disabled>
+        </form>
+
+        <button id="add-item-btn" class="btn-delete">
+            <div class="noMostrarMovil">
+                <i class="fa-solid fa-user-minus"></i> Desmatricular del ciclo 
+            </div>
+        </button>
+
+    </article>
+    <article class="item-tables">
+        <div class="tableFpCard">
+            <div style="background-color: white; " class="tuition-card">
+                <div id="titleCard">
+                    <h3 class="card-title">{{ fp.initials }}</h3>
+                    <div class="expand">
+                        <div class="_layerm -vertical"></div>
+                        <div class="_layerm -horizontal"></div>
+                    </div>
+                </div>
+                <div class="card-content" style="padding: .5em;">
+                    <p class="fp-name">{{ fp.short_name }}</p>
+                    <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
+                    <p class="duration">Duración: {{ fp.duration }} años</p>
+                </div>
+            </div>
+        </div>
+        <div class="tableBody">
+            <table>
+                <thead>
+                    <div class="tableHeaderCSS moduleList">
+                        <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
+                        <h3 class="tableHeaderTitleCSS">Código</h3>
+                        <h3 class="tableHeaderTitleCSS">Nombre</h3>
+                        <h3 class="tableHeaderTitleCSS noMostrarMovil">Ciclo Formativo</h3>
+                        <h3 class="tableHeaderTitleCSS noMostrarMovil">Curso</h3>
+                        <h3 class="tableHeaderTitleCSS noMostrarMovil">Profesor/es</h3>
+                        <div class="tableHeaderTitleCSS"></div>
+                    </div>
+                </thead>
+                <tbody>
+                    {% for module in modules %}
+                    <div class="tableRowCSS moduleRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+                        <p class="noMostrarMovil">{{ module.id }}</p>
+                        <p>{{ module.code }}</p>
+                        <p>{{ module.name }}</p>
+                        <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.fp.initials }}</p>
+                        <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.course }}º</p>
+                        <p class="noMostrarMovil">
+                            {% if module.teachers.all %}
+                            {% for teacher in module.teachers.all %}
+                            <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">{{ teacher.name }} 
+                                {{ teacher.last_name }}</a>{% if not forloop.last %} {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            No asignado
+                            {% endif %}
+                        </p>
+                    
+                    
+                        <div class="tableBottomsCSS">
+                            <button class="bottomSee" data-module-id="{{ module.id }}">
+                                <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+                            </button>
+                            <button class="bottomDelete">
+                                <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+
+{% endblock %}

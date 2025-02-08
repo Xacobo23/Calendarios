@@ -181,7 +181,7 @@
                     <p class="fp-name">{{ fp.short_name }}</p>
                     <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
                     <p class="duration">Duración: {{ fp.duration }}</p>
-                    <p class="see-fp"><button class="btn-see">Ver</button></p>
+                    <p class="see-fp"><button class="btn-see" data-fp-id="{{ fp.id }}" data-student-id="{{ student_id }}">Ver</button></p>
                 </div>
             </div>
             {% endfor %}
@@ -192,6 +192,18 @@
         const btnEdit = document.getElementById('btn-edit');
         const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
         const btnDelete = document.getElementById('btn-delete');
+        const btnSeeFp = document.querySelectorAll('.btn-see');
+
+        btnSeeFp.forEach(btn => {
+            btn.addEventListener ('click', () => {
+                let student_id = btn.getAttribute('data-student-id');
+                let fp_id = btn.getAttribute('data-fp-id');
+
+                let newUrl = `/student/edit-fp/${student_id}/${fp_id}`;
+
+                window.location.href = newUrl;
+            });
+        });
 
         formElements.forEach(element => {
             element.disabled = true;

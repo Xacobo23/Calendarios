@@ -121,3 +121,26 @@ def restore_password(request, student_id):
 
 
     return redirect('student_list')
+
+def student_fp_edit (request, student_id, fp_id):
+    student = get_object_or_404(get_user_model(), id=student_id)
+
+    fp_instance = get_object_or_404(FP, id=fp_id)
+    asociated_modules = []
+
+    if fp_instance is not None:
+        asociated_modules = fp_instance.modulos.all()
+
+    student_dni = student.dni
+
+    data = {
+        'title': 'Editar matrícula',
+        'student_dni': student_dni,
+        'fp': fp_instance,
+        'student': student,
+        'modules': asociated_modules
+    }
+
+    return render(request, 'student_fp_edit.html', data)
+
+    

@@ -1,5 +1,9 @@
 {% extends 'base_manage_item.html' %}
 
+{% block icon %}
+<i class="fa-solid fa-book"></i>
+{% endblock %}
+
 {% load static %}
 
 {% block buttons %}
@@ -277,11 +281,9 @@
                     <p>{{ module.course }}</p>
                     <div class="tableBottomsCSS">
                         <button class="bottomSee" data-module-id="{{ module.id }}">
-                            <p class="noMostrarMovil">Ver</p>
                             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
                         </button>
                         <button class="bottomDelete">
-                            <p class="noMostrarMovil">Eliminar</p>
                             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
                         </button>
                     </div>
