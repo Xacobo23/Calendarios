@@ -4,8 +4,6 @@
     gap: 1em;
 
     justify-items: center;
-
-
 }
 
 .item-card {
@@ -13,8 +11,6 @@
     border-radius: .5em;
     z-index: 20;
     width: 100%;
-
-
 }
 
 .manage-items {
@@ -62,8 +58,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     /* Agrega "..." cuando el texto se corta */
-    width: 300px;
-    /* Ajusta el ancho según necesidad */
+    max-width: 100%;   
+     /* Ajusta el ancho según necesidad */
     white-space: normal;
 }
 
