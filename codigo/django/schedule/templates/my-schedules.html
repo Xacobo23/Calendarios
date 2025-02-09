@@ -9,102 +9,104 @@
 <link rel="stylesheet" href="{% static 'css/base_select.css' %}">
 
 <style>
-    .schedule-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        padding: 1em;
-    }
 
-    .guess-title {
-        font-size: 1.5em;
-        font-weight: 500;
-        margin-bottom: 0.5em;
-    }
-
-    .schedule-section {
-        width: 50%;
-        max-width: 600px;
-        padding: 1.5em;
-        border-radius: 0.5em;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        background-color: #fff;
-    }
-
-    .schedule-cards {
-        display: flex;
-        flex-direction: row;
-        gap: 1em;
-        padding: 1em 0;
-
-        overflow: scroll;
-    }
-
-    .item-card {
-        min-width: 250px;
-        border-radius: 0.5em;
-        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        background-color: #f9f9f9;
-    }
-
-    .card-schedule-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        background-color: #468DAE;
-        color: white;
-
-        padding: 0 .5em;
-    }
-
-    .card-initials {
-        font-weight: 500;
-    }
-
-    .noTitleGroup {
-        padding: 1em;
-        text-align: left;
-    }
-
-    .card-description {
-        width: 100%;
-        height: 60px;
-        resize: none;
-        border: none;
-        padding: 0.5em;
-        font-size: 0.9em;
-        background: #f3f3f3;
-    }
-
-    .DurationActionGroup {
+.main-body-margins{
+    margin: 20px 10px 20px 40px;
+    height: 83vh;
+}
+    #multiple-courses-body{
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 0.5em;
+        padding: 10% 5% 15% 10%;
+        gap: 20px;
     }
+        #multiple-courses-title{
+            font-size: 24px;
+            font-weight: bold;
+            max-width: 49ch;
+        }
+        #available-courses-schedule{
+            padding: 20px;
+            background-color: rgba(242, 242, 242, 0.5);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+            .available-course-chedule{
+                background-color: white;
+                height: 250px;
+                width: 350px;
+                display: flex;
+                flex-direction: column;
+                border-radius: 5px;
+            }
+                .course-header{
+                    height: 20%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-content: center;
+                    background-color: #468DAE;
+                    align-items: center;
+                    padding: 0 15px;
+                    color: white;
+                    border-top-left-radius: inherit;
+                    border-top-right-radius: inherit;
+                }
+                    .course-acronym{
+                        font-weight: bold;
+                    }
+                    .course-modality{
+                        font-size: 12px;
+                    }
+                .course-body{
+                    margin: 15px 15px 10px 15px;
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                }
+                    .course-body-info{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                        flex-grow: 1;
+                    }
+                        .course-duration{
+                            font-size: 14px;
+                        }
+                            .course-duration b{
+                                font-weight: bold;
+                            }
+                    .course-body-action-buttons{
+                        display: flex;
+                        flex-direction: row;
+                        gap: 15px;
+                        height: 30px;
+                        width: 100%;
+                        justify-content: end;
+                    }
+                        .course-body-action-buttons a{
+                            text-decoration: none;
+                        }
+                        .btn-primary{
+                            height: 100%;
+                            padding: 0 10px;
+                            background-color: rgba(70, 141, 174, 0.85);
+                            color: white;
+                            border-radius: 5px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            text-decoration: none;
+                        }
+                        .btn-primary:hover{
+                            cursor: pointer;
+                            background-color: rgba(70, 141, 174, 1);
+                        }
+        #see-all-courses{
+            color: #468DAE;
+        }
 
-    .card-actions {
-        display: flex;
-        justify-content: center;
-    }
-
-    .card-btn-see {
-        padding: 0.5em 1em;
-        border: none;
-        border-radius: 0.3em;
-        background-color: #468DAE;
-        color: white;
-        cursor: pointer;
-        transition: background 0.3s ease;
-    }
-
-    .card-btn-see:hover {
-        background-color: #3b7c99;
-    }
 </style>
 {% endblock %}
 
@@ -114,31 +116,62 @@
     <h2>{{ title }}</h2>
 </article>
 
-<section class="schedule-wrapper">
-    <article class="schedule-section">
-        <article class="item-message">
-            <h3 class="guess-title">Parece que estás matriculado en más de un ciclo!</h3>
-            <p>Selecciona un ciclo para ver su horario:</p>
-        </article>
-        <article class="schedule-cards">
-            {% for fp in fps %}
-                <div class="item-card">
-                    <div class="card-schedule-title">
-                        <h3 class="card-initials">{{ fp.initials }}</h3>
-                        <span class="card-type">Distancia</span>
+<div class="main-body-margins">
+    <article id="multiple-courses-body">
+        <p id="multiple-courses-title">Parece estar matriculado en más de un ciclo formativo, puede:</p>
+        <div>Seleccionar un ciclo para ver el horario:</div>
+        <section id="available-courses-schedule">
+            <!-- plantilla para cada ciclo -->
+            <div class="available-course-chedule">
+                <div class="course-header">
+                    <span class="course-acronym">DAM</span>
+                    <span class="course-modality">distancia</span>
+                </div>
+                <div class="course-body">
+                    <div class="course-body-info">
+                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
+                        <div class="course-duration">Duración: <b>2</b> años</div>
                     </div>
-                    <div class="noTitleGroup">
-                        <textarea class="card-description">{{ fp.short_name }}</textarea>
-                        <div class="DurationActionGroup">
-                            <p class="card-duration">Duración: {{ fp.duration }} años</p>
-                            <section class="card-actions">
-                                <button class="card-btn-see" data-fp-id="{{ fp.id }}">Ver horario</button>
-                            </section>
-                        </div>
+                    <div class="course-body-action-buttons">
+                        <a href=""><div class="btn-primary">Ver horario</div></a>
                     </div>
                 </div>
-            {% endfor %}
-        </article>
+            </div>
+            <!-- END plantilla para cada ciclo -->
+            <div class="available-course-chedule">
+                <div class="course-header">
+                    <span class="course-acronym">DAM</span>
+                    <span class="course-modality">distancia</span>
+                </div>
+                <div class="course-body">
+                    <div class="course-body-info">
+                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
+                        <div class="course-duration">Duración: <b>2</b> años</div>
+                    </div>
+                    <div class="course-body-action-buttons">
+                        <a href=""><div class="btn-primary">Ver horario</div></a>
+                    </div>
+                </div>
+            </div>
+            <div class="available-course-chedule">
+                <div class="course-header">
+                    <span class="course-acronym">DAM</span>
+                    <span class="course-modality">distancia</span>
+                </div>
+                <div class="course-body">
+                    <div class="course-body-info">
+                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
+                        <div class="course-duration">Duración: <b>2</b> años</div>
+                    </div>
+                    <div class="course-body-action-buttons">
+                        <a href=""><div class="btn-primary">Ver horario</div></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <a href="" id="see-all-courses">Ver los horarios fusionados</a>
     </article>
-</section>
+
+</div>
+
 {% endblock %}
