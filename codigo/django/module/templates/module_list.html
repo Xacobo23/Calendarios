@@ -30,16 +30,16 @@
 
 {% block tableBody %}
 {% for module in modules %}
-<div class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+<div class="tableRowCSS moduleRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ module.id }}</p>
     <p>{{ module.code }}</p>
     <p>{{ module.name }}</p>
-    <p class="noMostrarMovil">{{ module.fp_id }}</p>
-    <p class="noMostrarMovil">{{ module.course }}º</p>
+    <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.fp.initials }}</p>
+    <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.course }}º</p>
     <p class="noMostrarMovil">
         {% if module.teachers.all %}
         {% for teacher in module.teachers.all %}
-        <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">{{ teacher.name }} {{ teacher.last_name }}</a>{% if not forloop.last %}, {% endif %}
+        <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">{{ teacher.name }} {{ teacher.last_name }}</a>{% if not forloop.last %} {% endif %}
         {% endfor %}
         {% else %}
         No asignado
@@ -49,11 +49,11 @@
     
     <div class="tableBottomsCSS">
         <button class="bottomSee" data-module-id="{{ module.id }}">
-            <p class="noMostrarMovil">Ver</p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
         <button class="bottomDelete">
-            <p class="noMostrarMovil">Eliminar</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin">
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
     </div>

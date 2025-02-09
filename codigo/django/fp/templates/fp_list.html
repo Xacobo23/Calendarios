@@ -4,12 +4,26 @@
 
 {% block itemName %} {{ title }}{% endblock %}
 
-{% block totalItem %} {{ totalFp }} {% endblock %}
-
 {% block addItem %} {{ shortTitle }} {% endblock %}
+
+{% load static %}
 
 {% block icon %}
 <i class="fa-solid fa-book"></i>
+{% endblock %}
+
+{% block total %}
+
+<article class="item-total">
+    <p>Número items: <span class="number">{{ totalFp }}</span></p>
+</article>
+
+{% endblock %}
+
+{% block itemActions %}
+<article class="item-actions">
+    <button id="add-item-btn" class="add-item-btn"><i class="fa-solid fa-plus"></i> Nuevo {{ shortTitle }}</button>
+</article>
 {% endblock %}
 
 {% block welcomeMessage %}
@@ -34,8 +48,8 @@
             <p class="card-duration">Duración: {{ fp.duration }} años</p>
 
             <section class="card-actions">
-                <button class="card-btn-see bottomSee" data-fp-id="{{ fp.id }}">Ver</button>
-                <button class="card-btn-delete" data-fp-id="{{ fp.id }}">Eliminar</button>
+                <button class="card-btn-see bottomSee" data-fp-id="{{ fp.id }}"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></button>
+                <button class="card-btn-delete" data-fp-id="{{ fp.id }}"><img src="{% static 'images/svg/bin.svg' %}" alt="bin"></button>
             </section>
         </div>
     </div>
@@ -47,7 +61,7 @@
     document.getElementById("textAreaDescription").addEventListener("input", function () {
         let lineas = this.value.split("\n");
         if (lineas.length > 1) {
-            this.value = lineas[0]; // Mantiene solo la primera línea
+            this.value = lineas[0]; 
         }
     });
 </script>
@@ -126,7 +140,7 @@
                             'error'
                         );
                     });
-            }
+                }
             });
         });
     });

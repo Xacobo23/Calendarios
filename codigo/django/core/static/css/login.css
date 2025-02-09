@@ -136,6 +136,11 @@ main {
     text-decoration: underline;
 }
 
+::-webkit-validation-bubble-message{
+    color: red;
+}
+
+
 @media (min-width: 768px) {
     .estatua {
         display: none;
@@ -149,7 +154,7 @@ main {
         height: 100vh;
     }
 
-    #container-icons{
+    #container-icons {
         display: none;
     }
 }
@@ -207,10 +212,13 @@ main {
         opacity: 20%;
         width: 100vw;
         height: 100vh;
-        overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga */
+        overflow: hidden;
+        /* Oculta cualquier parte de la imagen que sobresalga */
     }
+
     .estatua {
-        width: 125%; /* Si necesitas que sea más grande */
+        width: 125%;
+        /* Si necesitas que sea más grande */
         transform: translateY(20%) translateX(25%);
         overflow: hidden;
     }

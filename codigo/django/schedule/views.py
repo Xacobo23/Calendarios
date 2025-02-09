@@ -5,6 +5,7 @@ from django.contrib import messages
 from fp.models import FP
 from module.models import Module, Enrolled
 from session.models import Session
+from .models import ScheduleConfig, ClassSession, WEEKDAYS
 
 def select_schedule(request):
     fps = FP.objects.all()
@@ -23,9 +24,18 @@ def select_schedule(request):
 def view_schedule(request, fp_id):
     fp = get_object_or_404(FP, id=fp_id)
 
+    schedule_config = ScheduleConfig.objects.first()
+
+    sessions_by_day = {}
+
+    for weekday in ['L', 'M', 'X', 'J', 'V', 'S']:
+        sessions_by_day[weekday] = ClassSession.objects.filter(weekday=weekday).order_by('session', 'class_number')
+    
     data = {
         'title': 'Horario',
         'fp': fp,
+        'schedule_config': schedule_config,
+        'WEEKDAYS': dict(WEEKDAYS)
     }
 
     return render(request, 'schedule_view.html', data)
@@ -67,4 +77,5 @@ def my_schedule(request, fp_id):
     }
 
     return render(request, 'my-schedule.html', data)
+
 

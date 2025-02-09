@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block css %}
+<style>
+    .item-title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1em;
+
+        color: #468dae;
+
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .item-title i {
+        font-size: 1.5em;
+    }
+
+    .section-add-tuition {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 10em;
+    }
+
+    .btn-add-tuition {
+        background-color: #7ed9ae;
+        color: white;
+
+        padding: 1em 2em;
+
+        font-size: 1.5em;
+
+        border: none;
+        border-radius: .5em;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+    .title-active-tuitions {
+        font-weight: 500;
+    }
+
+    .section-active-tuitions {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1em;
+
+        justify-content: center;
+
+        background-color: #f9f9f9;
+
+        width: 75%;
+
+        padding: 1em;
+    }
+
+    .card-title {
+        background-color: #468DAE;
+        color: white;
+
+        font-weight: 400;
+
+        margin: 0;
+        padding: .5em;
+
+        border-top-left-radius: .5em;
+        border-top-right-radius: .5em;
+    }
+
+    .card-duration {
+        padding: .6em;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: end
+    }
+
+    .card-actions {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        justify-content: end;
+
+        padding: .5em;
+    }
+
+    .card-btn-see {
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+    }
+
+    .tuition-card {
+        width: 100%;
+
+        border-radius: .5em;
+        border: 1px solid rgba(242, 242, 242, 1);
+    }
+
+    .item-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1em;
+
+        justify-items: center;
+
+
+    }
+
+    .bottomSee:hover {
+        cursor: pointer;
+    }
+
+    .card-content {
+        display: grid;
+        grid-template-rows: 2fr 1fr 1fr;
+
+        padding: .5em;
+    }
+
+    .see-fp {
+        text-align: end;
+    }
+
+    .btn-see {
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+
+        cursor: pointer;
+    }
+
+    .btn-see:hover {
+        opacity: .8em;
+    }
+
+    .section-show-progress {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
+        width: 80%;
+
+        margin: 0 auto;
+    }
+
+    .progress-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1em;
+    }
+
+    .progress-bar div {
+        background-color: #f9f9f9;
+        height: 10px;
+    }
+
+    .progress-completed {
+        background-color: #7ed9ae !important;
+    }
+
+    .main-module-tables {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .modules-table {
+        margin-top: 2em;
+        margin-right: 1em;
+    }
+
+    .table-header {
+        background-color: #468DAE;
+        color: white;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .enrolled-table-header {
+    }
+
+    .th {
+        background-color: #468DAE;
+        color: white;
+
+        padding: .5em;
+
+        text-align: center;
+    }
+
+    .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .enrolled-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .enrolled-row:nth-child(even) .cell {
+        background-color: #f9f9f9;
+    }
+
+    .cell {
+        padding: .5em;
+
+        text-align: center;
+    }
+
+    .row:nth-child(even) .cell {
+        background-color: #f9f9f9;
+    }
+
+    input[type='checkbox'] {
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="item-section">
+    <article class="item-title">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h2><span style="font-weight: 500;">{{ title }}</span> / {{ subTitle }}</h2>
+    </article>
+    <article class="item-message">
+        {% block welcomeMessage %}
+
+        {% endblock %}
+    </article>
+
+    <article class="main-tuitions">
+        <section class="section-show-progress">
+            <h2>Creación de matrícula</h2>
+            <article class="progress-bar">
+                <div class="progress-completed"></div>
+                <div class="progress-completed"></div>
+                <div></div>
+            </article>
+            <span>Seleccione los módulos que desea cursar</span>
+        </section>
+        <section class="main-module-tables">
+            <section class="section-list-of-modules">
+                <div class="modules-table">
+                    <div class="table-header">
+                        <div class="th">
+                            <input id="all-checkbox" type="checkbox" name="module" value="all">
+                        </div>
+                        <div class="th">Código</div>
+                        <div class="th">Nombre</div>
+                        <div class="th">Curso</div>
+                    </div>
+
+                {% for module in modules %}
+                    <div class="row">
+                        <div class="cell">
+                            <input class="checkbox-module" type="checkbox" name="module" value="{{ module.id }}">
+                        </div>
+                        <div class="cell">{{ module.code }}</div>
+                        <div class="cell">{{ module.name }}</div>
+                        <div class="cell">{{ module.course }}º</div>
+                    </div>
+                {% endfor %}
+                </div>
+            </section>
+            <section class="enrolled-modules">
+                <div class="modules-table">
+                    <div class="enrolled-table-header">
+                        <div class="th">Módulos seleccionados</div>
+                    </div>
+
+                {% for module in modules %}
+                    <div class="enrolled-row">
+                        <div class="cell">{{ module.code }}</div>
+                        <div class="cell">{{ module.name }}</div>
+                    </div>
+                {% endfor %}
+                </div>
+            </section>
+        </section>
+    </article>
+</section>
+
+<script>
+    const allCheckbox = document.getElementById('all-checkbox');
+    const modulesCheckboxes = document.querySelectorAll('.checkbox-module');
+
+    allCheckbox.addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[name="module"]');
+        modulesCheckboxes.forEach((checkbox) => {
+            checkbox.checked = allCheckbox.checked;
+        });
+    });
+
+    
+</script>
+{% endblock %}

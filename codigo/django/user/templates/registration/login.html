@@ -31,13 +31,6 @@
                 </div>
             <div class="form-container">
                 <h2 class="loginText">Login</h2>
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                {% endif %}
                 <form action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group" id="form-group1">

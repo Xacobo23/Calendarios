@@ -1,5 +1,7 @@
 {% extends 'base_manage_item.html' %}
 
+{% load static %}
+
 {% block icon %}
 <i class="fa-solid fa-user"></i>
 {% endblock %}
@@ -7,7 +9,7 @@
 {% block buttons %}
 <div class="action-buttons">
     <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-    <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
+    <button class="btn btn-delete-top" id="btn-delete" data-student-id="{{ id }}"><i class="fa-regular fa-user"></i>
         Eliminar</button>
 </div>
 {% endblock %}
@@ -20,6 +22,77 @@
 
 
 {% block form %}
+<style>
+    .active-tuitions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+
+    justify-content: center;
+
+    background-color: #f9f9f9;
+
+    padding: 1em;
+}
+
+.card-title {
+    background-color: #468DAE;
+    color: white;
+
+    font-weight: 400;
+
+    margin: 0;
+    padding: .5em;
+
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.card-description {
+    border: white .6em solid;
+    height: 20%;
+
+}
+
+.card-duration {
+    padding: .6em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: end;
+
+    padding: .5em;
+}
+
+.card-btn-see {
+    background-color: #468DAE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .6em 2em;
+}
+
+.see-fp {
+       display: flex; 
+       justify-content: end;
+}
+
+.tuition-card {
+    width: 100%;
+
+    border-radius: .5em;
+    border: 1px solid rgba(242, 242, 242, 1);
+}
+</style>
 <article class="item-main">
     <section class="item-edit-side">
         <form method="post" class="form-manage" id="form-manage">
@@ -71,6 +144,11 @@
                     </label>
                 </div>
             </div>
+            <div class="form-row">
+                <button type="button" id="btn-reset-password" class="btn btn-warning">
+                    <i class="fa-solid fa-key"></i> Restablecer contraseña
+                </button>
+            </div>
 
             {% if messages %}
             <div class="messages">
@@ -89,45 +167,45 @@
 
     {% block side %}
     <section class="side-section">
-        <h2>Módulos impartidos</h2>
-        <a href="{% url 'module_add' %}">
-            <button type="button" class="btn btn-add-subitem" title="AñadirModulo">
-                <i class="fa-solid fa-plus"></i> Añadir módulo
-            </button>
-        </a>
+        <h2>Matrículas activas</h2>
 
-        <table class="modules-table">
-            <thead>
-                <tr>
-                    <td>Código</td>
-                    <td>Nombre</td>
-                    <td>Curso</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for module in asociated_modules %}
-                <tr>
-                    <td>{{ module.code }}</td>
-                    <td>{{ module.name }}</td>
-                    <td>{{ module.course }}</td>
-                    <td class="td-buttons">
-                        <button type="button" class="btn-see" id="btn-to-module"
-                            data-module-id="{{ module.id }}">Ver</button>
-                        <button type="button" class="btn-delete" id="btn-delete-module"
-                            data-module-id="{{ module.id }}">Eliminar</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <section class="active-tuitions">
+            {% for fp in fps %}
+            <div style="background-color: white; " class="tuition-card">
+                <div id="titleCard">
+                    <h3 class="card-title">{{ fp.initials }}</h3>
+                    <div class="expand">
+                        <div class="_layerm -vertical"></div>
+                        <div class="_layerm -horizontal"></div>
+                    </div>
+                </div>
+                <div class="card-content" style="padding: .5em;">
+                    <p class="fp-name">{{ fp.short_name }}</p>
+                    <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
+                    <p class="duration">Duración: {{ fp.duration }}</p>
+                    <p class="see-fp"><button class="btn-see" data-fp-id="{{ fp.id }}" data-student-id="{{ student_id }}"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></button></p>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
     </section>
 
     <script defer>
-        const btnToSchedule = document.getElementById('btn-to-schedule');
         const btnEdit = document.getElementById('btn-edit');
         const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
         const btnDelete = document.getElementById('btn-delete');
+        const btnSeeFp = document.querySelectorAll('.btn-see');
+
+        btnSeeFp.forEach(btn => {
+            btn.addEventListener ('click', () => {
+                let student_id = btn.getAttribute('data-student-id');
+                let fp_id = btn.getAttribute('data-fp-id');
+
+                let newUrl = `/student/edit-fp/${student_id}/${fp_id}`;
+
+                window.location.href = newUrl;
+            });
+        });
 
         formElements.forEach(element => {
             element.disabled = true;
@@ -141,14 +219,8 @@
             btnEdit.disabled = true;
         })
 
-        btnToSchedule.addEventListener('click', () => {
-            const fp_id = btnToSchedule.getAttribute('data-fp-id');
-            window.location.href = `/schedule/view-schedule/${fp_id}`;
-        });
-
-
         btnDelete.addEventListener('click', () => {
-            const fp_id = btnDelete.getAttribute('data-fp-id');
+            const student_id = btnDelete.getAttribute('data-student-id');
 
             Swal.fire({
                 title: '¿Estás seguro?',
@@ -173,7 +245,7 @@
                             if (response.ok) {
                                 Swal.fire(
                                     'Eliminado!',
-                                    'El FP ha sido eliminado.',
+                                    'El alumno ha sido eliminado.',
                                     'success'
                                 ).then(() => {
                                     window.location.reload();
@@ -181,7 +253,7 @@
                             } else {
                                 Swal.fire(
                                     'Error!',
-                                    'Hubo un problema al eliminar el FP.',
+                                    'Hubo un problema al eliminar el alumno.',
                                     'error'
                                 );
                             }
@@ -190,7 +262,7 @@
                             console.error('Error:', error);
                             Swal.fire(
                                 'Error!',
-                                'Hubo un problema al eliminar el FP.',
+                                'Hubo un problema al eliminar el alumno.',
                                 'error'
                             );
                         });
@@ -198,11 +270,41 @@
             });
         });
 
-        $(document).ready(function () {
-            $('.form-control').select2();
+    document.getElementById('btn-reset-password').addEventListener('click', function () {
+        const studentId = "{{ student_id }}";  
+        console.log(studentId);
+
+        Swal.fire({
+            title: "¿Restablecer contraseña?",
+            text: "Se enviará un correo para que el usuario restablezca su contraseña.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, enviar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/student/restore-password/${studentId}`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                        "Content-Type": "application/json"
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Éxito", "Se ha enviado el correo de restablecimiento.", "success");
+                        } else {
+                            Swal.fire("Error", "No se pudo procesar la solicitud.", "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        Swal.fire("Error", "Hubo un problema con la solicitud.", "error");
+                    });
+            }
         });
-
-
+    });
 
     </script>
     {% endblock %}

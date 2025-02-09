@@ -20,10 +20,16 @@
   justify-content: start;
   align-items: center;
   gap: 1em;
-
+  height: 8.5%;
   color: #468dae;
 
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+
+}
+
+.item-section hr {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .item-title i {
@@ -35,6 +41,7 @@
   justify-content: start;
   align-items: center;
   gap: 1em;
+  height: 8%;
 }
 
 .item-total .number {
@@ -45,7 +52,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  height: 7%;
   margin-bottom: 1em;
 }
 
@@ -94,13 +101,19 @@
 }
 
 .item-table {
-  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
 }
 
 .item-table table {
   width: 100%;
-
+  height: 100%;
   border-collapse: collapse;
+}
+
+.tableHeag{
+  height: 12%;
 }
 
 .item-table thead {
@@ -160,24 +173,34 @@ button:hover {
  */
 
 .tableHeaderCSS {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr 1fr 1fr 4fr 2fr;
   justify-items: start;
   padding-left: 1rem;
-
+  height: 100%;
+  width: 100%-1rem;
   background-color: #468dae;
   color: white;
 }
 
+.tableHeaderCSS h3 {
+  display: flex;
+  align-self: center;
+}
+
+
 .tableHeaderTitleCSS {
   color: white;
+}
+
+.tableBody{
+  overflow-y: scroll;
+  height: 85%;
 }
 
 .tableRowCSS {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 2fr 2fr 4fr 3fr;
   justify-items: start;
-  padding-left: 1.5rem;
+  padding-left: 1.2rem;
 }
 
 .evenRow {
@@ -231,9 +254,31 @@ button:hover {
   max-width: fit-content;
 }
 
+.teacherList{
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr 1fr 3fr;
+}
+.teacherRow{
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr 1fr 3fr;
+}
+
 .moduleList{
   display: grid;
-  grid-template-columns: 1fr 1fr 4fr 2fr 2fr 1fr 6fr;
+  grid-template-columns: 0.5fr 0.8fr 4fr 1.7fr 1fr 3fr 3fr;
+}
+.moduleRow{
+  display: grid;
+  grid-template-columns: 0.5fr 0.8fr 4fr 1.7fr 1fr 3fr 3fr;
+}
+
+.studentList{
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1.5fr 2fr 1fr 4fr 2fr;
+}
+.studentRow{
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1.5fr 2fr 1fr 4fr 2fr;
 }
 
 @media (min-width: 700px) {
@@ -274,18 +319,11 @@ button:hover {
     right: 1em;
   }
 
-  .tableHeaderCSS {
-    display: grid;
-    grid-template-columns: 2fr 3fr 5fr;
-    justify-items: start;
-    padding-left: 5%;
-  }
+  
 
   .tableRowCSS {
-    display: grid;
-    grid-template-columns: 2fr 3fr 5fr;
     justify-items: start;
-    padding-left: 8%;
+    padding-left: 1rem;
   }
 
   .tableBottomsCSS {
@@ -296,6 +334,9 @@ button:hover {
   .tableBottomsCSS button {
     height: 2rem;
     width: 2rem;
+  }
+  .tableRowCSS:last-of-type{
+    margin-bottom: 15%;
   }
 }
 
@@ -311,4 +352,11 @@ button:hover {
 
 .teacher-btn:hover {
   background-color: #356d8c;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

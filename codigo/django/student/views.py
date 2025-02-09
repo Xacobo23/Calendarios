@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 from student.forms import CustomUserChangeForm
+from user.models import CustomUser
+from fp.models import FP
+from module.models import Enrolled
 
 User = get_user_model()
 
@@ -30,8 +34,14 @@ def student_add(request):
     if request.method == "POST":
         form = CustomUserChangeForm(request.POST)
         if form.is_valid():
-            form.save()
+            student = form.save(commit=False)
+
+            student.set_password('abc123.')
+
+            student.save()
+
             messages.success(request, "Estudiante añadido correctamente.")
+            
             return redirect("student_list")  
         else:
             messages.error(request, "Error al añadir el estudiante.")
@@ -51,6 +61,7 @@ def student_add(request):
 
 def student_edit(request, student_id):
     student = get_object_or_404(get_user_model(), id=student_id)
+    fps = FP.objects.filter(modulos__enrolled__student=student).distinct()
 
     dni = student.dni
 
@@ -66,7 +77,6 @@ def student_edit(request, student_id):
                     messages.error(request, f"Error en el campo {field.label}: {error}")
             messages.error(request, "Error al actualizar el estudiante.")
     else:
-        # Usar instance=student para evitar errores en la inicialización
         form = CustomUserChangeForm(
             instance=student,
             initial={
@@ -81,15 +91,56 @@ def student_edit(request, student_id):
         "type": "Alumnos",
         "form": form,
         "student_id": student_id,
-        'dni': dni
+        'dni': dni,
+        'fps': fps
     }
     return render(request, "student_edit.html", data)
 
-def student_delete(request, student_id):
-    if request.method == "POST":
-        student = get_object_or_404(User, id=student_id)
-        student.delete()
-        messages.success(request, "Estudiante eliminado correctamente.")
-        return redirect("student_list")
+@csrf_exempt
+def delete_student(request, student_id):
+    if request.method == 'DELETE':
+        student = get_object_or_404(CustomUser, id=student_id)
 
-    return redirect("student_list")
+        student.delete()
+
+        return redirect('student_list')
+    
+    return redirect('student_list')
+
+@csrf_exempt
+def restore_password(request, student_id):
+    if request.method == 'POST':
+        student = get_object_or_404(get_user_model(), id=student_id)
+        
+        student.set_password('abc123.')
+        student.save()
+
+        messages.success(request, f'La contraseña de {student.username} ha sido restablecida con éxito!')
+
+        return redirect('student_list')
+
+
+    return redirect('student_list')
+
+def student_fp_edit (request, student_id, fp_id):
+    student = get_object_or_404(get_user_model(), id=student_id)
+
+    fp_instance = get_object_or_404(FP, id=fp_id)
+    asociated_modules = []
+
+    if fp_instance is not None:
+        asociated_modules = fp_instance.modulos.all()
+
+    student_dni = student.dni
+
+    data = {
+        'title': 'Editar matrícula',
+        'student_dni': student_dni,
+        'fp': fp_instance,
+        'student': student,
+        'modules': asociated_modules
+    }
+
+    return render(request, 'student_fp_edit.html', data)
+
+    

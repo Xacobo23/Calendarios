@@ -4,8 +4,6 @@
     gap: 1em;
 
     justify-items: center;
-
-
 }
 
 .item-card {
@@ -13,8 +11,6 @@
     border-radius: .5em;
     z-index: 20;
     width: 100%;
-
-
 }
 
 .manage-items {
@@ -38,7 +34,7 @@
 }
 
 .item-message {
-    margin-top: 1em;
+    margin: 1em 0 1em 0;
 }
 
 .card-title {
@@ -62,8 +58,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     /* Agrega "..." cuando el texto se corta */
-    width: 300px;
-    /* Ajusta el ancho según necesidad */
+    max-width: 100%;   
+     /* Ajusta el ancho según necesidad */
     white-space: normal;
 }
 
@@ -195,7 +191,7 @@
         visibility: hidden; /* Hace que el elemento sea completamente inaccesible */
         max-height: 0; /* Inicia con altura 0 */
         overflow: hidden; /* Evita que el contenido se vea fuera de la caja */
-        transition: opacity 0.3s ease, max-height 0.3s ease, visibility 0s linear 0.5s; /* Transición de opacidad y altura */
+        transition: opacity 0.2s ease, max-height 0.2s ease, visibility 0s linear 0.2s; /* Transición de opacidad y altura */
     }
     
     /* Cuando la clase .is-active se añade, el elemento se muestra con animación */
@@ -203,7 +199,7 @@
         opacity: 1; /* Vuelve visible */
         visibility: visible; /* Hace que el elemento sea accesible */
         max-height: 1000px; /* Ajusta la altura máxima al valor necesario (puedes ajustarlo según el contenido) */
-        transition: opacity 0.5s ease, max-height 0.5s ease, visibility 0s linear 0s; /* La transición para la visibilidad y altura */
+        transition: opacity 0.7s ease, max-height 0.7s ease, visibility 0s linear 0s; /* La transición para la visibilidad y altura */
     }
 
     .expand.is-active .-vertical {
@@ -223,4 +219,17 @@
 
 .swal2-cancel.btn-swal-cancel {
     background-color: #DB5D5D;
+}
+
+.btn-add-tuition {
+    background-color: #7ED9AE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: 1em 2em;
+
+    font-size: 1.5em;
+
 }
