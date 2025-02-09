@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 
 from fp.models import FP
 from module.models import Module, Enrolled
@@ -40,9 +41,13 @@ def view_schedule(request, fp_id):
 
     return render(request, 'schedule_view.html', data)
 
-def my_schedules(request):
+def my_schedules(request):    
+    student = request.user
+    fps = FP.objects.filter(modulos__enrolled__student=student).distinct()
+
     data = {
         'title': 'Mis horarios',
+        'fps': fps
     }
 
     return render(request, 'my_schedules_jorge.html', data)
