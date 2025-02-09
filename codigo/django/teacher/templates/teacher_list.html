@@ -47,11 +47,12 @@
     </p>
     <div class="tableBottomsCSS">
         <button class="bottomSee" data-teacher-id="{{ teacher.id }}">
-            <p class="noMostrarMovil">Ver</p>
+            <p class="noMostrarMovil"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></p>
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
         <button class="bottomDelete card-btn-delete" data-teacher-id="{{ teacher.id }}">
-            <p class="noMostrarMovil">Eliminar</p>
+            <p class="noMostrarMovil"><img src="{% static 'images/svg/bin.svg' %}" alt="bin">
+</p>
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
     </div>
@@ -63,7 +64,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
             const btnVer = document.querySelectorAll('.bottomSee');
-            const deleteBtns = document.querySelectorAll('.card-btn-delete'); // Se obtiene aquí
+            const deleteBtns = document.querySelectorAll('.card-btn-delete'); 
 
             btnVer.forEach(btn => {
                 btn.addEventListener('click', () => {

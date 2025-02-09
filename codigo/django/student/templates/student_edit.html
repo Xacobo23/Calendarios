@@ -1,5 +1,7 @@
 {% extends 'base_manage_item.html' %}
 
+{% load static %}
+
 {% block icon %}
 <i class="fa-solid fa-user"></i>
 {% endblock %}
@@ -181,7 +183,7 @@
                     <p class="fp-name">{{ fp.short_name }}</p>
                     <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
                     <p class="duration">Duración: {{ fp.duration }}</p>
-                    <p class="see-fp"><button class="btn-see" data-fp-id="{{ fp.id }}" data-student-id="{{ student_id }}">Ver</button></p>
+                    <p class="see-fp"><button class="btn-see" data-fp-id="{{ fp.id }}" data-student-id="{{ student_id }}"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></button></p>
                 </div>
             </div>
             {% endfor %}

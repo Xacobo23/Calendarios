@@ -265,4 +265,18 @@
         </section>
     </article>
 </section>
+
+<script defer>
+    const buttons = document.querySelectorAll('.btn-see');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const fpId = event.target.closest('.card-content').querySelector('.see-fp').getAttribute('data-fp-id');
+
+                const url = `/tuition/create-tuition/${fpId}`;
+
+                window.location.href = url;
+            });
+        });
+</script>
 {% endblock %}
