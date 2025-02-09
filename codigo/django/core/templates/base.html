@@ -64,7 +64,7 @@
             <i class="fa-solid fa-clock"></i>
             <a href="{% url 'my_schedules' %}"><span class="navItem">Mis horarios</span></a>
           </div>
-          <div id="navMyTuitions">
+          <div id="navTuition">
             <i class="fa-solid fa-graduation-cap"></i>
             <a href="{% url 'my_tuitions' %}"><span class="navItem">Mis matrículas</span></a>
           </div>
@@ -106,6 +106,7 @@
       '/module': '#navModule',
       '/schedule': '#navSchedule',
       '/teacher': '#navTeacher',
+      '/tuition': '#navTuition'
     };
   
   const menu = document.querySelector('.hamburger');
