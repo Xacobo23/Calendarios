@@ -121,36 +121,23 @@
             <p>Selecciona un ciclo para ver su horario:</p>
         </article>
         <article class="schedule-cards">
-            <div class="item-card">
-                <div class="card-schedule-title">
-                    <h3 class="card-initials">DAM</h3>
-                    <span class="card-type">Distancia</span>
-                </div>
-                <div class="noTitleGroup">
-                    <textarea class="card-description">Desarrollo de Aplicaciones Multiplataforma</textarea>
-                    <div class="DurationActionGroup">
-                        <p class="card-duration">Duración: 2 años</p>
-                        <section class="card-actions">
-                            <button class="card-btn-see" data-fp-id="{{ fp.id }}">Ver horario</button>
-                        </section>
+            {% for fp in fps %}
+                <div class="item-card">
+                    <div class="card-schedule-title">
+                        <h3 class="card-initials">{{ fp.initials }}</h3>
+                        <span class="card-type">Distancia</span>
+                    </div>
+                    <div class="noTitleGroup">
+                        <textarea class="card-description">{{ fp.short_name }}</textarea>
+                        <div class="DurationActionGroup">
+                            <p class="card-duration">Duración: {{ fp.duration }} años</p>
+                            <section class="card-actions">
+                                <button class="card-btn-see" data-fp-id="{{ fp.id }}">Ver horario</button>
+                            </section>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item-card">
-                <div class="card-schedule-title">
-                    <h3 class="card-initials">DAW</h3>
-                    <span class="card-type">Presencial</span>
-                </div>
-                <div class="noTitleGroup">
-                    <textarea class="card-description">Desarrollo de Aplicaciones Web</textarea>
-                    <div class="DurationActionGroup">
-                        <p class="card-duration">Duración: 2 años</p>
-                        <section class="card-actions">
-                            <button class="card-btn-see" data-fp-id="{{ fp.id }}">Ver horario</button>
-                        </section>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </article>
     </article>
 </section>
