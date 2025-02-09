@@ -121,16 +121,17 @@
         <p id="multiple-courses-title">Parece estar matriculado en más de un ciclo formativo, puede:</p>
         <div>Seleccionar un ciclo para ver el horario:</div>
         <section id="available-courses-schedule">
+            {% for fp in fps %}
             <!-- plantilla para cada ciclo -->
             <div class="available-course-chedule">
                 <div class="course-header">
-                    <span class="course-acronym">DAM</span>
+                    <span class="course-acronym">{{ fp.initials }}</span>
                     <span class="course-modality">distancia</span>
                 </div>
                 <div class="course-body">
                     <div class="course-body-info">
-                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
-                        <div class="course-duration">Duración: <b>2</b> años</div>
+                        <div class="course-name">{{ fp.name }}</div>
+                        <div class="course-duration">Duración: <b>{{ fp.duration }}</b> años</div>
                     </div>
                     <div class="course-body-action-buttons">
                         <a href=""><div class="btn-primary">Ver horario</div></a>
@@ -138,36 +139,7 @@
                 </div>
             </div>
             <!-- END plantilla para cada ciclo -->
-            <div class="available-course-chedule">
-                <div class="course-header">
-                    <span class="course-acronym">DAM</span>
-                    <span class="course-modality">distancia</span>
-                </div>
-                <div class="course-body">
-                    <div class="course-body-info">
-                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
-                        <div class="course-duration">Duración: <b>2</b> años</div>
-                    </div>
-                    <div class="course-body-action-buttons">
-                        <a href=""><div class="btn-primary">Ver horario</div></a>
-                    </div>
-                </div>
-            </div>
-            <div class="available-course-chedule">
-                <div class="course-header">
-                    <span class="course-acronym">DAM</span>
-                    <span class="course-modality">distancia</span>
-                </div>
-                <div class="course-body">
-                    <div class="course-body-info">
-                        <div class="course-name">Ciclo Superior Plurilingüe de Desenvolvemento de Aplicacións Multiplataforma</div>
-                        <div class="course-duration">Duración: <b>2</b> años</div>
-                    </div>
-                    <div class="course-body-action-buttons">
-                        <a href=""><div class="btn-primary">Ver horario</div></a>
-                    </div>
-                </div>
-            </div>
+             {% endfor %}
         </section>
         <a href="" id="see-all-courses">Ver los horarios fusionados</a>
     </article>
