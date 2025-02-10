@@ -112,7 +112,7 @@
   border-collapse: collapse;
 }
 
-.tableHeag{
+.tableHeag {
   height: 12%;
 }
 
@@ -191,7 +191,7 @@ button:hover {
   color: white;
 }
 
-.tableBody{
+.tableBody {
   overflow-y: scroll;
   height: 85%;
 }
@@ -243,40 +243,43 @@ button:hover {
   background-color: #db5d5d;
 }
 
-.form-item-filters{
+.form-item-filters {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
   width: calc(100%-16px);
 }
 
-.form-item-filters button{
+.form-item-filters button {
   max-width: fit-content;
 }
 
-.teacherList{
-  display: grid;
-  grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr 1fr 3fr;
-}
-.teacherRow{
+.teacherList {
   display: grid;
   grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr 1fr 3fr;
 }
 
-.moduleList{
+.teacherRow {
   display: grid;
-  grid-template-columns: 0.5fr 0.8fr 4fr 1.7fr 1fr 3fr 3fr;
+  grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr 1fr 3fr;
 }
-.moduleRow{
+
+.moduleList {
   display: grid;
   grid-template-columns: 0.5fr 0.8fr 4fr 1.7fr 1fr 3fr 3fr;
 }
 
-.studentList{
+.moduleRow {
+  display: grid;
+  grid-template-columns: 0.5fr 0.8fr 4fr 1.7fr 1fr 3fr 3fr;
+}
+
+.studentList {
   display: grid;
   grid-template-columns: 0.5fr 1fr 1.5fr 2fr 1fr 4fr 2fr;
 }
-.studentRow{
+
+.studentRow {
   display: grid;
   grid-template-columns: 0.5fr 1fr 1.5fr 2fr 1fr 4fr 2fr;
 }
@@ -286,15 +289,18 @@ button:hover {
     display: none;
   }
 
-  .form-item-filters{
+  .form-item-filters {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media (max-width: 700px) {
-  .noMostrarMovil {
+  .hrItem{
     display: none;
+  }
+  .noMostrarMovil {
+    display: none !important;
   }
 
 
@@ -302,11 +308,11 @@ button:hover {
     padding: 5% 10%;
   }
 
-  .form-item-filters{
+  .form-item-filters {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
   }
-  
+
   .item-section {
     margin-left: 1rem;
   }
@@ -319,7 +325,7 @@ button:hover {
     right: 1em;
   }
 
-  
+
 
   .tableRowCSS {
     justify-items: start;
@@ -335,9 +341,40 @@ button:hover {
     height: 2rem;
     width: 2rem;
   }
-  .tableRowCSS:last-of-type{
+
+  .tableRowCSS:last-of-type {
     margin-bottom: 15%;
   }
+
+  .teacherList {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+  }
+
+  .teacherRow {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+  }
+
+  .moduleList {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr;
+  }
+
+  .moduleRow {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr;
+  }
+
+  .studentList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .studentRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }  
 }
 
 .teacher-btn {

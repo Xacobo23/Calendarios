@@ -58,7 +58,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     /* Agrega "..." cuando el texto se corta */
-    max-width: 100%;   
+    max-width: 100%;
      /* Ajusta el ancho según necesidad */
     white-space: normal;
 }

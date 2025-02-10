@@ -18,7 +18,7 @@
 
 <div class="tableHeaderCSS teacherList">
     <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
-    <h3 class="tableHeaderTitleCSS">Nombre Completo</h3>
+    <h3 class="tableHeaderTitleCSS teacherFullName">Nombre Completo</h3>
     <h3 class="tableHeaderTitleCSS">DNI</h3>
     <h3 class="tableHeaderTitleCSS noMostrarMovil">Email</h3>
     <h3 class="tableHeaderTitleCSS noMostrarMovil">Teléfono</h3>
@@ -32,7 +32,9 @@
 {% for teacher in teachers %}
 <div class="tableRowCSS teacherRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <p class="noMostrarMovil">{{ teacher.id }}</p>
-    <p>{{ teacher.name }} {{ teacher.last_name }}</p>
+    <p>
+        <span class="teacherName">{{ teacher.name }}</span> <span class="teacherLastName">{{ teacher.last_name }}</span> 
+    </p>
     <p>{{ teacher.dni }}</p>
     <p class="noMostrarMovil">{{ teacher.email }}</p>
     <p class="noMostrarMovil">+34 {{ teacher.phone }}</p>
@@ -47,12 +49,11 @@
     </p>
     <div class="tableBottomsCSS">
         <button class="bottomSee" data-teacher-id="{{ teacher.id }}">
-            <p class="noMostrarMovil"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></p>
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarMovil">
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
         <button class="bottomDelete card-btn-delete" data-teacher-id="{{ teacher.id }}">
-            <p class="noMostrarMovil"><img src="{% static 'images/svg/bin.svg' %}" alt="bin">
-</p>
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarMovil">
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
     </div>

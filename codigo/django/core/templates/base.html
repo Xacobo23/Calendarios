@@ -142,3 +142,33 @@
     }
   }
 </script>
+<script>
+  function applyResponsiveText(className) {
+    let elements = document.querySelectorAll("." + className);
+    let originalTexts = [];
+
+    // Guarda los textos originales
+    elements.forEach((el, index) => {
+      originalTexts[index] = el.textContent;
+    });
+
+    function updateText() {
+      elements.forEach((el, index) => {
+        if (window.innerWidth < 700) {
+          el.textContent = originalTexts[index].split(" ")[0]; // Mostrar solo la primera palabra
+        } else {
+          el.textContent = originalTexts[index]; // Restaurar texto original si la pantalla es mayor a 700px
+        }
+      });
+    }
+
+    updateText();
+    window.addEventListener("resize", updateText);
+  }
+
+  // Aplicar la función a ambas clases
+  applyResponsiveText("teacherLastName");
+  applyResponsiveText("teacherName");
+  applyResponsiveText("teacherFullName");
+  
+</script>

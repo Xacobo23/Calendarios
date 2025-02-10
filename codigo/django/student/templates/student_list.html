@@ -24,7 +24,7 @@
     <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
     <h3 class="tableHeaderTitleCSS ">DNI</h3>
     <h3 class="tableHeaderTitleCSS">Nombre</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Apellidos</h3>
+    <h3 class="noMostrarMovil tableHeaderTitleCSS">Apellidos</h3>
     <h3 class="tableHeaderTitleCSS noMostrarMovil">Teléfono</h3>
     <h3 class="tableHeaderTitleCSS noMostrarMovil">Email</h3>
 </div>
@@ -43,11 +43,11 @@
     <p class="noMostrarMovil">{{ student.email }}</p>
     <div class="tableBottomsCSS">
         <button class="bottomSee" data-student-id="{{ student.id }}">
-            <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarMovil">
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
         </button>
         <button class="bottomDelete" data-student-id="{{ student.id }}">
-            <img src="{% static 'images/svg/bin.svg' %}" alt="bin">
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarMovil">
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
         </button>
     </div>
