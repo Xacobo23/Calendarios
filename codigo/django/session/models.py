@@ -18,8 +18,7 @@ class Weekday(Enum):
 
 # Modelo de la tabla Session
 class Session(models.Model):
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    position = models.PositiveIntegerField()
     week_day = models.CharField(
         max_length=10, 
         choices=Weekday.choices()
