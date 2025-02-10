@@ -28,7 +28,7 @@
 {% block inputValue %} {{ id }} {% endblock %}
 
 {% block buttons %}
-<div class="action-buttons">
+<div class="action-buttons action-buttons-teacher">
     <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
     <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
         Eliminar</button>
@@ -76,7 +76,7 @@
                     {{ form.phone }}
                 </div>
             </div>
-            <div class="form-row-large">
+            <div class="form-row-large selectModule">
                 <div class="form-group">
                     <label for="{{ form.modules.id_for_modules }}">Módulos</label>
                     {{ form.modules }}

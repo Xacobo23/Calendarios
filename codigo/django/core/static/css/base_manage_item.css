@@ -7,6 +7,7 @@
 
 .item-section {
     padding-right: 1em;
+
 }
 
 .item-title,
@@ -49,12 +50,13 @@ select {
     background-color: rgba(242, 242, 242, .5);
 }
 
+
 .item-actions,
 .subitem-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1em;
+    padding: 1em;
 }
 
 .btn {
@@ -246,14 +248,130 @@ tbody tr:nth-child(even) {
     color: #333;
 }
 
-@media (min-width: 700px) {  
-    .action-buttons{
+
+.display-id input:disabled,
+#id_fp_type:disabled,
+.form-group input:disabled,
+.form-group textarea:disabled,
+select:disabled {
+    cursor: not-allowed; 
+    background-color: transparent;
+}
+
+@media (max-width: 700px) {
+    .selectModule {
+        height: fit-content;
+    }
+    .item-section{
+        height: 100vh;
+    }
+    .item-actions {
+        align-items: start;
+    }
+
+    .action-buttons-teacher {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .display-id {
+        margin-left: 5%;
+    }
+
+    .item-section {
+        padding-right: 0px !important;
+    }
+
+    .item-title {
+        margin-top: 70px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .item-actions {
+        flex-direction: column-reverse;
+    }
+
+    .action-buttons {
+        margin-bottom: 5%;
+    }
+
+    .item-main {
+        display: flex !important;
+        justify-content: center;
+    }
+
+    .item-edit-side {
+        margin: auto;
+    }
+}
+
+@media (min-width: 700px) {
+    .item-section {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .item-title {
+        height: 10%;
+    }
+
+    .item-actions{
+        height: 8%;
+    }
+
+    .item-main {
+        height: 80%;
+    }
+
+    .item-edit-side {
+        height: 100%;
+    }
+
+    .item-edit-side h2 {
+        height: 8%;
+    }
+
+    .item-edit-side form {
+        height: 80%;
+    }
+
+    .selectModule {
+        height: 60%;
+    }
+
+    .selectModule .form-group {
+        height: 100%;
+    }
+
+    .selectModule .form-group label {
+        height: 10%;
+    }
+
+    .selectModule .form-group select {
+        height: 100%;
+        max-height: 80%;
+    }
+
+    .selectModule .form-group select option {
+        height: 2em;
+        display: flex;
+        align-items: center;
+    }
+
+
+
+}
+
+@media (min-width: 700px) {
+    .action-buttons {
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr 1fr;
         gap: 1em;
     }
 
-    .bottom-buttons{
+    .bottom-buttons {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1em;
