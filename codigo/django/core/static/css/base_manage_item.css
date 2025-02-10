@@ -253,10 +253,8 @@ tbody tr:nth-child(even) {
 .form-group input:disabled,
 .form-group textarea:disabled,
 select:disabled {
-    color: #888; 
-    border: 1px solid #ccc; 
     cursor: not-allowed; 
-    opacity: 0.7; 
+    background-color: transparent;
 }
 
 
@@ -305,8 +303,6 @@ select:disabled {
         align-items: center;
     }
 
-}
-@media (min-width: 700px) {  
     .action-buttons{
         display: grid;
         grid-template-columns: 1fr 2fr;
@@ -319,3 +315,4 @@ select:disabled {
         gap: 1em;
     }
 }
+
