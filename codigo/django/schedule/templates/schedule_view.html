@@ -208,7 +208,12 @@
 {% endblock %}
 
 {% block content %}
-<section class="schedule-section">
+{% for module, sessions in module_sessions.items %}
+    {{ module }} {{sessions}}
+{% empty %}
+    <p>No hay sesiones programadas.</p>
+{% endfor %}
+ <section class="schedule-section">
     <article class="item-title">
         <i class="fa-regular fa-clock"></i>
         <h2>Horario/<small>{{ fp.initials }}</small></h2>
