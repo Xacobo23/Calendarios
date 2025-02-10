@@ -18,7 +18,7 @@ class ClassSession(models.Model):
     )
 
     # Día de la semana (ej: "Lunes", "Martes", etc.)
-    
+
     weekday = models.CharField(max_length=1, choices=WEEKDAYS)  # Día de la semana
 
     # Sesiones predefinidas
@@ -63,3 +63,42 @@ class ScheduleConfig (models.Model):
     afternoon_end_time = models.TimeField()
 
     session_duration = models.DurationField()
+
+
+# ScheduleTemplate: Defines schedule template properties
+class ScheduleTemplate(models.Model):
+    schedule_type = models.CharField(max_length=50, choices=[
+        ('morning', 'Mañana'),
+        ('afternoon', 'Tarde'),
+        ('morning_and_afternoon', 'Mañana y tarde')
+    ])
+    start_week_day = models.IntegerField(choices=WeekDays.choices())  # Enum for week days
+    end_week_day = models.IntegerField(choices=WeekDays.choices())  # Enum for week days
+    session_duration = models.IntegerField()  # Duration of sessions in minutes
+
+    morning_start_time = models.TimeField()(blank=True, null=True)
+    morning_session_count = models.IntegerField()(blank=True, null=True)
+    morning_end_time = models.TimeField(blank=True, null=True)  # Calculated
+
+    afternoon_start_time = models.TimeField(blank=True, null=True)
+    afternoon_session_count = models.IntegerField(blank=True, null=True)
+    afternoon_end_time = models.TimeField(blank=True, null=True)  # Calculated
+
+    def save(self, *args, **kwargs):
+        # Calculate morning_end_time
+        if self.morning_start_time and self.morning_session_count:
+            from datetime import timedelta, datetime
+            start_time = datetime.combine(datetime.today(), self.morning_start_time)
+            self.morning_end_time = (start_time + timedelta(minutes=self.morning_session_count * self.session_duration)).time()
+
+        # Calculate afternoon_end_time
+        if self.afternoon_start_time and self.afternoon_session_count:
+            start_time = datetime.combine(datetime.today(), self.afternoon_start_time)
+            self.afternoon_end_time = (start_time + timedelta(minutes=self.afternoon_session_count * self.session_duration)).time()
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.schedule_type} ({self.get_start_week_day_display()}-{self.get_end_week_day_display()})"
+
+
