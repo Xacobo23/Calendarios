@@ -265,6 +265,7 @@ select:disabled {
     .item-title{
         height: 10%;
     }
+
     .item-actions{
         height: 8%;
     }
@@ -315,4 +316,15 @@ select:disabled {
         gap: 1em;
     }
 }
+    @media (max-width: 700px) {
+
+        .item-actions{
+            padding-left: 1em;
+            width: calc(100% - 2em);
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+        }        
+        
+
+    }
 
