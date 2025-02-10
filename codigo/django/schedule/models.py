@@ -30,7 +30,7 @@ class ScheduleConfig(models.Model):
 
     afternoon_start_time = models.TimeField(null=True, blank=True)
     afternoon_end_time = models.TimeField(null=True, blank=True)
-    afternoon_max_sessions = models.IntegerField(default=6)
+    afternoon_max_sessions = models.IntegerField(default=6, null=True)
 
     session_duration = models.DurationField()
 
