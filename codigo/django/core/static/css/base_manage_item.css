@@ -248,9 +248,22 @@ tbody tr:nth-child(even) {
     color: #333;
 }
 
+
+.display-id input:disabled,
+#id_fp_type:disabled,
+.form-group input:disabled,
+.form-group textarea:disabled,
+select:disabled {
+    cursor: not-allowed; 
+    background-color: transparent;
+}
+
 @media (max-width: 700px) {
     .selectModule {
         height: fit-content;
+    }
+    .item-section{
+        height: 100vh;
     }
     .item-actions {
         align-items: start;
@@ -304,7 +317,7 @@ tbody tr:nth-child(even) {
         height: 10%;
     }
 
-    .item-actions {
+    .item-actions{
         height: 8%;
     }
 

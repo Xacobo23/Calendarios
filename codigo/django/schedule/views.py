@@ -6,7 +6,8 @@ from django.contrib.auth import get_user_model
 from fp.models import FP
 from module.models import Module, Enrolled
 from session.models import Session
-from .models import ScheduleConfig, WEEKDAYS
+from .models import ScheduleConfig, FPScheduleConfig
+from module.models import Module
 
 def select_schedule(request):
     fps = FP.objects.all()
@@ -25,22 +26,29 @@ def select_schedule(request):
 def view_schedule(request, fp_id):
     fp = get_object_or_404(FP, id=fp_id)
 
-    schedule_config = ScheduleConfig.objects.first()
+    schedule_config = FPScheduleConfig.objects.filter(fp=fp).first()
 
-    sessions_by_day = {}
+    modules = Module.objects.filter(fp=fp)
 
-    for weekday in ['L', 'M', 'X', 'J', 'V', 'S']:
-        sessions_by_day[weekday] = ClassSession.objects.filter(weekday=weekday).order_by('session', 'class_number')
+    modules_sessions = {}
+
+    for module in modules:
+        sessions = Session.objects.filter(module=module)
+        modules_sessions[module] = sessions
+
+    print(modules_sessions)
     
     data = {
         'title': 'Horario',
         'fp': fp,
-        'schedule_config': schedule_config,
-        'WEEKDAYS': dict(WEEKDAYS)
+        'schedule_config': schedule_config.schedule_config,
+        'modules': modules,
+        'modules_sessions': modules_sessions
     }
 
     return render(request, 'schedule_view.html', data)
 
+# Vistas alumno
 def my_schedules(request):    
     student = request.user
     fps = FP.objects.filter(modulos__enrolled__student=student).distinct()
