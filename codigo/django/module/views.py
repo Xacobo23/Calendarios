@@ -42,11 +42,13 @@ def module_add(request):
         if form.is_valid():
             module_instance = form.save()
 
-            selected_teachers = form.cleaned_data['teachers']
+            selected_teachers = form.cleaned_data["teachers"]
 
             for teacher in selected_teachers:
-                TeacherModule.objects.create(teacher=teacher, module=module_instance, cursoEscolar="2024/25")
-            
+                TeacherModule.objects.create(
+                    teacher=teacher, module=module_instance, cursoEscolar="2024/25"
+                )
+
             messages.success(request, "Nuevo Módulo añadido correctamente.")
             return redirect("module_list")
     else:
@@ -56,8 +58,8 @@ def module_add(request):
         "title": "Añadir Módulo",
         "form": form,
         "type": "Módulos",
-        'module_code': '-'
-        }
+        "module_code": "-",
+    }
 
     return render(request, "module_add.html", data)
 
@@ -66,25 +68,34 @@ def module_edit(request, module_id):
     module_instance = get_object_or_404(Module, id=module_id)
     asociated_modules = []
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ModuleForm(request.POST, instance=module_instance)
 
         if form.is_valid():
             form.save()
 
-            selected_teachers = form.cleaned_data['teachers']
+            selected_teachers = form.cleaned_data["teachers"]
             TeacherModule.objects.filter(module=module_instance).delete()
             for teacher in selected_teachers:
-                TeacherModule.objects.create(teacher=teacher, module=module_instance, cursoEscolar="2024/25")
+                TeacherModule.objects.create(
+                    teacher=teacher, module=module_instance, cursoEscolar="2024/25"
+                )
 
-            messages.success(request, 'Módulo actualizado correctamente.')
-            return redirect('module_list')
+            messages.success(request, "Módulo actualizado correctamente.")
+            return redirect("module_list")
         else:
-            error_messages = " ".join([f"{field}: {', '.join(errors)}" for field, errors in form.errors.items()])
+            error_messages = " ".join(
+                [
+                    f"{field}: {', '.join(errors)}"
+                    for field, errors in form.errors.items()
+                ]
+            )
             messages.error(request, f"Error al editar el Módulo: {error_messages}")
     else:
         form = ModuleForm(instance=module_instance)
-        form.fields['teachers'].initial = Teacher.objects.filter(teachermodule__module=module_instance)
+        form.fields["teachers"].initial = Teacher.objects.filter(
+            teachermodule__module=module_instance
+        )
 
     data = {
         "title": "Editar Módulo",
@@ -96,3 +107,19 @@ def module_edit(request, module_id):
     }
 
     return render(request, "module_edit.html", data)
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+
+@csrf_exempt
+def module_delete(request, module_id):
+    if request.method == "POST":  # Usamos POST en vez de DELETE
+        module = get_object_or_404(Module, id=module_id)
+
+        TeacherModule.objects.filter(module=module).delete()
+        module.delete()
+
+        return JsonResponse({"message": "Módulo eliminado correctamente."}, status=200)
+    return JsonResponse({"message": "Método no permitido"}, status=405)
