@@ -39,14 +39,15 @@
     <p class="noMostrarMovil">
         {% if module.teachers.all %}
         {% for teacher in module.teachers.all %}
-        <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">{{ teacher.name }} {{ teacher.last_name }}</a>{% if not forloop.last %} {% endif %}
+        <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">{{ teacher.name }} {{ teacher.last_name}} </a>
+        {% if not forloop.last %} {% endif %}
         {% endfor %}
         {% else %}
         No asignado
         {% endif %}
     </p>
 
-    
+
     <div class="tableBottomsCSS">
         <button class="bottomSee" data-module-id="{{ module.id }}">
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarMovil">
