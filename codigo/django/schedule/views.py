@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from fp.models import FP
 from module.models import Module, Enrolled
 from session.models import Session
-from .models import ScheduleConfig, ClassSession, WEEKDAYS
+from .models import ScheduleConfig, WEEKDAYS
 
 def select_schedule(request):
     fps = FP.objects.all()
