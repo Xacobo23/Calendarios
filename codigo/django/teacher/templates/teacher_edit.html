@@ -1,3 +1,27 @@
+<style>
+    @media (max-width:700px) {
+     .item-section{
+        padding-right: 0px !important;
+     }
+    .item-title{
+        margin-top: 70px;
+        margin-left: 5%;
+    }
+    .item-actions{
+        flex-direction: column-reverse;     
+    }   
+    .action-buttons{
+        margin-bottom: 5%;
+    }
+    .item-main{
+        display: flex !important;
+        justify-content: center;
+    }
+    .item-edit-side{
+        margin: auto;
+    }
+    }
+</style>
 {% extends 'base_manage_item.html' %}
 
 {% block inputValue %} {{ id }} {% endblock %}
