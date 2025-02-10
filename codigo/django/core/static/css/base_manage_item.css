@@ -7,6 +7,7 @@
 
 .item-section {
     padding-right: 1em;
+    
 }
 
 .item-title,
@@ -48,6 +49,7 @@ select {
     border-radius: .5em;
     background-color: rgba(242, 242, 242, .5);
 }
+
 
 .item-actions,
 .subitem-actions {
@@ -244,4 +246,51 @@ tbody tr:nth-child(even) {
     font-size: 16px;
     font-weight: 400;
     color: #333;
+}
+
+
+@media (min-width: 700px){
+    .item-section{
+        height: 100vh;
+    }
+    .item-title{
+        height: 10%;
+    }
+    .item-actions{
+        height: 8%;
+    }
+
+    .item-main{
+        height: 80%;
+    }
+    .item-edit-side{
+        height: 100%;
+    }
+    .item-edit-side h2 {
+        height: 8%;
+    }
+
+    .item-edit-side form{
+        height: 80%;
+    }
+
+    .selectModule{
+        height: 60%;
+    }
+    .selectModule .form-group{
+        height: 100%;
+    }
+
+    .selectModule .form-group label{
+        height: 10%;
+    }
+    .selectModule .form-group select{
+        height: fit-content;
+        max-height: 80%;
+    }
+    .selectModule .form-group select option{
+        height: 2em;
+        text-align: ;
+    }
+
 }
