@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap');
+
+* {
+    font-family: 'Open Sans', serif;
+    font-weight: 100;
+}
+
+.item-section {
+    padding-right: 1em;
+}
+
+.item-title,
+.item-edit-side h2,
+.item-items-asociated h2,
+.side-section h2 {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    font-weight: 500;
+}
+
+.item-title {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    color: #468DAE;
+}
+
+.item-title i {
+    font-size: 1.5em;
+}
+
+.item-title h2 {
+    font-weight: bold;
+}
+
+.display-id {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.display-id input,
+#id_fp_type,
+.form-group input,
+.form-group textarea,
+select {
+    padding: 1em;
+    border: none;
+    border-radius: .5em;
+    background-color: rgba(242, 242, 242, .5);
+}
+
+.item-actions,
+.subitem-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1em;
+}
+
+.btn {
+    color: white;
+    padding: 1em 4em;
+    border: none;
+    border-radius: .5em;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+.btn-schedule,
+.btn-save,
+.btn-see {
+    background-color: #468DAE;
+}
+
+.btn-edit {
+    background-color: #F26B1C;
+}
+
+.btn-delete,
+.btn-delete-top {
+    background-color: #DB5D5D;
+}
+
+.btn-add-subitem {
+    background-color: #7ED9AE;
+    width: fit-content;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.item-main,
+.form-row,
+.subitem-grid {
+    display: grid;
+    gap: 1em;
+}
+
+.item-main {
+    grid-template-columns: 1fr 1fr;
+}
+
+.form-row {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.subitem-grid {
+    grid-template-columns: repeat(3, 1fr) auto;
+    align-items: center;
+    padding: 1em;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.subitem-header {
+    font-weight: bold;
+    background-color: #468DAE;
+    color: white;
+    padding: 1em;
+    border-radius: .5em .5em 0 0;
+}
+
+.form-manage,
+.item-more-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.modules-table {
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+.modules-table thead {
+    background-color: #468DAE;
+    color: white;
+}
+
+th,
+td {
+    padding: 1em;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(242, 242, 242, 0.5);
+}
+
+.message-box {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.close-message {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #28a745;
+}
+
+.error {
+    background-color: #dc3545;
+}
+
+.warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.info {
+    background-color: #17a2b8;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.restart_password_container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.styled-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.styled-checkbox:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.styled-checkbox:checked::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 6px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
