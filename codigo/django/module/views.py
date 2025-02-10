@@ -6,6 +6,9 @@ from django.contrib import messages
 from .forms import ModuleForm
 from .models import Module
 from teacher.models import TeacherModule, Teacher
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Esta función solo comprueba si el usuario que quiere acceder es superusuario(admin).
@@ -109,17 +112,18 @@ def module_edit(request, module_id):
     return render(request, "module_edit.html", data)
 
 
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-
-
 @csrf_exempt
 def module_delete(request, module_id):
-    if request.method == "POST":  # Usamos POST en vez de DELETE
+    if request.method == "POST":
         module = get_object_or_404(Module, id=module_id)
 
         TeacherModule.objects.filter(module=module).delete()
         module.delete()
 
-        return JsonResponse({"message": "Módulo eliminado correctamente."}, status=200)
-    return JsonResponse({"message": "Método no permitido"}, status=405)
+        return JsonResponse(
+            {"success": True, "message": "Módulo eliminado correctamente"}
+        )
+    else:
+        return JsonResponse(
+            {"success": False, "message": "No se ha podido eliminar el módulo."}
+        )
