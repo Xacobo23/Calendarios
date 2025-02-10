@@ -1,3 +1,63 @@
+<style>
+    .item-section {
+        height:100vh;
+        overflow: hidden;
+    }
+
+    .item-title {
+        height: 10%;
+    }
+
+    .item-actions {
+        height: 5%;
+    }
+
+    .item-main {
+        height: 80%;
+    }
+
+    .item-edit-side {
+        height: 95%;
+    }
+
+    .item-edit-side h2 {
+        height: 8%;
+    }
+
+    .item-edit-side form {
+        height: 80%;
+    }
+
+    .selectModule {
+        height: fit-content;
+    }
+
+    .selectModule .form-group {
+        height: 100%;
+    }
+
+    .selectModule .form-group label {
+        height: 10%;
+    }
+
+    .selectModule .form-group select {
+        height: 100%;
+        max-height: 80%;
+    }
+
+    .selectModule .form-group select option {
+        height: 2em;
+        display: flex;
+        align-items: center;
+    }
+
+    @media (max-width:700px) {
+        .selectModule .form-group select {
+        height: fit-content;
+    }
+    }
+    
+</style>
 {% extends 'base_manage_item.html' %}
 
 {% block identifier %} Nuevo {% endblock %}
@@ -41,7 +101,7 @@
                     {{ form.phone }}
                 </div>
             </div>
-            <div class="form-row-large">
+            <div class="form-row-large selectModule">
                 <div class="form-group">
                     <label for="{{ form.modules.id_for_modules }}">Módulos</label>
                     {{ form.modules }}
