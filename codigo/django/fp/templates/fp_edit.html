@@ -9,7 +9,7 @@
 {% block buttons %}
 <div class="hidden phone-buttons">
     <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
-    <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos Impartidos</button>
+    <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
 </div>
 <div class="action-buttons">
     <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
@@ -92,7 +92,6 @@
         </form>
     </section>
     <style>
-      
         .hidden {
             display: none;
         }
@@ -165,9 +164,10 @@
 
 
         @media (max-width: 700px) {
-            .item-main{
+            .item-main {
                 display: flex;
-            }  
+            }
+
             .item-title {
                 margin-top: 75px;
                 margin-left: 20px;
@@ -183,10 +183,11 @@
             }
 
             .phone-buttons {
-                width: 100%;
-                display: flex;
-                justify-content: space-around;
+                width: 80%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 order: 3;
+                margin: auto;
             }
 
             .btn-simple {
@@ -229,11 +230,11 @@
                 padding: 1em;
             }
 
-            .item-edit-side{
+            .item-edit-side {
                 padding-right: 1em;
             }
 
-            .item-section{
+            .item-section {
                 padding: 0px;
             }
 
@@ -241,15 +242,15 @@
                 width: 100%;
             }
 
-            .side-section{
+            .side-section {
                 width: 100%;
             }
 
-            .noMostrarMovil{
+            .noMostrarMovil {
                 display: none;
             }
 
-            .modules-table{
+            .modules-table {
                 margin-top: 1em;
             }
         }
@@ -272,22 +273,22 @@
                 <h3 class="tableHeaderTitleCSS">Curso</h3>
                 <div class="tableHeaderTitleCSS"></div> <!-- Espacio para los botones -->
             </div>
-                {% for module in asociated_modules %}
-                <div
-                    class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
-                    <p>{{ module.code }}</p>
-                    <p>{{ module.name }}</p>
-                    <p>{{ module.course }}</p>
-                    <div class="tableBottomsCSS">
-                        <button class="bottomSee" data-module-id="{{ module.id }}">
-                            <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
-                        </button>
-                        <button class="bottomDelete">
-                            <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
-                        </button>
-                    </div>
+            {% for module in asociated_modules %}
+            <div
+                class="tableRowCSS moduleList {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+                <p>{{ module.code }}</p>
+                <p>{{ module.name }}</p>
+                <p>{{ module.course }}</p>
+                <div class="tableBottomsCSS">
+                    <button class="bottomSee" data-module-id="{{ module.id }}">
+                        <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
+                    </button>
+                    <button class="bottomDelete">
+                        <img src="{% static 'images/svg/bin.svg' %}" alt="bin" class="noMostrarPc">
+                    </button>
                 </div>
-                {% endfor %}
+            </div>
+            {% endfor %}
         </div>
     </section>
 
@@ -408,7 +409,6 @@
                     sideSection.classList.remove("hidden");
                 }
             }
-
             btnDatos.addEventListener("click", () => toggleSections(true));
             btnModulos.addEventListener("click", () => toggleSections(false));
         });
