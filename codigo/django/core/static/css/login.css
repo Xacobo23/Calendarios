@@ -34,6 +34,8 @@ main {
     grid-template-columns: 1fr 1fr;
 }
 
+/*esto poderase borrar*/
+
 .smallTriangleWhite {
     width: 0;
     height: 0;
@@ -217,9 +219,9 @@ main {
     }
 
     .estatua {
-        width: 125%;
+        width: 135%;
         /* Si necesitas que sea más grande */
-        transform: translateY(20%) translateX(25%);
+        transform: translateY(20%) translateX(20%);
         overflow: hidden;
     }
 

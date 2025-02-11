@@ -29,3 +29,4 @@ Profesores
 1. se se garda por ejemplo un modulo novo
 2. despois de vai a añadir alumno por ejemplo
 3. aparece debaixo de todo un texto de modulo añadido, e non se ve o boton guardar
+4. cando inicias sesion e entras dentro dun profesor aparece un mensaje de bienvenido (supoño que pasa en todo)
