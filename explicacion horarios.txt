@@ -1,0 +1,26 @@
+en plantilla horario gardarase a hora de inicio, a duración das sesións e o numero de sesións. Con esto generarase unha lista de huecos para ese día, e indicaremos na tabla sesión en que posición da lista vai
+
+Plantilla horario:
+tipo horario (mañana, tarde, mañana_y_tarde)
+start_week_day: 1 (lunes)
+last_week_day: 6 (sabado)
+duración de las sesiones - 50min
+
+hora inicio mañana - 8:45
+numero sesiones mañana - 7
+hora fin mañana(calculado)
+
+hora inicio tarde - 16:00
+numero sesiones tarde - 5
+hora fin tarde(calculado)
+
+Relacion da plantilla co ciclo: será unha relación n:n co atributo curso, que indique que curso(1º,2º) do ciclo terá esa plantilla. Pa entendelo mellor, sería unha 1:n plantilla-curso_ciclo.
+
+Sesión:
+module_id: 2(DIW por ejemplo)
+week_day: 2(martes)
+time_position: 8 (na plantilla de arriba iría as 16:00)
+class_number
+
+	
+	
