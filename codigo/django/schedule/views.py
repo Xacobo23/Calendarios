@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from fp.models import FP
 from module.models import Module, Enrolled
 from session.models import Session
-from .models import ScheduleConfig, FPScheduleConfig
+from .models import ScheduleConfig, FPScheduleConfig, WEEKDAYS
 from module.models import Module
 
 def select_schedule(request):
@@ -23,12 +23,13 @@ def select_schedule(request):
 
     return render(request, 'schedule_select.html', data)
 
-def view_schedule(request, fp_id):
+def view_schedule(request, fp_id, curso):
     fp = get_object_or_404(FP, id=fp_id)
 
-    schedule_config = FPScheduleConfig.objects.filter(fp=fp).first()
+    fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=curso).first()
+    scheduleConfig = fpScheduleConfig.schedule_config if fpScheduleConfig else None
 
-    modules = Module.objects.filter(fp=fp)
+    modules = Module.objects.filter(fp=fp, course=curso)
 
     modules_sessions = {}
 
@@ -41,9 +42,10 @@ def view_schedule(request, fp_id):
     data = {
         'title': 'Horario',
         'fp': fp,
-        'schedule_config': schedule_config.schedule_config,
+        'schedule_config': scheduleConfig,
         'modules': modules,
-        'modules_sessions': modules_sessions
+        'modules_sessions': modules_sessions,
+        'week_days': WEEKDAYS
     }
 
     return render(request, 'schedule_view.html', data)
