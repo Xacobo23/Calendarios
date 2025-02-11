@@ -263,6 +263,7 @@ select:disabled {
         height: fit-content;
     }
     .item-section{
+        overflow: hidden;
         height: 100vh;
     }
     .item-actions {
