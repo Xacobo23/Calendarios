@@ -2,10 +2,6 @@
 
 {% block title %} {{ title }} {% endblock %}
 
-{% block js %}
-<script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
-{% endblock %}
-
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/base_manage_item.css' %}" />
@@ -32,4 +28,24 @@
     {% block form %}{% endblock %}
     {% block side %}{% endblock %}
 </section>
+{% endblock %}
+
+{% block js %}
+<script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
+<script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+        let cancelBtn = document.querySelector('.btn-cancel');
+
+        formButtons.style.display = 'none';
+
+        // Cancel button
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                window.history.back();
+            });
+        }
+
+    });
+
+</script>
 {% endblock %}

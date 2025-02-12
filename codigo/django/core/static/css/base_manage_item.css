@@ -263,7 +263,7 @@ select:disabled {
         height: fit-content;
     }
     .item-section{
-        overflow: hidden;
+        /* overflow: hidden; */
         height: 100vh;
     }
     .item-actions {
@@ -311,7 +311,7 @@ select:disabled {
 @media (min-width: 700px) {
     .item-section {
         height: 100vh;
-        overflow: hidden;
+        /* overflow: hidden; */
     }
 
     .item-title {
@@ -361,8 +361,19 @@ select:disabled {
         align-items: center;
     }
 
+    .btn-cancel{
+        background-color: #DB5D5D;
+    }
 
+    .form-buttons{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
+    }
 
+    .hidden{
+        display: none;
+    }
 }
 
 @media (min-width: 700px) {

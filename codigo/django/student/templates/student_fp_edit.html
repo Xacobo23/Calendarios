@@ -8,190 +8,189 @@
 
 {% block css %}
 <style>
+    .item-section {
+        margin-right: 1em;
+    }
 
-.item-section {
-    margin-right: 1em;
-}
+    .item-title {
+        color: #468dae;
 
-.item-title {
-    color: #468dae;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1em;
+    }
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1em;
-}
+    .item-title i {
+        font-size: 1.5em;
+    }
 
-.item-title i {
-    font-size: 1.5em;
-}
+    .title {
+        font-weight: bold;
+    }
 
-.title {
-    font-weight: bold;
-}
+    .item-actions {
+        display: flex;
+        justify-content: space-between;
+    }
 
-.item-actions {
-    display: flex;
-    justify-content: space-between;
-}
+    .btn-delete {
+        background-color: #db5d5d;
+        color: white;
 
-.btn-delete {
-  background-color: #db5d5d;
-  color: white;
+        border: none;
+        border-radius: 0.5em;
 
-  border: none;
-  border-radius: 0.5em;
+        padding: 1em 2em;
 
-  padding: 1em 2em;
+        cursor: pointer;
+    }
 
-  cursor: pointer;
-}
+    .btn-delete:hover {
+        opacity: .8em;
+    }
 
-.btn-delete:hover {
-    opacity: .8em;
-}
+    label[for='student'] {
+        font-weight: bold;
+    }
 
-label[for='student'] {
-    font-weight: bold;
-}
+    #input-student {
+        border: none;
+        border-radius: .5em;
 
-#input-student {
-    border: none;
-    border-radius: .5em;
+        padding: .5em;
 
-    padding: .5em;
+        background-color: #f9f9f9;
+    }
 
-    background-color: #f9f9f9;
-}
+    .item-tables {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
 
-.item-tables {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-}
+    .card-title {
+        background-color: #468DAE;
+        color: white;
 
-.card-title {
-    background-color: #468DAE;
-    color: white;
+        font-weight: 400;
 
-    font-weight: 400;
+        margin: 0;
+        padding: .5em;
 
-    margin: 0;
-    padding: .5em;
+        border-top-left-radius: .5em;
+        border-top-right-radius: .5em;
+    }
 
-    border-top-left-radius: .5em;
-    border-top-right-radius: .5em;
-}
+    .card-description {
+        border: white .6em solid;
+        height: 20%;
 
-.card-description {
-    border: white .6em solid;
-    height: 20%;
+    }
 
-}
+    .card-duration {
+        padding: .6em;
 
-.card-duration {
-    padding: .6em;
+        display: flex;
+        flex-direction: column;
+        justify-content: end
+    }
 
-    display: flex;
-    flex-direction: column;
-    justify-content: end
-}
+    .card-actions {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        justify-content: end;
 
-.card-actions {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    justify-content: end;
+        padding: .5em;
+    }
 
-    padding: .5em;
-}
+    .card-btn-see {
+        background-color: #468DAE;
+        color: white;
 
-.card-btn-see {
-    background-color: #468DAE;
-    color: white;
+        border: none;
+        border-radius: .5em;
 
-    border: none;
-    border-radius: .5em;
+        padding: .6em 2em;
+    }
 
-    padding: .6em 2em;
-}
+    .see-fp {
+        display: flex;
+        justify-content: end;
+    }
 
-.see-fp {
-       display: flex; 
-       justify-content: end;
-}
+    .tuition-card {
+        width: 100%;
 
-.tuition-card {
-    width: 100%;
+        border-radius: .5em;
+        border: 1px solid rgba(242, 242, 242, 1);
+    }
 
-    border-radius: .5em;
-    border: 1px solid rgba(242, 242, 242, 1);
-}
+    .tableFpCard {
+        padding: 1em;
+    }
 
-.tableFpCard {
-    padding: 1em;
-}
+    .tableHeaderCSS {
+        background-color: #468DAE;
+        color: white;
 
-.tableHeaderCSS {
-    background-color: #468DAE;
-    color: white;
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr 3fr;
 
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr 3fr;
+        padding: .5em;
+    }
 
-    padding: .5em;
-}
+    .evenRow {
+        background-color: #f9f9f9;
+    }
 
-.evenRow {
-    background-color: #f9f9f9;
-}
+    .tableRowCSS {
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr 3fr;
 
-.tableRowCSS {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr 3fr;
+        padding: .5em;
+    }
 
-    padding: .5em;
-}
+    .tableBody {
+        margin-top: 1em;
+    }
 
-.tableBody {
-    margin-top: 1em;
-}
+    .teacher-btn {
+        display: inline-block;
+        padding: 0em .5em;
+        background-color: #468dae;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9em;
+    }
 
-.teacher-btn {
-  display: inline-block;
-  padding: 0em .5em;
-  background-color: #468dae;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 0.9em;
-}
+    .teacher-btn:hover {
+        background-color: #356d8c;
+    }
 
-.teacher-btn:hover {
-  background-color: #356d8c;
-}
+    .tableBottomsCSS {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+    }
 
-.tableBottomsCSS {
-  display: flex;
-  justify-content: center;
-  gap: 1em;
-}
+    .tableBottomsCSS button {
+        border: none;
+        border-radius: .5em;
 
-.tableBottomsCSS button {
-    border: none;   
-    border-radius: .5em;
+        padding: 0 2em;
 
-    padding: 0 2em;
+        cursor: pointer;
+    }
 
-    cursor: pointer;
-}
+    .bottomSee {
+        background-color: #356d8c;
+    }
 
-.bottomSee {
-    background-color: #356d8c;
-}
-
-.bottomDelete {
-    background-color: #db5d5d;
-}
+    .bottomDelete {
+        background-color: #db5d5d;
+    }
 </style>
 {% endblock %}
 
@@ -199,7 +198,8 @@ label[for='student'] {
 <section class="item-section">
     <article class="item-title">
         <i class="fa-solid fa-user"></i>
-        <h2 class="general-title"><span class="title">Alumnos</span> / <small>{{ student_dni }} / {{ fp.initials }}</small></h2>
+        <h2 class="general-title"><span class="title">Alumnos</span> / <small>{{ student_dni }} / {{ fp.initials
+                }}</small></h2>
     </article>
     <hr style="opacity: .2;">
     <article class="item-actions">
@@ -210,7 +210,7 @@ label[for='student'] {
 
         <button id="add-item-btn" class="btn-delete">
             <div class="noMostrarMovil">
-                <i class="fa-solid fa-user-minus"></i> Desmatricular del ciclo 
+                <i class="fa-solid fa-user-minus"></i> Desmatricular del ciclo
             </div>
         </button>
 
@@ -247,7 +247,8 @@ label[for='student'] {
                 </thead>
                 <tbody>
                     {% for module in modules %}
-                    <div class="tableRowCSS moduleRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+                    <div
+                        class="tableRowCSS moduleRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
                         <p class="noMostrarMovil">{{ module.id }}</p>
                         <p>{{ module.code }}</p>
                         <p>{{ module.name }}</p>
@@ -256,15 +257,15 @@ label[for='student'] {
                         <p class="noMostrarMovil">
                             {% if module.teachers.all %}
                             {% for teacher in module.teachers.all %}
-                            <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">{{ teacher.name }} 
+                            <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">{{ teacher.name }}
                                 {{ teacher.last_name }}</a>{% if not forloop.last %} {% endif %}
                             {% endfor %}
                             {% else %}
                             No asignado
                             {% endif %}
                         </p>
-                    
-                    
+
+
                         <div class="tableBottomsCSS">
                             <button class="bottomSee" data-module-id="{{ module.id }}">
                                 <img src="{% static 'images/svg/eye.svg' %}" alt="eye" class="noMostrarPc">
@@ -280,5 +281,6 @@ label[for='student'] {
         </div>
     </article>
 </section>
+
 
 {% endblock %}

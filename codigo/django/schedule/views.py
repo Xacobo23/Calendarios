@@ -25,7 +25,9 @@ def select_schedule(request):
 
     return render(request, 'schedule_select.html', data)
 
-def view_schedule(request, fp_id, curso):
+def view_schedule(request, fp_id, curso=None):
+    selected_course = int(curso) if curso else 1
+
     fp = get_object_or_404(FP, id=fp_id)
 
     fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=curso).first()
@@ -85,7 +87,8 @@ def view_schedule(request, fp_id, curso):
         'modules': modules,
         'modules_sessions': modules_sessions,
         'week_days': WEEKDAYS,
-        'scheduleHours': scheduleHours
+        'scheduleHours': scheduleHours,
+        'selected_course': selected_course
     }
 
     return render(request, 'schedule_view.html', data)

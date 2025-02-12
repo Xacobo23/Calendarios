@@ -72,38 +72,61 @@
             </div>
             {% endif %}
 
-            <button type="submit" class="btn btn-save">Guardar</button>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-save">Guardar</button>
+                <button type="button" class="btn btn-cancel">Cancelar</button>
+            </div>
         </form>
     </section>
     <style>
+        @media (max-width: 700px) {
+            .item-main {
+                display: flex;
+                padding-left: 1em;
+            }
 
-    @media (max-width: 700px) {
-        .item-main{
-            display: flex;
-            padding-left: 1em;
-        }
+            .action-buttons {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+            }
 
-        .action-buttons{
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1em;
-        }
-
-        .item-edit-side{
-            width: 100%;
-        }
-    }
+            /*Porfavor non tocar ou se romperarn todo os botons*/
+            .action-buttons {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+            }
     </style>
-{% endblock %}
+    {% endblock %}
 
     {% block side %}
 
     <script defer>
         const btnToSchedule = document.getElementById('btn-to-schedule');
+        const btnDelete = document.getElementById('btn-delete');
+
+        /* Edit button */
         const btnEdit = document.getElementById('btn-edit');
         const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
-        const btnDelete = document.getElementById('btn-delete');
+        let actionButtons = document.querySelector('.action-buttons');
+        let formButtons = document.querySelector('.form-buttons');
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        });
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+                actionButtons.style.display = 'none';
+                formButtons.style.display = 'block';
+            });
+
+            btnEdit.disabled = true;
+        });
 
         formElements.forEach(element => {
             element.disabled = true;
@@ -174,7 +197,7 @@
             });
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.form-control').select2();
         });
 

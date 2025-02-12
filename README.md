@@ -1,7 +1,7 @@
 # Calendarios
 
 ### Admin
-- [ ] Facer que as pantallas de editar teñan boton cancelar 
+- ✅ Facer que as pantallas de editar teñan boton cancelar 
 - ✅ borrar modulo
 - [ ] non volver atrás ao crear nin editar ciclos(é o que pon no papel)
 - ✅ a min non me crea alumnos?
@@ -12,8 +12,8 @@ Horario
 - [ ] facer creación de horario
 
 Profesores
-- [ ] os links dos modulos na tabla profesores non funcionan
-- [ ] non ten sentido que dente o profesor se escollan os modulos que da, eso faise no módulo
+- ✅ os links dos modulos na tabla profesores non funcionan
+- ??? non ten sentido que dente o profesor se escollan os modulos que da, eso faise no módulo
 
 ---
 ### Alumno

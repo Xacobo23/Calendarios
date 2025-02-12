@@ -7,10 +7,15 @@
 {% load static %}
 
 {% block buttons %}
-<div class="hidden phone-buttons">
-    <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
-    <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
-</div>
+    <div class="hidden phone-buttons">
+        <button id="btn-datos" class="btn-simple btn-datos active-button">
+            <span>Datos</span>
+        </button>
+        <button class="btn-simple btn-modulos" id="btn-modulos"> 
+            <span>Modulos<br>Impartidos</span>
+        </button>
+    </div>
+
 <div class="action-buttons">
     <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
         Horario</button>
@@ -88,7 +93,10 @@
             </div>
             {% endif %}
 
-            <button type="submit" class="btn btn-save">Guardar</button>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-save">Guardar</button>
+                <button type="button" class="btn btn-cancel">Cancelar</button>
+            </div>
         </form>
     </section>
     <style>
@@ -162,8 +170,36 @@
             background-color: #db5d5d;
         }
 
+        .action-buttons {
+            grid-template-columns: 1fr 2fr;
+        }
+
+        .btn-simple {
+            position: absolute;
+            background: none;
+            border: 0;
+            color: inherit;
+            font-size: 1em;
+            padding: 0;
+            cursor: pointer;
+        }
 
         @media (max-width: 700px) {
+            .active-button {
+                padding-bottom: 2px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-top: 2px solid #468dae;
+                border-left: 2px solid #468dae;
+                border-right: 2px solid #468dae;
+
+                margin-bottom: 0 !important;
+                border-bottom: 0;
+
+                background:#468dae;
+                color: white;
+            }
+
             .item-main {
                 display: flex;
             }
@@ -182,22 +218,50 @@
                 flex-direction: column-reverse;
             }
 
-            .phone-buttons {
-                width: 80%;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+            .up-phone-buttons{
+                width: 100%;
                 order: 3;
-                margin: auto;
+                position: relative;
             }
 
-            .btn-simple {
-                background: none;
-                border: none;
-                color: inherit;
-                font-size: 1em;
-                padding: 0;
-                cursor: pointer;
+            .phone-buttons {
+                position: relative;
+                width: 100%;
+                height: 44px;
+                display: grid;
+                order: 3;
+                grid-template-columns: 1fr 1fr;
+                margin: auto;
+                border: #468dae 2px solid;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                /*
+                border-top-right-radius: 20px;
+                border-top-left-radius: 20px;
+                */
             }
+
+            #btn-datos {
+                left: -2px;
+                top: -2px;
+                width: 50%;
+                height: 46px;
+            }
+
+            #btn-modulos {
+                right: -2px;
+                top: -2px;
+                width: 50%;
+                height: 46px;
+
+                margin-top: 1px;
+                margin-bottom: 2px;
+            }
+            #btn-modulos.active-button {
+                margin-top: 0px;
+            }
+
+
 
             .action-buttons {
                 width: 100%;
@@ -294,10 +358,30 @@
 
     <script defer>
         const btnToSchedule = document.getElementById('btn-to-schedule');
-        const btnEdit = document.getElementById('btn-edit');
-        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
         const btnDelete = document.getElementById('btn-delete');
         const btnToModule = document.querySelectorAll(".btn-see"); // Seleccionamos correctamente todos los botones "Ver"
+
+        // Edit button
+        const btnEdit = document.getElementById('btn-edit');
+        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
+        let actionButtons = document.querySelector('.action-buttons');
+        let formButtons = document.querySelector('.form-buttons');
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        });
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+                actionButtons.style.display = 'none';
+                formButtons.style.display = 'block';
+            });
+
+            btnEdit.disabled = true;
+        });
+
+
 
         formElements.forEach(element => {
             element.disabled = true;
@@ -404,9 +488,15 @@
                 if (showEdit) {
                     itemEditSide.classList.remove("hidden");
                     sideSection.classList.add("hidden");
+
+                    btnDatos.classList.add("active-button")
+                    btnModulos.classList.remove("active-button")
                 } else {
                     itemEditSide.classList.add("hidden");
                     sideSection.classList.remove("hidden");
+
+                    btnModulos.classList.add("active-button")
+                    btnDatos.classList.remove("active-button")
                 }
             }
             btnDatos.addEventListener("click", () => toggleSections(true));
