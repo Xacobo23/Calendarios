@@ -7,19 +7,19 @@
 {% load static %}
 
 {% block buttons %}
-    <div class="hidden phone-buttons">
-        <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
-        <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
+<div class="hidden phone-buttons">
+    <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
+    <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
+</div>
+<div class="action-buttons">
+    <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
+        Horario</button>
+    <div class="bottom-buttons">
+        <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+        <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
+            Eliminar</button>
     </div>
-    <div class="action-buttons">
-        <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
-            Horario</button>
-        <div class="bottom-buttons">
-            <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-            <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
-                Eliminar</button>
-        </div>
-    </div>
+</div>
 {% endblock %}
 
 {% block identifier %}
@@ -165,7 +165,7 @@
             background-color: #db5d5d;
         }
 
-        .action-buttons{
+        .action-buttons {
             grid-template-columns: 1fr 2fr;
         }
 
@@ -301,10 +301,30 @@
 
     <script defer>
         const btnToSchedule = document.getElementById('btn-to-schedule');
-        const btnEdit = document.getElementById('btn-edit');
-        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
         const btnDelete = document.getElementById('btn-delete');
         const btnToModule = document.querySelectorAll(".btn-see"); // Seleccionamos correctamente todos los botones "Ver"
+
+        // Edit button
+        const btnEdit = document.getElementById('btn-edit');
+        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
+        let actionButtons = document.querySelector('.action-buttons');
+        let formButtons = document.querySelector('.form-buttons');
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        });
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+                actionButtons.style.display = 'none';
+                formButtons.style.display = 'block';
+            });
+
+            btnEdit.disabled = true;
+        });
+
+
 
         formElements.forEach(element => {
             element.disabled = true;
