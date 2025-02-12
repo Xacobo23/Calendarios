@@ -225,10 +225,10 @@
                     </select>
                 </div>
                 <div class="action_section_filter">
-                    <label for="schedule_template">Curso: </label>
-                    <select id="schedule_template" name="schedule_template" class="options_selector">
-                        <option value="1">1</option>
-                        <option value="option2">2</option>
+                    <label for="select_course">Curso: </label>
+                    <select id="select_course" name="schedule_template" class="options_selector" data-fp-id="{{ fp.id }}">
+                        <option value="1" {% if selected_course == 1 %}selected{% endif %}>1</option>
+                        <option value="2" {% if selected_course == 2 %}selected{% endif %}>2</option>
                     </select>
                 </div>
             </div>
@@ -262,9 +262,9 @@
                         <!-- todas as sesions do día -->
                         <div class="day_sessions">
                             <div class="day_session_selector_container table_row">
-                                <select id="schedule_template" name="schedule_template" class="options_selector">
+                                <select id="quecojonesesesto" name="schedule_template" class="options_selector">
                                     <option value="1">1</option>
-                                    <option value="option2">2</option> <!-- okey esto feito, ahora a facer que cargue datos -->
+                                    <option value="2">2</option> <!-- okey esto feito, ahora a facer que cargue datos -->
                                 </select>
                             </div>
                         </div>
@@ -279,6 +279,16 @@
 
 </article>
 
-<script></script>
+<script>
+    const selectCurso = document.getElementById('select_course');
+    const fpId = selectCurso.dataset.fpId;
+
+    selectCurso.addEventListener('change', () => {
+        let course_value = selectCurso.value;
+        let newUrl = `/schedule/view-schedule/${fpId}/${course_value}`;
+
+        window.location.href = newUrl;
+    });
+</script>
 
 {% endblock %}

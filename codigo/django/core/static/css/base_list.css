@@ -377,7 +377,7 @@ button:hover {
   }  
 }
 
-.teacher-btn {
+.teacher-btn, .module-btn{
   display: inline-block;
   padding: 0em .5em;
   background-color: #468dae;
@@ -397,3 +397,4 @@ button:hover {
   justify-content: space-between;
   align-items: center;
 }
+

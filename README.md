@@ -12,8 +12,8 @@ Horario
 - [ ] facer creación de horario
 
 Profesores
-- [ ] os links dos modulos na tabla profesores non funcionan
-- [ ] non ten sentido que dente o profesor se escollan os modulos que da, eso faise no módulo
+- ✅ os links dos modulos na tabla profesores non funcionan
+- ??? non ten sentido que dente o profesor se escollan os modulos que da, eso faise no módulo
 
 ---
 ### Alumno
