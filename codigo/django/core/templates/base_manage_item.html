@@ -33,13 +33,15 @@
 {% block js %}
 <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
 <script defer>
-    let cancelBtn = document.getElementById('btn-cancel');
+    document.addEventListener("DOMContentLoaded", () => {
+        let cancelBtn = document.querySelector('.btn-cancel');
 
-    if (cancelBtn) {
-        cancelBtn.addEventListener('click', () => {
-            console.log('click');
-            window.history.back();
-        });
-    }
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                window.history.back();
+            });
+        }
+    });
+
 </script>
 {% endblock %}
