@@ -254,6 +254,18 @@
                         <div class="schedule_hour">9:45</div>
                     </div>
                 </div>
+                <!-- poñer esto arriba, que funione -->
+                {% for period, sessions in scheduleHours.items %}
+                    <div class="schedule_day_separator">{{ period }}</div> {# Mañana / Tarde #}
+                    {% for session_number, session in sessions.items %}
+                            <div class="schedule_time_slot table_row">
+                                <div class="schedule_hour">{{ session.start }}</div>
+                                <div class="schedule_hour">{{ session.end }}</div>
+                            </div>
+                    {% endfor %}
+                {% endfor %}
+                <!-- end que funcione -->
+
                 <!-- columnas de días e sesions, outro bucle for aqui -->
                 <div class="day_sessions_container">
                     <div class="day_column">
@@ -270,6 +282,7 @@
                         </div>
                     </div>
                 </div>
+                {{ schedule_config.session_duration }}
             {% else %}
                 este ciclo no tiene ninguna plantilla asignada
             {% endif %}

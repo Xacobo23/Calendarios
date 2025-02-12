@@ -8,6 +8,8 @@ from module.models import Module, Enrolled
 from session.models import Session
 from .models import ScheduleConfig, FPScheduleConfig, WEEKDAYS
 from module.models import Module
+from datetime import datetime, timedelta
+
 
 def select_schedule(request):
     fps = FP.objects.all()
@@ -29,6 +31,43 @@ def view_schedule(request, fp_id, curso):
     fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=curso).first()
     scheduleConfig = fpScheduleConfig.schedule_config if fpScheduleConfig else None
 
+    scheduleHours = {}
+    if scheduleConfig:
+        i = 1 #posicion de la sesion
+
+        #genero todas as horas de sesions
+        if scheduleConfig.schedule_type == "M" or scheduleConfig.schedule_type == "MT":
+            scheduleHours["Mañana"]={}
+
+            current_time = datetime.combine(datetime.today(), scheduleConfig.morning_start_time)
+            for i in range(i,scheduleConfig.morning_max_sessions):
+                scheduleHours["Mañana"][i]={}
+                start = current_time
+                scheduleHours["Mañana"][i]["start"]=start.time().strftime('%H:%M')
+                current_time+=scheduleConfig.session_duration
+                end = current_time
+                scheduleHours["Mañana"][i]["end"]=end.time().strftime('%H:%M')
+        if scheduleConfig.schedule_type == "T" or scheduleConfig.schedule_type == "MT":
+            scheduleHours["Tarde"] = {}
+            totalSessionsNumber = scheduleConfig.afternoon_max_sessions
+            if scheduleConfig.schedule_type == "MT": #se tamen ten sesions de mañan hai que sumalas para que vaia correctamente
+                totalSessionsNumber = scheduleConfig.afternoon_max_sessions + scheduleConfig.morning_max_sessions
+
+            current_time = datetime.combine(datetime.today(), scheduleConfig.afternoon_start_time)
+            for i in range(i, totalSessionsNumber):
+                scheduleHours["Tarde"][i] = {}
+                start = current_time
+                scheduleHours["Tarde"][i]["start"] = start.time().strftime('%H:%M')
+                current_time += scheduleConfig.session_duration
+                end = current_time
+                scheduleHours["Tarde"][i]["end"] = end.time().strftime('%H:%M')
+        print(scheduleHours)
+
+        print(scheduleConfig.schedule_type)
+
+
+
+
     modules = Module.objects.filter(fp=fp, course=curso)
 
     modules_sessions = {}
@@ -45,7 +84,8 @@ def view_schedule(request, fp_id, curso):
         'schedule_config': scheduleConfig,
         'modules': modules,
         'modules_sessions': modules_sessions,
-        'week_days': WEEKDAYS
+        'week_days': WEEKDAYS,
+        'scheduleHours': scheduleHours
     }
 
     return render(request, 'schedule_view.html', data)
