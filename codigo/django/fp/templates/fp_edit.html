@@ -8,7 +8,7 @@
 
 {% block buttons %}
     <div class="hidden phone-buttons">
-        <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
+        <button id="btn-datos" class="btn-simple btn-datos active-button"> Datos</button>
         <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
     </div>
     <div class="action-buttons">
@@ -166,8 +166,25 @@
             grid-template-columns: 1fr 2fr;
         }
 
-
+        .btn-simple {
+                background: none;
+                border: 0;
+                border-bottom: 3px solid black;
+                color: inherit;
+                font-size: 1em;
+                padding: 0;
+                cursor: pointer;
+            }
         @media (max-width: 700px) {
+            .active-button {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                border-top: 3px solid violet;
+                border-left: 3px solid violet;
+                border-right: 3px solid violet;
+
+                border-bottom: 0;
+        }
             .item-main {
                 display: flex;
             }
@@ -194,14 +211,7 @@
                 margin: auto;
             }
 
-            .btn-simple {
-                background: none;
-                border: none;
-                color: inherit;
-                font-size: 1em;
-                padding: 0;
-                cursor: pointer;
-            }
+            
 
             .action-buttons {
                 width: 100%;
@@ -408,9 +418,15 @@
                 if (showEdit) {
                     itemEditSide.classList.remove("hidden");
                     sideSection.classList.add("hidden");
+
+                    btnDatos.classList.add("active-button")
+                    btnModulos.classList.remove("active-button")
                 } else {
                     itemEditSide.classList.add("hidden");
                     sideSection.classList.remove("hidden");
+
+                    btnModulos.classList.add("active-button")
+                    btnDatos.classList.remove("active-button")
                 }
             }
             btnDatos.addEventListener("click", () => toggleSections(true));
