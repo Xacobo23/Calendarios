@@ -8,18 +8,23 @@
 
 {% block buttons %}
     <div class="hidden phone-buttons">
-        <button id="btn-datos" class="btn-simple btn-datos active-button"> Datos</button>
-        <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
+        <button id="btn-datos" class="btn-simple btn-datos active-button">
+            <span>Datos</span>
+        </button>
+        <button class="btn-simple btn-modulos" id="btn-modulos"> 
+            <span>Modulos<br>Impartidos</span>
+        </button>
     </div>
-    <div class="action-buttons">
-        <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
-            Horario</button>
-        <div class="bottom-buttons">
-            <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-            <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
-                Eliminar</button>
-        </div>
+
+<div class="action-buttons">
+    <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
+        Horario</button>
+    <div class="bottom-buttons">
+        <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+        <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
+            Eliminar</button>
     </div>
+</div>
 {% endblock %}
 
 {% block identifier %}
@@ -165,29 +170,36 @@
             background-color: #db5d5d;
         }
 
-        .action-buttons{
+        .action-buttons {
             grid-template-columns: 1fr 2fr;
         }
 
         .btn-simple {
-                background: none;
-                border: 0;
-                border-bottom: 3px solid black;
-                color: inherit;
-                font-size: 1em;
-                padding: 0;
-                cursor: pointer;
-            }
+            position: absolute;
+            background: none;
+            border: 0;
+            color: inherit;
+            font-size: 1em;
+            padding: 0;
+            cursor: pointer;
+        }
+
         @media (max-width: 700px) {
             .active-button {
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
-                border-top: 3px solid violet;
-                border-left: 3px solid violet;
-                border-right: 3px solid violet;
+                padding-bottom: 2px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-top: 2px solid #468dae;
+                border-left: 2px solid #468dae;
+                border-right: 2px solid #468dae;
 
+                margin-bottom: 0 !important;
                 border-bottom: 0;
-        }
+
+                background:#468dae;
+                color: white;
+            }
+
             .item-main {
                 display: flex;
             }
@@ -206,15 +218,50 @@
                 flex-direction: column-reverse;
             }
 
-            .phone-buttons {
-                width: 80%;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+            .up-phone-buttons{
+                width: 100%;
                 order: 3;
-                margin: auto;
+                position: relative;
             }
 
-            
+            .phone-buttons {
+                position: relative;
+                width: 100%;
+                height: 44px;
+                display: grid;
+                order: 3;
+                grid-template-columns: 1fr 1fr;
+                margin: auto;
+                border: #468dae 2px solid;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                /*
+                border-top-right-radius: 20px;
+                border-top-left-radius: 20px;
+                */
+            }
+
+            #btn-datos {
+                left: -2px;
+                top: -2px;
+                width: 50%;
+                height: 46px;
+            }
+
+            #btn-modulos {
+                right: -2px;
+                top: -2px;
+                width: 50%;
+                height: 46px;
+
+                margin-top: 1px;
+                margin-bottom: 2px;
+            }
+            #btn-modulos.active-button {
+                margin-top: 0px;
+            }
+
+
 
             .action-buttons {
                 width: 100%;
