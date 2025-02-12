@@ -35,8 +35,7 @@
 <script defer>
     document.addEventListener("DOMContentLoaded", () => {
         let cancelBtn = document.querySelector('.btn-cancel');
-        let actionButtons = document.querySelector('.action-buttons');
-        let formButtons = document.querySelector('.form-buttons');
+
         formButtons.style.display = 'none';
 
         // Cancel button
@@ -45,24 +44,6 @@
                 window.history.back();
             });
         }
-
-        // Edit button
-        const btnEdit = document.getElementById('btn-edit');
-        const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
-
-        formElements.forEach(element => {
-            element.disabled = true;
-        });
-
-        btnEdit.addEventListener('click', () => {
-            formElements.forEach(element => {
-                element.disabled = false;
-                actionButtons.style.display = 'none';
-                formButtons.style.display = 'block';
-            });
-
-            btnEdit.disabled = true;
-        });
 
     });
 

@@ -110,9 +110,28 @@
 
     <script defer>
         const btnToSchedule = document.getElementById('btn-to-schedule');
+        const btnDelete = document.getElementById('btn-delete');
+
+        // Edit button
         const btnEdit = document.getElementById('btn-edit');
         const formElements = document.querySelectorAll('#form-manage input, #form-manage select, #form-manage textarea');
-        const btnDelete = document.getElementById('btn-delete');
+        let actionButtons = document.querySelector('.action-buttons');
+        let formButtons = document.querySelector('.form-buttons');
+
+        formElements.forEach(element => {
+            element.disabled = true;
+        });
+
+        btnEdit.addEventListener('click', () => {
+            formElements.forEach(element => {
+                element.disabled = false;
+                actionButtons.style.display = 'none';
+                formButtons.style.display = 'block';
+            });
+
+            btnEdit.disabled = true;
+        });
+
 
         formElements.forEach(element => {
             element.disabled = true;
