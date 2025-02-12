@@ -7,19 +7,19 @@
 {% load static %}
 
 {% block buttons %}
-<div class="hidden phone-buttons">
-    <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
-    <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
-</div>
-<div class="action-buttons">
-    <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
-        Horario</button>
-    <div class="bottom-buttons">
-        <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-        <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
-            Eliminar</button>
+    <div class="hidden phone-buttons">
+        <button id="btn-datos" class="btn-simple btn-datos"> Datos</button>
+        <button class="btn-simple btn-modulos" id="btn-modulos"> Modulos<br>Impartidos</button>
     </div>
-</div>
+    <div class="action-buttons">
+        <button class="btn btn-schedule" id="btn-to-schedule" data-fp-id="{{ id }}"><i class="fa-regular fa-clock"></i>
+            Horario</button>
+        <div class="bottom-buttons">
+            <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button class="btn btn-delete-top" id="btn-delete" data-fp-id="{{ id }}"><i class="fa-regular fa-user"></i>
+                Eliminar</button>
+        </div>
+    </div>
 {% endblock %}
 
 {% block identifier %}
@@ -160,6 +160,10 @@
 
         .bottomDelete {
             background-color: #db5d5d;
+        }
+
+        .action-buttons{
+            grid-template-columns: 1fr 2fr;
         }
 
 
