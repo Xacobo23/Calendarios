@@ -23,7 +23,9 @@ def select_schedule(request):
 
     return render(request, 'schedule_select.html', data)
 
-def view_schedule(request, fp_id, curso):
+def view_schedule(request, fp_id, curso=None):
+    selected_course = int(curso) if curso else 1
+
     fp = get_object_or_404(FP, id=fp_id)
 
     fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=curso).first()
@@ -36,8 +38,6 @@ def view_schedule(request, fp_id, curso):
     for module in modules:
         sessions = Session.objects.filter(module=module)
         modules_sessions[module] = sessions
-
-    print(modules_sessions)
     
     data = {
         'title': 'Horario',
@@ -45,7 +45,8 @@ def view_schedule(request, fp_id, curso):
         'schedule_config': scheduleConfig,
         'modules': modules,
         'modules_sessions': modules_sessions,
-        'week_days': WEEKDAYS
+        'week_days': WEEKDAYS,
+        'selected_course': selected_course
     }
 
     return render(request, 'schedule_view.html', data)

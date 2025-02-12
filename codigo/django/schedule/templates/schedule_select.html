@@ -54,7 +54,7 @@ Selecciona un ciclo para ver su horario.
     btnVer.forEach(btn => {
         btn.addEventListener('click', () => {
             let fp_id = btn.getAttribute('data-fp-id');
-            let newUrl = `/schedule/view-schedule/${fp_id}/1`;
+            let newUrl = `/schedule/view-schedule/${fp_id}`;
 
             window.location.href = newUrl;
         });
