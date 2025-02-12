@@ -371,8 +371,9 @@ select:disabled {
         gap: 1em;
     }
 
-
-
+    .hidden{
+        display: none;
+    }
 }
 
 @media (min-width: 700px) {
