@@ -72,31 +72,35 @@
             </div>
             {% endif %}
 
-            <button type="submit" class="btn btn-save">Guardar</button>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-save">Guardar</button>
+                <button type="button" class="btn btn-cancel">Cancelar</button>
+            </div>
         </form>
     </section>
     <style>
+        @media (max-width: 700px) {
+            .item-main {
+                display: flex;
+                padding-left: 1em;
+            }
 
-    @media (max-width: 700px) {
-        .item-main{
-            display: flex;
-            padding-left: 1em;
-        }
+            .action-buttons {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+            }
 
-        /*Porfavor non tocar ou se romperarn todo os botons*/
-        .action-buttons{
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1em;
-        }
-
-        .item-edit-side{
-            width: 100%;
-        }
-    }
+            /*Porfavor non tocar ou se romperarn todo os botons*/
+            .action-buttons {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+            }
     </style>
-{% endblock %}
+    {% endblock %}
 
     {% block side %}
 
@@ -175,7 +179,7 @@
             });
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.form-control').select2();
         });
 
