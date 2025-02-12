@@ -1,26 +1,31 @@
 <style>
     @media (max-width:700px) {
-     .item-section{
-        padding-right: 0px !important;
-     }
-    .item-title{
-        margin-top: 70px;
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-    .item-actions{
-        flex-direction: column-reverse;     
-    }   
-    .action-buttons{
-        margin-bottom: 5%;
-    }
-    .item-main{
-        display: flex !important;
-        justify-content: center;
-    }
-    .item-edit-side{
-        margin: auto;
-    }
+        .item-section {
+            padding-right: 0px !important;
+        }
+
+        .item-title {
+            margin-top: 70px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .item-actions {
+            flex-direction: column-reverse;
+        }
+
+        .action-buttons {
+            margin-bottom: 5%;
+        }
+
+        .item-main {
+            display: flex !important;
+            justify-content: center;
+        }
+
+        .item-edit-side {
+            margin: auto;
+        }
     }
 </style>
 {% extends 'base_manage_item.html' %}
@@ -58,7 +63,7 @@
                 </div>
             </div>
             <div class="form-row-large">
-                
+
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -93,7 +98,10 @@
             </div>
             {% endif %}
 
-            <button type="submit" class="btn btn-save">Guardar</button>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-save">Guardar</button>
+                <button type="button" class="btn btn-cancel">Cancelar</button>
+            </div>
         </form>
     </section>
     {% endblock %}

@@ -361,6 +361,16 @@ select:disabled {
         align-items: center;
     }
 
+    .btn-cancel{
+        background-color: #DB5D5D;
+    }
+
+    .form-buttons{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
+    }
+
 
 
 }
