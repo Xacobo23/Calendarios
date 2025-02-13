@@ -7,6 +7,15 @@
 {% endblock %}
 
 {% block buttons %}
+<div class="hidden phone-buttons">
+    <button id="btn-datos" class="btn-simple btn-datos active-button">
+        <span>Datos</span>
+    </button>
+    <button class="btn-simple btn-modulos" id="btn-modulos">
+        <span>Modulos<br>Impartidos</span>
+    </button>
+</div>
+
 <div class="action-buttons">
     <button id="btn-edit" class="btn btn-edit"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
     <button class="btn btn-delete-top" id="btn-delete" data-student-id="{{ id }}"><i class="fa-regular fa-user"></i>
@@ -23,6 +32,10 @@
 
 {% block form %}
 <style>
+    .hidden {
+        display: none;
+    }
+
     .active-tuitions {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -92,6 +105,159 @@
         border-radius: .5em;
         border: 1px solid rgba(242, 242, 242, 1);
     }
+
+    .btn-simple {
+            position: absolute;
+            background: none;
+            border: 0;
+            color: inherit;
+            font-size: 1em;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+            .active-button {
+                padding-bottom: 2px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-top: 2px solid #468dae;
+                border-left: 2px solid #468dae;
+                border-right: 2px solid #468dae;
+
+                margin-bottom: 0 !important;
+                border-bottom: 0;
+
+                background:#468dae;
+                color: white;
+            }
+
+            .item-main {
+                display: flex;
+            }
+
+            .item-title {
+                margin-top: 75px;
+                margin-left: 20px;
+            }
+
+            .item-actions {
+                width: calc(100%-2em);
+                gap: 2em;
+                padding-left: 1em;
+                padding-right: 1em;
+                display: flex;
+                flex-direction: column-reverse;
+            }
+
+            .up-phone-buttons{
+                width: 100%;
+                order: 3;
+                position: relative;
+            }
+
+            .phone-buttons {
+                position: relative;
+                width: 100%;
+                height: 44px;
+                display: grid;
+                order: 3;
+                grid-template-columns: 1fr 1fr;
+                margin: auto;
+                border: #468dae 2px solid;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                /*
+                border-top-right-radius: 20px;
+                border-top-left-radius: 20px;
+                */
+            }
+
+            #btn-datos {
+                left: -2px;
+                top: -2px;
+                width: 50%;
+                height: 46px;
+            }
+
+            #btn-modulos {
+                right: -2px;
+                top: -2px;
+                width: 50%;
+                height: 46px;
+
+                margin-top: 1px;
+                margin-bottom: 2px;
+            }
+            #btn-modulos.active-button {
+                margin-top: 0px;
+            }
+
+
+
+            .action-buttons {
+                width: 100%;
+                order: 2;
+            }
+
+            .btn-schedule {
+                width: 100%;
+                margin-bottom: 1em;
+            }
+
+            .bottom-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1em;
+            }
+
+            .display-id {
+                order: 1;
+                align-self: stretch;
+            }
+
+            .item-edit-side {
+                width: 100%;
+                padding-left: 1em;
+            }
+
+            .side-section {
+                width: calc(100%-2em);
+                padding: 1em;
+            }
+
+            .item-edit-side {
+                padding-right: 1em;
+            }
+
+            .item-section {
+                padding: 0px;
+            }
+
+            .btn-add-subitem {
+                width: 100%;
+            }
+
+            .side-section {
+                width: 100%;
+            }
+
+            .noMostrarMovil {
+                display: none;
+            }
+
+            .modules-table {
+                margin-top: 1em;
+            }
+            .form-manage {
+                margin-left: 16px;
+            }
+        }
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+        }
 </style>
 <article class="item-main">
     <section class="item-edit-side">
@@ -330,6 +496,48 @@
             });
         });
 
+
+        function toggleHiddenClass() {
+            const phoneButtons = document.querySelector('.phone-buttons');
+            const sideSection = document.querySelector('.side-section');
+
+            if (window.innerWidth <= 700) {
+                phoneButtons.classList.remove('hidden');
+                sideSection.classList.add('hidden');
+            } else {
+                phoneButtons.classList.add('hidden');
+                sideSection.classList.remove('hidden');
+            }
+        }
+
+        toggleHiddenClass();
+
+        window.addEventListener('resize', toggleHiddenClass);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const btnDatos = document.getElementById("btn-datos");
+            const btnModulos = document.getElementById("btn-modulos");
+            const itemEditSide = document.querySelector(".item-edit-side");
+            const sideSection = document.querySelector(".side-section");
+
+            function toggleSections(showEdit) {
+                if (showEdit) {
+                    itemEditSide.classList.remove("hidden");
+                    sideSection.classList.add("hidden");
+
+                    btnDatos.classList.add("active-button")
+                    btnModulos.classList.remove("active-button")
+                } else {
+                    itemEditSide.classList.add("hidden");
+                    sideSection.classList.remove("hidden");
+
+                    btnModulos.classList.add("active-button")
+                    btnDatos.classList.remove("active-button")
+                }
+            }
+            btnDatos.addEventListener("click", () => toggleSections(true));
+            btnModulos.addEventListener("click", () => toggleSections(false));
+        });
     </script>
     {% endblock %}
 </article>
