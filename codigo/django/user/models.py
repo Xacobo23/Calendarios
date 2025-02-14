@@ -4,6 +4,7 @@ from django.db import models
 class CustomUser(AbstractUser):
     dni = models.CharField(max_length=15, unique=True, null=True, blank=True)
     phone = models.CharField(max_length=15, unique=True, null=False, blank=False)
+    restart_password = models.BooleanField(default=True)
 
     def __str__(self):
         return self.username

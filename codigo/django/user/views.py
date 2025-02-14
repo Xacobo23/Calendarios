@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 from .forms import CustomUserCreationForm
 
@@ -29,6 +31,11 @@ class CustomLoginView (LoginView):
     def form_valid (self, form):
         response = super().form_valid(form)
 
+        if self.request.user.restart_password:
+            self.request.user.restart_password = False
+            self.request.user.save()
+            return redirect('change_password')
+
         messages.success(self.request, f'Bienvenido/a {self.request.user.first_name}!')
 
         return response
@@ -39,3 +46,19 @@ class CustomLoginView (LoginView):
         messages.error(self.request, 'Error en el inicio de sesión. Verifica los datos.')
 
         return response
+    
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Contraseña actualizada con éxito!')
+            return redirect('homepage')
+        else:
+            messages.error(request, 'Error al actualizar la contraseña. Verifica los datos.')
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'registration/change_password.html', {'form': form})
