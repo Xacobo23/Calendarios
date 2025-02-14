@@ -9,7 +9,7 @@ from fp.models import FP
 # se van a almacenar. Dentro de los paréntesis se pueden establecer los atributos que se quiera, por ejemplo
 # unique = True, max_legth = 100... Se pueden mirar todos los posibles aquí: https://neunapp.com/contenido/tipos-de-campos-de-un-modelo-en-django-fields-in-models-18329
 class Module(models.Model):
-    code = models.CharField(max_length=50, unique=True)
+    code = models.CharField(max_length=50)
     name = models.CharField(max_length=200)
     color = models.CharField(max_length=7, default="#007bff")
     initials = models.CharField(max_length=10)

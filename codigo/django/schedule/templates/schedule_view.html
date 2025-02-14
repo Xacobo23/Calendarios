@@ -25,8 +25,7 @@
 
     .page_main{
         box-sizing: border-box;
-        background-color: antiquewhite;
-        height: 100vh;
+        /* background-color: antiquewhite; */
         margin: 25px 0 20px 10px;
         display: flex;
         flex-direction: column;
@@ -47,7 +46,7 @@
                 position: absolute;
                 bottom: -2px;
                 left: 0;
-                background-color: #F2F2F2;
+                /* background-color: #F2F2F2; */
                 height: 1px;
                 width: 100%;
             }
@@ -68,7 +67,7 @@
         .page_main_content{
             display: flex;
             flex-direction: column;
-            background-color: #7ED9AE;
+            /* background-color: #7ED9AE; */
             margin-left: 15px;
             margin-right: 10px;
             gap: 40px;
@@ -80,7 +79,7 @@
                 flex-wrap: wrap;
             }
                 .action_section_filters{
-                    background-color: #468dae;
+                    /* background-color: #468dae; */
                     display: flex;
                     flex-direction: row;
                     gap: 20px;
@@ -98,7 +97,7 @@
                             font-weight: bold;
                         }
                 .action_section_buttons{
-                    background-color: lightpink;
+                    /* background-color: lightpink; */
                     display: flex;
                     flex-direction: row;
                     gap: 10px;
@@ -135,13 +134,13 @@
                         }
             /* horario */
             .table_row{
-                height: 65px;
+                height: 50px;
                 padding: 5px 0;
+                margin: 7px 0;
             }
 
             .full_schedule{
                 background-color: white;
-                height: 400px;
                 display: flex;
                 flex-direction: row;
             }
@@ -245,44 +244,45 @@
         <!-- horario -->
         <section class="full_schedule">
             {% if schedule_config %}
-                <!-- columna de horas , bucle for aqui-->
+                <!-- columna de horas-->
                 <div class="schedule_hours">
                     <div class="schedule_header"></div>
-                    <div class="schedule_day_separator">Mañana</div>
-                    <div class="schedule_time_slot table_row">
-                        <div class="schedule_hour">8:45</div>
-                        <div class="schedule_hour">9:45</div>
-                    </div>
-                </div>
-                <!-- poñer esto arriba, que funione -->
-                {% for period, sessions in scheduleHours.items %}
-                    <div class="schedule_day_separator">{{ period }}</div> {# Mañana / Tarde #}
-                    {% for session_number, session in sessions.items %}
-                            <div class="schedule_time_slot table_row">
-                                <div class="schedule_hour">{{ session.start }}</div>
-                                <div class="schedule_hour">{{ session.end }}</div>
-                            </div>
+                    {% for period, sessions in scheduleHours.items %}
+                        <div class="schedule_day_separator">{{ period }}</div> {# Mañana / Tarde #}
+                        {% for session_number, session in sessions.items %}
+                                <div class="schedule_time_slot table_row" id="session_position_{{ session_number }}">
+                                    <div class="schedule_hour">{{ session.start }}</div>
+                                    <div class="schedule_hour">{{ session.end }}</div>
+                                </div>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-                <!-- end que funcione -->
+                </div>
 
                 <!-- columnas de días e sesions, outro bucle for aqui -->
                 <div class="day_sessions_container">
-                    <div class="day_column">
-                        <div class="schedule_header">Lunes</div>
-                        <div class="schedule_day_separator"></div>
-                        <!-- todas as sesions do día -->
-                        <div class="day_sessions">
-                            <div class="day_session_selector_container table_row">
-                                <select id="quecojonesesesto" name="schedule_template" class="options_selector">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option> <!-- okey esto feito, ahora a facer que cargue datos -->
-                                </select>
-                            </div>
+                    {% for day,dayMoments in sessionsStructure.items %}
+                        <div class="day_column">
+                            <div class="schedule_header">{{ day }}</div>
+                            {% for dayMoment,sessions in dayMoments.items %}
+                                <div class="schedule_day_separator"></div>
+                                {% for sessionPosition, sessionData in sessions.items %}
+                                    <!-- todas as sesions do día -->
+                                    <div class="day_sessions">
+                                        <div class="day_session_selector_container table_row">
+                                            <select id="quecojonesesesto" name="schedule_template" class="options_selector">
+                                                {% for module in modules %}
+                                                    <option value="{{ module.id }}" {% if module.id == sessionData.module.id %} selected {% endif %}>
+                                                        {{ module.initials }}: {{ module.name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-                {{ schedule_config.session_duration }}
             {% else %}
                 este ciclo no tiene ninguna plantilla asignada
             {% endif %}

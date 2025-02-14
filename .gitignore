@@ -11,7 +11,7 @@
 ./**/*.pyc
 ./**/__pycache__
 __pycache__
-db.sqlite3
+codigo/django/db.sqlite3
 media
 
 # Backup files # 
