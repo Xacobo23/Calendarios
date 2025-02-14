@@ -6,17 +6,6 @@ from enum import Enum
 from session.models import Weekday
 
 
-WEEKDAYS = [
-    ("L", "Lunes"),
-    ("M", "Martes"),
-    ("X", "Miércoles"),
-    ("J", "Jueves"),
-    ("V", "Viernes"),
-    ("S", "Sábado"),
-    ("D", "Domingo"),
-]
-
-
 SCHEDULE_TYPE = [
     ("M", "Mañana"),
     ("T", "Tarde"),

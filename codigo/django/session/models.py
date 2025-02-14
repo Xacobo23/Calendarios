@@ -4,6 +4,16 @@ from enum import Enum
 from classroom.models import Classroom
 from module.models import Module
 
+WEEKDAYS = {
+    "L": ["lu", "Lunes"],
+    "M": ["ma", "Martes"],
+    "X": ["mi", "Miércoles"],
+    "J": ["ju", "Jueves"],
+    "V": ["vi", "Viernes"],
+    "S": ["sa", "Sábado"],
+    "D": ["do", "Domingo"],
+}
+
 # Enumeración de los días de la semana
 class Weekday(Enum):
     LUNES = "L"

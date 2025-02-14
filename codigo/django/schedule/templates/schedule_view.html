@@ -166,6 +166,7 @@
                         flex-direction: column;
                         justify-content: space-between;
                         align-items: center;
+                        min-width: 110px;
                     }
                 /* sesions */
                 .day_sessions_container{
@@ -203,6 +204,7 @@
 {% endblock %}
 
 {% block content %}
+    {{ week_days.L.0 }}
 <article class="page_main">
     <!-- header -->
     <section class="page_main_header">

@@ -10,6 +10,9 @@
 
 Horario
 - [ ] facer creación de horario
+  - [ ] poder gardar e editar
+  - [ ] responsive
+  - [ ] nomes de días mostrados correctamente
 
 Profesores
 - ✅ os links dos modulos na tabla profesores non funcionan
