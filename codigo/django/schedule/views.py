@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib import messages
 from django.contrib.auth import get_user_model
+from collections import defaultdict
+from django.template.loader import render_to_string
+from weasyprint import HTML, CSS
+from weasyprint.text.fonts import FontConfiguration
 
 from fp.models import FP
 from session.models import Weekday, WEEKDAYS
@@ -10,7 +14,6 @@ from session.models import Session
 from .models import ScheduleConfig, FPScheduleConfig
 from module.models import Module
 from datetime import datetime, timedelta
-from collections import defaultdict
 
 
 from .schedule_functions import generate_schedule_hours
@@ -105,5 +108,8 @@ def my_schedule(request, fp_id):
     }
 
     return render(request, 'my-schedule.html', data)
+
+
+
 
 

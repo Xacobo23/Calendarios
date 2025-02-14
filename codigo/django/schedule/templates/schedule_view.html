@@ -238,7 +238,7 @@
                 <button class="action_section_button save_button" id="btn_save">
                     Guardar
                 </button>
-                <button class="action_section_button export_button button_right" id="btn_export">
+                <button id="btn-export" class="action_section_button export_button button_right" id="btn_export">
                     Exportar a pdf
                 </button>
             </div>
@@ -303,6 +303,21 @@
         let newUrl = `/schedule/view-schedule/${fpId}/${course_value}`;
 
         window.location.href = newUrl;
+    });
+
+    document.getElementById('btn-export').addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const schedule = document.querySelector('.full_schedule')[0];
+
+        doc.html(schedule, {
+            callback: function (doc) {
+                doc.save('schedule.pdf');
+            },
+            x: 10,
+            y: 10
+        });
     });
 </script>
 
