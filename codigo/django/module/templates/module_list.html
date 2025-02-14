@@ -1,107 +1,57 @@
 {% extends 'base_list.html' %}
 {% load static %}
 
-{% block subtitle %} {{ title }} {% endblock %}
-{% block itemName %} {{ title }} {% endblock %}
-{% block totalItem %} {{ totalModules }} {% endblock %}
-{% block addItem %} {{ shortTitle }} {% endblock %}
+{% block subtitle %}Lista de Módulos{% endblock %}
+{% block itemName %}Módulos{% endblock %}
+{% block totalItem %}10{% endblock %}
+{% block addItem %}Módulo{% endblock %}
 
 {% block icon %}
 <i class="fa-solid fa-graduation-cap"></i>
 {% endblock %}
 
 {% block tableHeader %}
-<div class="tableHeaderCSS moduleList">
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
-    <h3 class="tableHeaderTitleCSS">Código</h3>
-    <h3 class="tableHeaderTitleCSS">Nombre</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Ciclo Formativo</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Curso</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Profesor/es</h3>
-    <div class="tableHeaderTitleCSS"></div>
-</div>
+<tr>
+    <th class="noMostrarMovil">ID</th>
+    <th>Código</th>
+    <th>Nombre</th>
+    <th class="noMostrarMovil">Ciclo Formativo</th>
+    <th class="noMostrarMovil">Curso</th>
+    <th class="noMostrarMovil">Profesor/es</th>
+    <th>Acciones</th>
+</tr>
 {% endblock %}
 
 {% block tableBody %}
 {% for module in modules %}
-<div class="tableRowCSS moduleRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
-    <p class="noMostrarMovil">{{ module.id }}</p>
-    <p>{{ module.code }}</p>
-    <p>{{ module.name }}</p>
-    <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.fp.initials }}</p>
-    <p class="noMostrarMovil" style="margin-left: 10px;">{{ module.course }}º</p>
-    <p class="noMostrarMovil">
+<tr>
+    <td class="noMostrarMovil">{{ module.id }}</td>
+    <td>{{ module.code }}</td>
+    <td>{{ module.name }}</td>
+    <td class="noMostrarMovil">{{ module.fp.initials }}</td>
+    <td class="noMostrarMovil">{{ module.course }}º</td>
+    <td class="noMostrarMovil">
         {% if module.teachers.all %}
         {% for teacher in module.teachers.all %}
-        <a href="{% url 'teacher_edit' teacher.id %}" class="teacher-btn">
+        <a href="{% url 'teacher_edit' teacher.id %}">
             {{ teacher.name }} {{ teacher.last_name }}
-        </a>
+        </a>{% if not forloop.last %}, {% endif %}
         {% endfor %}
         {% else %}
         No asignado
         {% endif %}
-    </p>
-    <div class="tableBottomsCSS">
+    </td>
+    <td>
         <button class="bottomSee" data-module-id="{{ module.id }}">
-            <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
+            <img src="{% static 'images/svg/eye.svg' %}" alt="Ver">
         </button>
-        <form method="POST" action="{% url 'module_delete' module_id=module.id %}">
+        <form method="POST" action="{% url 'module_delete' module_id=module.id %}" style="display: inline;">
             {% csrf_token %}
             <button class="bottomDelete" data-module-id="{{ module.id }}">
-                <img src="{% static 'images/svg/bin.svg' %}" alt="bin">
+                <img src="{% static 'images/svg/bin.svg' %}" alt="Eliminar">
             </button>
         </form>
-    </div>
-</div>
+    </td>
+</tr>
 {% endfor %}
-{% endblock %}
-
-{% block js %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.bottomSee').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const module_id = btn.getAttribute('data-module-id');
-                const currentUrl = window.location.href.replace(/\/list(\/)?$/, '/') + 'edit/' + module_id;
-                window.location.href = currentUrl;
-            });
-        });
-
-        document.querySelectorAll('.bottomDelete').forEach(btn => {
-            btn.addEventListener('click', (event) => {
-                event.preventDefault();
-                const module_id = btn.getAttribute('data-module-id');
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: 'Esta acción no se puede deshacer',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí, eliminar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`/module/delete/${module_id}`, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                                'Content-Type': 'application/json'
-                            }
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    Swal.fire('Eliminado!', data.message, 'success').then(() => {
-                                        window.location.href = '/module/list/';
-                                    });
-                                } else {
-                                    Swal.fire('Error!', data.message, 'error');
-                                }
-                            })
-                            .catch(() => Swal.fire('Error!', 'Hubo un problema al eliminar el módulo.', 'error'));
-                    }
-                });
-            });
-        });
-    });
-</script>
 {% endblock %}

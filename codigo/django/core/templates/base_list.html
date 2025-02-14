@@ -7,11 +7,45 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+<!-- DataTables Bootstrap 5 CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css" />
 {% endblock %}
 
 {% block js %}
+<!-- Bootstrap JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- FontAwesome -->
 <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
+<!-- DataTables y Bootstrap JS -->
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const table = $('#dataTable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json'
+            },
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 100],
+            initComplete: function () {
+            }
+        });
+
+        const btnAñadir = document.getElementById('add-item-btn');
+        if (btnAñadir) {
+            btnAñadir.addEventListener('click', () => {
+                let currentUrl = window.location.href;
+                let newUrl = currentUrl.replace('/list', '/add');
+                window.location.href = newUrl;
+            });
+        }
+    });
+
+</script>
 {% endblock %}
+
 {% block content %}
 <section class="item-section">
     <article class="item-title">
@@ -23,46 +57,26 @@
     <article class="item-total">
         <p>Número items: <span class="number">{% block totalItem %} {% endblock %}</span></p>
     </article>
-    <article class="item-actions">
-        <form class="form-item-filters">
-            <select name="select-item" id="select-item">
-                <option value="default">Todos</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <input type="search" placeholder="Buscar..." id="input-search">
-            <button type="submit" class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </form>
 
-        <button id="add-item-btn" class="add-item-btn">
-            <div class="noMostrarMovil">
-                <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
-                {%endblock %}
-            </div>
-            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
-        </button>
+
+    <button id="add-item-btn" class="add-item-btn">
+        <div class="noMostrarMovil">
+            <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
+            {% endblock %}
+        </div>
+        <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
+    </button>
 
     </article>
-    <article class="item-table">
-        <div class="tableHeag">
-            {% block tableHeader %} {% endblock %}
-        </div>
-        <div class="tableBody">
-            {% block tableBody %} {% endblock %}
-        </div>
-    </article>
+    <table class="table table-striped dataTable" id="dataTable">
+        <thead>
+            {% block tableHeader %}
+            {% endblock %}
+        </thead>
+        <tbody>
+            {% block tableBody %}
+            {% endblock %}
+        </tbody>
+    </table>
 </section>
-<script defer>
-    const btnAñadir = document.getElementById('add-item-btn');
-
-    btnAñadir.addEventListener('click', () => {
-        let currentUrl = window.location.href;
-        let newUrl = currentUrl.replace('/list', '/add');
-        window.location.href = newUrl;
-    });
-
-
-</script>
 {% endblock %}

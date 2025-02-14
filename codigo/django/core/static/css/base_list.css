@@ -398,3 +398,11 @@ button:hover {
   align-items: center;
 }
 
+#dataTable tr {
+  background-color: red !important;
+  height: 10px;
+}
+
+
+
+
