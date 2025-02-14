@@ -4,8 +4,6 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import get_user_model
 from collections import defaultdict
 from django.template.loader import render_to_string
-from weasyprint import HTML, CSS
-from weasyprint.text.fonts import FontConfiguration
 
 from fp.models import FP
 from session.models import Weekday, WEEKDAYS
