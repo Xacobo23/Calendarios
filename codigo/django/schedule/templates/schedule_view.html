@@ -70,13 +70,13 @@
             /* background-color: #7ED9AE; */
             margin-left: 15px;
             margin-right: 10px;
-            gap: 40px;
         }
             .page_main_action_section{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 flex-wrap: wrap;
+                margin-bottom: 40px;
             }
                 .action_section_filters{
                     /* background-color: #468dae; */
@@ -122,16 +122,40 @@
                             cursor: pointer;
                             opacity: 90%;
                         }
-                    .action_section_button.button_right{
-                        border-bottom-right-radius: 0;
-                        border-top-right-radius: 0;
-                    }
                         .save_button{
                             background-color: #468DAE;
                         }
                         .export_button{
                             background-color: #F26B1D;
                         }
+            /* selectores de día en movil */
+            .day_selectors_container{
+                display: none;
+                flex-direction: row;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+                .day_selector{
+                    padding: 10px 0;
+                    background-color: #F2F2F2;
+                    color: rgba(0, 0, 0, 0.7);
+                    border-radius: 5px;
+                    flex-grow: 1;
+                    cursor: pointer;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                    .day_selector:not(.active_day_selector):hover{
+                        background-color: rgba(70, 141, 174, 0.85);
+                        color: white;
+                    }
+                .day_selector.active_day_selector{
+                    background-color: #468DAE;
+                    color: white;
+                }
+
             /* horario */
             .table_row{
                 height: 50px;
@@ -173,11 +197,30 @@
                     display: flex;
                     flex-direction: row;
                     flex-grow: 1;
+                    overflow-x: scroll;
                 }
                     .day_column{
                         display: flex;
                         flex-direction: column;
                         flex-grow: 1;
+                        min-width: 220px;
+                    }
+                    @media screen and (max-width: 576px) {
+                        .page_main{
+                            margin: 25px 10px 20px 10px;
+                        }
+                        .day_sessions_container{
+                            overflow-x: visible;
+                        }
+                            .day_column{
+                                display: none;
+                            }
+                            .day_column.show_column{
+                                display: flex;
+                            }
+                        .day_selectors_container{
+                            display: flex;
+                        }
                     }
                         .day_column .schedule_day_separator{
                             background-color: inherit;
@@ -195,16 +238,10 @@
                                     max-width: 200px;
                                     flex-grow: 1;
                                 }
-
-
-
-
-
 </style>
 {% endblock %}
 
 {% block content %}
-    {{ week_days.L.0 }}
 <article class="page_main">
     <!-- header -->
     <section class="page_main_header">
@@ -238,11 +275,23 @@
                 <button class="action_section_button save_button" id="btn_save">
                     Guardar
                 </button>
-                <button id="btn-export" class="action_section_button export_button button_right" id="btn_export">
+                <button id="btn-export" class="action_section_button export_button" id="btn_export">
                     Exportar a pdf
                 </button>
             </div>
         </section>
+
+        <!-- columna de selector de días para movil -->
+        {% if schedule_config %}
+            <section id="day_selectors_container" class="day_selectors_container">
+                {% for dayKey, dayData in sessionsStructure.items %}
+                    <div class="day_selector {% if forloop.first %} active_day_selector {% endif %}"
+                        data_column_day="{{ forloop.counter0 }}">
+                        {{ dayData.shortName }}
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
         <!-- horario -->
         <section class="full_schedule">
             {% if schedule_config %}
@@ -260,20 +309,23 @@
                     {% endfor %}
                 </div>
 
-                <!-- columnas de días e sesions, outro bucle for aqui -->
+                <!-- Contenedor de columnas de días y sesiones en DESKTOP -->
                 <div class="day_sessions_container">
-                    {% for day,dayMoments in sessionsStructure.items %}
-                        <div class="day_column">
-                            <div class="schedule_header">{{ day }}</div>
-                            {% for dayMoment,sessions in dayMoments.items %}
+                    {% for dayKey, dayData in sessionsStructure.items %}
+                        <div class="day_column {% if forloop.first %} show_column {% endif %}" data_column_day="{{ forloop.counter0 }}">
+                            <!-- Mostrar el nombre completo del día -->
+                            <div class="schedule_header">{{ dayData.fullName }}</div>
+
+                            {% for dayMoment, sessions in dayData.sessions.items %}
                                 <div class="schedule_day_separator"></div>
                                 {% for sessionPosition, sessionData in sessions.items %}
-                                    <!-- todas as sesions do día -->
+                                    <!-- Todas las sesiones del día -->
                                     <div class="day_sessions">
                                         <div class="day_session_selector_container table_row">
-                                            <select id="quecojonesesesto" name="schedule_template" class="options_selector">
+                                            <select id="session_{{ dayKey }}_{{ sessionPosition }}" name="schedule_template" class="options_selector">
+                                                <option value="0">-</option>
                                                 {% for module in modules %}
-                                                    <option value="{{ module.id }}" {% if module.id == sessionData.module.id %} selected {% endif %}>
+                                                    <option value="{{ module.id }}" {% if sessionData and module.id == sessionData.module.id %} selected {% endif %}>
                                                         {{ module.initials }}: {{ module.name }}
                                                     </option>
                                                 {% endfor %}
@@ -319,6 +371,37 @@
             y: 10
         });
     });
+
+    //script para cambiar o día que se ve no movil
+    {
+        const changeDayButtonContainer = document.getElementById('day_selectors_container')
+        const changeDayButtons = document.querySelectorAll('.day_selector')
+        const dayColumns = document.querySelectorAll('.day_column')
+
+        changeDayButtonContainer.addEventListener('click', (e)=>{
+            if (e.target.classList.contains('day_selector')){
+                let buttonPressed = e.target
+                //cambio o boton seleccionado
+                changeDayButtons.forEach(btn => {
+                    if (btn.getAttribute('data_column_day') === buttonPressed.getAttribute('data_column_day')){
+                        btn.classList.add('active_day_selector')
+                    }else {
+                        btn.classList.remove('active_day_selector')
+                    }
+
+                })
+                //cambio a columna do día que se ve
+                dayColumns.forEach(column => {
+                    if (column.getAttribute('data_column_day') === buttonPressed.getAttribute('data_column_day')){
+                        column.classList.add('show_column')
+                    }else {
+                        column.classList.remove('show_column')
+                    }
+
+                })
+            }
+        })
+    }
 </script>
 
 {% endblock %}
