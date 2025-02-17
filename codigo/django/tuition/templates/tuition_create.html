@@ -182,6 +182,8 @@
     .modules-table {
         margin-top: 2em;
         margin-right: 1em;
+
+        min-height: 200px;
     }
 
     .table-header {
@@ -231,6 +233,49 @@
     input[type='checkbox'] {
         cursor: pointer;
     }
+
+    .buttons-section {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        gap: 1em;
+    }
+
+    .btn-cancel {
+        background-color: #f26b1d;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .5em 1em;
+
+        width: 50%;
+
+        cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+        opacity: .8em;
+    }
+
+    .btn-next {
+        width: 100%;
+
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .5em 1em;
+
+        cursor: pointer;
+    }
+
+    .btn-next:hover {
+        opacity: .8em;
+    }
 </style>
 {% endblock %}
 
@@ -261,17 +306,18 @@
                 <div class="modules-table">
                     <div class="table-header">
                         <div class="th">
-                            <input id="all-checkbox" type="checkbox" name="module" value="all">
                         </div>
                         <div class="th">Código</div>
                         <div class="th">Nombre</div>
                         <div class="th">Curso</div>
                     </div>
 
-                {% for module in modules %}
-                    <div class="row">
+                    {% for module in modules %}
+                    <div class="row" id="module-{{ module.id }}">
                         <div class="cell">
-                            <input class="checkbox-module" type="checkbox" name="module" value="{{ module.id }}">
+                            <a href="#" class="select-module" data-id="{{ module.id }}">
+                                <i class="fa-solid fa-person-walking-arrow-right"></i>
+                            </a>
                         </div>
                         <div class="cell">{{ module.code }}</div>
                         <div class="cell">{{ module.name }}</div>
@@ -286,29 +332,60 @@
                         <div class="th">Módulos seleccionados</div>
                     </div>
 
-                {% for module in modules %}
-                    <div class="enrolled-row">
-                        <div class="cell">{{ module.code }}</div>
-                        <div class="cell">{{ module.name }}</div>
+                    <div id="selected-modules-list">
+
                     </div>
-                {% endfor %}
+                </div>
+
+                <div class="buttons-section">
+                    <button class="btn-cancel"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="btn-next">Siguiente</button>
                 </div>
             </section>
+
         </section>
     </article>
 </section>
 
 <script>
-    const allCheckbox = document.getElementById('all-checkbox');
-    const modulesCheckboxes = document.querySelectorAll('.checkbox-module');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Seleccionar todos los íconos de selección de módulos
+        const selectButtons = document.querySelectorAll('.select-module');
 
-    allCheckbox.addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('input[name="module"]');
-        modulesCheckboxes.forEach((checkbox) => {
-            checkbox.checked = allCheckbox.checked;
+        // Seleccionar el contenedor de módulos seleccionados
+        const selectedModulesList = document.getElementById('selected-modules-list');
+
+        // Añadir un evento de clic a cada ícono
+        selectButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+
+                // Obtener el ID del módulo desde el atributo data-id
+                const moduleId = this.getAttribute('data-id');
+
+                // Seleccionar la fila del módulo correspondiente
+                const moduleRow = document.getElementById(`module-${moduleId}`);
+
+                // Clonar la fila para moverla a la tabla de módulos seleccionados
+                const clonedRow = moduleRow.cloneNode(true);
+
+                // Cambiar el ícono de la fila clonada a uno que permita eliminarla
+                const iconCell = clonedRow.querySelector('.cell a');
+                iconCell.innerHTML = '<i class="fa-solid fa-trash"></i>';
+
+                // Añadir un evento de clic al nuevo ícono para eliminar la fila
+                iconCell.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    clonedRow.remove(); // Eliminar la fila de la lista de seleccionados
+                });
+
+                // Añadir la fila clonada a la tabla de módulos seleccionados
+                selectedModulesList.appendChild(clonedRow);
+
+                // Opcional: Eliminar la fila de la tabla original
+                moduleRow.remove();
+            });
         });
     });
-
-    
 </script>
 {% endblock %}

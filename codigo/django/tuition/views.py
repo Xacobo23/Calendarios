@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from fp.models import FP
+from fp.forms import FPForm
 from module.models import Module
 
 def my_tuitions (request):
@@ -40,3 +41,23 @@ def create_tuition (request, fp_id):
     }
 
     return render(request, 'tuition_create.html', data)
+
+def review_tuition (request, fp_id):
+    fp_instance = get_object_or_404(FP, id=fp_id)
+    modules = []
+
+    if fp_instance is not None:
+        modules = fp_instance.modulos.all()
+
+    fp_instance = get_object_or_404(FP, id=fp_id)
+
+    form = FPForm(instance=fp_instance)
+
+    data = {
+        'title': 'Mis matrículas',
+        'subTitle': 'Revisar',
+        'modules': modules,
+        'form': form
+    }
+
+    return render(request, 'tuition_review.html', data)
