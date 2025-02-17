@@ -37,7 +37,8 @@ def create_tuition (request, fp_id):
     data = {
         'title': 'Mis matrículas',
         'subTitle': 'Nueva',
-        'modules': modules
+        'modules': modules,
+        'fp_id': fp_id
     }
 
     return render(request, 'tuition_create.html', data)

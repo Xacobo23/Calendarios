@@ -333,13 +333,13 @@
                     </div>
 
                     <div id="selected-modules-list">
-
+                        <p class="mensaje-sin-modulos">Sin módulos seleccionados</p>
                     </div>
                 </div>
 
                 <div class="buttons-section">
-                    <button class="btn-cancel"><i class="fa-solid fa-arrow-left"></i></button>
-                    <button class="btn-next">Siguiente</button>
+                    <button id="btn-cancel" class="btn-cancel"><i class="fa-solid fa-arrow-left"></i></button>
+                    <a href="{% url 'review_tuition' fp_id %}"><button id="btn-next" class="btn-next">Siguiente</button></a>
                 </div>
             </section>
 
@@ -347,45 +347,83 @@
     </article>
 </section>
 
-<script>
+<script defer>
     document.addEventListener('DOMContentLoaded', function () {
-        // Seleccionar todos los íconos de selección de módulos
-        const selectButtons = document.querySelectorAll('.select-module');
+    const selectButtons = document.querySelectorAll('.select-module');
+    const selectedModulesList = document.getElementById('selected-modules-list');
+    const mensajeSinModulos = document.querySelector('.mensaje-sin-modulos');
+    const cancelButton = document.getElementById('btn-cancel');
+    const nextButton = document.getElementById('btn-next');
 
-        // Seleccionar el contenedor de módulos seleccionados
-        const selectedModulesList = document.getElementById('selected-modules-list');
+    function actualizarMensaje() {
+        if (selectedModulesList.querySelectorAll('.row').length > 0) {
+            mensajeSinModulos.style.display = 'none';
+        } else {
+            mensajeSinModulos.style.display = 'block';
+        }
+    }
 
-        // Añadir un evento de clic a cada ícono
-        selectButtons.forEach(button => {
-            button.addEventListener('click', function (event) {
-                event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+    function guardarEnLocalStorage() {
+        const selectedModules = [];
+        selectedModulesList.querySelectorAll('.row').forEach(row => {
+            selectedModules.push(row.id);
+        });
+        localStorage.setItem('selectedModules', JSON.stringify(selectedModules));
+    }
 
-                // Obtener el ID del módulo desde el atributo data-id
-                const moduleId = this.getAttribute('data-id');
+    function cargarDesdeLocalStorage() {
+        const storedModules = JSON.parse(localStorage.getItem('selectedModules')) || [];
+        storedModules.forEach(moduleId => {
+            const moduleRow = document.getElementById(moduleId);
+            if (moduleRow) {
+                agregarModulo(moduleRow);
+            }
+        });
+    }
 
-                // Seleccionar la fila del módulo correspondiente
-                const moduleRow = document.getElementById(`module-${moduleId}`);
+    function agregarModulo(moduleRow) {
+        const clonedRow = moduleRow.cloneNode(true);
+        const iconCell = clonedRow.querySelector('.cell a');
+        iconCell.innerHTML = '<i class="fa-solid fa-user-minus"></i>';
+        iconCell.classList.remove('select-module');
 
-                // Clonar la fila para moverla a la tabla de módulos seleccionados
-                const clonedRow = moduleRow.cloneNode(true);
+        iconCell.addEventListener('click', function (event) {
+            event.preventDefault();
+            moduleRow.style.display = 'grid'; // Restaurar en la tabla original
+            clonedRow.remove();
+            guardarEnLocalStorage();
+            actualizarMensaje();
+        });
 
-                // Cambiar el ícono de la fila clonada a uno que permita eliminarla
-                const iconCell = clonedRow.querySelector('.cell a');
-                iconCell.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        selectedModulesList.appendChild(clonedRow);
+        moduleRow.style.display = 'none'; // Ocultar de la tabla original
+        guardarEnLocalStorage();
+        actualizarMensaje();
+    }
 
-                // Añadir un evento de clic al nuevo ícono para eliminar la fila
-                iconCell.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    clonedRow.remove(); // Eliminar la fila de la lista de seleccionados
-                });
-
-                // Añadir la fila clonada a la tabla de módulos seleccionados
-                selectedModulesList.appendChild(clonedRow);
-
-                // Opcional: Eliminar la fila de la tabla original
-                moduleRow.remove();
-            });
+    selectButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const moduleId = this.getAttribute('data-id');
+            const moduleRow = document.getElementById(`module-${moduleId}`);
+            agregarModulo(moduleRow);
         });
     });
+
+    cancelButton.addEventListener('click', function () {
+        selectedModulesList.querySelectorAll('.row').forEach(moduleRow => {
+            const moduleId = moduleRow.id;
+            document.getElementById(moduleId).style.display = 'grid';
+            moduleRow.remove();
+        });
+        localStorage.removeItem('selectedModules');
+        actualizarMensaje();
+    });
+
+    cargarDesdeLocalStorage();
+});
+
+
 </script>
+
 {% endblock %}
