@@ -15,57 +15,56 @@
 {% endblock %}
 
 {% block tableHeader %}
-
-<div class="tableHeaderCSS teacherList">
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
-    <h3 class="tableHeaderTitleCSS teacherFullName">Nombre Completo</h3>
-    <h3 class="tableHeaderTitleCSS">DNI</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Email</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Teléfono</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Módulos</h3>
-    <div class="tableHeaderTitleCSS"></div>
-</div>
-
+<tr>
+    <th class="noMostrarMovil">ID</th>
+    <th>Nombre Completo</th>
+    <th>DNI</th>
+    <th class="noMostrarMovil">Email</th>
+    <th class="noMostrarMovil">Teléfono</th>
+    <th class="noMostrarMovil">Módulos</th>
+    <th>Acciones</th>
+</tr>
 {% endblock %}
 
 {% block tableBody %}
 {% for teacher in teachers %}
-<div class="tableRowCSS teacherRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
-    <p class="noMostrarMovil">{{ teacher.id }}</p>
-    <p>
+<tr class="{% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
+    <td class="noMostrarMovil">{{ teacher.id }}</td>
+    <td>
         <span class="teacherName">{{ teacher.name }}</span> <span class="teacherLastName">{{ teacher.last_name }}</span>
-    </p>
-    <p>{{ teacher.dni }}</p>
-    <p class="noMostrarMovil">{{ teacher.email }}</p>
-    <p class="noMostrarMovil">+34 {{ teacher.phone }}</p>
-    <p class="noMostrarMovil">
+    </td>
+    <td>{{ teacher.dni }}</td>
+    <td class="noMostrarMovil">{{ teacher.email }}</td>
+    <td class="noMostrarMovil">+34 {{ teacher.phone }}</td>
+    <td class="noMostrarMovil">
         {% if teacher.modules.all %}
         {% for module in teacher.modules.all %}
         <a href="{% url 'module_edit' module.id %}" class="module-btn">{{ module.initials }}</a>
-        {% if notforloop.last%},
+        {% if not forloop.last %}
         {% endif %}
         {% endfor %}
         {% else %}
         No imparte
         {% endif %}
-    </p>
-    <div class="tableBottomsCSS">
-        <button class="bottomSee" data-teacher-id="{{ teacher.id }}">
-            <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
+    </td>
+    <td>
+        <button class="bottomSee btn btn-outline-primary btn-sm" data-teacher-id="{{ teacher.id }}">
+            <i class="fa-solid fa-eye"></i>
         </button>
-        <button class="bottomDelete card-btn-delete" data-teacher-id="{{ teacher.id }}">
-            <img src="{% static 'images/svg/bin.svg' %}" alt="bin">
+        <button class="bottomDelete btn btn-outline-danger btn-sm" data-teacher-id="{{ teacher.id }}">
+            <i class="fa-solid fa-trash"></i>
         </button>
-    </div>
-</div>
+    </td>
+</tr>
 {% endfor %}
 {% endblock %}
 
 {% block js %}
+{{ block.super }}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const btnVer = document.querySelectorAll('.bottomSee');
-        const deleteBtns = document.querySelectorAll('.card-btn-delete');
+        const deleteBtns = document.querySelectorAll('.bottomDelete');
 
         btnVer.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -101,7 +100,7 @@
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        fetch(`/teacher/delete/${teacher_id}`, {
+                        fetch(`/teacher/delete/${teacher_id}/`, {
                             method: 'DELETE',
                             headers: {
                                 'X-CSRFToken': '{{ csrf_token }}',
