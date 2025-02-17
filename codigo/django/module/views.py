@@ -120,10 +120,8 @@ def module_delete(request, module_id):
         TeacherModule.objects.filter(module=module).delete()
         module.delete()
 
-        return JsonResponse(
-            {"success": True, "message": "Módulo eliminado correctamente"}
-        )
+        messages.success(request, "Módulo eliminado correctamente.")
+        return redirect("module_list")
     else:
-        return JsonResponse(
-            {"success": False, "message": "No se ha podido eliminar el módulo."}
-        )
+        messages.error(request, "No se ha podido eliminar el módulo.")
+        return redirect("module_list")

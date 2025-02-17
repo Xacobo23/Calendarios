@@ -54,4 +54,82 @@
     </td>
 </tr>
 {% endfor %}
+<script defer>
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnVer = document.querySelectorAll('.bottomSee');
+
+        btnVer.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let module_id = btn.getAttribute('data-module-id');
+                let currentUrl = window.location.href;
+
+                if (currentUrl.endsWith('/')) {
+                    currentUrl = currentUrl.slice(0, -1);
+                }
+
+                let newUrl = currentUrl.includes('/list')
+                    ? currentUrl.replace('/list', '/edit/' + module_id)
+                    : currentUrl + '/edit/' + module_id;
+
+                window.location.href = newUrl;
+            });
+        });
+    });
+
+    const deleteBtn = document.querySelectorAll('.bottomDelete');
+
+    deleteBtn.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const student_id = btn.getAttribute('data-module-id');
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                    confirmButton: 'btn-swal-confirm',
+                    cancelButton: 'btn-swal-cancel'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/module/delete/${module_id}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire(
+                                    'Eliminado!',
+                                    'El modulo ha sido eliminado.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    'Hubo un problema al eliminar el modulo.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Hubo un problema al eliminar el modulo.',
+                                'error'
+                            );
+                        });
+                }
+            });
+        });
+    });
+</script>
+
 {% endblock %}
