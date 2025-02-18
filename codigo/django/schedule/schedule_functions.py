@@ -6,8 +6,6 @@ from collections import defaultdict
 from session.models import Session
 from session.models import Weekday, WEEKDAYS
 
-
-
 #genera
 def generate_schedule_hours(scheduleConfig):
     scheduleHours = {}

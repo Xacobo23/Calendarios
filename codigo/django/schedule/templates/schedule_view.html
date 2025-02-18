@@ -106,7 +106,7 @@
                     flex-wrap: wrap;
                 }
                     .action_section_button{
-                        width: 250px;
+                        max-width: 350px;
                         height: 50px;
                         display: flex;
                         flex-direction: row;
@@ -233,11 +233,22 @@
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                border-radius: 5px;
+                            }
+                            .day_session_selector_container.modified_session{
+                                background-color: #C6E9FF;
                             }
                                 .day_session_selector_container .options_selector{
                                     max-width: 200px;
                                     flex-grow: 1;
                                 }
+            .action_section_buttons_bottom{
+                margin: 40px 0 10px 0;
+            }
+                #btn_undo{
+                    background-color: #DB5D5D;
+                    flex-grow: 0.1;
+                }
 </style>
 {% endblock %}
 
@@ -272,9 +283,6 @@
             </div>
             <!-- botons -->
             <div class="action_section_buttons">
-                <button class="action_section_button save_button" id="btn_save">
-                    Guardar
-                </button>
                 <button id="btn-export" class="action_section_button export_button" id="btn_export">
                     Exportar a pdf
                 </button>
@@ -310,7 +318,7 @@
                 </div>
 
                 <!-- Contenedor de columnas de días y sesiones en DESKTOP -->
-                <div class="day_sessions_container">
+                <div id="day_sessions_container" class="day_sessions_container">
                     {% for dayKey, dayData in sessionsStructure.items %}
                         <div class="day_column {% if forloop.first %} show_column {% endif %}" data_column_day="{{ forloop.counter0 }}">
                             <!-- Mostrar el nombre completo del día -->
@@ -318,12 +326,21 @@
 
                             {% for dayMoment, sessions in dayData.sessions.items %}
                                 <div class="schedule_day_separator"></div>
-                                {% for sessionPosition, sessionData in sessions.items %}
-                                    <!-- Todas las sesiones del día -->
-                                    <div class="day_sessions">
+                                <!-- Todas las sesiones del día -->
+                                <div class="day_sessions">
+                                    {% for sessionPosition, sessionData in sessions.items %}
                                         <div class="day_session_selector_container table_row">
-                                            <select id="session_{{ dayKey }}_{{ sessionPosition }}" name="schedule_template" class="options_selector">
-                                                <option value="0">-</option>
+                                            <select
+                                                    id="session_{{ dayKey }}_{{ sessionPosition }}"
+                                                    name="schedule_template"
+                                                    class="options_selector"
+                                                    data_day="{{ dayKey }}"
+                                                    data_position="{{ sessionPosition }}"
+                                                    {% if sessionData %}
+                                                        data_session_id="{{ sessionData.id }}"
+                                                    {% endif %}
+                                            >
+                                                <option>-</option>
                                                 {% for module in modules %}
                                                     <option value="{{ module.id }}" {% if sessionData and module.id == sessionData.module.id %} selected {% endif %}>
                                                         {{ module.initials }}: {{ module.name }}
@@ -331,8 +348,8 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                    </div>
-                                {% endfor %}
+                                    {% endfor %}
+                                </div>
                             {% endfor %}
                         </div>
                     {% endfor %}
@@ -340,6 +357,15 @@
             {% else %}
                 este ciclo no tiene ninguna plantilla asignada
             {% endif %}
+        </section>
+
+        <section class="action_section_buttons action_section_buttons_bottom">
+            <button class="action_section_button save_button" id="btn_undo">
+                Deshacer cambios
+            </button>
+            <button class="action_section_button save_button" id="btn_save">
+                Guardar cambios
+            </button>
         </section>
     </article>
 
@@ -401,6 +427,85 @@
                 })
             }
         })
+    }
+
+    //script para gardar os cambios feitos
+    {
+        const sessionsContainer = document.getElementById('day_sessions_container')
+        const allSessions = sessionsContainer.querySelectorAll('.options_selector')
+        const btnSave = document.getElementById('btn_save')
+
+        //gardo os datos iniciales, pa solo mandar na petición de gardado os que cambiaron
+        const sessionsInitialData = loadInitialSessionsData()
+        //esto vai ser o que se mande na petición
+        const editedSessions = {}
+
+
+        btnSave.addEventListener('click',e=>{
+            submitChanges()
+        })
+
+        sessionsContainer.addEventListener('change', e =>{
+            let selectorChanged = e.target
+            let selectorParent = selectorChanged.parentElement
+
+            let selectorData = getSelectData(selectorChanged)
+
+            if (JSON.stringify(selectorData) !== JSON.stringify(sessionsInitialData[selectorChanged.id])){
+                editedSessions[selectorChanged.id] = selectorData
+                selectorParent.classList.add('modified_session')
+            }else {
+                delete editedSessions[selectorChanged.id]
+                selectorParent.classList.remove('modified_session')
+            }
+
+            console.log(JSON.stringify(editedSessions))
+        })
+
+        function getSelectData(moduleSelector){
+            const sessionId = moduleSelector.getAttribute("data_session_id") || null;
+            const moduleId = parseInt(moduleSelector.value) || null;
+            const position = moduleSelector.getAttribute("data_position");
+            const day = moduleSelector.getAttribute("data_day")
+            let data = {
+                moduleId: moduleId,
+                position: position,
+                sessionId: sessionId,
+                day: day
+            }
+            return data
+        }
+
+        function loadInitialSessionsData(){
+            let data = {}
+            allSessions.forEach(select => {
+                data[select.id] = getSelectData(select)
+            });
+            return data
+        }
+
+        function submitChanges(){
+            if (Object.keys(editedSessions).length > 0) {
+                fetch('/session/add/', {  // Replace with your server URL
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(editedSessions),  // Send the editedSessions object as JSON
+                })
+                .then(response => response.json())  // Assuming the server returns JSON
+                .then(data => {
+                    console.log('Success:', data)
+                    // You can handle success or update the UI accordingly
+                })
+                .catch((error) => {
+                    console.error('Error:', error)
+                    // Handle any errors during the request
+                });
+            }else {
+                console.log("no hai nada pa cambiar")
+            }
+        }
     }
 </script>
 

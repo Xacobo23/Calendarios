@@ -60,9 +60,6 @@ def view_schedule(request, fp_id, curso=None):
         'selected_course': selected_course,
         'sessionsStructure': sessionsStructure
     }
-
-    # OKEY POS BASICAMENTE QUE AOS 576PX mostre solo a columna do día coa clase show_day e as outras as oculte
-
     return render(request, 'schedule_view.html', data)
 
 # Vistas alumno
