@@ -74,35 +74,33 @@ def my_schedules(request):
 
     return render(request, 'my-schedules.html', data)
 
-def my_schedule(request, fp_id):
+def my_schedule(request, fp_id, curso=None):
+    selected_course = int(curso) if curso else 1
+
     fp = get_object_or_404(FP, id=fp_id)
 
-    # Filtrar los módulos en los que está matriculado el usuario dentro del FP específico
-    enrolled_modules = Module.objects.filter(
-        id__in=Enrolled.objects.filter(student=request.user).values_list('module_id', flat=True),
-        fp=fp
-    )
+    fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=selected_course).first()
+    scheduleConfig = fpScheduleConfig.schedule_config if fpScheduleConfig else None
+    modules = Module.objects.filter(fp=fp, course=selected_course) #modulos
 
-    module_sessions = {}
+    scheduleHours = None #lista de horas
+    sessionsStructure = None
+    if scheduleConfig and modules:
+        #genero as horas
+        scheduleHours = generate_schedule_hours(scheduleConfig)
 
-    for module in enrolled_modules:
-        sessions = module.sessions.all()
-        module_sessions[module] = sessions
-
-    for module, sessions in module_sessions.items():
-        for session in sessions:
-            print(module, session.start_time, session.end_time, session.week_day)
-
-    week_days = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes']
+        #genero as sesions por día
+        sessionsStructure = generate_schedule_sessions(modules,scheduleConfig,scheduleHours)
 
     data = {
-        'title': 'Mi horario',  
+        'title': 'Horario',
         'fp': fp,
-        'enrolled_modules': enrolled_modules, 
-        'module_sessions': module_sessions,
-        'week_days': week_days,
+        'schedule_config': scheduleConfig,
+        'modules': modules,
+        'scheduleHours': scheduleHours,
+        'selected_course': selected_course,
+        'sessionsStructure': sessionsStructure
     }
-
     return render(request, 'my-schedule.html', data)
 
 

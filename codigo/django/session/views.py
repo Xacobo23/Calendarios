@@ -43,8 +43,8 @@ def add_sessions(request):
                     except Module.DoesNotExist:
                         return JsonResponse({"error": f"Module with ID {module_id} does not exist"}, status=400)
 
-                    # Find the classroom (if needed, you may need to handle this depending on your data model)
-                    classroom_id = 1  # Assuming classroom_id comes from position or another mapping
+                    #pos poño sempre a de id 1 porque non ta feito o das aulas
+                    classroom_id = 1
                     try:
                         classroom = Classroom.objects.get(id=classroom_id)
                     except Classroom.DoesNotExist:
