@@ -114,14 +114,11 @@ def module_edit(request, module_id):
 
 @csrf_exempt
 def module_delete(request, module_id):
-    if request.method == "POST":
+    if request.method == "DELETE":
         module = get_object_or_404(Module, id=module_id)
 
-        TeacherModule.objects.filter(module=module).delete()
         module.delete()
 
-        messages.success(request, "Módulo eliminado correctamente.")
         return redirect("module_list")
-    else:
-        messages.error(request, "No se ha podido eliminar el módulo.")
-        return redirect("module_list")
+
+    return redirect("module_list")
