@@ -77,13 +77,26 @@
     </article>
 
 
-    <button id="add-item-btn" class="add-item-btn">
-        <div class="noMostrarMovil">
-            <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
-            {% endblock %}
-        </div>
-        <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
-    </button>
+    <div class="add-import-buttons">
+        <button id="add-item-btn" class="add-item-btn">
+            <div class="noMostrarMovil">
+                <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
+                {% endblock %}
+            </div>
+            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
+        </button>
+
+        <form method="POST" class="import-form" id="import-form" enctype="multipart/form-data"
+            action="{% url 'student_import' %}">
+            {% csrf_token %}
+            <div>
+                <label for="xml_file">Subir archivo XML</label>
+                <input type="file" name="xml_file" accept="text/xml" required>
+            </div>
+            <button type="submit" id="import-item-btn" class="import-item-btn">Añadir Estudiante(s)</button>
+        </form>
+
+    </div>
 
     </article>
     <table class="table table-striped dataTable" id="dataTable">
