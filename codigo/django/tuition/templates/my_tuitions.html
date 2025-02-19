@@ -155,6 +155,23 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 .btn-see:hover {
     opacity: .8em;
 }
+
+.section-no-tuitions {
+    background-color: #f9f9f9;
+
+    width: 75%;
+
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.no-tuitions-msg {
+    font-weight: 500;
+
+    color: #468DAE;
+
+    text-align: center;
+}
 </style>
 {% endblock %}
 
@@ -181,24 +198,31 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             
         </section>
         <h2 class="title-active-tuitions">Matrículas activas:</h2>
-        <section class="section-active-tuitions">
-            {% for fp in fps %}
-                <div class="tuition-card">
-                    <div id="titleCard">
-                        <h3 class="card-title">{{ fp.initials }}</h3>
-                        <div class="expand">
-                            <div class="_layerm -vertical"></div>
-                            <div class="_layerm -horizontal"></div>
+            {% if fps %}
+            <section class="section-active-tuitions"></section>
+                {% for fp in fps %}
+                    <div class="tuition-card">
+                        <div id="titleCard">
+                            <h3 class="card-title">{{ fp.initials }}</h3>
+                            <div class="expand">
+                                <div class="_layerm -vertical"></div>
+                                <div class="_layerm -horizontal"></div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p class="fp-name">{{ fp.short_name }}</p>
+                            <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
+                            <p class="see-fp"><button class="btn-see"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></button></p>
                         </div>
                     </div>
-                    <div class="card-content">
-                        <p class="fp-name">{{ fp.short_name }}</p>
-                        <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
-                        <p class="see-fp"><button class="btn-see"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></button></p>
-                    </div>
-                </div>
-            {% endfor %}
-        </section>
+                {% endfor %}
+            </section>
+            {% else %}
+            <section class="section-no-tuitions">
+                <p class="no-tuitions-msg">No hay matrículas activas</p>
+            </section>
+            {% endif %}
+        
     </article>
 </section>
 {% endblock %}
