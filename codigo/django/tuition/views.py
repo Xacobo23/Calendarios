@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
+from django.views.decorators.csrf import csrf_exempt
 
 from fp.models import FP
 from fp.forms import FPForm
-from module.models import Module
+from module.models import Module, Enrolled
+import json
 
 def my_tuitions (request):
     user = request.user
@@ -58,7 +60,27 @@ def review_tuition (request, fp_id):
         'title': 'Mis matrículas',
         'subTitle': 'Revisar',
         'modules': modules,
-        'form': form
+        'form': form,
+        'fp_id': fp_id
     }
 
     return render(request, 'tuition_review.html', data)
+
+@csrf_exempt
+def make_tuition (request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        modules = data.get('modules', [])
+        fp_id = data.get('fp_id', None)
+        user = request.user
+
+        try:
+            for module_id in modules:
+                module = Module.objects.get(id=module_id)
+                Enrolled.objects.get_or_create(student=user, module=module, course=1)
+
+            return redirect('my_tuitions')
+        except Exception as e:
+            print(e)
+
+    return redirect('my_tuitions')

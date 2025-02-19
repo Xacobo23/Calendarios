@@ -10,6 +10,6 @@ urlpatterns = [
     path("list/", views.module_list, name="module_list"),
     path("add/", views.module_add, name="module_add"),
     path("edit/<int:module_id>", views.module_edit, name="module_edit"),
-    path("delete/<int:module_id>", views.module_delete, name="module_delete"),
+    path("delete/<int:module_id>/", views.module_delete, name="module_delete"),
     # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]
