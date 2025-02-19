@@ -32,7 +32,17 @@
             pageLength: 10,
             lengthMenu: [10, 25, 50],
             info: false,
-            dom: "t<'row'p>",
+            dom: "<'row'<'col-6'B><'col-6'l f>>t<'row'<'col-6'p>>", // Aquí hemos añadido el botón 'B'
+            buttons: [
+                {
+                    text: '<div class="noMostrarMovil"><i class="fa-solid fa-plus"></i> Nuevo</div><img src="" alt="" class="noMostrarPc">',
+                    action: function () {
+                        let currentUrl = window.location.href;
+                        let newUrl = currentUrl.replace('/list', '/add');
+                        window.location.href = newUrl;
+                    }
+                }
+            ],
             initComplete: function () {
             }
         });
@@ -45,16 +55,6 @@
                 window.location.href = newUrl;
             });
         }
-
-        const btnImport = document.getElementById('import-item-btn');
-        if (btnImport) {
-            btnImport.addEventListener('click', () => {
-                let currentUrl = window.location.href;
-                let newUrl = currentUrl.replace('/list', '/import');
-                window.location.href = newUrl;
-            });
-        }
-        
     });
 
     const paginacionDiv = document.querySelector('.d-md-flex .justify-content-between .align-items-center .dt-layout-start .col-md-auto .me-auto');
@@ -77,25 +77,13 @@
     </article>
 
 
-    <div class="add-import-buttons">
-        <button id="add-item-btn" class="add-item-btn">
-            <div class="noMostrarMovil">
-                <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
-                {% endblock %}
-            </div>
-            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
-        </button>
-    
-        <form method="POST" class="import-form" id="import-form" enctype="multipart/form-data" action="{% url 'student_import' %}">
-            {% csrf_token %}
-            <div>
-                <label for="xml_file">Subir archivo XML</label>
-                <input type="file" name="xml_file" accept="text/xml" required>
-            </div>
-            <button type="submit" id="import-item-btn" class="import-item-btn">Añadir Estudiante(s)</button>
-        </form>
-        
-    </div>
+    <button id="add-item-btn" class="add-item-btn">
+        <div class="noMostrarMovil">
+            <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
+            {% endblock %}
+        </div>
+        <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
+    </button>
 
     </article>
     <table class="table table-striped dataTable" id="dataTable">
