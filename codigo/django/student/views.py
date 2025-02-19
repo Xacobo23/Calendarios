@@ -33,8 +33,6 @@ def student_list(request):
 
 
 def student_add(request):
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    print(f"Solicitud recibida: {request.method}")
     if request.method == "POST":
         print("¡Es POST!")  # <-- Verifica si esto aparece en la consola
     else:
@@ -42,23 +40,17 @@ def student_add(request):
         request.method = "POST"  # <-- Cambia el método de la solicitud a POST
 
     form = CustomUserChangeForm(request.POST or None, request.FILES or None)  # Asegúrate de que request.FILES esté incluido.
-    print("Formulario creado...")  # Depuración: Imprime un mensaje
-
     if request.method == "POST":
         # Primero, comprobamos si se ha subido un archivo XML
-        print("Comprobando si es u archivo...") 
         if request.FILES:
-            print("Archivo XML recibido.")  # Depuración: Imprime un mensaje
 
             xml_file = request.FILES['xml_file']
-            print("Archivo XML recibido:", xml_file.name)  # Depuración: Imprime el nombre del archivo recibido
 
             try:
                 # Intentamos parsear el archivo XML
                 tree = ET.parse(xml_file)
                 root = tree.getroot()
 
-                print(f"Raíz del XML: {root.tag}")  # Depuración: Imprime el nombre del nodo raíz
 
                 # Iteramos sobre los elementos <Alumno> dentro de <Alumnos>
                 for alumno_elem in root.find('Alumnos').findall('Alumno'):
@@ -70,7 +62,6 @@ def student_add(request):
                     first_name = alumno_elem.find('Nombre').text
                     last_name = alumno_elem.find('Apellido').text
                     
-                    print(f"Procesando Alumno: {first_name} {last_name}")  # Depuración: Imprime los datos del alumno
 
                     # Creamos un nuevo objeto CustomUser con los datos del alumno
                     student = CustomUser(
@@ -82,9 +73,7 @@ def student_add(request):
                         last_name=last_name,
                     )
 
-                    print("Estudiante creado.")  # Depuración: Imprime un mensaje
                     student.set_password('abc123.')  # Asigna una contraseña predeterminada
-                    print("Contraseña asignada.")  # Depuración: Imprime un mensaje
                     student.save()
 
                 messages.success(request, "Estudiantes añadidos correctamente desde el XML.")
@@ -92,13 +81,11 @@ def student_add(request):
 
             except ET.ParseError as e:
                 # Si hay un error en el parseo del XML, lo mostramos
-                print(f"Error al parsear el XML: {e}")
                 messages.error(request, "Error al procesar el archivo XML.")
                 return redirect("student_add")
 
         # Si no se sube un archivo XML, procesamos el formulario manual
         elif form.is_valid():
-            print("Son los datos de un formulario") 
             student = form.save(commit=False)
             student.set_password('abc123.')  # Asigna una contraseña predeterminada
             student.save()

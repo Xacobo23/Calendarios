@@ -46,12 +46,15 @@
             });
         }
 
-        const btnImport = document.getElementById('import-item-btn');
-        if (btnImport) {
-            btnImport.addEventListener('click', () => {
-                let currentUrl = window.location.href;
-                let newUrl = currentUrl.replace('/list', '/import');
-                window.location.href = newUrl;
+
+        const fileInput = document.getElementById("xml_file");
+        const form = document.getElementById("import-form");
+
+        if (fileInput && form) {
+            fileInput.addEventListener("change", function () {
+                if (fileInput.files.length > 0) {
+                    form.submit();  // Enviar formulario automáticamente
+                }
             });
         }
         
@@ -89,13 +92,14 @@
         <form method="POST" class="import-form" id="import-form" enctype="multipart/form-data" action="{% url 'student_import' %}">
             {% csrf_token %}
             <div>
-                <label for="xml_file">Subir archivo XML</label>
-                <input type="file" name="xml_file" accept="text/xml" required>
+                <label for="xml_file" class="import-label">
+                    <i class="fa-solid fa-file-import"></i> Importar XML
+                </label>
+                <input type="file" name="xml_file" accept="text/xml" required id="xml_file">
             </div>
-            <button type="submit" id="import-item-btn" class="import-item-btn">Añadir Estudiante(s)</button>
         </form>
-        
     </div>
+    
 
     </article>
     <table class="table table-striped dataTable" id="dataTable">
