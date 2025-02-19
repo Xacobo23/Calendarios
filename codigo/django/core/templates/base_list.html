@@ -30,8 +30,9 @@
                 url: 'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json'
             },
             pageLength: 10,
-            lengthMenu: [10, 25, 50, 100],
+            lengthMenu: [10, 25, 50],
             info: false,
+            dom: "t<'row'p>",
             initComplete: function () {
             }
         });
@@ -45,6 +46,10 @@
             });
         }
     });
+
+    const paginacionDiv = document.querySelector('.d-md-flex .justify-content-between .align-items-center .dt-layout-start .col-md-auto .me-auto');
+    console.log(paginacionDiv);
+
 
 </script>
 {% endblock %}
