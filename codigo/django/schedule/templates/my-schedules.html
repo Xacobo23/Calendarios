@@ -5,10 +5,24 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
-<link rel="stylesheet" href="{% static 'css/base_select.css' %}">
 
 <style>
+.item-title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+
+    font-weight: 500 !important;
+
+    color: #468dae;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.item-title i {
+    font-size: 1.5em;
+}
 
 .main-body-margins{
     margin: 20px 10px 20px 40px;
