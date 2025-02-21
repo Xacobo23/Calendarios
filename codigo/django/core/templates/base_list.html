@@ -6,11 +6,13 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
 <!-- DataTables Bootstrap 5 CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css" />
+
+<link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
+
 {% endblock %}
 
 {% block js %}
@@ -36,7 +38,19 @@
                 paginate: getPaginationText()
             },
             pageLength: 10,
-            lengthMenu: [10, 25, 50, 100],
+            lengthMenu: [10, 25, 50],
+            info: false,
+            dom: "<'row'<'col-6'B><'col-6'l f>>t<'row'<'col-6'p>>", // Aquí hemos añadido el botón 'B'
+            buttons: [
+                {
+                    text: '<div class="noMostrarMovil"><i class="fa-solid fa-plus"></i> Nuevo</div><img src="" alt="" class="noMostrarPc">',
+                    action: function () {
+                        let currentUrl = window.location.href;
+                        let newUrl = currentUrl.replace('/list', '/add');
+                        window.location.href = newUrl;
+                    }
+                }
+            ],
             initComplete: function () {
             }
         });
@@ -51,7 +65,24 @@
                 window.location.href = newUrl;
             });
         }
+
+
+        const fileInput = document.getElementById("xml_file");
+        const form = document.getElementById("import-form");
+
+        if (fileInput && form) {
+            fileInput.addEventListener("change", function () {
+                if (fileInput.files.length > 0) {
+                    form.submit();  // Enviar formulario automáticamente
+                }
+            });
+        }
+        
     });
+
+    const paginacionDiv = document.querySelector('.d-md-flex .justify-content-between .align-items-center .dt-layout-start .col-md-auto .me-auto');
+    console.log(paginacionDiv);
+
 
 
 </script>
@@ -70,13 +101,27 @@
     </article>
 
 
-    <button id="add-item-btn" class="add-item-btn">
-        <div class="noMostrarMovil">
-            <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
-            {% endblock %}
-        </div>
-        <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
-    </button>
+    <div class="add-import-buttons">
+        <button id="add-item-btn" class="add-item-btn">
+            <div class="noMostrarMovil">
+                <i class="fa-solid fa-plus"></i> Nuevo {% block addItem %}
+                {% endblock %}
+            </div>
+            <img src="{% static 'images/svg/add_user.svg' %}" alt="" class="noMostrarPc">
+        </button>
+
+        <form method="POST" class="import-form" id="import-form" enctype="multipart/form-data"
+            action="{% url 'student_import' %}">
+            {% csrf_token %}
+            <div>
+                <label for="xml_file" class="import-label">
+                    <i class="fa-solid fa-file-import"></i> Importar XML
+                </label>
+                <input type="file" name="xml_file" accept="text/xml" required id="xml_file">
+            </div>
+        </form>
+    </div>
+    
 
     </article>
     <table class="table table-striped dataTable" id="dataTable">

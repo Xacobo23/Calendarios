@@ -7,6 +7,7 @@ from student.forms import CustomUserChangeForm
 from user.models import CustomUser
 from fp.models import FP
 from module.models import Enrolled
+import xml.etree.ElementTree as ET
 
 User = get_user_model()
 
@@ -30,24 +31,71 @@ def student_list(request):
     return render(request, "student_list.html", data)
 
 
+
 def student_add(request):
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST)
-        if form.is_valid():
+        print("¡Es POST!")  # <-- Verifica si esto aparece en la consola
+    else:
+        print("No es POST")
+        request.method = "POST"  # <-- Cambia el método de la solicitud a POST
+
+    form = CustomUserChangeForm(request.POST or None, request.FILES or None)  # Asegúrate de que request.FILES esté incluido.
+    if request.method == "POST":
+        # Primero, comprobamos si se ha subido un archivo XML
+        if request.FILES:
+
+            xml_file = request.FILES['xml_file']
+
+            try:
+                # Intentamos parsear el archivo XML
+                tree = ET.parse(xml_file)
+                root = tree.getroot()
+
+
+                # Iteramos sobre los elementos <Alumno> dentro de <Alumnos>
+                for alumno_elem in root.find('Alumnos').findall('Alumno'):
+                    # Extraemos los datos de cada alumno
+                    username = alumno_elem.find('ID').text  # El ID del alumno se usa como nombre de usuario
+                    email = alumno_elem.find('Email').text
+                    dni = alumno_elem.find('DNI').text
+                    phone = alumno_elem.find('Telefono').text
+                    first_name = alumno_elem.find('Nombre').text
+                    last_name = alumno_elem.find('Apellido').text
+                    
+
+                    # Creamos un nuevo objeto CustomUser con los datos del alumno
+                    student = CustomUser(
+                        username=username,
+                        email=email,
+                        dni=dni,
+                        phone=phone,
+                        first_name=first_name,
+                        last_name=last_name,
+                    )
+
+                    student.set_password('abc123.')  # Asigna una contraseña predeterminada
+                    student.save()
+
+                messages.success(request, "Estudiantes añadidos correctamente desde el XML.")
+                return redirect("student_list")
+
+            except ET.ParseError as e:
+                # Si hay un error en el parseo del XML, lo mostramos
+                messages.error(request, "Error al procesar el archivo XML.")
+                return redirect("student_add")
+
+        # Si no se sube un archivo XML, procesamos el formulario manual
+        elif form.is_valid():
             student = form.save(commit=False)
-
-            student.set_password('abc123.')
-
+            student.set_password('abc123.')  # Asigna una contraseña predeterminada
             student.save()
 
             messages.success(request, "Estudiante añadido correctamente.")
-            
-            return redirect("student_list")  
+            return redirect("student_list")
         else:
             messages.error(request, "Error al añadir el estudiante.")
-    else:
-        form = CustomUserChangeForm()
 
+    # Si no es un POST o si el formulario no es válido, simplemente cargamos la página
     data = {
         "title": "Añadir Estudiante",
         "form": form,
@@ -57,6 +105,7 @@ def student_add(request):
     }
 
     return render(request, "student_add.html", data)
+
 
 
 def student_edit(request, student_id):

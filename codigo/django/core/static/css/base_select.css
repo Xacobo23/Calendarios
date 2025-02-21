@@ -71,10 +71,10 @@
 
 .card-duration {
     padding: .6em;
+}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: end
+.bold {
+    font-weight: bold;
 }
 
 .card-actions {
@@ -93,7 +93,7 @@
     border: none;
     border-radius: .5em;
 
-    padding: .6em 2em;
+    padding: .6em 4em;
 }
 
 .card-btn-delete {

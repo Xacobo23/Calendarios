@@ -18,7 +18,7 @@
     <th class="noMostrarMovil">Ciclo Formativo</th>
     <th class="noMostrarMovil">Curso</th>
     <th class="noMostrarMovil">Profesor/es</th>
-    <th>Acciones</th>
+    <th></th>
 </tr>
 {% endblock %}
 
@@ -43,15 +43,96 @@
     </td>
     <td>
         <button class="bottomSee" data-module-id="{{ module.id }}">
-            <img src="{% static 'images/svg/eye.svg' %}" alt="Ver">
+            <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
         </button>
-        <form method="POST" action="{% url 'module_delete' module_id=module.id %}" style="display: inline;">
-            {% csrf_token %}
-            <button class="bottomDelete" data-module-id="{{ module.id }}">
-                <img src="{% static 'images/svg/bin.svg' %}" alt="Eliminar">
-            </button>
-        </form>
+        <button class="bottomDelete" data-module-id="{{ module.id }}">
+            <img src="{% static 'images/svg/bin.svg' %}" alt="bin">
+        </button>
     </td>
 </tr>
 {% endfor %}
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function setupViewButton(entity) {
+            const btnVer = document.querySelectorAll('.bottomSee');
+            btnVer.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    let entity_id = btn.getAttribute(`data-${entity}-id`);
+                    let currentUrl = window.location.href;
+
+                    if (currentUrl.endsWith('/')) {
+                        currentUrl = currentUrl.slice(0, -1);
+                    }
+
+                    let newUrl = currentUrl.includes('/list')
+                        ? currentUrl.replace('/list', `/edit/${entity_id}`)
+                        : currentUrl + `/edit/${entity_id}`;
+
+                    window.location.href = newUrl;
+                });
+            });
+        }
+
+        setupViewButton('module');
+
+        const deleteBtns = document.querySelectorAll('.bottomDelete');
+        deleteBtns.forEach(btn => {
+            btn.addEventListener('click', (event) => {
+                console.log('Botón de eliminar clickeado');  // Verifica si este mensaje aparece
+                const module_id = btn.getAttribute('data-module-id');
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    customClass: {
+                        confirmButton: 'btn-swal-confirm',
+                        cancelButton: 'btn-swal-cancel'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/module/delete/${module_id}/`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRFToken': '{{ csrf_token }}',
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    Swal.fire(
+                                        'Eliminado!',
+                                        'El módulo ha sido eliminado.',
+                                        'success'
+                                    ).then(() => {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'Hubo un problema al eliminar el módulo.',
+                                        'error'
+                                    );
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                Swal.fire(
+                                    'Error!',
+                                    'Hubo un problema al eliminar el módulo.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}

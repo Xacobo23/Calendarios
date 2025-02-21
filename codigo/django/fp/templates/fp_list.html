@@ -15,7 +15,7 @@
 {% block total %}
 
 <article class="item-total">
-    <p>Número items: <span class="number">{{ totalFp }}</span></p>
+    <p>Número ciclos: <span class="number">{{ totalFp }}</span></p>
 </article>
 
 {% endblock %}
@@ -45,7 +45,7 @@
         <span id="textAreaDescription" class="card-description truncado">{{ fp.short_name }}</span>
 
         <div class="DurationActionGroup">
-            <p class="card-duration">Duración: {{ fp.duration }} años</p>
+            <p class="card-duration">Duración: <span class="bold">{{ fp.duration }}</span> años</p>
 
             <section class="card-actions">
                 <button class="card-btn-see bottomSee" data-fp-id="{{ fp.id }}"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></button>

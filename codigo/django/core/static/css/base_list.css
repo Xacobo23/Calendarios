@@ -100,6 +100,31 @@
   border-radius: 0.5em;
 }
 
+.import-label {
+  background-color: #F25b1d; /* Naranja */
+  color: white;
+  padding: 1em 2em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.import-label i {
+  font-size: 1.2em;
+}
+
+.import-label:hover {
+  background-color: #e69500; /* Naranja más oscuro al pasar el mouse */
+}
+
+#xml_file {
+  display: none; /* Oculta el input original para que solo se vea el botón estilizado */
+}
+
 .item-table {
   display: flex;
   flex-direction: column;
@@ -402,6 +427,10 @@ button:hover {
   background-color: red !important;
   height: 10px;
 }
+
+/* .dt-layout-start {
+  display: none !important;
+} */
 
 
 
