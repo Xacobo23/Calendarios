@@ -38,7 +38,7 @@ class TeacherForm(forms.ModelForm):
             "phone": forms.TextInput(
                 attrs={
                     "type": "phone",
-                    "pattern": "[+]{1}[0-9]{2}[0-9]{9}",
+                    "pattern": "[0-9]{9}",
                     "placeholder": "Teléfono del Profesor",
                 }
             ),
