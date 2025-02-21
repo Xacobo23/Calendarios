@@ -22,16 +22,26 @@
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.min.js"></script>
 <script>
+
+    function getPaginationText() {
+        return window.innerWidth < 700
+            ? { "first": "<<", "last": ">>", "next": ">", "previous": "<" }
+            : { "first": "Primero", "last": "Último", "next": "Siguiente", "previous": "Anterior" };
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
-        const table = $('#dataTable').DataTable({
+        let table = $('#dataTable').DataTable({
             language: {
-                url: 'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json'
+                url: 'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json',
+                paginate: getPaginationText()
             },
             pageLength: 10,
             lengthMenu: [10, 25, 50, 100],
             initComplete: function () {
             }
         });
+
+        
 
         const btnAñadir = document.getElementById('add-item-btn');
         if (btnAñadir) {
@@ -42,6 +52,7 @@
             });
         }
     });
+
 
 </script>
 {% endblock %}
