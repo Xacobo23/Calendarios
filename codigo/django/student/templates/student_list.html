@@ -14,7 +14,18 @@
 
 {% block addItem %} {{ shortTitle }} {% endblock %}
 
-
+{% block importButton %}
+<form method="POST" class="import-form" id="import-form" enctype="multipart/form-data"
+    action="{% url 'student_import' %}">
+    {% csrf_token %}
+    <div>
+        <label for="xml_file" class="import-label">
+            <i class="fa-solid fa-file-import"></i> Importar XML
+        </label>
+        <input type="file" name="xml_file" accept="text/xml" required id="xml_file">
+    </div>
+</form>
+{% endblock %}
 
 
 {% block tableHeader %}
