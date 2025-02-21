@@ -432,6 +432,6 @@ button:hover {
   display: none !important;
 } */
 
-
-
-
+#dataTable th, #dataTable td {
+  text-align: center;
+}
