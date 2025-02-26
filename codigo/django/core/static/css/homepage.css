@@ -328,11 +328,13 @@ header {
     font-size: clamp(.8rem, 2.5vw, 1rem);
 }
 
-.navItem:hover {
+div[id^="nav"] a:hover i,
+div[id^="nav"] a:hover .navItem {
     color: black;
-
     transition: color 0.5s ease;
 }
+
+
 
 #navUser {
     display: flex;

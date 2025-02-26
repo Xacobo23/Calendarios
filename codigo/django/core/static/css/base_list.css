@@ -461,14 +461,23 @@ button:hover {
 }
 
 #dataTable tr {
-  background-color: red !important;
   height: 10px;
 }
 
-/* .dt-layout-start {
-  display: none !important;
-} */
 
 #dataTable th, #dataTable td {
   text-align: center;
+}
+
+.import-item-btn{
+  background-color: #ff7300;
+  color: white;
+  padding: 1em 2em;
+  z-index: 100;
+  border: none;
+  border-radius: 0.5em;
+}
+
+.hidden {
+  display: none;
 }
