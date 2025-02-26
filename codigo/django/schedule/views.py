@@ -10,6 +10,7 @@ from session.models import Weekday, WEEKDAYS
 from module.models import Module, Enrolled
 from session.models import Session
 from .models import ScheduleConfig, FPScheduleConfig
+from classroom.models import Classroom
 from module.models import Module
 from datetime import datetime, timedelta
 
@@ -41,6 +42,7 @@ def view_schedule(request, fp_id, curso=None):
     fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=selected_course).first()
     scheduleConfig = fpScheduleConfig.schedule_config if fpScheduleConfig else None
     modules = Module.objects.filter(fp=fp, course=selected_course) #modulos
+    classrooms = Classroom.objects.all()
 
     scheduleHours = None #lista de horas
     sessionsStructure = None
@@ -58,7 +60,8 @@ def view_schedule(request, fp_id, curso=None):
         'modules': modules,
         'scheduleHours': scheduleHours,
         'selected_course': selected_course,
-        'sessionsStructure': sessionsStructure
+        'sessionsStructure': sessionsStructure,
+        'classrooms': classrooms
     }
     return render(request, 'schedule_view.html', data)
 
@@ -82,6 +85,7 @@ def my_schedule(request, fp_id, curso=None):
     fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=selected_course).first()
     scheduleConfig = fpScheduleConfig.schedule_config if fpScheduleConfig else None
     modules = Module.objects.filter(fp=fp, course=selected_course) #modulos
+    classrooms = Classroom.objects.all()
 
     scheduleHours = None #lista de horas
     sessionsStructure = None
@@ -99,7 +103,8 @@ def my_schedule(request, fp_id, curso=None):
         'modules': modules,
         'scheduleHours': scheduleHours,
         'selected_course': selected_course,
-        'sessionsStructure': sessionsStructure
+        'sessionsStructure': sessionsStructure,
+        'classrooms': classrooms
     }
     return render(request, 'my-schedule.html', data)
 

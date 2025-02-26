@@ -21,6 +21,13 @@
             height: 50px;
             color: white;
         }
+        select:focus{
+            border: none;
+            outline: none;
+        }
+        .dissable_no_changes_made{
+            opacity: 50%;
+        }
     /* end comunes */
 
     .page_main{
@@ -158,9 +165,8 @@
 
             /* horario */
             .table_row{
-                height: 50px;
-                padding: 5px 0;
-                margin: 7px 0;
+                height: 75px;
+                margin: 10px 0;
             }
 
             .full_schedule{
@@ -188,9 +194,10 @@
                     .schedule_time_slot{
                         display: flex;
                         flex-direction: column;
-                        justify-content: space-between;
+                        justify-content: center;
                         align-items: center;
                         min-width: 110px;
+                        gap: 15px;
                     }
                 /* sesions */
                 .day_sessions_container{
@@ -228,23 +235,54 @@
                         .day_sessions{
                             display: flex;
                             flex-direction: column;
+                            margin: 0 5px;
                         }
                             .day_session_selector_container{
                                 display: flex;
+                                flex-direction: column;
                                 justify-content: center;
                                 align-items: center;
                                 border-radius: 5px;
+                                gap: 5px;
                             }
                             .day_session_selector_container.modified_session{
                                 background-color: #C6E9FF;
                             }
-                                .day_session_selector_container .options_selector{
-                                    max-width: 200px;
-                                    flex-grow: 1;
+                                .session_module_and_day_container{
+                                    width: 200px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: end;
+                                    gap: 5px;
                                 }
+                                    .session_module_and_day_container .options_selector{
+                                        flex-grow: 1;
+                                        height: 40px;
+                                    }
+                                    .classroom_container{
+                                        font-size: 12px;
+                                        color: rgb(0,0,0,0.70);
+
+                                        display: flex;
+                                        flex-direction: row;
+                                        justify-content: center;
+                                        align-items: center;
+                                        gap: 5px;
+                                    }
+                                        .classroom_selector{
+                                            width: 55px;
+                                            background-color: rgba(242, 242, 242, 0.5);
+                                            border-radius: 5px;
+                                            border: none;
+                                        }
             .action_section_buttons_bottom{
                 margin: 40px 0 10px 0;
             }
+                .action_section_buttons_bottom.dissable_no_changes_made .action_section_button:hover{
+                    cursor: default;
+                    opacity: 100%;
+                }
                 #btn_undo{
                     background-color: #DB5D5D;
                     flex-grow: 0.1;
@@ -329,24 +367,39 @@
                                 <!-- Todas las sesiones del día -->
                                 <div class="day_sessions">
                                     {% for sessionPosition, sessionData in sessions.items %}
-                                        <div class="day_session_selector_container table_row">
-                                            <select
-                                                    id="session_{{ dayKey }}_{{ sessionPosition }}"
-                                                    name="schedule_template"
-                                                    class="options_selector"
-                                                    data_day="{{ dayKey }}"
-                                                    data_position="{{ sessionPosition }}"
-                                                    {% if sessionData %}
-                                                        data_session_id="{{ sessionData.id }}"
-                                                    {% endif %}
-                                            >
-                                                <option>-</option>
-                                                {% for module in modules %}
-                                                    <option value="{{ module.id }}" {% if sessionData and module.id == sessionData.module.id %} selected {% endif %}>
-                                                        {{ module.initials }}: {{ module.name }}
-                                                    </option>
-                                                {% endfor %}
-                                            </select>
+                                        <div id="session_{{ dayKey }}_{{ sessionPosition }}" class="day_session_selector_container table_row">
+                                            <div class="session_module_and_day_container">
+                                                <select
+                                                        name="schedule_template"
+                                                        class="options_selector"
+                                                        data_day="{{ dayKey }}"
+                                                        data_position="{{ sessionPosition }}"
+                                                        {% if sessionData %}
+                                                            data_session_id="{{ sessionData.id }}"
+                                                        {% endif %}
+                                                >
+                                                    <option>-</option>
+                                                    {% for module in modules %}
+                                                        <option value="{{ module.id }}" {% if sessionData and module.id == sessionData.module.id %} selected {% endif %}>
+                                                            {{ module.initials }}: {{ module.name }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <div class="classroom_container">
+                                                    Aula:
+                                                    <select class="classroom_selector" {% if not sessionData %} disabled {% endif %}>
+                                                        <option>-</option>
+                                                        {% for classroom in classrooms %}
+                                                        	<option
+                                                                value="{{ classroom.id }}"
+                                                                {% if sessionData and classroom.id == sessionData.class_id.id %} selected {% endif %}
+                                                            >
+                                                                {{ classroom.number }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -359,14 +412,16 @@
             {% endif %}
         </section>
 
-        <section class="action_section_buttons action_section_buttons_bottom">
-            <button class="action_section_button save_button" id="btn_undo">
-                Deshacer cambios
-            </button>
-            <button class="action_section_button save_button" id="btn_save">
-                Guardar cambios
-            </button>
-        </section>
+        {% if schedule_config %}
+            <section class="action_section_buttons action_section_buttons_bottom dissable_no_changes_made" id="action_section_buttons_bottom">
+                <button class="action_section_button save_button" id="btn_undo">
+                    Deshacer cambios
+                </button>
+                <button class="action_section_button save_button" id="btn_save">
+                    Guardar cambios
+                </button>
+            </section>
+        {% endif %}
     </article>
 
 
@@ -432,7 +487,8 @@
     //script para gardar os cambios feitos
     {
         const sessionsContainer = document.getElementById('day_sessions_container')
-        const allSessions = sessionsContainer.querySelectorAll('.options_selector')
+        const allSessions = sessionsContainer.querySelectorAll('.day_session_selector_container')
+        const buttonsContainer = document.getElementById('action_section_buttons_bottom')
         const btnSave = document.getElementById('btn_save')
 
         //gardo os datos iniciales, pa solo mandar na petición de gardado os que cambiaron
@@ -440,38 +496,70 @@
         //esto vai ser o que se mande na petición
         const editedSessions = {}
 
-
         btnSave.addEventListener('click',e=>{
-            submitChanges()
+            let parentContainer = btnSave.closest('.action_section_buttons_bottom')
+
+            if (!parentContainer.classList.contains('dissable_no_changes_made')){
+                submitChanges()
+            }
         })
 
         sessionsContainer.addEventListener('change', e =>{
             let selectorChanged = e.target
-            let selectorParent = selectorChanged.parentElement
+            let selectorsContainer = selectorChanged.closest('.day_session_selector_container')
+            let moduleSelector = selectorsContainer.querySelector('.options_selector')
+            let classRoomSelector = selectorsContainer.querySelector('.classroom_selector')
 
-            let selectorData = getSelectData(selectorChanged)
-
-            if (JSON.stringify(selectorData) !== JSON.stringify(sessionsInitialData[selectorChanged.id])){
-                editedSessions[selectorChanged.id] = selectorData
-                selectorParent.classList.add('modified_session')
+            //pillo os novos datos da sesión
+            let selectorsData = getSelectData(selectorsContainer)
+            //si se ha deseleccionado el módulo, deshabilito la seleccion de aula y la deselecciono
+            if (selectorsData.moduleId==null){
+                classRoomSelector.disabled=true
+                classRoomSelector.selectedIndex = 0;
             }else {
-                delete editedSessions[selectorChanged.id]
-                selectorParent.classList.remove('modified_session')
+                classRoomSelector.disabled=false
+            }
+
+            //volvo a pillar os datos, porque no if de arriba cambio a aula se o modulo esta deseleccionado
+            selectorsData = getSelectData(selectorsContainer)
+
+            //se cambiaron metoo no array de editedSessions e mostroo visualmente, senon pos o contrario
+            if (JSON.stringify(selectorsData) !== JSON.stringify(sessionsInitialData[selectorsContainer.id])){
+                editedSessions[selectorsContainer.id] = selectorsData
+                selectorsContainer.classList.add('modified_session')
+            }else {
+                delete editedSessions[selectorsContainer.id]
+                selectorsContainer.classList.remove('modified_session')
+            }
+
+            //solo muestro los botones de guardado si hai algún cambio
+            if (Object.keys(editedSessions).length===0){
+                buttonsContainer.classList.add('dissable_no_changes_made')
+            }else {
+                buttonsContainer.classList.remove('dissable_no_changes_made')
             }
 
             console.log(JSON.stringify(editedSessions))
         })
 
-        function getSelectData(moduleSelector){
+        function getSelectData(selectorsContainer){
+            let moduleSelector = selectorsContainer.querySelector('.options_selector')
+            let classRoomSelector = selectorsContainer.querySelector('.classroom_selector')
+
+            //modulo
             const sessionId = moduleSelector.getAttribute("data_session_id") || null;
             const moduleId = parseInt(moduleSelector.value) || null;
             const position = moduleSelector.getAttribute("data_position");
             const day = moduleSelector.getAttribute("data_day")
+            //aula
+            const classRoomId = parseInt(classRoomSelector.value) || null
+
             let data = {
                 moduleId: moduleId,
                 position: position,
                 sessionId: sessionId,
-                day: day
+                day: day,
+                classRoomId: classRoomId
             }
             return data
         }

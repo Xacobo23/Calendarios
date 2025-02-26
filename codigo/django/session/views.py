@@ -25,6 +25,7 @@ def add_sessions(request):
                 position = data.get('position')
                 session_id = data.get('sessionId')  # This can be null, which means create a new session
                 day = data.get('day')
+                classroom_id = data.get('classRoomId') #pode ser null tamen
 
                 if module_id is None:
                     # If moduleId is null, we need to delete the session if sessionId is provided
@@ -43,12 +44,13 @@ def add_sessions(request):
                     except Module.DoesNotExist:
                         return JsonResponse({"error": f"Module with ID {module_id} does not exist"}, status=400)
 
-                    #pos poño sempre a de id 1 porque non ta feito o das aulas
-                    classroom_id = 1
-                    try:
-                        classroom = Classroom.objects.get(id=classroom_id)
-                    except Classroom.DoesNotExist:
-                        return JsonResponse({"error": f"Classroom with ID {classroom_id} does not exist"}, status=400)
+                    if classroom_id:
+                        try:
+                            classroom = Classroom.objects.get(id=classroom_id)
+                        except Classroom.DoesNotExist:
+                            return JsonResponse({"error": f"Classroom with ID {classroom_id} does not exist"}, status=400)
+                    else:
+                        classroom = None
 
                     if session_id:
                         # If session_id exists, update the session
