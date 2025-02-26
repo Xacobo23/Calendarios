@@ -56,12 +56,9 @@
             initComplete: function () {
                 const importButton = document.querySelector('.import-item-btn');
                 if (importButton && (window.location.href.includes('module') || window.location.href.includes('teacher'))) {
-                    console.log("Botón de importación encontrado");
                     importButton.classList.add('hidden');
-                } else {
-                    console.log("Botón de importación no encontrado");
                 }
-            }
+            },
         });
 
         const fileInput = document.getElementById("xml_file");
