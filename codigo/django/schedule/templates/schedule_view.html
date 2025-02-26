@@ -2,30 +2,35 @@
 
 {% block title %} {{ title }} {% endblock %}
 
-{% block css %}
+{% block css %} 
 <style>
     /* comunes */
-    .options_selector {
-        background-color: rgba(242, 242, 242, 0.5);
-        padding: 10px 30px 10px 10px;
-        border-radius: 5px;
-        max-width: 200px;
-        border: none;
-    }
-
-    /* header da tabla */
-    .schedule_header {
-        background-color: rgba(70, 141, 174, 0.85);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50px;
-        color: white;
-    }
-
+        .options_selector{
+            background-color: rgba(242, 242, 242, 0.5);
+            padding: 10px 30px 10px 10px;
+            border-radius: 5px;
+            max-width: 200px;
+            border: none;
+        }
+            /* header da tabla */
+        .schedule_header{
+            background-color: rgba(70, 141, 174, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            color: white;
+        }
+        select:focus{
+            border: none;
+            outline: none;
+        }
+        .dissable_no_changes_made{
+            opacity: 50%;
+        }
     /* end comunes */
 
-    .page_main {
+    .page_main{
         box-sizing: border-box;
         /* background-color: antiquewhite; */
         margin: 25px 0 20px 10px;
@@ -33,206 +38,264 @@
         flex-direction: column;
         gap: 40px;
     }
+        /* header */
+        .page_main_header{
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            align-items: center;
+            color: #468DAE;
+            font-weight: bold!important;
+            position: relative;
+        }
+            .page_main_header:after{
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                /* background-color: #F2F2F2; */
+                height: 1px;
+                width: 100%;
+            }
+            .page_main_header .fa-clock{
+                font-size: 30px;
+            }
+            .page_main_header_title{
+                font-weight: bold;
+                font-size: 24px;
+            }
+            .page_main_header_title_link{
+                font-size: 16px;
+                color: #468DAE;
+                font-weight: bold;
+            }
 
-    /* header */
-    .page_main_header {
-        display: flex;
-        flex-direction: row;
-        gap: 30px;
-        align-items: center;
-        color: #468DAE;
-        font-weight: bold !important;
-        position: relative;
-    }
+        /* contido */
+        .page_main_content{
+            display: flex;
+            flex-direction: column;
+            /* background-color: #7ED9AE; */
+            margin-left: 15px;
+            margin-right: 10px;
+        }
+            .page_main_action_section{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin-bottom: 40px;
+            }
+                .action_section_filters{
+                    /* background-color: #468dae; */
+                    display: flex;
+                    flex-direction: row;
+                    gap: 20px;
+                    margin-bottom: 20px;
+                    flex-grow: 1;
+                    flex-wrap: wrap;
+                }
+                    .action_section_filter{
+                        display: flex;
+                        flex-direction: row;
+                        gap: 10px;
+                        align-items: center;
+                    }
+                        .action_section_filter label{
+                            font-weight: bold;
+                        }
+                .action_section_buttons{
+                    /* background-color: lightpink; */
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    flex-grow: 1;
+                    justify-content: end;
+                    flex-wrap: wrap;
+                }
+                    .action_section_button{
+                        max-width: 350px;
+                        height: 50px;
+                        display: flex;
+                        flex-direction: row;
+                        gap: 10px;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 5px;
+                        border: none;
+                        color: white;
+                        flex-grow: 1;
+                    }
+                        .action_section_button:hover{
+                            cursor: pointer;
+                            opacity: 90%;
+                        }
+                        .save_button{
+                            background-color: #468DAE;
+                        }
+                        .export_button{
+                            background-color: #F26B1D;
+                        }
+            /* selectores de día en movil */
+            .day_selectors_container{
+                display: none;
+                flex-direction: row;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+                .day_selector{
+                    padding: 10px 0;
+                    background-color: #F2F2F2;
+                    color: rgba(0, 0, 0, 0.7);
+                    border-radius: 5px;
+                    flex-grow: 1;
+                    cursor: pointer;
 
-    .page_main_header:after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        /* background-color: #F2F2F2; */
-        height: 1px;
-        width: 100%;
-    }
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                    .day_selector:not(.active_day_selector):hover{
+                        background-color: rgba(70, 141, 174, 0.85);
+                        color: white;
+                    }
+                .day_selector.active_day_selector{
+                    background-color: #468DAE;
+                    color: white;
+                }
 
-    .page_main_header .fa-clock {
-        font-size: 30px;
-    }
+            /* horario */
+            .table_row{
+                height: 75px;
+                margin: 10px 0;
+            }
 
-    .page_main_header_title {
-        font-weight: bold;
-        font-size: 24px;
-    }
+            .full_schedule{
+                background-color: white;
+                display: flex;
+                flex-direction: row;
+            }
+                /* columna de horas */
+                .schedule_hours{
+                    display: flex;
+                    flex-direction: column;
+                    width: 250px;
+                }
+                    .schedule_day_separator{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #468DAE;
+                        border-radius: 0 5px 5px 0;
+                        margin: 5px 0;
+                        color: white;
+                        font-size: 14px;
+                        height: 30px;
+                    }
+                    .schedule_time_slot{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        min-width: 110px;
+                        gap: 15px;
+                    }
+                /* sesions */
+                .day_sessions_container{
+                    display: flex;
+                    flex-direction: row;
+                    flex-grow: 1;
+                    overflow-x: scroll;
+                }
+                    .day_column{
+                        display: flex;
+                        flex-direction: column;
+                        flex-grow: 1;
+                        min-width: 220px;
+                    }
+                    @media screen and (max-width: 576px) {
+                        .page_main{
+                            margin: 25px 10px 20px 10px;
+                        }
+                        .day_sessions_container{
+                            overflow-x: visible;
+                        }
+                            .day_column{
+                                display: none;
+                            }
+                            .day_column.show_column{
+                                display: flex;
+                            }
+                        .day_selectors_container{
+                            display: flex;
+                        }
+                    }
+                        .day_column .schedule_day_separator{
+                            background-color: inherit;
+                        }
+                        .day_sessions{
+                            display: flex;
+                            flex-direction: column;
+                            margin: 0 5px;
+                        }
+                            .day_session_selector_container{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 5px;
+                                gap: 5px;
+                            }
+                            .day_session_selector_container.modified_session{
+                                background-color: #C6E9FF;
+                            }
+                                .session_module_and_day_container{
+                                    width: 200px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: end;
+                                    gap: 5px;
+                                }
+                                    .session_module_and_day_container .options_selector{
+                                        flex-grow: 1;
+                                        height: 40px;
+                                    }
+                                    .classroom_container{
+                                        font-size: 12px;
+                                        color: rgb(0,0,0,0.70);
 
-    .page_main_header_title_link {
-        font-size: 16px;
-        color: #468DAE;
-        font-weight: bold;
-    }
-
-    /* contido */
-    .page_main_content {
-        display: flex;
-        flex-direction: column;
-        /* background-color: #7ED9AE; */
-        margin-left: 15px;
-        margin-right: 10px;
-        gap: 40px;
-    }
-
-    .page_main_action_section {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-
-    .action_section_filters {
-        /* background-color: #468dae; */
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-        margin-bottom: 20px;
-        flex-grow: 1;
-        flex-wrap: wrap;
-    }
-
-    .action_section_filter {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        align-items: center;
-    }
-
-    .action_section_filter label {
-        font-weight: bold;
-    }
-
-    .action_section_buttons {
-        /* background-color: lightpink; */
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        flex-grow: 1;
-        justify-content: end;
-        flex-wrap: wrap;
-    }
-
-    .action_section_button {
-        width: 250px;
-        height: 50px;
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-        border: none;
-        color: white;
-        flex-grow: 1;
-    }
-
-    .action_section_button:hover {
-        cursor: pointer;
-        opacity: 90%;
-    }
-
-    .action_section_button.button_right {
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    .save_button {
-        background-color: #468DAE;
-    }
-
-    .export_button {
-        background-color: #F26B1D;
-    }
-
-    /* horario */
-    .table_row {
-        height: 50px;
-        padding: 5px 0;
-        margin: 7px 0;
-    }
-
-    .full_schedule {
-        background-color: white;
-        display: flex;
-        flex-direction: row;
-    }
-
-    /* columna de horas */
-    .schedule_hours {
-        display: flex;
-        flex-direction: column;
-        width: 250px;
-    }
-
-    .schedule_day_separator {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #468DAE;
-        border-radius: 0 5px 5px 0;
-        margin: 5px 0;
-        color: white;
-        font-size: 14px;
-        height: 30px;
-    }
-
-    .schedule_time_slot {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        min-width: 110px;
-    }
-
-    /* sesions */
-    .day_sessions_container {
-        display: flex;
-        flex-direction: row;
-        flex-grow: 1;
-    }
-
-    .day_column {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    .day_column .schedule_day_separator {
-        background-color: inherit;
-    }
-
-    .day_sessions {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .day_session_selector_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .day_session_selector_container .options_selector {
-        max-width: 200px;
-        flex-grow: 1;
-    }
+                                        display: flex;
+                                        flex-direction: row;
+                                        justify-content: center;
+                                        align-items: center;
+                                        gap: 5px;
+                                    }
+                                        .classroom_selector{
+                                            width: 55px;
+                                            background-color: rgba(242, 242, 242, 0.5);
+                                            border-radius: 5px;
+                                            border: none;
+                                        }
+            .action_section_buttons_bottom{
+                margin: 40px 0 10px 0;
+            }
+                .action_section_buttons_bottom.dissable_no_changes_made .action_section_button:hover{
+                    cursor: default;
+                    opacity: 100%;
+                }
+                #btn_undo{
+                    background-color: #DB5D5D;
+                    flex-grow: 0.1;
+                }
 </style>
 {% endblock %}
 
 {% block content %}
-{{ week_days.L.0 }}
 <article class="page_main">
     <!-- header -->
     <section class="page_main_header">
         <i class="fa-regular fa-clock" aria-hidden="true"></i>
-        <h1 class="page_main_header_title">Horarios/<a href="" class="page_main_header_title_link">{{ fp.initials }}</a>
-        </h1>
+        <h1 class="page_main_header_title">Horarios/<a href="" class="page_main_header_title_link">{{ fp.initials }}</a></h1>
     </section>
     <article class="page_main_content">
         <!-- filtros e botons -->
@@ -244,15 +307,13 @@
                     <select id="schedule_template" name="schedule_template" class="options_selector">
                         <option value="1">Por defecto</option>
                         <option value="option2">Option 2</option>
-                        <option value="option3">son unha opcion estupidamente enormisimaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        </option>
+                        <option value="option3">son unha opcion estupidamente enormisimaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
                         <option value="option4">Option 4</option>
                     </select>
                 </div>
                 <div class="action_section_filter">
                     <label for="select_course">Curso: </label>
-                    <select id="select_course" name="schedule_template" class="options_selector"
-                        data-fp-id="{{ fp.id }}">
+                    <select id="select_course" name="schedule_template" class="options_selector" data-fp-id="{{ fp.id }}">
                         <option value="1" {% if selected_course == 1 %}selected{% endif %}>1</option>
                         <option value="2" {% if selected_course == 2 %}selected{% endif %}>2</option>
                     </select>
@@ -280,47 +341,74 @@
         <!-- horario -->
         <section class="full_schedule">
             {% if schedule_config %}
-            <!-- columna de horas-->
-            <div class="schedule_hours">
-                <div class="schedule_header"></div>
-                {% for period, sessions in scheduleHours.items %}
-                <div class="schedule_day_separator">{{ period }}</div> {# Mañana / Tarde #}
-                {% for session_number, session in sessions.items %}
-                <div class="schedule_time_slot table_row" id="session_position_{{ session_number }}">
-                    <div class="schedule_hour">{{ session.start }}</div>
-                    <div class="schedule_hour">{{ session.end }}</div>
-                </div>
-                {% endfor %}
-                {% endfor %}
-            </div>
-
-            <!-- columnas de días e sesions, outro bucle for aqui -->
-            <div class="day_sessions_container">
-                {% for day,dayMoments in sessionsStructure.items %}
-                <div class="day_column">
-                    <div class="schedule_header">{{ day }}</div>
-                    {% for dayMoment,sessions in dayMoments.items %}
-                        <div class="schedule_day_separator"></div>
-                        {% for sessionPosition, sessionData in sessions.items %}
-                            <!-- todas as sesions do día -->
-                            <div class="day_sessions">
-                                <div class="day_session_selector_container table_row">
-                                    <select id="quecojonesesesto" name="schedule_template" class="options_selector">
-                                        {% for module in modules %}
-                                        <option value="{{ module.id }}" {% if module.id == sessionData.module.id %} selected {% endif %}>
-                                            {{ module.initials }}: {{ module.name }}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
+                <!-- columna de horas-->
+                <div class="schedule_hours">
+                    <div class="schedule_header"></div>
+                    {% for period, sessions in scheduleHours.items %}
+                        <div class="schedule_day_separator">{{ period }}</div> {# Mañana / Tarde #}
+                        {% for session_number, session in sessions.items %}
+                                <div class="schedule_time_slot table_row" id="session_position_{{ session_number }}">
+                                    <div class="schedule_hour">{{ session.start }}</div>
+                                    <div class="schedule_hour">{{ session.end }}</div>
                                 </div>
-                            </div>
                         {% endfor %}
                     {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
+
+                <!-- Contenedor de columnas de días y sesiones en DESKTOP -->
+                <div id="day_sessions_container" class="day_sessions_container">
+                    {% for dayKey, dayData in sessionsStructure.items %}
+                        <div class="day_column {% if forloop.first %} show_column {% endif %}" data_column_day="{{ forloop.counter0 }}">
+                            <!-- Mostrar el nombre completo del día -->
+                            <div class="schedule_header">{{ dayData.fullName }}</div>
+
+                            {% for dayMoment, sessions in dayData.sessions.items %}
+                                <div class="schedule_day_separator"></div>
+                                <!-- Todas las sesiones del día -->
+                                <div class="day_sessions">
+                                    {% for sessionPosition, sessionData in sessions.items %}
+                                        <div id="session_{{ dayKey }}_{{ sessionPosition }}" class="day_session_selector_container table_row">
+                                            <div class="session_module_and_day_container">
+                                                <select
+                                                        name="schedule_template"
+                                                        class="options_selector"
+                                                        data_day="{{ dayKey }}"
+                                                        data_position="{{ sessionPosition }}"
+                                                        {% if sessionData %}
+                                                            data_session_id="{{ sessionData.id }}"
+                                                        {% endif %}
+                                                >
+                                                    <option>-</option>
+                                                    {% for module in modules %}
+                                                        <option value="{{ module.id }}" {% if sessionData and module.id == sessionData.module.id %} selected {% endif %}>
+                                                            {{ module.initials }}: {{ module.name }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <div class="classroom_container">
+                                                    Aula:
+                                                    <select class="classroom_selector" {% if not sessionData %} disabled {% endif %}>
+                                                        <option>-</option>
+                                                        {% for classroom in classrooms %}
+                                                        	<option
+                                                                value="{{ classroom.id }}"
+                                                                {% if sessionData and classroom.id == sessionData.class_id.id %} selected {% endif %}
+                                                            >
+                                                                {{ classroom.number }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             {% else %}
-            este ciclo no tiene ninguna plantilla asignada
+                este ciclo no tiene ninguna plantilla asignada
             {% endif %}
         </section>
 
