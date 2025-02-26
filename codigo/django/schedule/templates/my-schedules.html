@@ -5,10 +5,24 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/base_list.css' %}" />
-<link rel="stylesheet" href="{% static 'css/base_select.css' %}">
 
 <style>
+.item-title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+
+    font-weight: 500 !important;
+
+    color: #468dae;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.item-title i {
+    font-size: 1.5em;
+}
 
 .main-body-margins{
     margin: 20px 10px 20px 40px;
@@ -117,33 +131,62 @@
 </article>
 
 <div class="main-body-margins">
-    <article id="multiple-courses-body">
-        <p id="multiple-courses-title">Parece estar matriculado en más de un ciclo formativo, puede:</p>
-        <div>Seleccionar un ciclo para ver el horario:</div>
-        <section id="available-courses-schedule">
-            {% for fp in fps %}
-            <!-- plantilla para cada ciclo -->
-            <div class="available-course-chedule">
-                <div class="course-header">
-                    <span class="course-acronym">{{ fp.initials }}</span>
-                    <span class="course-modality">distancia</span>
-                </div>
-                <div class="course-body">
-                    <div class="course-body-info">
-                        <div class="course-name">{{ fp.name }}</div>
-                        <div class="course-duration">Duración: <b>{{ fp.duration }}</b> años</div>
+    {% if fps %}
+        {% if fps|length > 1 %}
+            <article id="multiple-courses-body">
+                <p id="multiple-courses-title">Parece estar matriculado en más de un ciclo formativo, puede:</p>
+                <div>Seleccionar un ciclo para ver el horario:</div>
+                <section id="available-courses-schedule">
+                    {% for fp in fps %}
+                    <div class="available-course-chedule">
+                        <div class="course-header">
+                            <span class="course-acronym">{{ fp.initials }}</span>
+                            <span class="course-modality">distancia</span>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-body-info">
+                                <div class="course-name">{{ fp.name }}</div>
+                                <div class="course-duration">Duración: <b>{{ fp.duration }}</b> años</div>
+                            </div>
+                            <div class="course-body-action-buttons">
+                                <a href=""><div class="btn-primary">Ver horario</div></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="course-body-action-buttons">
-                        <a href=""><div class="btn-primary">Ver horario</div></a>
+                    {% endfor %}
+                </section>
+                <a href="" id="see-all-courses">Ver los horarios fusionados</a>
+            </article>
+        {% else %}
+            <article>
+                <p id="multiple-courses-title">Estás matriculado en un solo ciclo formativo</p>
+                {% for fp in fps %}
+                    <div class="available-course-chedule">
+                        <div class="course-header">
+                            <span class="course-acronym">{{ fp.initials }}</span>
+                            <span class="course-modality">distancia</span>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-body-info">
+                                <div class="course-name">{{ fp.name }}</div>
+                                <div class="course-duration">Duración: <b>{{ fp.duration }}</b> años</div>
+                            </div>
+                            <div class="course-body-action-buttons">
+                                <a href=""><div class="btn-primary">Ver horario</div></a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+            </article>
+        {% endif %}
+    {% else %}
+        <article>
+            <p id="multiple-courses-title">No estás matriculado en ningún ciclo formativo</p>
+            <div class="available-course-chedule" style="background-color: #f4f4f4; border: 1px solid #ccc;">
+                <p style="text-align: center; padding: 20px; font-size: 18px;">Actualmente no tienes ciclos formativos disponibles.</p>
             </div>
-            <!-- END plantilla para cada ciclo -->
-             {% endfor %}
-        </section>
-        <a href="" id="see-all-courses">Ver los horarios fusionados</a>
-    </article>
-
+        </article>
+    {% endif %}
 </div>
 
 {% endblock %}

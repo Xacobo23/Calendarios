@@ -36,8 +36,6 @@ body {
     height: 100vh;
 }
 
-section{
-}
 
 header {
     flex: 0 0 15%;
@@ -52,17 +50,16 @@ header {
     align-items: center;
 }
 
-nav {
+.navAll {
     width: 100%;
     height: 100vh;
 
-    background-color: #468DAE;
-    
+
     display: flex;
     flex-direction: column;
 }
 
-nav a {
+.navAll a {
     color: white;
 
     text-decoration: none;
@@ -70,6 +67,9 @@ nav a {
     transition: color .5s ease;
 }
 #navAll {
+
+    background-color: #468DAE;
+
     overflow-x: hidden;
 }
 
@@ -206,7 +206,7 @@ nav a {
     nav {
         height: auto;
         width: 100%;
-
+        background-color: #468DAE;
         flex-direction: column;
 
         overflow-x: auto;
@@ -239,7 +239,6 @@ nav a {
         border: 0;
         padding: 0;
         margin: 0;
-        background-color: #468DAE;
         position: absolute;
         top: 0;
         transform: translate3d(0px, -70%, 0px) scaleY(0);
@@ -272,6 +271,7 @@ nav a {
         z-index: 1000;
     }
 }
+
 
 #navLogo {
     display: flex;
@@ -328,11 +328,13 @@ nav a {
     font-size: clamp(.8rem, 2.5vw, 1rem);
 }
 
-.navItem:hover {
+div[id^="nav"] a:hover i,
+div[id^="nav"] a:hover .navItem {
     color: black;
-
     transition: color 0.5s ease;
 }
+
+
 
 #navUser {
     display: flex;

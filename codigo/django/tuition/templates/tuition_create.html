@@ -182,6 +182,8 @@
     .modules-table {
         margin-top: 2em;
         margin-right: 1em;
+
+        min-height: 200px;
     }
 
     .table-header {
@@ -231,6 +233,49 @@
     input[type='checkbox'] {
         cursor: pointer;
     }
+
+    .buttons-section {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        gap: 1em;
+    }
+
+    .btn-cancel {
+        background-color: #f26b1d;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .5em 1em;
+
+        width: 50%;
+
+        cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+        opacity: .8em;
+    }
+
+    .btn-next {
+        width: 100%;
+
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .5em 1em;
+
+        cursor: pointer;
+    }
+
+    .btn-next:hover {
+        opacity: .8em;
+    }
 </style>
 {% endblock %}
 
@@ -261,17 +306,18 @@
                 <div class="modules-table">
                     <div class="table-header">
                         <div class="th">
-                            <input id="all-checkbox" type="checkbox" name="module" value="all">
                         </div>
                         <div class="th">Código</div>
                         <div class="th">Nombre</div>
                         <div class="th">Curso</div>
                     </div>
 
-                {% for module in modules %}
-                    <div class="row">
+                    {% for module in modules %}
+                    <div class="row" id="module-{{ module.id }}">
                         <div class="cell">
-                            <input class="checkbox-module" type="checkbox" name="module" value="{{ module.id }}">
+                            <a href="#" class="select-module" data-id="{{ module.id }}">
+                                <i class="fa-solid fa-person-walking-arrow-right"></i>
+                            </a>
                         </div>
                         <div class="cell">{{ module.code }}</div>
                         <div class="cell">{{ module.name }}</div>
@@ -286,29 +332,98 @@
                         <div class="th">Módulos seleccionados</div>
                     </div>
 
-                {% for module in modules %}
-                    <div class="enrolled-row">
-                        <div class="cell">{{ module.code }}</div>
-                        <div class="cell">{{ module.name }}</div>
+                    <div id="selected-modules-list">
+                        <p class="mensaje-sin-modulos">Sin módulos seleccionados</p>
                     </div>
-                {% endfor %}
+                </div>
+
+                <div class="buttons-section">
+                    <button id="btn-cancel" class="btn-cancel"><i class="fa-solid fa-arrow-left"></i></button>
+                    <a href="{% url 'review_tuition' fp_id %}"><button id="btn-next" class="btn-next">Siguiente</button></a>
                 </div>
             </section>
+
         </section>
     </article>
 </section>
 
-<script>
-    const allCheckbox = document.getElementById('all-checkbox');
-    const modulesCheckboxes = document.querySelectorAll('.checkbox-module');
+<script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+    const selectButtons = document.querySelectorAll('.select-module');
+    const selectedModulesList = document.getElementById('selected-modules-list');
+    const mensajeSinModulos = document.querySelector('.mensaje-sin-modulos');
+    const cancelButton = document.getElementById('btn-cancel');
+    const nextButton = document.getElementById('btn-next');
 
-    allCheckbox.addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('input[name="module"]');
-        modulesCheckboxes.forEach((checkbox) => {
-            checkbox.checked = allCheckbox.checked;
+    function actualizarMensaje() {
+        if (selectedModulesList.querySelectorAll('.row').length > 0) {
+            mensajeSinModulos.style.display = 'none';
+        } else {
+            mensajeSinModulos.style.display = 'block';
+        }
+    }
+
+    function guardarEnLocalStorage() {
+        const selectedModules = [];
+        selectedModulesList.querySelectorAll('.row').forEach(row => {
+            selectedModules.push(row.id);
+        });
+        localStorage.setItem('selectedModules', JSON.stringify(selectedModules));
+    }
+
+    function cargarDesdeLocalStorage() {
+        const storedModules = JSON.parse(localStorage.getItem('selectedModules')) || [];
+        storedModules.forEach(moduleId => {
+            const moduleRow = document.getElementById(moduleId);
+            if (moduleRow) {
+                agregarModulo(moduleRow);
+            }
+        });
+    }
+
+    function agregarModulo(moduleRow) {
+        const clonedRow = moduleRow.cloneNode(true);
+        const iconCell = clonedRow.querySelector('.cell a');
+        iconCell.innerHTML = '<i class="fa-solid fa-user-minus"></i>';
+        iconCell.classList.remove('select-module');
+
+        iconCell.addEventListener('click', function (event) {
+            event.preventDefault();
+            moduleRow.style.display = 'grid'; // Restaurar en la tabla original
+            clonedRow.remove();
+            guardarEnLocalStorage();
+            actualizarMensaje();
+        });
+
+        selectedModulesList.appendChild(clonedRow);
+        moduleRow.style.display = 'none'; // Ocultar de la tabla original
+        guardarEnLocalStorage();
+        actualizarMensaje();
+    }
+
+    selectButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const moduleId = this.getAttribute('data-id');
+            const moduleRow = document.getElementById(`module-${moduleId}`);
+            agregarModulo(moduleRow);
         });
     });
 
-    
+    cancelButton.addEventListener('click', function () {
+        selectedModulesList.querySelectorAll('.row').forEach(moduleRow => {
+            const moduleId = moduleRow.id;
+            document.getElementById(moduleId).style.display = 'grid';
+            moduleRow.remove();
+        });
+        localStorage.removeItem('selectedModules');
+        actualizarMensaje();
+    });
+
+    cargarDesdeLocalStorage();
+});
+
+
 </script>
+
 {% endblock %}

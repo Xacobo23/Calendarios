@@ -5,6 +5,18 @@
   font-weight: 100;
 }
 
+
+.col-6:nth-of-type(2){
+  display: flex;
+  justify-content: end;
+  gap: 6em;
+}
+.row{
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
 .item-section {
   /*
   display: grid;
@@ -21,6 +33,7 @@
   align-items: center;
   gap: 1em;
   height: 8.5%;
+  margin-top: 1.7%;
   color: #468dae;
 
   font-weight: bold;
@@ -100,6 +113,31 @@
   border-radius: 0.5em;
 }
 
+.import-label {
+  background-color: #F25b1d; /* Naranja */
+  color: white;
+  padding: 1em 2em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.import-label i {
+  font-size: 1.2em;
+}
+
+.import-label:hover {
+  background-color: #e69500; /* Naranja más oscuro al pasar el mouse */
+}
+
+#xml_file {
+  display: none; /* Oculta el input original para que solo se vea el botón estilizado */
+}
+
 .item-table {
   display: flex;
   flex-direction: column;
@@ -134,10 +172,17 @@
   background-color: rgba(242, 242, 242, 0.5);
 }
 
-.td-buttons {
+td:last-of-type {
   display: flex;
   justify-content: center;
   gap: 1em;
+  width: 200px;
+}
+
+
+tr{
+  display: ;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .btn-see {
@@ -147,7 +192,17 @@
   border: none;
   border-radius: 0.5em;
 
-  padding: 0.6em 2em;
+  padding: 10px 32px;
+
+  height: 50px;
+
+  
+
+}
+
+.btn-see img {
+  width: 23px;
+  height: 20px;
 }
 
 .btn-delete {
@@ -157,7 +212,14 @@
   border: none;
   border-radius: 0.5em;
 
-  padding: 0.6em 2em;
+  padding: 10px 28px;
+
+  height: 50px;
+}
+
+.btn-delete img {
+  height: 2x;
+  width: 2x;
 }
 
 button {
@@ -399,10 +461,23 @@ button:hover {
 }
 
 #dataTable tr {
-  background-color: red !important;
   height: 10px;
 }
 
 
+#dataTable th, #dataTable td {
+  text-align: center;
+}
 
+.import-item-btn{
+  background-color: #ff7300;
+  color: white;
+  padding: 1em 2em;
+  z-index: 100;
+  border: none;
+  border-radius: 0.5em;
+}
 
+.hidden {
+  display: none;
+}

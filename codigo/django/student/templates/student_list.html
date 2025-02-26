@@ -8,52 +8,72 @@
 <i class="fa-solid fa-user"></i>
 {% endblock %}
 
-{% block js %}
-
-{% endblock %}
-
 {% block itemName %} {{ title }} {% endblock %}
 
 {% block totalItem %} {{ totalStudents }} {% endblock %}
 
 {% block addItem %} {{ shortTitle }} {% endblock %}
 
+{% block importButton %}
+<form method="POST" class="import-form" id="import-form" enctype="multipart/form-data"
+    action="{% url 'student_import' %}">
+    {% csrf_token %}
+    <div>
+        <label for="xml_file" class="import-label">
+            <i class="fa-solid fa-file-import"></i> Importar XML
+        </label>
+        <input type="file" name="xml_file" accept="text/xml" required id="xml_file">
+    </div>
+</form>
+{% endblock %}
+
+
 {% block tableHeader %}
-
-<div class="tableHeaderCSS studentList">
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">ID</h3>
-    <h3 class="tableHeaderTitleCSS ">DNI</h3>
-    <h3 class="tableHeaderTitleCSS">Nombre</h3>
-    <h3 class="noMostrarMovil tableHeaderTitleCSS">Apellidos</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Teléfono</h3>
-    <h3 class="tableHeaderTitleCSS noMostrarMovil">Email</h3>
-</div>
-
+<tr>
+    <th class="noMostrarMovil">ID</th>
+    <th>DNI</th>
+    <th>Nombre</th>
+    <th class="noMostrarMovil">Apellidos</th>
+    <th class="noMostrarMovil">Teléfono</th>
+    <th class="noMostrarMovil">Email</th>
+    <th></th>
+</tr>
 {% endblock %}
 
 {% block tableBody %}
-
 {% for student in students %}
-<div class="tableRowCSS studentRow {% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
-    <p class="noMostrarMovil">{{ student.id }}</p>
-    <p class="">{{ student.dni | upper }}</p>
-    <p>{{ student.first_name }}</p>
-    <p class="noMostrarMovil">{{ student.last_name }}</p>
-    <p class="noMostrarMovil">{{ student.phone }}</p>
-    <p class="noMostrarMovil">{{ student.email }}</p>
-    <div class="tableBottomsCSS">
-        <button class="bottomSee" data-student-id="{{ student.id }}">
+<tr>
+    <td class="noMostrarMovil">{{ student.id }}</td>
+    <td>{{ student.dni | upper }}</td>
+    <td>{{ student.first_name }}</td>
+    <td class="noMostrarMovil">{{ student.last_name }}</td>
+    <td class="noMostrarMovil">{{ student.phone }}</td>
+    <td class="noMostrarMovil">{{ student.email }}</td>
+    <td>
+        <button class="btn-see bottomSee" data-student-id="{{ student.id }}">
             <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
         </button>
-        <button class="bottomDelete" data-student-id="{{ student.id }}">
+        <button class="btn-delete bottomDelete" data-student-id="{{ student.id }}">
             <img src="{% static 'images/svg/bin.svg' %}" alt="bin">
         </button>
-    </div>
-</div>
+    </td>
+</tr>
 {% endfor %}
 
 <script defer>
     document.addEventListener("DOMContentLoaded", function () {
+
+        const btnImport = document.getElementById('import-item-btn');
+        if (btnImport) {
+            btnImport.addEventListener('click', () => {
+                let currentUrl = window.location.href;
+                let newUrl = currentUrl.replace('/list', '/import');
+                window.location.href = newUrl;
+            });
+        }
+
+
+
         const btnVer = document.querySelectorAll('.bottomSee');
 
         btnVer.forEach(btn => {

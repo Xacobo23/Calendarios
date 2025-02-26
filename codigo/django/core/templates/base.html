@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nombre | {% block title %}{% endblock %}</title>
 
-  {% load static %} 
+  {% load static %}
   <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
   {% block css %} {% endblock %}
-  
+
   <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
   <script src="https://kit.fontawesome.com/158b099d34.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -24,11 +24,11 @@
   <!-- Cabecera de la web -->
   <header id="header">
     <nav class="navAll" id="navAll">
+      <a href="{% url 'homepage' %}"></a>
       <div id="navLogo">
-        <a href="{% url 'homepage' %}">
 
-          <img src="{% static 'images/logo.png' %}" alt="Logo IES San Clemente" id="logoSanClemente" />
-          <hr style="width: 90%; border: 1px solid white" />
+        <img src="{% static 'images/logo.png' %}" alt="Logo IES San Clemente" id="logoSanClemente" />
+        <hr style="width: 90%; border: 1px solid white" />
 
         </a>
       </div>
@@ -43,37 +43,48 @@
         <div id="navCentro">
           {% if request.user.is_superuser %}
           <div id="navStudent">
-            <i class="fa-solid fa-user"></i>
-            <a href="{% url 'student_list' %}"><span class="navItem">Alumnos</span></a>
+            <a href="{% url 'student_list' %}">
+              <i class="fa-solid fa-user"></i>
+              <span class="navItem">Alumnos</span>
+            </a>
           </div>
           <div id="navFP">
-            <i class="fa-solid fa-book"></i>
-            <a href="{% url 'fp_list' %}"><span class="navItem">Ciclos formativos</span></a>
+            <a href="{% url 'fp_list' %}">
+              <i class="fa-solid fa-book"></i>
+              <span class="navItem">Ciclos formativos</span>
+            </a>
           </div>
           <div id="navModule">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <a href="{% url 'module_list' %}"><span class="navItem">Módulos</span></a>
+            <a href="{% url 'module_list' %}">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span class="navItem">Módulos</span>
+            </a>
           </div>
           <div id="navSchedule">
-            <i class="fa-regular fa-clock"></i>
-            <a href="{% url 'select_schedule' %}"><span class="navItem">Horarios</span></a>
+            <a href="{% url 'select_schedule' %}">
+              <i class="fa-regular fa-clock"></i>
+              <span class="navItem">Horarios</span></a>
           </div>
           <div id="navTeacher">
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <a href="{% url 'teacher_list' %}"><span class="navItem">Profesores</span></a>
+            <a href="{% url 'teacher_list' %}">
+              <i class="fa-solid fa-chalkboard-user"></i>
+              <span class="navItem">Profesores</span></a>
           </div>
           {% else %}
           <div id="navSchedule">
-            <i class="fa-solid fa-clock"></i>
-            <a href="{% url 'my_schedules' %}"><span class="navItem">Mis horarios</span></a>
+            <a href="{% url 'my_schedules' %}">
+              <i class="fa-solid fa-clock"></i>
+              <span class="navItem">Mis horarios</span></a>
           </div>
           <div id="navTuition">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <a href="{% url 'my_tuitions' %}"><span class="navItem">Mis matrículas</span></a>
+            <a href="{% url 'my_tuitions' %}">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span class="navItem">Mis matrículas</span></a>
           </div>
           <div id="navFP">
-            <i class="fa-solid fa-book"></i>
-            <a href="{% url 'fp_list' %}"><span class="navItem">Ciclos formativos</span></a>
+            <a href="{% url 'fp_list' %}">
+              <i class="fa-solid fa-book"></i>
+              <span class="navItem">Ciclos formativos</span></a>
           </div>
           {% endif %}
         </div>
@@ -104,14 +115,14 @@
   const currentPath = window.location.pathname;
 
   const routes = {
-      '/student': '#navStudent',
-      '/fp': '#navFP',
-      '/module': '#navModule',
-      '/schedule': '#navSchedule',
-      '/teacher': '#navTeacher',
-      '/tuition': '#navTuition'
-    };
-  
+    '/student': '#navStudent',
+    '/fp': '#navFP',
+    '/module': '#navModule',
+    '/schedule': '#navSchedule',
+    '/teacher': '#navTeacher',
+    '/tuition': '#navTuition'
+  };
+
   const menu = document.querySelector('.hamburger');
 
   function toggleMenu(event) {
@@ -173,5 +184,5 @@
   applyResponsiveText("teacherLastName");
   applyResponsiveText("teacherName");
   applyResponsiveText("teacherFullName");
-  
+
 </script>

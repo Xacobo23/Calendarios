@@ -6,12 +6,14 @@ from django import forms
 from .models import Teacher, TeacherModule
 from module.models import Module
 
+
 class TeacherForm(forms.ModelForm):
     modules = forms.ModelMultipleChoiceField(
         queryset=Module.objects.all(),
         required=False,
-        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+        widget=forms.SelectMultiple(attrs={"class": "form-control"}),
     )
+
     class Meta:
         model = Teacher
         fields = "__all__"
@@ -21,15 +23,25 @@ class TeacherForm(forms.ModelForm):
             "dni": ("DNI"),
             "email": ("Email"),
             "phone": ("Teléfono"),
-            "modules": ("Módulos")
+            "modules": ("Módulos"),
         }
         # Aquí se pueden definir atributos como clases, placeholders etc. También se puede en el HTML.
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Indica el nombre del Profesor'}),
-            'last_name': forms.TextInput(attrs={'placeholder': 'Indica los apellidos del Profesor'}),
-            'dni': forms.TextInput(attrs={'placeholder': 'DNI'}),
-            'email': forms.EmailInput(attrs={'placeholder': 'Email del Profesor'}),
-            'phone': forms.TextInput(attrs={'type': 'phone', 'placeholder': '+34'}),
+            "name": forms.TextInput(
+                attrs={"placeholder": "Indica el nombre del Profesor"}
+            ),
+            "last_name": forms.TextInput(
+                attrs={"placeholder": "Indica los apellidos del Profesor"}
+            ),
+            "dni": forms.TextInput(attrs={"placeholder": "DNI"}),
+            "email": forms.EmailInput(attrs={"placeholder": "Email del Profesor"}),
+            "phone": forms.TextInput(
+                attrs={
+                    "type": "phone",
+                    "pattern": "[0-9]{9}",
+                    "placeholder": "Teléfono del Profesor",
+                }
+            ),
         }
         # help_texts = {
         #     'name': 'Introduce el nombre del FP',
@@ -78,7 +90,7 @@ class TeacherForm(forms.ModelForm):
             raise forms.ValidationError("El nombre debe tener al menos 3 caracteres.")
 
         return name
-    
+
     def save(self, commit=True):
         teacher = super().save(commit=False)
 
@@ -88,6 +100,8 @@ class TeacherForm(forms.ModelForm):
             selected_modules = self.cleaned_data["modules"]
             TeacherModule.objects.filter(teacher=teacher).delete()
             for module in selected_modules:
-                TeacherModule.objects.create(teacher=teacher, module=module, cursoEscolar="2024/25")  # Puedes cambiar esto para que el usuario elija el curso escolar
+                TeacherModule.objects.create(
+                    teacher=teacher, module=module, cursoEscolar="2024/25"
+                )  # Puedes cambiar esto para que el usuario elija el curso escolar
 
         return teacher
