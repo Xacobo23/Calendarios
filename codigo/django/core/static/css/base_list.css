@@ -5,6 +5,18 @@
   font-weight: 100;
 }
 
+
+.col-6:nth-of-type(2){
+  display: flex;
+  justify-content: end;
+  gap: 6em;
+}
+.row{
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
 .item-section {
   /*
   display: grid;
@@ -21,6 +33,7 @@
   align-items: center;
   gap: 1em;
   height: 8.5%;
+  margin-top: 1.7%;
   color: #468dae;
 
   font-weight: bold;
@@ -159,10 +172,17 @@
   background-color: rgba(242, 242, 242, 0.5);
 }
 
-.td-buttons {
+td:last-of-type {
   display: flex;
   justify-content: center;
   gap: 1em;
+  width: 200px;
+}
+
+
+tr{
+  display: ;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .btn-see {
@@ -172,7 +192,17 @@
   border: none;
   border-radius: 0.5em;
 
-  padding: 0.6em 2em;
+  padding: 10px 32px;
+
+  height: 50px;
+
+  
+
+}
+
+.btn-see img {
+  width: 23px;
+  height: 20px;
 }
 
 .btn-delete {
@@ -182,7 +212,14 @@
   border: none;
   border-radius: 0.5em;
 
-  padding: 0.6em 2em;
+  padding: 10px 28px;
+
+  height: 50px;
+}
+
+.btn-delete img {
+  height: 2x;
+  width: 2x;
 }
 
 button {
