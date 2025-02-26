@@ -56,12 +56,7 @@
                     <label for="email_login">Email de inicio de sesión</label>
                     <input type="email">
                 </div>
-                <div class="form-group restart_password_container">
-                    <label for="restart_password" class="checkbox-label">
-                        <input type="checkbox" id="restart_password" class="styled-checkbox">
-                        <span class="checkbox-text">Cambio de contraseña en el siguiente inicio de sesión</span>
-                    </label>
-                </div>
+                
             </div>
 
             <div class="form-buttons">
@@ -151,6 +146,28 @@
             $('.form-control').select2();
         });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            const firstNameInput = document.getElementById('id_first_name');
+            const lastNameInput = document.getElementById('id_last_name');
+            const usernameInput = document.getElementById('id_username');
+
+            function generateUsername () {
+                const yearPrefix = 'A24';
+                let firstName = firstNameInput.value.trim();
+                let lastName = lastNameInput.value.trim().split(' ');
+
+                if (firstName && lastName.length > 0) {
+                    let initials = lastName.map(name => name.charAt(0)).join('');
+                    initials = initials.substring(0, 2);
+
+                    const username = `A${yearPrefix}${initials}${firstName.charAt(0)}`;
+                    usernameInput.value = username;
+                }
+            }
+
+            firstNameInput.addEventListener('input', generateUsername);
+            lastNameInput.addEventListener('input', generateUsername);
+        })
 
 
     </script>
