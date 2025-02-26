@@ -300,3 +300,14 @@ main {
     }
 
 }
+
+.btns {
+    display: flex;
+    justify-content: end;
+}
+
+.text-danger {
+    color: white;
+
+    font-weight: bold;
+}

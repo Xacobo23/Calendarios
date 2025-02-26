@@ -263,6 +263,7 @@ def restore_password(request, student_id):
         student = get_object_or_404(get_user_model(), id=student_id)
         
         student.set_password('abc123.')
+        student.restart_password = True
         student.save()
 
         messages.success(request, f'La contraseña de {student.username} ha sido restablecida con éxito!')
