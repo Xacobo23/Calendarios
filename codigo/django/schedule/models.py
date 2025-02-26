@@ -40,13 +40,18 @@ class ScheduleConfig(models.Model):
     except ValidationError as e:
         return render(request, "schedule_form.html", {"errors": e.message_dict})
     '''
+
     def clean(self):
         """Ensure that end_week_day is not before start_week_day."""
-        weekday_order = {day[0]: index for index, day in enumerate(WEEKDAYS)}  # Map "L" -> 0, "M" -> 1, etc.
+        start_index = Weekday.index_of(self.start_week_day)
+        end_index = Weekday.index_of(self.end_week_day)
 
-        if weekday_order[self.end_week_day] < weekday_order[self.start_week_day]:
+        if start_index is None or end_index is None:
+            raise ValidationError("Día de la semana inválido.")
+
+        if end_index < start_index:
             raise ValidationError({"end_week_day": "El día de finalización no puede ser antes del día de inicio."})
-
+        
     def save(self, *args, **kwargs):
         if self.session_duration:
             if self.morning_start_time and self.morning_max_sessions:

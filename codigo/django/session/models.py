@@ -54,5 +54,11 @@ class Session(models.Model):
         max_length=1,
         choices=Weekday.choices()
     )
-    class_id = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='sessions')
+    class_id = models.ForeignKey(
+        Classroom,
+        on_delete=models.SET_NULL,
+        related_name='sessions',
+        null=True,
+        blank=True
+    )
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='sessions')

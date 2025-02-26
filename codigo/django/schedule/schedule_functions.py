@@ -4,8 +4,7 @@ from datetime import datetime
 # generate_schedule_sessions
 from collections import defaultdict
 from session.models import Session
-from session.models import Weekday
-
+from session.models import Weekday, WEEKDAYS
 
 #genera
 def generate_schedule_hours(scheduleConfig):
@@ -56,21 +55,33 @@ def generate_schedule_sessions(modules, scheduleConfig, scheduleHours):
     firstDayIndex = Weekday.index_of(scheduleConfig.start_week_day)
     lastDayIndex = Weekday.index_of(scheduleConfig.end_week_day)
 
-    # fago a estructura das sesións, separandoas por día, se en algunha posicion xa hai unha sesión existente, meto os seus datos
-    sessionsStructure = defaultdict(lambda: defaultdict(list))
-    for day in days[firstDayIndex:lastDayIndex + 1]:  # creo as sesions pa cada dia
-        for dayMoment, hours in scheduleHours.items():  # separadas por mañan e tarde
-            sessionsStructure[day.value][dayMoment] = {}
-            for sessionPosition in hours.keys():  # comprobo se xa hai unha sesión para esa hora e meto os datos
-                sessionsStructure[day.value][dayMoment][sessionPosition] = None
-                # comprobo se xa ten modulo en esa sesión, e se o ten metoo
+    # Estructura de sesiones con información extra sobre el día
+    sessionsStructure = defaultdict(lambda: {"shortName": "", "fullName": "", "sessions": defaultdict(dict)})
+
+    for day in days[firstDayIndex:lastDayIndex + 1]:  # Para cada día en el rango
+        sessionsStructure[day.value]["shortName"] = WEEKDAYS[day.value][0]  # "lu"
+        sessionsStructure[day.value]["fullName"] = WEEKDAYS[day.value][1]  # "Lunes"
+
+        for dayMoment, hours in scheduleHours.items():  # Mañana/Tarde
+            sessionsStructure[day.value]["sessions"][dayMoment] = {}
+
+            for sessionPosition in hours.keys():
+                sessionsStructure[day.value]["sessions"][dayMoment][sessionPosition] = None
+
+                # Si ya existe una sesión guardada en este día y posición, la insertamos
                 if day.value in savedSessionsByDay:
                     for session in savedSessionsByDay[day.value]:
                         if sessionPosition == session.position:
-                            sessionsStructure[day.value][dayMoment][sessionPosition] = session
+                            sessionsStructure[day.value]["sessions"][dayMoment][sessionPosition] = session
 
-    # convertir defaultdict a un diccionario normal, porque senon non vai ben na vista
-    sessionsStructure = {day: {moment: dict(sessions) for moment, sessions in moments.items()} for day, moments in
-                         sessionsStructure.items()}
+    # Convertir defaultdict en un diccionario normal
+    sessionsStructure = {
+        day: {
+            "shortName": data["shortName"],
+            "fullName": data["fullName"],
+            "sessions": {moment: dict(sessions) for moment, sessions in data["sessions"].items()}
+        }
+        for day, data in sessionsStructure.items()
+    }
 
     return sessionsStructure
