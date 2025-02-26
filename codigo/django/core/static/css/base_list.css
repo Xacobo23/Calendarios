@@ -176,13 +176,10 @@ td:last-of-type {
   display: flex;
   justify-content: center;
   gap: 1em;
-  width: 200px;
 }
 
-
-tr{
-  display: ;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+.row:last-of-type{
+  width: 100%;
 }
 
 .btn-see {
@@ -195,9 +192,6 @@ tr{
   padding: 10px 32px;
 
   height: 50px;
-
-  
-
 }
 
 .btn-see img {
