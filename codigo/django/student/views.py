@@ -8,7 +8,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from student.forms import CustomUserChangeForm
 from user.models import CustomUser
 from fp.models import FP
-from module.models import Enrolled
+from module.models import Module, Enrolled
 import xml.etree.ElementTree as ET
 
 User = get_user_model()
@@ -296,3 +296,74 @@ def student_fp_edit (request, student_id, fp_id):
     return render(request, 'student_fp_edit.html', data)
 
     
+def enroll_students(request):
+    if request.method == "POST":
+        print("¡Es POST!")  # Verifica si esto aparece en la consola
+    else:
+        print("No es POST")
+        request.method = "POST"  # Cambia el método de la solicitud a POST
+
+    if request.method == "POST":
+        # Comprobamos si se ha subido un archivo XML
+        if request.FILES:
+
+            xml_file = request.FILES['xml_file_enrollments']
+
+            try:
+                if not xml_file:
+                    messages.error(request, "No se ha recibido ningún archivo XML.")
+
+                try:
+                    xml_content = xml_file.read().decode("utf-8")
+                    print("Contenido del archivo XML:")
+                    print(xml_content)  # Verifica el contenido del archivo
+                    tree = ET.ElementTree(ET.fromstring(xml_content))  # Parsea el XML desde string
+                    root = tree.getroot()
+
+                    # Iteramos sobre los elementos <Alumno> dentro de <Alumnos>
+                    for alumno_elem in root.find('Alumnos').findall('Alumno'):
+                        student_id = alumno_elem.find('ID').text
+                        matricula_elem = alumno_elem.find('Matricula')
+                        ciclo_formativo_elem = matricula_elem.find('CicloFormativo')
+
+                        # Miramos si existe el alumno, sino existe, no continuamos
+                        try:
+                            student = CustomUser.objects.get(id=student_id)
+                        except CustomUser.DoesNotExist:
+                            return messages.error(request, "No se ha encontrado el alumno en la base de datos.")
+
+                        # Procesar los módulos
+                        for modulo_elem in ciclo_formativo_elem.findall('Modulo'):
+                            module_code = modulo_elem.find('Codigo').text
+
+                            # Crear o buscar el módulo
+                            try:
+                                module = Module.objects.get(code=module_code)
+                            except Module.DoesNotExist:
+                                return messages.error(request, "No se ha encontrado el módulo en la base de datos.")
+
+                            # Crear la relación de matrícula (Module)
+                            enroll_students = Enrolled(
+                                student=student,  # Relacionamos el alumno
+                                module=module,  # Relacionamos el módulo
+                            )
+
+                            # Guardamos la relación de matrícula
+                            enroll_students.save()
+
+                            messages.success(request, "Matrículas añadidas correctamente desde el XML.")
+
+                except ET.ParseError as e:
+                    print(f"Error al parsear el XML: {e}")
+                    messages.error(request, f"Error al procesar el XML: {e}")
+
+
+            except ET.ParseError as e:
+                # Si hay un error en el parseo del XML, lo mostramos
+                messages.error(request, "Error al procesar el archivo XML.")
+                return redirect("student_list")
+
+        else:
+            messages.error(request, "No se ha subido ningún archivo XML.")
+
+    return render(request, "student_add.html")

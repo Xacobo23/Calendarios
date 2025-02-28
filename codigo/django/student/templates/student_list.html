@@ -20,9 +20,21 @@
     {% csrf_token %}
     <div>
         <label for="xml_file" class="import-label">
-            <i class="fa-solid fa-file-import"></i> Importar XML
+            <i class="fa-solid fa-file-import"></i> Importar Alumnos
         </label>
         <input type="file" name="xml_file" accept="text/xml" required id="xml_file">
+    </div>
+</form>
+
+<!-- Formulario para importar matrículas -->
+<form method="POST" class="import-form" id="import-form-enrollments" enctype="multipart/form-data"
+    action="{% url 'enroll_students' %}">
+    {% csrf_token %}
+    <div>
+        <label for="xml_file_enrollments" class="import-label">
+            <i class="fa-solid fa-file-import"></i> Import Enrollments
+        </label>
+        <input type="file" name="xml_file_enrollments" accept="text/xml" required id="xml_file_enrollments">
     </div>
 </form>
 {% endblock %}
@@ -72,6 +84,14 @@
             });
         }
 
+        const btnImportEnroll = document.getElementById('import-item-btn');
+        if (btnImport) {
+            btnImportEnroll.addEventListener('click', () => {
+                let currentUrl = window.location.href;
+                let newUrl = currentUrl.replace('/list', '/importEnrollments');
+                window.location.href = newUrl;
+            });
+        }
 
 
         const btnVer = document.querySelectorAll('.bottomSee');

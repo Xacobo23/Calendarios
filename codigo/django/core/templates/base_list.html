@@ -71,6 +71,18 @@
                 }
             });
         }
+
+        const fileInputEnrollments = document.getElementById("xml_file_enrollments");
+        const formEnrollments = document.getElementById("import-form-enrollments");
+
+        if (fileInputEnrollments && formEnrollments) {
+            fileInputEnrollments.addEventListener("change", function () {
+                if (fileInputEnrollments.files.length > 0) {
+                    formEnrollments.submit();
+                }
+            });
+        }
+
     });
 
 </script>
