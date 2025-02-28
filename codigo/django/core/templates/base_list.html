@@ -83,6 +83,17 @@
             });
         }
 
+        const fileInputEnrollments = document.getElementById("xml_file_enrollments");
+        const formEnrollments = document.getElementById("import-form-enrollments");
+
+        if (fileInputEnrollments && formEnrollments) {
+            fileInputEnrollments.addEventListener("change", function () {
+                if (fileInputEnrollments.files.length > 0) {
+                    formEnrollments.submit();
+                }
+            });
+        }
+
     });
 
     const paginacionDiv = document.querySelector('.d-md-flex .justify-content-between .align-items-center .dt-layout-start .col-md-auto .me-auto');
