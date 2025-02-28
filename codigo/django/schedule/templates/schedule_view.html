@@ -21,6 +21,13 @@
             height: 50px;
             color: white;
         }
+        select:focus{
+            border: none;
+            outline: none;
+        }
+        .dissable_no_changes_made{
+            opacity: 50%;
+        }
     /* end comunes */
 
     .page_main{
@@ -70,13 +77,13 @@
             /* background-color: #7ED9AE; */
             margin-left: 15px;
             margin-right: 10px;
-            gap: 40px;
         }
             .page_main_action_section{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 flex-wrap: wrap;
+                margin-bottom: 40px;
             }
                 .action_section_filters{
                     /* background-color: #468dae; */
@@ -106,7 +113,7 @@
                     flex-wrap: wrap;
                 }
                     .action_section_button{
-                        width: 250px;
+                        max-width: 350px;
                         height: 50px;
                         display: flex;
                         flex-direction: row;
@@ -122,21 +129,44 @@
                             cursor: pointer;
                             opacity: 90%;
                         }
-                    .action_section_button.button_right{
-                        border-bottom-right-radius: 0;
-                        border-top-right-radius: 0;
-                    }
                         .save_button{
                             background-color: #468DAE;
                         }
                         .export_button{
                             background-color: #F26B1D;
                         }
+            /* selectores de día en movil */
+            .day_selectors_container{
+                display: none;
+                flex-direction: row;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+                .day_selector{
+                    padding: 10px 0;
+                    background-color: #F2F2F2;
+                    color: rgba(0, 0, 0, 0.7);
+                    border-radius: 5px;
+                    flex-grow: 1;
+                    cursor: pointer;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                    .day_selector:not(.active_day_selector):hover{
+                        background-color: rgba(70, 141, 174, 0.85);
+                        color: white;
+                    }
+                .day_selector.active_day_selector{
+                    background-color: #468DAE;
+                    color: white;
+                }
+
             /* horario */
             .table_row{
-                height: 50px;
-                padding: 5px 0;
-                margin: 7px 0;
+                height: 75px;
+                margin: 10px 0;
             }
 
             .full_schedule{
@@ -164,20 +194,43 @@
                     .schedule_time_slot{
                         display: flex;
                         flex-direction: column;
-                        justify-content: space-between;
+                        justify-content: center;
                         align-items: center;
                         min-width: 110px;
+                        gap: 15px;
                     }
                 /* sesions */
                 .day_sessions_container{
                     display: flex;
                     flex-direction: row;
                     flex-grow: 1;
+                    overflow-x: scroll;
                 }
                     .day_column{
                         display: flex;
                         flex-direction: column;
                         flex-grow: 1;
+                        min-width: 220px;
+                    }
+                    @media screen and (max-width: 576px) {
+                        .page_main{
+                            margin: 25px 10px 20px 10px;
+                        }
+                            .page_main_content{
+                                margin-left: 10px;
+                            }
+                        .day_sessions_container{
+                            overflow-x: visible;
+                        }
+                            .day_column{
+                                display: none;
+                            }
+                            .day_column.show_column{
+                                display: flex;
+                            }
+                        .day_selectors_container{
+                            display: flex;
+                        }
                     }
                         .day_column .schedule_day_separator{
                             background-color: inherit;
@@ -185,26 +238,62 @@
                         .day_sessions{
                             display: flex;
                             flex-direction: column;
+                            margin: 0 5px;
                         }
                             .day_session_selector_container{
                                 display: flex;
+                                flex-direction: column;
                                 justify-content: center;
                                 align-items: center;
+                                border-radius: 5px;
+                                gap: 5px;
                             }
-                                .day_session_selector_container .options_selector{
-                                    max-width: 200px;
-                                    flex-grow: 1;
+                            .day_session_selector_container.modified_session{
+                                background-color: #C6E9FF;
+                            }
+                                .session_module_and_day_container{
+                                    width: 200px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: end;
+                                    gap: 5px;
                                 }
+                                    .session_module_and_day_container .options_selector{
+                                        flex-grow: 1;
+                                        height: 40px;
+                                    }
+                                    .classroom_container{
+                                        font-size: 12px;
+                                        color: rgb(0,0,0,0.70);
 
-
-
-
-
+                                        display: flex;
+                                        flex-direction: row;
+                                        justify-content: center;
+                                        align-items: center;
+                                        gap: 5px;
+                                    }
+                                        .classroom_selector{
+                                            width: 55px;
+                                            background-color: rgba(242, 242, 242, 0.5);
+                                            border-radius: 5px;
+                                            border: none;
+                                        }
+            .action_section_buttons_bottom{
+                margin: 40px 0 10px 0;
+            }
+                .action_section_buttons_bottom.dissable_no_changes_made .action_section_button:hover{
+                    cursor: default;
+                    opacity: 100%;
+                }
+                #btn_undo{
+                    background-color: #DB5D5D;
+                    flex-grow: 0.1;
+                }
 </style>
 {% endblock %}
 
 {% block content %}
-    {{ week_days.L.0 }}
 <article class="page_main">
     <!-- header -->
     <section class="page_main_header">
@@ -235,14 +324,23 @@
             </div>
             <!-- botons -->
             <div class="action_section_buttons">
-                <button class="action_section_button save_button" id="btn_save">
-                    Guardar
-                </button>
-                <button id="btn-export" class="action_section_button export_button button_right" id="btn_export">
+                <button id="btn-export" class="action_section_button export_button" id="btn_export">
                     Exportar a pdf
                 </button>
             </div>
         </section>
+
+        <!-- columna de selector de días para movil -->
+        {% if schedule_config %}
+            <section id="day_selectors_container" class="day_selectors_container">
+                {% for dayKey, dayData in sessionsStructure.items %}
+                    <div class="day_selector {% if forloop.first %} active_day_selector {% endif %}"
+                        data_column_day="{{ forloop.counter0 }}">
+                        {{ dayData.shortName }}
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
         <!-- horario -->
         <section class="full_schedule">
             {% if schedule_config %}
@@ -260,27 +358,54 @@
                     {% endfor %}
                 </div>
 
-                <!-- columnas de días e sesions, outro bucle for aqui -->
-                <div class="day_sessions_container">
-                    {% for day,dayMoments in sessionsStructure.items %}
-                        <div class="day_column">
-                            <div class="schedule_header">{{ day }}</div>
-                            {% for dayMoment,sessions in dayMoments.items %}
+                <!-- Contenedor de columnas de días y sesiones en DESKTOP -->
+                <div id="day_sessions_container" class="day_sessions_container">
+                    {% for dayKey, dayData in sessionsStructure.items %}
+                        <div class="day_column {% if forloop.first %} show_column {% endif %}" data_column_day="{{ forloop.counter0 }}">
+                            <!-- Mostrar el nombre completo del día -->
+                            <div class="schedule_header">{{ dayData.fullName }}</div>
+
+                            {% for dayMoment, sessions in dayData.sessions.items %}
                                 <div class="schedule_day_separator"></div>
-                                {% for sessionPosition, sessionData in sessions.items %}
-                                    <!-- todas as sesions do día -->
-                                    <div class="day_sessions">
-                                        <div class="day_session_selector_container table_row">
-                                            <select id="quecojonesesesto" name="schedule_template" class="options_selector">
-                                                {% for module in modules %}
-                                                    <option value="{{ module.id }}" {% if module.id == sessionData.module.id %} selected {% endif %}>
-                                                        {{ module.initials }}: {{ module.name }}
-                                                    </option>
-                                                {% endfor %}
-                                            </select>
+                                <!-- Todas las sesiones del día -->
+                                <div class="day_sessions">
+                                    {% for sessionPosition, sessionData in sessions.items %}
+                                        <div id="session_{{ dayKey }}_{{ sessionPosition }}" class="day_session_selector_container table_row">
+                                            <div class="session_module_and_day_container">
+                                                <select
+                                                        name="schedule_template"
+                                                        class="options_selector"
+                                                        data_day="{{ dayKey }}"
+                                                        data_position="{{ sessionPosition }}"
+                                                        {% if sessionData %}
+                                                            data_session_id="{{ sessionData.id }}"
+                                                        {% endif %}
+                                                >
+                                                    <option>-</option>
+                                                    {% for module in modules %}
+                                                        <option value="{{ module.id }}" {% if sessionData and module.id == sessionData.module.id %} selected {% endif %}>
+                                                            {{ module.initials }}: {{ module.name }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <div class="classroom_container">
+                                                    Aula:
+                                                    <select class="classroom_selector" {% if not sessionData %} disabled {% endif %}>
+                                                        <option>-</option>
+                                                        {% for classroom in classrooms %}
+                                                        	<option
+                                                                value="{{ classroom.id }}"
+                                                                {% if sessionData and classroom.id == sessionData.class_id.id %} selected {% endif %}
+                                                            >
+                                                                {{ classroom.number }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
+                                    {% endfor %}
+                                </div>
                             {% endfor %}
                         </div>
                     {% endfor %}
@@ -289,6 +414,17 @@
                 este ciclo no tiene ninguna plantilla asignada
             {% endif %}
         </section>
+
+        {% if schedule_config %}
+            <section class="action_section_buttons action_section_buttons_bottom dissable_no_changes_made" id="action_section_buttons_bottom">
+                <button class="action_section_button save_button" id="btn_undo">
+                    Deshacer cambios
+                </button>
+                <button class="action_section_button save_button" id="btn_save">
+                    Guardar cambios
+                </button>
+            </section>
+        {% endif %}
     </article>
 
 
@@ -319,6 +455,159 @@
             y: 10
         });
     });
+
+    //script para cambiar o día que se ve no movil
+    {
+        const changeDayButtonContainer = document.getElementById('day_selectors_container')
+        const changeDayButtons = document.querySelectorAll('.day_selector')
+        const dayColumns = document.querySelectorAll('.day_column')
+
+        changeDayButtonContainer.addEventListener('click', (e)=>{
+            if (e.target.classList.contains('day_selector')){
+                let buttonPressed = e.target
+                //cambio o boton seleccionado
+                changeDayButtons.forEach(btn => {
+                    if (btn.getAttribute('data_column_day') === buttonPressed.getAttribute('data_column_day')){
+                        btn.classList.add('active_day_selector')
+                    }else {
+                        btn.classList.remove('active_day_selector')
+                    }
+
+                })
+                //cambio a columna do día que se ve
+                dayColumns.forEach(column => {
+                    if (column.getAttribute('data_column_day') === buttonPressed.getAttribute('data_column_day')){
+                        column.classList.add('show_column')
+                    }else {
+                        column.classList.remove('show_column')
+                    }
+
+                })
+            }
+        })
+    }
+
+    //script para gardar os cambios feitos
+    {
+        const sessionsContainer = document.getElementById('day_sessions_container')
+        const allSessions = sessionsContainer.querySelectorAll('.day_session_selector_container')
+        const buttonsContainer = document.getElementById('action_section_buttons_bottom')
+        const btnSave = document.getElementById('btn_save')
+        const btnDelete = document.getElementById('btn_undo')
+
+        //gardo os datos iniciales, pa solo mandar na petición de gardado os que cambiaron
+        const sessionsInitialData = loadInitialSessionsData()
+        //esto vai ser o que se mande na petición
+        const editedSessions = {}
+
+        btnSave.addEventListener('click',e=>{
+            let parentContainer = btnSave.closest('.action_section_buttons_bottom')
+
+            if (!parentContainer.classList.contains('dissable_no_changes_made')){
+                submitChanges()
+            }
+        })
+
+        btnDelete.addEventListener('click', e => {
+            let parentContainer = btnSave.closest('.action_section_buttons_bottom')
+
+            if (!parentContainer.classList.contains('dissable_no_changes_made')){
+                window.location.reload();
+            }
+        })
+
+        sessionsContainer.addEventListener('change', e =>{
+            let selectorChanged = e.target
+            let selectorsContainer = selectorChanged.closest('.day_session_selector_container')
+            let moduleSelector = selectorsContainer.querySelector('.options_selector')
+            let classRoomSelector = selectorsContainer.querySelector('.classroom_selector')
+
+            //pillo os novos datos da sesión
+            let selectorsData = getSelectData(selectorsContainer)
+            //si se ha deseleccionado el módulo, deshabilito la seleccion de aula y la deselecciono
+            if (selectorsData.moduleId==null){
+                classRoomSelector.disabled=true
+                classRoomSelector.selectedIndex = 0;
+            }else {
+                classRoomSelector.disabled=false
+            }
+
+            //volvo a pillar os datos, porque no if de arriba cambio a aula se o modulo esta deseleccionado
+            selectorsData = getSelectData(selectorsContainer)
+
+            //se cambiaron metoo no array de editedSessions e mostroo visualmente, senon pos o contrario
+            if (JSON.stringify(selectorsData) !== JSON.stringify(sessionsInitialData[selectorsContainer.id])){
+                editedSessions[selectorsContainer.id] = selectorsData
+                selectorsContainer.classList.add('modified_session')
+            }else {
+                delete editedSessions[selectorsContainer.id]
+                selectorsContainer.classList.remove('modified_session')
+            }
+
+            //solo muestro los botones de guardado si hai algún cambio
+            if (Object.keys(editedSessions).length===0){
+                buttonsContainer.classList.add('dissable_no_changes_made')
+            }else {
+                buttonsContainer.classList.remove('dissable_no_changes_made')
+            }
+
+            console.log(JSON.stringify(editedSessions))
+        })
+
+        function getSelectData(selectorsContainer){
+            let moduleSelector = selectorsContainer.querySelector('.options_selector')
+            let classRoomSelector = selectorsContainer.querySelector('.classroom_selector')
+
+            //modulo
+            const sessionId = moduleSelector.getAttribute("data_session_id") || null;
+            const moduleId = parseInt(moduleSelector.value) || null;
+            const position = moduleSelector.getAttribute("data_position");
+            const day = moduleSelector.getAttribute("data_day")
+            //aula
+            const classRoomId = parseInt(classRoomSelector.value) || null
+
+            let data = {
+                moduleId: moduleId,
+                position: position,
+                sessionId: sessionId,
+                day: day,
+                classRoomId: classRoomId
+            }
+            return data
+        }
+
+        function loadInitialSessionsData(){
+            let data = {}
+            allSessions.forEach(select => {
+                data[select.id] = getSelectData(select)
+            });
+            return data
+        }
+
+        function submitChanges(){
+            if (Object.keys(editedSessions).length > 0) {
+                fetch('/session/add/', {  // Replace with your server URL
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(editedSessions),  // Send the editedSessions object as JSON
+                })
+                .then(response => response.json())  // Assuming the server returns JSON
+                .then(data => {
+                    console.log('Success:', data)
+                    // You can handle success or update the UI accordingly
+                    window.location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error)
+                    // Handle any errors during the request
+                });
+            }else {
+                console.log("no hai nada pa cambiar")
+            }
+        }
+    }
 </script>
 
 {% endblock %}

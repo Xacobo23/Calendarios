@@ -1,0 +1,851 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block css %}
+<style>
+    .item-title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1em;
+
+        color: #468dae;
+
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .item-title i {
+        font-size: 1.5em;
+    }
+
+    .section-add-tuition {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 10em;
+    }
+
+    .btn-add-tuition {
+        background-color: #7ed9ae;
+        color: white;
+
+        padding: 1em 2em;
+
+        font-size: 1.5em;
+
+        border: none;
+        border-radius: .5em;
+    }
+
+    .btn {
+        cursor: pointer;
+    }
+
+    .title-active-tuitions {
+        font-weight: 500;
+    }
+
+    .section-active-tuitions {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1em;
+
+        justify-content: center;
+
+        background-color: #f9f9f9;
+
+        width: 75%;
+
+        padding: 1em;
+    }
+
+    .card-title {
+        background-color: #468DAE;
+        color: white;
+
+        font-weight: 400;
+
+        margin: 0;
+        padding: .5em;
+
+        border-top-left-radius: .5em;
+        border-top-right-radius: .5em;
+    }
+
+    .card-duration {
+        padding: .6em;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: end
+    }
+
+    .card-actions {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        justify-content: end;
+
+        padding: .5em;
+    }
+
+    .card-btn-see {
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+    }
+
+    .tuition-card {
+        width: 100%;
+
+        border-radius: .5em;
+        border: 1px solid rgba(242, 242, 242, 1);
+    }
+
+    .item-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1em;
+
+        justify-items: center;
+
+
+    }
+
+    .bottomSee:hover {
+        cursor: pointer;
+    }
+
+    .card-content {
+        display: grid;
+        grid-template-rows: 2fr 1fr 1fr;
+
+        padding: .5em;
+    }
+
+    .see-fp {
+        text-align: end;
+    }
+
+    .btn-see {
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .6em 2em;
+
+        cursor: pointer;
+    }
+
+    .btn-see:hover {
+        opacity: .8em;
+    }
+
+    .section-show-progress {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
+        width: 80%;
+
+        margin: 0 auto;
+    }
+
+    .progress-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1em;
+    }
+
+    .progress-bar div {
+        background-color: #f9f9f9;
+        height: 10px;
+    }
+
+    .progress-completed {
+        background-color: #7ed9ae !important;
+    }
+
+    .main-module-tables {
+        width: 75%;
+    }
+
+    .modules-table {
+        margin-top: 2em;
+
+        min-height: 200px;
+    }
+
+    .table-header {
+        background-color: #468DAE;
+        color: white;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .enrolled-table-header {
+    }
+
+    .th {
+        background-color: #468DAE;
+        color: white;
+
+        padding: .5em;
+
+        text-align: center;
+    }
+
+    .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .enrolled-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .enrolled-row:nth-child(even) .cell {
+        background-color: #f9f9f9;
+    }
+
+    .cell {
+        padding: .5em;
+
+        text-align: center;
+    }
+
+    .row:nth-child(even) .cell {
+        background-color: #f9f9f9;
+    }
+
+    input[type='checkbox'] {
+        cursor: pointer;
+    }
+
+    .buttons-section {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        gap: 1em;
+    }
+
+    .btn-cancel {
+        background-color: #f26b1d;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .5em 1em;
+
+        width: 50%;
+
+        cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+        opacity: .8em;
+    }
+
+    .btn-next {
+        width: 100%;
+
+        background-color: #468DAE;
+        color: white;
+
+        border: none;
+        border-radius: .5em;
+
+        padding: .5em 1em;
+
+        cursor: pointer;
+    }
+
+    .btn-next:hover {
+        opacity: .8em;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap');
+
+* {
+    font-family: 'Open Sans', serif;
+    font-weight: 100;
+}
+
+.item-section {
+    padding-right: 1em;
+
+}
+
+.item-title,
+.item-edit-side h2,
+.item-items-asociated h2,
+.side-section h2 {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    font-weight: 500;
+}
+
+.item-title {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    color: #468DAE;
+}
+
+.item-title i {
+    font-size: 1.5em;
+}
+
+.item-title h2 {
+    font-weight: bold;
+}
+
+.display-id {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.display-id input,
+#id_fp_type,
+.form-group input,
+.form-group textarea,
+select {
+    padding: 1em;
+    border: none;
+    border-radius: .5em;
+    background-color: rgba(242, 242, 242, .5);
+}
+
+
+.item-actions,
+.subitem-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.btn {
+    color: white;
+    padding: 1em 4em;
+    border: none;
+    border-radius: .5em;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+.btn-schedule,
+.btn-save,
+.btn-see {
+    background-color: #468DAE;
+}
+
+.btn-edit {
+    background-color: #F26B1C;
+}
+
+.btn-delete,
+.btn-delete-top {
+    background-color: #DB5D5D;
+}
+
+.btn-add-subitem {
+    background-color: #7ED9AE;
+    width: fit-content;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.item-main,
+.form-row,
+.subitem-grid {
+    display: grid;
+    gap: 1em;
+}
+
+.item-main {
+    grid-template-columns: 1fr 1fr;
+}
+
+.form-row {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.subitem-grid {
+    grid-template-columns: repeat(3, 1fr) auto;
+    align-items: center;
+    padding: 1em;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.subitem-header {
+    font-weight: bold;
+    background-color: #468DAE;
+    color: white;
+    padding: 1em;
+    border-radius: .5em .5em 0 0;
+}
+
+.form-manage,
+.item-more-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.modules-table {
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+.modules-table thead {
+    background-color: #468DAE;
+    color: white;
+}
+
+th,
+td {
+    padding: 1em;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(242, 242, 242, 0.5);
+}
+
+.message-box {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.close-message {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #28a745;
+}
+
+.error {
+    background-color: #dc3545;
+}
+
+.warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.info {
+    background-color: #17a2b8;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.restart_password_container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.styled-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.styled-checkbox:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.styled-checkbox:checked::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 6px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+@media (max-width: 700px) {
+    .selectModule {
+        height: fit-content;
+    }
+    .item-section{
+        /* overflow: hidden; */
+        height: 100vh;
+    }
+    .item-actions {
+        align-items: start;
+    }
+
+    .action-buttons-teacher {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .display-id {
+        margin-left: 5%;
+    }
+
+    .item-section {
+        padding-right: 0px !important;
+    }
+
+    .item-title {
+        margin-top: 70px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .item-actions {
+        flex-direction: column-reverse;
+    }
+
+    .action-buttons {
+        margin-bottom: 5%;
+    }
+
+    .item-main {
+        display: flex !important;
+        justify-content: center;
+    }
+
+    .item-edit-side {
+        margin: auto;
+    }
+}
+
+@media (min-width: 700px) {
+    .item-section {
+        height: 100vh;
+        /* overflow: hidden; */
+    }
+
+    .item-title {
+        height: 10%;
+    }
+
+    .item-actions{
+        height: 8%;
+    }
+
+    .item-main {
+        height: 80%;
+    }
+
+    .item-edit-side {
+        height: 100%;
+    }
+
+    .item-edit-side h2 {
+        height: 8%;
+    }
+
+    .item-edit-side form {
+        height: 80%;
+    }
+
+    .selectModule {
+        height: 60%;
+    }
+
+    .selectModule .form-group {
+        height: 100%;
+    }
+
+    .selectModule .form-group label {
+        height: 10%;
+    }
+
+    .selectModule .form-group select {
+        height: 100%;
+        max-height: 80%;
+    }
+
+    .selectModule .form-group select option {
+        height: 2em;
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-cancel{
+        background-color: #DB5D5D;
+    }
+
+    .form-buttons{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
+    }
+
+    .hidden{
+        display: none;
+    }
+}
+
+@media (min-width: 700px) {
+    .action-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+    }
+
+    .bottom-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+    }
+}
+
+.info-fp {
+    width: 75%;
+}
+
+.btn-section {
+    margin-bottom: 2em;
+
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+
+    width: 75%;
+}
+
+.btn-return {
+    background-color: #f26b1d;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .5em 1em;
+
+    cursor: pointer;
+}
+
+.btn-confirm {
+    background-color: #7ED9AE;
+    color: white;
+
+    border: none;
+    border-radius: .5em;
+
+    padding: .5em 1em;
+
+    cursor: pointer;
+
+    text-decoration: none;
+}
+
+.fp-details-container {
+    margin-top: 1em;
+}
+
+input {
+    color: black;
+
+    margin-bottom: 1em;
+}
+
+.info-modules {
+    margin-bottom: 2em;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="item-section">
+    <article class="item-title">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h2><span style="font-weight: 500;">{{ title }}</span> / {{ subTitle }}</h2>
+    </article>
+    <article class="item-message">
+        {% block welcomeMessage %}
+
+        {% endblock %}
+    </article>
+
+    <article class="fp-details-container">
+        <section class="review-section">
+            <article class="info-fp">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="code">Código</label>
+                        {{ form.code }}
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="initials">Siglas</label>
+                        {{ form.initials }}
+                    </div>
+                </div>
+                <div class="form-row-large">
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label}} </label>
+                        {{ form.name }}
+                    </div>
+                </div>
+                <div class="form-row-large">
+                    <div class="form-group">
+                        <label for="{{ form.short_name.id_for_label}}">{{ form.short_name.label }}</label>
+                        {{ form.short_name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="duration">Duración (años)</label>
+                        {{ form.duration }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fp_type">Tipo de FP</label>
+                        {{ form.fp_type }}
+                    </div>
+                </div>
+                <div class="form-row-large">
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label}}">{{ form.description.label }}</label>
+                        {{ form.description }}
+                    </div>
+                </div>
+            </article>
+        <section class="info-modules">
+            <section class="main-module-tables">
+                <section class="section-list-of-modules">
+                    <div class="modules-table">
+                        <div class="table-header">
+                            <div class="th">
+                            </div>
+                            <div class="th">Código</div>
+                            <div class="th">Nombre</div>
+                            <div class="th">Curso</div>
+                        </div>
+    
+                        {% for module in modules %}
+                        <div class="row" id="module-{{ module.id }}">
+                            <div class="cell">
+                                
+                            </div>
+                            <div class="cell">{{ module.code }}</div>
+                            <div class="cell">{{ module.name }}</div>
+                            <div class="cell">{{ module.course }}º</div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </section>  
+            </section>
+        </section>
+    </section>
+    </article>
+</section>
+
+<script>
+    const formElements = document.querySelectorAll('.info-fp input, .info-fp select, .info-fp textarea');
+
+    formElements.forEach(element => {
+            element.disabled = true;
+    });
+
+    const fp_id = document.getElementById('confirmar-matricula').getAttribute('data-fpId');
+
+    document.getElementById('confirmar-matricula').addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const moduleIds = [];
+
+        document.querySelectorAll('.modules-table .row').forEach(row => {
+            const moduleId = row.id.split('-')[1];
+            moduleIds.push(moduleId);
+        });
+
+        const data = {
+            modules: moduleIds,
+            fp_id: fp_id
+        };
+
+        fetch("{% url 'make_tuition' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            console.log(response);
+            response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                window.location.href = "{% url 'my_tuitions' %}";
+            } else {
+                alert('Error al realizar la matrícula');
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

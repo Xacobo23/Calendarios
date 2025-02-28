@@ -121,7 +121,7 @@ def student_list(request):
 
     data = {
         "title": "Alumnos",
-        "shortTitle": "Estudiante",
+        "shortTitle": "estudiante",
         "students": students,
         "totalStudents": total_students,
     }
