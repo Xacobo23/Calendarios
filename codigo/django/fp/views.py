@@ -40,6 +40,32 @@ def fp_list(request):
 
     return render(request, "fp_list.html", data)
 
+def fp_list_student(request):
+    # Para recuperar los FPs de la base de datos simplemente se llama al modelo FP y con el método .objects.all() se
+    # obtienen todas las entradas que tenga la tabla FP. Luego siemplemente se devuelve un renderizado de la request con
+    # el nombre del html creado en la carpeta /templates. A mayores se le puede pasar un objeto {} con datos. Por ejemplo
+    # se podría pasar un {'title': 'Ejemeplo', 'fps': fps}. Esto haría que en el HTML se pueda llamar a un atributo llamado
+    # title y fps y usarlos para pasarles datos o lo que haga falta.
+    fps = FP.objects.all()
+
+    fields = [field.verbose_name for field in FP._meta.fields]
+
+    fps_data = [
+        {field.name: getattr(fp, field.name) for field in FP._meta.fields} for fp in fps
+    ]
+
+    totalFp = fps.count()
+
+    data = {
+        "title": "Ciclos formativos",
+        "shortTitle": "FP",
+        "fps_data": fps_data,
+        "fields": fields,
+        "totalFp": totalFp,
+    }
+
+    return render(request, "fp_list_student.html", data)
+
 
 # @user_passes_test(is_superuser)
 def add_fp(request):
@@ -105,5 +131,27 @@ def delete_fp(request, fp_id):
         return redirect('fp_list')
     
     return redirect('fp_list')
+
+def fp_detail_student (request, fp_id):
+    fp_instance = get_object_or_404(FP, id=fp_id)
+    modules = []
+
+    if fp_instance is not None:
+        modules = fp_instance.modulos.all()
+
+    fp_instance = get_object_or_404(FP, id=fp_id)
+
+    form = FPForm(instance=fp_instance)
+
+    data = {
+        'title': 'Ciclos Formativos',
+        'subTitle': fp_instance.initials,
+        'modules': modules,
+        'form': form,
+        'fp_id': fp_id
+    }
+
+    return render(request, 'fp_see_details.html', data)
+
 
 
