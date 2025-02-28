@@ -258,6 +258,10 @@
             grid-template-columns: 1fr 1fr;
             gap: 1em;
         }
+
+        #btn-reset-password {
+            color: #468DAE;
+        }
 </style>
 <article class="item-main">
     <section class="item-edit-side">
@@ -300,7 +304,7 @@
             <h2>Inicio de sesión</h2>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="email_login">Email de inicio de sesión</label>
+                    <label for="email_login">Correo electrónico de inicio de sesión</label>
                     <input type="email">
                 </div>
             </div>
@@ -323,6 +327,7 @@
         <h2>Matrículas activas</h2>
 
         <section class="active-tuitions">
+            {% if fps %}
             {% for fp in fps %}
             <div style="background-color: white; " class="tuition-card">
                 <div id="titleCard">
@@ -342,6 +347,9 @@
                 </div>
             </div>
             {% endfor %}
+            {% else %}
+            <p>El alumno no tiene matrículas activas</p>
+            {% endif %}
         </section>
     </section>
 

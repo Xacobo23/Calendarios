@@ -27,7 +27,8 @@ class FPForm (forms.ModelForm):
             'description': forms.Textarea(attrs={'rows': 5, 'placeholder': 'Descripción', 'style': 'resize: none;'}),
             'code': forms.TextInput(attrs={'placeholder': 'Código de FP'}),
             'initials': forms.TextInput(attrs={'placeholder': 'Siglas'}),
-            'short_name': forms.TextInput(attrs={'placeholder': 'Nombre Corto (Nombre sin especificaciones)'})
+            'short_name': forms.TextInput(attrs={'placeholder': 'Nombre corto (Nombre sin especificaciones)'}),
+            'duration': forms.NumberInput(attrs={'placeholder': 'Duración en años', 'min': 1, 'max': 3})
         }
         # help_texts = {
         #     'name': 'Introduce el nombre del FP',
