@@ -90,8 +90,8 @@ header {
         background-color: transparent;
         right: 0;
         top: 0;
-        height: 34px;
-        width: 30px;
+        height: 70px;
+        width: 70px;
         padding: 20px 20px 16px 20px;
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
@@ -109,11 +109,12 @@ header {
     }
 
     .hamburger.is-active {
-        background-color: none;
+        background-color: transparent;
     }
 
     ._layer {
-        background: white;
+        z-index: 1003;
+        background-color: white;
         margin-bottom: 4px;
         border-radius: 2px;
         width: 28px;
@@ -125,6 +126,7 @@ header {
         transition: all 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
     }
 
+    /*
     .hamburger:hover .-top {
         -webkit-transform: translateY(-100%);
         -ms-transform: translateY(-100%);
@@ -136,6 +138,7 @@ header {
         -ms-transform: translateY(100%);
         transform: translateY(100%);
     }
+*/
 
     .hamburger.is-active .-top {
         opacity: 1;
@@ -226,6 +229,7 @@ header {
         position: static;
         justify-content: space-between;
         flex-direction: column;
+        background-color: #468DAE;
         flex-grow: 1;
         margin: 0   ;
         z-index: 1000;
