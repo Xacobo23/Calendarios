@@ -216,6 +216,9 @@
                         .page_main{
                             margin: 25px 10px 20px 10px;
                         }
+                            .page_main_content{
+                                margin-left: 10px;
+                            }
                         .day_sessions_container{
                             overflow-x: visible;
                         }
@@ -490,6 +493,7 @@
         const allSessions = sessionsContainer.querySelectorAll('.day_session_selector_container')
         const buttonsContainer = document.getElementById('action_section_buttons_bottom')
         const btnSave = document.getElementById('btn_save')
+        const btnDelete = document.getElementById('btn_undo')
 
         //gardo os datos iniciales, pa solo mandar na petición de gardado os que cambiaron
         const sessionsInitialData = loadInitialSessionsData()
@@ -501,6 +505,14 @@
 
             if (!parentContainer.classList.contains('dissable_no_changes_made')){
                 submitChanges()
+            }
+        })
+
+        btnDelete.addEventListener('click', e => {
+            let parentContainer = btnSave.closest('.action_section_buttons_bottom')
+
+            if (!parentContainer.classList.contains('dissable_no_changes_made')){
+                window.location.reload();
             }
         })
 
@@ -585,6 +597,7 @@
                 .then(data => {
                     console.log('Success:', data)
                     // You can handle success or update the UI accordingly
+                    window.location.reload()
                 })
                 .catch((error) => {
                     console.error('Error:', error)
