@@ -43,8 +43,8 @@ class CustomUserChangeForm(forms.ModelForm):
     email = forms.EmailField(label='Correo electrónico')
     dni = forms.CharField(label='DNI')
     phone = forms.CharField(label='Teléfono')
-    first_name = forms.CharField(label='Primer nombre')
-    last_name = forms.CharField(label='Apellido')
+    first_name = forms.CharField(label='Nombre')
+    last_name = forms.CharField(label='Apellidos')
 
 # class UsuarioForm(forms.Form):
 #     dni = forms.CharField(label="DNI", max_length=10)
