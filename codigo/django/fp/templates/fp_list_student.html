@@ -1,0 +1,63 @@
+{% extends 'base_select.html' %}
+
+{% block subtitle %} {{ title }} {% endblock %}
+
+{% block itemName %} {{ title }}{% endblock %}
+
+{% block addItem %} {{ shortTitle }} {% endblock %}
+
+{% load static %}
+
+{% block icon %}
+<i class="fa-solid fa-book"></i>
+{% endblock %}
+
+{% block total %}
+
+<article class="item-total">
+    <p>Número ciclos: <span class="number">{{ totalFp }}</span></p>
+</article>
+
+{% endblock %}
+
+{% block welcomeMessage %}
+{% endblock %}
+
+{% block cards %}
+
+{% for fp in fps_data %}
+<div class="item-card">
+    <div id="titleCard">
+        <h3 class="card-title">{{ fp.initials }}</h3>
+        <div class="expand">
+            <div class="_layerm -vertical"></div>
+            <div class="_layerm -horizontal"></div>
+        </div>
+    </div>
+
+    <div class="noTitleGroup">
+        <span id="textAreaDescription" class="card-description truncado">{{ fp.short_name }}</span>
+
+        <div class="DurationActionGroup">
+            <p class="card-duration">Duración: <span class="bold">{{ fp.duration }}</span> años</p>
+
+            <section class="card-actions">
+                <button class="card-btn-see bottomSee" data-fp-id="{{ fp.id }}">
+                    <img src="{% static 'images/svg/eye.svg' %}" alt="eye">
+                </button>
+            </section>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script defer>
+    document.querySelectorAll('.bottomSee').forEach(btn => {
+        btn.addEventListener('click', () => {
+            let fp_id = btn.getAttribute('data-fp-id'); 
+            window.location.href = `/fp/student/detail/${fp_id}`;
+        });
+    });
+</script>
+
+{% endblock %}
