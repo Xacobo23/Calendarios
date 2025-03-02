@@ -40,13 +40,17 @@
 
 }
 
+.item-title h2 {
+  margin: 0px;
+}
+
 .item-section hr {
   border: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 
 .item-title i {
-  font-size: 1.5em;
+  font-size: 1cm;
 }
 
 .item-total {
