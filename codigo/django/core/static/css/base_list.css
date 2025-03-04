@@ -41,7 +41,7 @@
 }
 
 .item-title h2 {
-  margin: 0px;
+  margin: 0px;  
 }
 
 .item-section hr {
@@ -51,6 +51,11 @@
 
 .item-title i {
   font-size: 1cm;
+}
+
+.card-title{
+  color: white;
+  font-size: 1.2rem;
 }
 
 .item-total {
@@ -435,6 +440,40 @@ button:hover {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
   }  
+
+  .btn-see{
+    width: 40px;
+    height: 40px;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-delete{
+    width: 40px;
+    height: 40px;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  tr{
+    
+  }
+
+  colgroup{
+    display: none;
+  }
+}
+
+thead tr th {
+  background-color: #468dae !important;
+  
+}
+
+thead tr th span{
+  color: white;
 }
 
 .teacher-btn, .module-btn{
