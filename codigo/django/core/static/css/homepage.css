@@ -73,12 +73,6 @@ header {
     overflow-x: hidden;
 }
 
-@media (min-width: 1024px) {
-    .hamburger{
-        display: none;
-    }
-}
-
 /* Cambiar el ancho del nav para pantallas medianas y pequeñas */
 @media (max-width: 1024px) {
     header {
@@ -236,7 +230,10 @@ header {
         border: 0;
     }
 
-   
+    #navCentro div {
+        margin-left: 0;
+    }
+
     #navBottom.is_active {
         display: flex;
         position: static;
@@ -304,7 +301,7 @@ header {
     align-items: center;
 }
 
-
+    
 
 #logoSanClemente {
     width: 70%;
@@ -405,3 +402,4 @@ main {
 .selected i {
     color: #F26B1D;
 }
+

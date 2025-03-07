@@ -8,10 +8,10 @@
 
 .col-6:nth-of-type(2){
   display: flex;
-  justify-content: end;
-  gap: 6em;
+  justify-content: center;
 }
-.row{
+
+.row {
   display: flex;
   align-items: center;
   margin-bottom: 2em;
@@ -185,10 +185,6 @@ td:last-of-type {
   display: flex;
   justify-content: center;
   gap: 1em;
-}
-
-.row:last-of-type{
-  width: 100%;
 }
 
 .btn-see {
@@ -517,4 +513,34 @@ thead tr th span{
 
 .hidden {
   display: none;
+}
+
+.row {
+  display: block;
+  width: 100%;
+  margin: auto;
+}
+
+.row div {
+  width: 100%;
+}
+
+.dt-paging nav {
+  background-color: transparent;
+}
+
+.active button{
+  background-color: #468dae !important;
+  border: 1px #468dae solid !important;
+}
+
+.dt-length {
+  display: flex;
+  gap:3mm;
+  align-items: center;
+}
+
+.row .col-6{
+
+  margin-bottom: 1em;
 }
