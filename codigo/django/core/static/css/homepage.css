@@ -73,6 +73,12 @@ header {
     overflow-x: hidden;
 }
 
+@media (min-width: 1024px) {
+    .hamburger{
+        display: none;
+    }
+}
+
 /* Cambiar el ancho del nav para pantallas medianas y pequeñas */
 @media (max-width: 1024px) {
     header {
@@ -230,10 +236,7 @@ header {
         border: 0;
     }
 
-    #navCentro div {
-        margin-left: 0;
-    }
-
+   
     #navBottom.is_active {
         display: flex;
         position: static;
@@ -286,6 +289,13 @@ header {
     }
 }
 
+.i-container{
+    width:30px ;
+    margin: 0px !important;
+    padding: 0px !important;
+    display: flex;
+    justify-content: center;
+}
 
 #navLogo {
     display: flex;
@@ -293,6 +303,8 @@ header {
     justify-content: center;
     align-items: center;
 }
+
+
 
 #logoSanClemente {
     width: 70%;
@@ -312,6 +324,14 @@ header {
     margin-bottom: 10%;
 
     color: white;
+}
+
+#navCentro div a{
+    display: flex;
+    align-items: center;
+}
+#navCentro div a span{
+    margin-left: 10px;
 }
 
 #navCentro div:hover {
@@ -379,6 +399,7 @@ main {
     /* color: #F26B1D !important; */
 
     border-left: 4px solid #F26B1D;
+    padding-left: 15% !important;
 }
 
 .selected i {
