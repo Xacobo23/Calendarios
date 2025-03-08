@@ -28,7 +28,7 @@
       <div id="navLogo">
 
         <a href="/"><img src="{% static 'images/logo.png' %}" alt="Logo IES San Clemente" id="logoSanClemente" /></a>
-        <hr style="width: 90%; border: 1px solid white" />
+        <hr style="width: 90%; border: 1px solid white; opacity: 1; margin: 1rem;" />
 
         </a>
       </div>
@@ -44,31 +44,43 @@
           {% if request.user.is_superuser %}
           <div id="navStudent">
             <a href="{% url 'student_list' %}">
-              <i class="fa-solid fa-user"></i>
+              <div class="i-container">
+                <i class="fa-solid fa-user"></i>
+              </div>
               <span class="navItem">Alumnos</span>
             </a>
           </div>
           <div id="navFP">
             <a href="{% url 'fp_list' %}">
-              <i class="fa-solid fa-book"></i>
+              <div class="i-container">
+                <i class="fa-solid fa-book"></i>
+              </div>
               <span class="navItem">Ciclos formativos</span>
             </a>
           </div>
           <div id="navModule">
             <a href="{% url 'module_list' %}">
-              <i class="fa-solid fa-graduation-cap"></i>
+              <div class="i-container">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
               <span class="navItem">Módulos</span>
             </a>
           </div>
           <div id="navSchedule">
             <a href="{% url 'select_schedule' %}">
-              <i class="fa-regular fa-clock"></i>
-              <span class="navItem">Horarios</span></a>
+              <div class="i-container">
+                <i class="fa-regular fa-clock"></i>
+              </div>
+              <span class="navItem">Horarios</span>
+            </a>
           </div>
           <div id="navTeacher">
             <a href="{% url 'teacher_list' %}">
-              <i class="fa-solid fa-chalkboard-user"></i>
-              <span class="navItem">Profesores</span></a>
+              <div class="i-container">
+                <i class="fa-solid fa-chalkboard-user"></i>
+              </div>
+              <span class="navItem">Profesores</span>
+            </a>
           </div>
           {% else %}
           <div id="navSchedule">

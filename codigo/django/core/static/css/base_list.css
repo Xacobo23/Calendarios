@@ -8,10 +8,10 @@
 
 .col-6:nth-of-type(2){
   display: flex;
-  justify-content: end;
-  gap: 6em;
+  justify-content: center;
 }
-.row{
+
+.row {
   display: flex;
   align-items: center;
   margin-bottom: 2em;
@@ -40,13 +40,22 @@
 
 }
 
+.item-title h2 {
+  margin: 0px;  
+}
+
 .item-section hr {
   border: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 
 .item-title i {
-  font-size: 1.5em;
+  font-size: 1cm;
+}
+
+.card-title{
+  color: white;
+  font-size: 1.2rem;
 }
 
 .item-total {
@@ -176,10 +185,6 @@ td:last-of-type {
   display: flex;
   justify-content: center;
   gap: 1em;
-}
-
-.row:last-of-type{
-  width: 100%;
 }
 
 .btn-see {
@@ -431,6 +436,40 @@ button:hover {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
   }  
+
+  .btn-see{
+    width: 40px;
+    height: 40px;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-delete{
+    width: 40px;
+    height: 40px;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  tr{
+    
+  }
+
+  colgroup{
+    display: none;
+  }
+}
+
+thead tr th {
+  background-color: #468dae !important;
+  
+}
+
+thead tr th span{
+  color: white;
 }
 
 .teacher-btn, .module-btn{
@@ -474,4 +513,34 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+.row {
+  display: block;
+  width: 100%;
+  margin: auto;
+}
+
+.row div {
+  width: 100%;
+}
+
+.dt-paging nav {
+  background-color: transparent;
+}
+
+.active button{
+  background-color: #468dae !important;
+  border: 1px #468dae solid !important;
+}
+
+.dt-length {
+  display: flex;
+  gap:3mm;
+  align-items: center;
+}
+
+.row .col-6{
+
+  margin-bottom: 1em;
 }

@@ -108,6 +108,8 @@ header {
         align-items: center;
     }
 
+
+
     .hamburger.is-active {
         background-color: transparent;
     }
@@ -161,6 +163,12 @@ header {
     }
 }
 
+@media (min-width: 800px){
+    .hamburger{
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     header {
             flex: 0 0 20%
@@ -172,6 +180,8 @@ header {
         padding-top: 10%;
         padding-bottom: 10%;
     }
+
+    
 
     .navItem {
         font-size: .9rem;
@@ -276,6 +286,13 @@ header {
     }
 }
 
+.i-container{
+    width:30px ;
+    margin: 0px !important;
+    padding: 0px !important;
+    display: flex;
+    justify-content: center;
+}
 
 #navLogo {
     display: flex;
@@ -283,6 +300,8 @@ header {
     justify-content: center;
     align-items: center;
 }
+
+    
 
 #logoSanClemente {
     width: 70%;
@@ -302,6 +321,14 @@ header {
     margin-bottom: 10%;
 
     color: white;
+}
+
+#navCentro div a{
+    display: flex;
+    align-items: center;
+}
+#navCentro div a span{
+    margin-left: 10px;
 }
 
 #navCentro div:hover {
@@ -369,8 +396,10 @@ main {
     /* color: #F26B1D !important; */
 
     border-left: 4px solid #F26B1D;
+    padding-left: 15% !important;
 }
 
 .selected i {
     color: #F26B1D;
 }
+
