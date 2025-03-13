@@ -21,6 +21,13 @@
             height: 50px;
             color: white;
         }
+        select:focus{
+            border: none;
+            outline: none;
+        }
+        .dissable_no_changes_made{
+            opacity: 50%;
+        }
     /* end comunes */
 
     .page_main{
@@ -158,9 +165,8 @@
 
             /* horario */
             .table_row{
-                height: 50px;
-                padding: 5px 0;
-                margin: 7px 0;
+                height: 75px;
+                margin: 10px 0;
             }
 
             .full_schedule{
@@ -188,9 +194,10 @@
                     .schedule_time_slot{
                         display: flex;
                         flex-direction: column;
-                        justify-content: space-between;
+                        justify-content: center;
                         align-items: center;
                         min-width: 110px;
+                        gap: 15px;
                     }
                 /* sesions */
                 .day_sessions_container{
@@ -209,6 +216,9 @@
                         .page_main{
                             margin: 25px 10px 20px 10px;
                         }
+                            .page_main_content{
+                                margin-left: 10px;
+                            }
                         .day_sessions_container{
                             overflow-x: visible;
                         }
@@ -228,20 +238,37 @@
                         .day_sessions{
                             display: flex;
                             flex-direction: column;
+                            margin: 0 5px;
                         }
                             .day_session_selector_container{
                                 display: flex;
+                                flex-direction: column;
                                 justify-content: center;
                                 align-items: center;
                                 border-radius: 5px;
+                                gap: 5px;
                             }
                             .day_session_selector_container.modified_session{
                                 background-color: #C6E9FF;
                             }
-                                .day_session_selector_container .options_selector{
-                                    max-width: 200px;
+                                .session_module_and_day_container{
+                                    width: 200px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: space-between;
+                                    align-items: start;
+                                    gap: 5px;
+                                    margin: 10px 5px 15px 15px;
                                     flex-grow: 1;
                                 }
+                                    .module_initials{
+                                        font-size: 16px;
+                                    }
+                                    .session_classroom{
+                                        font-size: 12px;
+                                        color: rgb(0,0,0,70%);
+                                    }
+
 </style>
 {% endblock %}
 
@@ -322,23 +349,19 @@
                                 <!-- Todas las sesiones del día -->
                                 <div class="day_sessions">
                                     {% for sessionPosition, sessionData in sessions.items %}
-                                        <div class="day_session_selector_container table_row">
-                                            {% if sessionData %}
-                                                <div
-                                                    id="session_{{ dayKey }}_{{ sessionPosition }}"
-                                                    name="schedule_template"
-                                                    class="options_selector"
-                                                    data_day="{{ dayKey }}"
-                                                    data_position="{{ sessionPosition }}"
-                                                    {% if sessionData %}
-                                                        data_session_id="{{ sessionData.id }}"
+                                        <div id="session_{{ dayKey }}_{{ sessionPosition }}" class="day_session_selector_container table_row" {% if sessionData %} style="background-color: {{ sessionData.module.color }}"{% endif %}>
+                                            <div class="session_module_and_day_container">
+                                                {% if sessionData %}
+                                                    <div class="module_initials">{{ sessionData.module.initials }}</div>
+                                                    <div class="session_classroom">
+                                                    {% if sessionData.class_id %}
+                                                        {{ sessionData.class_id }}
+                                                    {% else %}
+                                                        Sin aula asignada
                                                     {% endif %}
-
-                                                style="background-color: {{ sessionData.module.color }}"
-                                                >
-                                                    {{ sessionData.module.initials }}
-                                                </div>
-                                            {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -361,7 +384,7 @@
 
     selectCurso.addEventListener('change', () => {
         let course_value = selectCurso.value;
-        let newUrl = `/schedule/my-schedule/${fpId}/${course_value}`;
+        let newUrl = `/schedule/view-schedule/${fpId}/${course_value}`;
 
         window.location.href = newUrl;
     });
