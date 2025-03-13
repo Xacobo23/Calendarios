@@ -6,15 +6,13 @@
 }
 
 .item-section {
-    padding-right: 1em;
-
+    margin-right: 1em;
 }
 
 .item-title,
 .item-edit-side h2,
 .item-items-asociated h2,
 .side-section h2 {
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
     font-weight: 500;
 }
 
@@ -28,10 +26,11 @@
 .item-title i {
     font-size: 1.5em;
 }
-
+/*
 .item-title h2 {
     font-weight: bold;
 }
+    */
 
 .display-id {
     display: flex;
@@ -254,18 +253,24 @@ tbody tr:nth-child(even) {
 .form-group input:disabled,
 .form-group textarea:disabled,
 select:disabled {
-    cursor: not-allowed; 
+    cursor: not-allowed;
     background-color: transparent;
 }
 
 @media (max-width: 700px) {
+    .hrItem {
+        display: none;
+    }
+
     .selectModule {
         height: fit-content;
     }
-    .item-section{
+
+    .item-section {
         /* overflow: hidden; */
         height: 100vh;
     }
+
     .item-actions {
         align-items: start;
     }
@@ -281,7 +286,7 @@ select:disabled {
     }
 
     .item-section {
-        padding-right: 0px !important;
+        margin: 0px !important;
     }
 
     .item-title {
@@ -318,7 +323,7 @@ select:disabled {
         height: 10%;
     }
 
-    .item-actions{
+    .item-actions {
         height: 8%;
     }
 
@@ -361,17 +366,17 @@ select:disabled {
         align-items: center;
     }
 
-    .btn-cancel{
+    .btn-cancel {
         background-color: #DB5D5D;
     }
 
-    .form-buttons{
+    .form-buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1em;
     }
 
-    .hidden{
+    .hidden {
         display: none;
     }
 }
@@ -388,4 +393,34 @@ select:disabled {
         grid-template-columns: 1fr 1fr;
         gap: 1em;
     }
+}
+
+.item-section hr {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 1rem 0;
+    opacity: .25;
+}
+
+.item-title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+    height: 8.5%;
+    margin-top: 1.7%;
+    color: #468dae;
+
+    font-weight: bold;
+
+}
+
+.item-title h2 {
+    margin: 0 !important;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.item-title i {
+    font-size: 1cm;
 }

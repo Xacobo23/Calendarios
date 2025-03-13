@@ -41,16 +41,17 @@
 }
 
 .item-title h2 {
-  margin: 0px;  
+  margin: 0 !important;  
+}
+
+
+.item-title i {
+  font-size: 1cm;
 }
 
 .item-section hr {
   border: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
-}
-
-.item-title i {
-  font-size: 1cm;
 }
 
 .card-title{

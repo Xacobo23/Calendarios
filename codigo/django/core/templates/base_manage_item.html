@@ -13,9 +13,11 @@
     {% block header %}
     <article class="item-title">
         {% block icon %}{% endblock %}
-        <h2>{{ type }} / <small>{% block identifier %}{% endblock %}</small></h2>
+        <h2>{{ type }}  <small>/{% block identifier %}{% endblock %}</small></h2>
     </article>
     {% endblock %}
+
+    <hr class="hrItem">
 
     <article class="item-actions">
         <div class="display-id">
@@ -23,6 +25,7 @@
             <input class="inputId" type="text" value="{% block inputValue %}{% endblock %}" disabled>
         </div>
         {% block buttons %}{% endblock %}
+        
     </article>
 
     {% block form %}{% endblock %}
