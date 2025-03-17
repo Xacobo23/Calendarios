@@ -47,10 +47,45 @@
                     }
                 },
                 {
-                    text: '<div class="noMostrarMovil"><i class="fa-solid fa-file-import"></i> Importar</div><img src="" alt="" class="noMostrarPc">',
+                    text: '<span class="noMostrarMovil" id="import-button">Importar cositas</span>',
                     className: 'import-item-btn',
                     action: function () {
-                        document.getElementById('xml_file').click();
+                        let inputFile = document.createElement("input");
+                        inputFile.type = "file";
+                        inputFile.accept = ".xml";
+                        inputFile.style.display = "none";
+
+                        inputFile.addEventListener("change", function (event) {
+                            const file = event.target.files[0];
+                            if (!file) return;
+
+                            const formData = new FormData();
+                            formData.append("xml_file", file);
+
+                            fetch("/student/import/", {
+                                method: "POST",
+                                body: formData,
+                                headers: {
+                                    "X-CSRFToken": "{{ csrf_token }}"
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        Swal.fire("Éxito", data.message, "success").then(() => location.reload());
+                                    } else {
+                                        Swal.fire("Error", data.message, "error");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                    Swal.fire("Error", "Hubo un problema al importar.", "error");
+                                });
+                        });
+
+                        document.body.appendChild(inputFile);
+                        inputFile.click();
+                        document.body.removeChild(inputFile);
                     }
                 }
             ],

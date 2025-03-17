@@ -1,6 +1,3 @@
-# El formulario es bastante completo, no hay que poner ni la mitad de las cosas para que funione
-# bien, pero para que quede bonito :)
-
 from django import forms
 
 from .models import Teacher, TeacherModule

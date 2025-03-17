@@ -121,12 +121,6 @@ def student_list(request):
 
 
 def student_add(request):
-    if request.method == "POST":
-        print("¡Es POST!")  # <-- Verifica si esto aparece en la consola
-    else:
-        print("No es POST")
-        request.method = "POST"  # <-- Cambia el método de la solicitud a POST
-
     form = CustomUserChangeForm(request.POST or None, request.FILES or None)  # Asegúrate de que request.FILES esté incluido.
     if request.method == "POST":
         # Primero, comprobamos si se ha subido un archivo XML
@@ -196,8 +190,6 @@ def student_add(request):
     }
 
     return render(request, "student_add.html", data)
-
-
 
 def student_edit(request, student_id):
     student = get_object_or_404(get_user_model(), id=student_id)
@@ -357,3 +349,48 @@ def enroll_students(request):
             messages.error(request, "No se ha subido ningún archivo XML.")
 
     return render(request, "student_add.html")
+
+def student_import (request):
+    if request.method == "POST" and request.FILES:
+        xml_file = request.FILES.get("xml_file")
+
+        if not xml_file:
+            print("No se ha seleccionado ningún XML")
+            return redirect("imoport_students")
+        
+        try:
+            contenido = xml_file.read().decode("utf-8")
+
+            tree = ET.ElementTree(ET.fromstring(contenido))
+            root = tree.getroot()
+
+            alumnos_node = root.find("Alumnos")
+            if alumnos_node is None:
+                return redirect("student_list")
+
+            for alumno_elem in alumnos_node.findall("Alumno"):
+                username = alumno_elem.find("ID").text
+                email = alumno_elem.find("Email").text
+                dni = alumno_elem.find("DNI").text
+                phone = alumno_elem.find("Telefono").text
+                first_name = alumno_elem.find("Nombre").text
+                last_name = alumno_elem.find("Apellido").text
+                
+                student = CustomUser(
+                    username=username,
+                    email=email,
+                    dni=dni,
+                    phone=phone,
+                    first_name=first_name,
+                    last_name=last_name,
+                )
+                student.set_password("abc123.")  
+                student.save()
+            
+            return JsonResponse({"success": True, "message": "Estudiantes importados correctamente."})
+
+        except ET.ParseError as e:
+            print("Error al analizar el XML: ", e)
+            return JsonResponse({"success": False, "message": "Error al procesar el archivo XML."})
+
+    return JsonResponse({"success": False, "message": "No se recibió un archivo válido."})
