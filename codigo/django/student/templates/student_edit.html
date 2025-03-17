@@ -454,7 +454,6 @@
 
         document.getElementById('btn-reset-password').addEventListener('click', function () {
             const studentId = "{{ student_id }}";
-            console.log(studentId);
 
             Swal.fire({
                 title: "¿Restablecer contraseña?",
@@ -472,7 +471,16 @@
                             "Content-Type": "application/json"
                         }
                     })
-                        .then(response => response.json())
+                        .then(response => {
+                            // Verifica si el tipo de respuesta es JSON
+                            const contentType = response.headers.get("Content-Type");
+                            if (contentType && contentType.includes("application/json")) {
+                                return response.json();
+                            } else {
+                                console.error("La respuesta no es JSON:", response);
+                                throw new Error("La respuesta no es JSON");
+                            }
+                        })
                         .then(data => {
                             if (data.success) {
                                 Swal.fire("Éxito", "Se ha enviado el correo de restablecimiento.", "success");

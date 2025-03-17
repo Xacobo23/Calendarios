@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.http import JsonResponse
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -255,13 +256,13 @@ def restore_password(request, student_id):
         student.restart_password = True
         student.save()
 
-        messages.success(request, f'La contraseña de {student.username} ha sido restablecida con éxito!')
-
         send_restore_password_email(student)
 
-        return redirect('student_list')
+        messages.success(request, f'La contraseña de {student.username} ha sido restablecida con éxito!')
 
-    return redirect('student_list')
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)
 
 def student_fp_edit (request, student_id, fp_id):
     student = get_object_or_404(get_user_model(), id=student_id)
