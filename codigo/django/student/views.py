@@ -3,7 +3,10 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from django.core.mail import send_mail, EmailMultiAlternatives
+
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from student.forms import CustomUserChangeForm
 from user.models import CustomUser
@@ -13,29 +16,18 @@ import xml.etree.ElementTree as ET
 
 User = get_user_model()
 
+# Configuración SMTP para enviar correos de confirmación.
+smtp_server = "smtp.gmail.com"
+smtp_port = 587
+sender_email = "lorchosgaelicos@gmail.com"
+password = "fwji ejmv uuqh mwrb"
 
 def send_welcome_email(student):
-    subject = "🎉 Bienvenido a FP Gestor 🎉"
-    from_email = settings.DEFAULT_FROM_EMAIL
-    recipient_list = [student.email]
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = student.email
+    message["Subject"] = "🎉 Bienvenido a FP Gestor 🎉"
 
-    # Mensaje en texto plano (para clientes que no soportan HTML)
-    text_content = f"""
-    Hola {student.first_name},
-
-    ¡Bienvenido a FP Gestor! Tu cuenta ha sido creada con éxito.
-
-    📌 Tus credenciales de acceso:
-    - Usuario: {student.username}
-    - Contraseña: abc123. (Por favor, cámbiala tras iniciar sesión)
-
-    🔗 Accede aquí: http://localhost:8000
-
-    Atentamente,
-    El equipo de FP Gestor
-    """
-
-    # Mensaje en HTML con estilos
     html_content = f"""
     <html>
     <body style="font-family: Arial, sans-serif; color: #333;">
@@ -49,7 +41,7 @@ def send_welcome_email(student):
             </ul>
             <p>Puedes acceder a la plataforma desde el siguiente enlace:</p>
             <p style="text-align: center;">
-                <a href="https://fpgestor.com/login" style="background-color: #3498db; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">🔗 Iniciar sesión</a>
+                <a href="http://localhost:8000/user/login" style="background-color: #3498db; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">🔗 Iniciar sesión</a>
             </p>
             <p>Atentamente,<br>El equipo de FP Gestor</p>
         </div>
@@ -57,34 +49,25 @@ def send_welcome_email(student):
     </html>
     """
 
-    # Crear el correo con texto plano y HTML
-    email = EmailMultiAlternatives(subject, text_content, from_email, recipient_list)
-    email.attach_alternative(html_content, "text/html")
-    email.send()
+    message.attach(MIMEText(html_content, "html"))
+
+    try:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, password)
+            server.sendmail(sender_email, student.email, message.as_string())
+            print("Correo de confirmación enviado!")
+    except Exception as e:
+        print("Error al enviar el email")
+
 
 def send_restore_password_email(student):
-    subject = "🎉 Contraseña restablecida 🎉"
-    from_email = settings.DEFAULT_FROM_EMAIL
-    recipient_list = [student.email]
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = student.email
+    message["Subject"] = "🎉 Bienvenido a FP Gestor 🎉"
 
-    # Mensaje en texto plano (para clientes que no soportan HTML)
-    text_content = f"""
-    Hola {student.first_name},
-
-    Su contraseña ha sido restablecida con éxito. Más abajo se muestra su nueva contraseña.
-
-    📌 Tus credenciales de acceso:
-    - Usuario: {student.username}
-    - Contraseña: abc123. (Por favor, cámbiala tras iniciar sesión)
-
-    🔗 Accede aquí: http://localhost:8000
-
-    Atentamente,
-    El equipo de FP Gestor
-    """
-
-    # Mensaje en HTML con estilos
-    html_content = f"""
+    html_content = html_content = f"""
     <html>
     <body style="font-family: Arial, sans-serif; color: #333;">
         <div style="max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
@@ -97,7 +80,7 @@ def send_restore_password_email(student):
             </ul>
             <p>Puedes acceder a la plataforma desde el siguiente enlace:</p>
             <p style="text-align: center;">
-                <a href="https://fpgestor.com/login" style="background-color: #3498db; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">🔗 Iniciar sesión</a>
+                <a href="http://localhost:8000/user/login" style="background-color: #3498db; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">🔗 Iniciar sesión</a>
             </p>
             <p>Atentamente,<br>El equipo de FP Gestor</p>
         </div>
@@ -105,10 +88,16 @@ def send_restore_password_email(student):
     </html>
     """
 
-    # Crear el correo con texto plano y HTML
-    email = EmailMultiAlternatives(subject, text_content, from_email, recipient_list)
-    email.attach_alternative(html_content, "text/html")
-    email.send()
+    message.attach(MIMEText(html_content, "html"))
+
+    try:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, password)
+            server.sendmail(sender_email, student.email, message.as_string())
+            print("Correo de confirmación enviado!")
+    except Exception as e:
+        print("Error al enviar el email")
 
 # Vista de Administrador para listar los estudiantes.
 def student_list(request):

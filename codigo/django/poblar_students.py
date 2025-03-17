@@ -43,13 +43,13 @@ def generate_unique_username(name, last_name, existing_usernames):
         username = f"{base_username}{counter}"
         counter += 1
 
-    existing_usernames.add(username)  # Agregar a los generados en esta ejecución
+    existing_usernames.add(username) 
     return username
 
 def create_students (n=500):
     users_instances = []
-    existing_usernames = set(CustomUser.objects.values_list("username", flat=True))  # Obtener usernames existentes
-    default_password = make_password("abc123.")  # Hashear la contraseña antes de asignarla
+    existing_usernames = set(CustomUser.objects.values_list("username", flat=True))  
+    default_password = make_password("abc123.")  
 
     for _ in range(n):
         name = random.choice(NAMES)
@@ -69,7 +69,7 @@ def create_students (n=500):
             restart_password=True,
             is_superuser=False,
             is_staff=False,
-            password=default_password  # Asignar contraseña hasheada
+            password=default_password  
         )
         
         try:
