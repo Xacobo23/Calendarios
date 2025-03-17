@@ -12,7 +12,10 @@ class TeacherForm(forms.ModelForm):
         queryset=Module.objects.all(),
         required=False,
         widget=forms.SelectMultiple(attrs={"class": "form-control"}),
+        label="Módulos",
     )
+
+    modules.label_from_instance = lambda obj: f"{obj.name} ({obj.fp.initials})"
 
     class Meta:
         model = Teacher

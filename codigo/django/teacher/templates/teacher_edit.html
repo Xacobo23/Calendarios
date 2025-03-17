@@ -86,17 +86,7 @@
                     <label for="{{ form.modules.id_for_modules }}">Módulos</label>
                     {{ form.modules }}
                 </div>
-            </div>
-
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
+            </div> 
 
             <div class="form-buttons">
                 <button type="submit" class="btn btn-save">Guardar</button>
