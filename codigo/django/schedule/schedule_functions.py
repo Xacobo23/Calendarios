@@ -44,7 +44,7 @@ def generate_schedule_hours(scheduleConfig):
 
 #generar as sesións de cada día
 def generate_schedule_sessions(modules, scheduleConfig, scheduleHours):
-    #camio de colores dos modulos das sesions
+    #cambio de colores dos modulos das sesions
     # colores disponibles
     pastel_colors = [
         "#FAD9D6", "#FFE2E2", "#FFD6E0", "#FDE2E4", "#FFDFD3",
