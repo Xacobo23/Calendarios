@@ -183,52 +183,51 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     </article>
     <article class="item-message">
         {% block welcomeMessage %}
-
         {% endblock %}
     </article>
 
     <article class="main-tuitions">
         <section class="section-add-tuition">
             <a href="{% url 'select_tuition' %}">
-            <button class="btn btn-add-tuition">
-                <i class="fa-solid fa-plus"></i>
-                Realizar nueva matrícula
-            </button>
+                <button class="btn btn-add-tuition">
+                    <i class="fa-solid fa-plus"></i>
+                    Realizar nueva matrícula
+                </button>
             </a>
-            
         </section>
+
         <h2 class="title-active-tuitions">Matrículas activas:</h2>
-            {% if fps %}
-            <section class="section-active-tuitions">
-                {% for fp in fps %}
-                    <div class="tuition-card">
-                        <div id="titleCard">
-                            <h3 class="card-title">{{ fp.initials }}</h3>
-                            <div class="expand">
-                                <div class="_layerm -vertical"></div>
-                                <div class="_layerm -horizontal"></div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <p class="fp-name">{{ fp.short_name }}</p>
-                            <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
-                            <p class="see-fp">
-                                <a href="{% url 'fp_detail_student' fp.id %}">
-                                <button class="btn-see"><img src="{% static 'images/svg/eye.svg' %}" alt="eye">
-                                </button>
-                                </a>
-                            </p>
-                        </div>
+
+        {% if fps_with_modules %}
+        <section class="section-active-tuitions">
+            {% for item in fps_with_modules %}
+            <div class="tuition-card">
+                <div id="titleCard">
+                    <h3 class="card-title">{{ item.fp.initials }}</h3>
+                    <div class="expand">
+                        <div class="_layerm -vertical"></div>
+                        <div class="_layerm -horizontal"></div>
                     </div>
-                {% endfor %}
-                </section>
-            </section>
-            {% else %}
-            <section class="section-no-tuitions">
-                <p class="no-tuitions-msg">No hay matrículas activas</p>
-            </section>
-            {% endif %}
-        
+                </div>
+                <div class="card-content">
+                    <p class="fp-name">{{ item.fp.short_name }}</p>
+                    <p class="total-modules">Módulos en curso: {{ item.modules.count }}</p>
+                    <p class="see-fp">
+                        <a href="{% url 'fp_detail_student' item.fp.id %}">
+                            <button class="btn-see"><img src="{% static 'images/svg/eye.svg' %}" alt="eye">
+                            </button>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        {% else %}
+        <section class="section-no-tuitions">
+            <p class="no-tuitions-msg">No hay matrículas activas</p>
+        </section>
+        {% endif %}
+
     </article>
 </section>
 {% endblock %}
