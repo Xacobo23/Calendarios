@@ -321,12 +321,6 @@
                     </select>
                 </div>
             </div>
-            <!-- botons -->
-            <div class="action_section_buttons">
-                <button id="btn-export" class="action_section_button export_button" id="btn_export">
-                    Exportar a pdf
-                </button>
-            </div>
         </section>
 
         <!-- columna de selector de días para movil -->
@@ -438,21 +432,6 @@
         let newUrl = `/schedule/view-schedule/${fpId}/${course_value}`;
 
         window.location.href = newUrl;
-    });
-
-    document.getElementById('btn-export').addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        const schedule = document.querySelector('.full_schedule')[0];
-
-        doc.html(schedule, {
-            callback: function (doc) {
-                doc.save('schedule.pdf');
-            },
-            x: 10,
-            y: 10
-        });
     });
 
     //script para cambiar o día que se ve no movil

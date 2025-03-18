@@ -381,18 +381,16 @@
     });
 
     document.getElementById('btn-export').addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        const schedule = document.querySelector('.full_schedule');
 
-        const schedule = document.querySelector('.full_schedule')[0];
+        const options = {
+            filename: 'schedule.pdf',
+            html2canvas: { scale: 2 },  // Higher scale for better quality
+            jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' } // Set orientation to landscape
+        };
 
-        doc.html(schedule, {
-            callback: function (doc) {
-                doc.save('schedule.pdf');
-            },
-            x: 10,
-            y: 10
-        });
+        // Use html2pdf to generate and download the PDF
+        html2pdf().from(schedule).set(options).save();
     });
 
     //script para cambiar o día que se ve no movil
