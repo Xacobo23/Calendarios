@@ -199,7 +199,7 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         </section>
         <h2 class="title-active-tuitions">Matrículas activas:</h2>
             {% if fps %}
-            <section class="section-active-tuitions"></section>
+            <section class="section-active-tuitions">
                 {% for fp in fps %}
                     <div class="tuition-card">
                         <div id="titleCard">
@@ -212,10 +212,16 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                         <div class="card-content">
                             <p class="fp-name">{{ fp.short_name }}</p>
                             <p class="total-modules">Módulos en curso: {{ fp.modulos.count }}</p>
-                            <p class="see-fp"><button class="btn-see"><img src="{% static 'images/svg/eye.svg' %}" alt="eye"></button></p>
+                            <p class="see-fp">
+                                <a href="{% url 'fp_detail_student' fp.id %}">
+                                <button class="btn-see"><img src="{% static 'images/svg/eye.svg' %}" alt="eye">
+                                </button>
+                                </a>
+                            </p>
                         </div>
                     </div>
                 {% endfor %}
+                </section>
             </section>
             {% else %}
             <section class="section-no-tuitions">
