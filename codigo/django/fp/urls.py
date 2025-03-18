@@ -12,5 +12,4 @@ urlpatterns = [
     path('delete/<int:fp_id>/', views.delete_fp, name='delete_fp'),
     path('student/list/', views.fp_list_student, name='fp_list_student'),
     path('student/detail/<int:fp_id>/', views.fp_detail_student, name='fp_detail_student'),
-    # path('nombre-vista/', views.ejemplo_vista, name='ejemplo')
 ]

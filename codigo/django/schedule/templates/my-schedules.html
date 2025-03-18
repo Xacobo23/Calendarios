@@ -20,6 +20,12 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.article-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .item-title i {
     font-size: 1.5em;
 }
@@ -136,7 +142,7 @@
 <div class="main-body-margins">
     {% if fps %}
         {% if fps|length > 1 %}
-            <article id="multiple-courses-body">
+            <article class="article-center" id="multiple-courses-body">
                 <p id="multiple-courses-title">Parece estar matriculado en más de un ciclo formativo, puede:</p>
                 <div>Seleccionar un ciclo para ver el horario:</div>
                 <section id="available-courses-schedule">
@@ -144,7 +150,7 @@
                     <div class="available-course-schedule">
                         <div class="course-header">
                             <span class="course-acronym">{{ fp.initials }}</span>
-                            <span class="course-modality">distancia</span>
+                            <span class="course-modality">Presencial</span>
                         </div>
                         <div class="course-body">
                             <div class="course-body-info">
@@ -161,7 +167,7 @@
                 <a href="" id="see-all-courses">Ver los horarios fusionados</a>
             </article>
         {% else %}
-            <article>
+            <article class="article-center">
                 <p id="multiple-courses-title">Estás matriculado en un solo ciclo formativo</p>
                 {% for fp in fps %}
                     <div class="available-course-schedule">
@@ -183,9 +189,9 @@
             </article>
         {% endif %}
     {% else %}
-        <article>
+        <article class="article-center">
             <p id="multiple-courses-title">No estás matriculado en ningún ciclo formativo</p>
-            <div class="available-course-schedule" style="background-color: #f4f4f4; border: 1px solid #ccc;">
+            <div class="available-course-schedule">
                 <p style="text-align: center; padding: 20px; font-size: 18px;">Actualmente no tienes ciclos formativos disponibles.</p>
             </div>
         </article>

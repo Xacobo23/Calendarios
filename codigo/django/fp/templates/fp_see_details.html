@@ -189,10 +189,7 @@
         color: white;
 
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-
-    .enrolled-table-header {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .th {
@@ -206,7 +203,7 @@
 
     .row {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .enrolled-row {
@@ -708,7 +705,7 @@ input {
 }
 
 .info-modules {
-    margin-bottom: 2em;
+    padding-bottom: 5em;
 }
 
 </style>
@@ -755,13 +752,14 @@ input {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="duration">Duración (años)</label>
-                        {{ form.duration }}
+                        <input type="text" id="duration" name="duration" value="{{ form.duration.value }}" readonly>
                     </div>
                 </div>
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fp_type">Tipo de FP</label>
-                        {{ form.fp_type }}
+                        <input type="text" id="fp_type" name="fp_type" value="{{ form.fp_type.value }}" readonly>
                     </div>
                 </div>
                 <div class="form-row-large">
@@ -776,8 +774,6 @@ input {
                 <section class="section-list-of-modules">
                     <div class="modules-table">
                         <div class="table-header">
-                            <div class="th">
-                            </div>
                             <div class="th">Código</div>
                             <div class="th">Nombre</div>
                             <div class="th">Curso</div>
@@ -785,9 +781,6 @@ input {
     
                         {% for module in modules %}
                         <div class="row" id="module-{{ module.id }}">
-                            <div class="cell">
-                                
-                            </div>
                             <div class="cell">{{ module.code }}</div>
                             <div class="cell">{{ module.name }}</div>
                             <div class="cell">{{ module.course }}º</div>
