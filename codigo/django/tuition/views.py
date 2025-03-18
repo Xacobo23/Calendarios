@@ -132,8 +132,6 @@ def tuition_import(request):
                     except Module.DoesNotExist:
                         continue  # Si el módulo no existe, omitirlo
 
-                    
-                    
                     # Verificar si la matrícula ya existe para evitar duplicados
                     _, created = Enrolled.objects.get_or_create(
                         student=student,
