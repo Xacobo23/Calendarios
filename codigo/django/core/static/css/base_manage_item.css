@@ -101,6 +101,8 @@ select {
 
 .item-main {
     grid-template-columns: 1fr 1fr;
+
+    padding-left: 1em;
 }
 
 .form-row {
