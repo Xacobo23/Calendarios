@@ -12,14 +12,24 @@ import json
 
 from user.models import CustomUser
 
-def my_tuitions (request):
+def my_tuitions(request):
     user = request.user
 
-    fps = FP.objects.filter(modulos__enrolled__student=user).distinct().prefetch_related('modulos')
+    fps = FP.objects.filter(modulos__enrolled__student=user).distinct().prefetch_related(
+        'modulos'
+    )
+
+    fps_with_modules = []
+    for fp in fps:
+        enrolled_modules = fp.modulos.filter(enrolled__student=user)
+        fps_with_modules.append({
+            'fp': fp,
+            'modules': enrolled_modules
+        })
 
     data = {
         'title': 'Mis matrículas',
-        'fps': fps
+        'fps_with_modules': fps_with_modules
     }
 
     return render(request, 'my_tuitions.html', data)
