@@ -390,7 +390,7 @@ main {
     overflow-y: auto;
     height: 100vh;
 
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 
 /* TODO: Quitar important */

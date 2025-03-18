@@ -17,6 +17,10 @@
   margin-bottom: 2em;
 }
 
+
+
+
+
 .item-section {
   /*
   display: grid;
@@ -25,6 +29,7 @@
   height: 100vh;
 
   margin-right: 1em;
+  
 }
 
 .item-title {
@@ -33,9 +38,8 @@
   align-items: center;
   gap: 1em;
   height: 8.5%;
-  margin-top: 1.7%;
   color: #468dae;
-
+  margin-top: 1.7%;
   font-weight: bold;
 
 }
@@ -357,7 +361,47 @@ button:hover {
   }
 }
 
+.dt-button {
+  width: 200px !important;
+  height: 56px;
+}
+
 @media (max-width: 700px) {
+
+  .dt-button span{
+    font-size: 0.85rem;
+  }
+
+  .dt-button {
+    width: 130px;
+    height: 56px;
+  }
+
+  .import-item-btn{
+    width: 130px !important;
+    padding: 0px !important;
+  }
+  
+  .import-tuition-btn {
+    width: 130px !important;
+    padding: 0px !important;
+  }
+
+  .row div {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .add-item-btn{
+    width: 56px !important;
+  }
+
+  .item-title{
+
+  margin-top: 22%;
+  }
+
   .hrItem{
     display: none;
   }
@@ -381,6 +425,8 @@ button:hover {
 
   .add-item-btn {
     position: absolute;
+    width: 56px;
+    height: 56px;
     padding: 1em;
     z-index: 100;
     bottom: 1em;
@@ -515,7 +561,7 @@ thead tr th span{
 .import-tuition-btn {
   background-color: #448AA6;
   color: white;
-  padding: 1em 2em;
+  padding: 0px;
   z-index: 100;
   border: none;
   border-radius: 0.5em;
@@ -530,9 +576,17 @@ thead tr th span{
   width: 100%;
   margin: auto;
 }
+.dt-paging {
+  padding-bottom: 30%;
+}
 
 .row div {
   width: 100%;
+}
+
+.dt-button {
+  width: 150px;
+  height: 56px;
 }
 
 .dt-paging nav {
