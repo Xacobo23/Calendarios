@@ -381,19 +381,77 @@
     });
 
     document.getElementById('btn-export').addEventListener('click', () => {
+        const schedule = document.querySelector('.full_schedule');
+
+        const options = {
+            filename: 'schedule.pdf',
+            html2canvas: { scale: 2 },  // Higher scale for better quality
+            jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' } // Set orientation to landscape
+        };
+
+        // Use html2pdf to generate and download the PDF
+        html2pdf().from(schedule).set(options).save();
+    });
+
+
+    /*
+    // Wait for all images to load before generating PDF
+    document.getElementById('btn-export').addEventListener('click', () => {
+        const schedule = document.querySelector('.full_schedule');
+
+        const images = schedule.querySelectorAll('img');
+        let imagesLoaded = 0;
+        const totalImages = images.length;
+
+        images.forEach((img) => {
+            if (img.complete) {
+                imagesLoaded++;
+            } else {
+                img.onload = () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === totalImages) {
+                        exportSchedule();
+                    }
+                };
+            }
+        });
+
+        // If all images are already loaded
+        if (imagesLoaded === totalImages) {
+            exportSchedule();
+        }
+
+        function exportSchedule() {
+            const options = {
+                filename: 'schedule.pdf',
+                margin: 10,
+                html2canvas: { scale: 2 },  // Higher scale for better quality
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().from(schedule).set(options).save();
+        }
+    });
+
+    /*
+    document.getElementById('btn-export').addEventListener('click', () => {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        const schedule = document.querySelector('.full_schedule')[0];
+        const schedule = document.querySelector('.full_schedule');
+        console.log(schedule)
 
-        doc.html(schedule, {
-            callback: function (doc) {
-                doc.save('schedule.pdf');
-            },
-            x: 10,
-            y: 10
-        });
-    });
+            // Wait for the content to render before exporting
+        setTimeout(() => {
+            doc.html(schedule, {
+                callback: function (doc) {
+                    doc.save('schedule.pdf');
+                },
+                x: 10,
+                y: 10
+            });
+        }, 500);  // Adjust timeout (in milliseconds) as needed
+    });*/
 
     //script para cambiar o día que se ve no movil
     {
