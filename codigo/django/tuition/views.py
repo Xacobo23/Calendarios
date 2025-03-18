@@ -74,22 +74,27 @@ def review_tuition (request, fp_id):
 
 @csrf_exempt
 def make_tuition (request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        modules = data.get('modules', [])
-        fp_id = data.get('fp_id', None)
-        user = request.user
-
+    if request.method == "POST":
         try:
-            for module_id in modules:
-                module = Module.objects.get(id=module_id)
-                Enrolled.objects.get_or_create(student=user, module=module, course=1)
+            data = json.loads(request.body)
+            module_ids = data.get("modules", [])  
+            fp_id = data.get("fp_id")  
+            
+            if not module_ids:
+                return JsonResponse({"success": False, "error": "No se enviaron módulos."}, status=400)
 
-            return redirect('my_tuitions')
-        except Exception as e:
-            print(e)
+            user = request.user
 
-    return redirect('my_tuitions')
+            for module_id in module_ids:
+                module = get_object_or_404(Module, id=module_id)
+                Enrolled.objects.get_or_create(student=user, module=module, course=module.course)
+
+            return JsonResponse({"success": True})
+
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "error": "Error en el formato JSON."}, status=400)
+
+    return JsonResponse({"success": False, "error": "Método no permitido."}, status=405)
 
 
 def tuition_import(request):

@@ -389,14 +389,14 @@
 
         iconCell.addEventListener('click', function (event) {
             event.preventDefault();
-            moduleRow.style.display = 'grid'; // Restaurar en la tabla original
+            moduleRow.style.display = 'grid'; 
             clonedRow.remove();
             guardarEnLocalStorage();
             actualizarMensaje();
         });
 
         selectedModulesList.appendChild(clonedRow);
-        moduleRow.style.display = 'none'; // Ocultar de la tabla original
+        moduleRow.style.display = 'none'; 
         guardarEnLocalStorage();
         actualizarMensaje();
     }

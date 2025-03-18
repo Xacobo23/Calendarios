@@ -750,13 +750,14 @@ tbody tr:nth-child(even) {
                 <div class="form-row">
                     <div class="form-group">
                         <label for="duration">Duración (años)</label>
-                        {{ form.duration }}
+                        <input type="text" id="duration" name="duration" value="{{ form.duration.value }}" readonly>
                     </div>
                 </div>
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fp_type">Tipo de FP</label>
-                        {{ form.fp_type }}
+                        <input type="text" id="fp_type" name="fp_type" value="{{ form.fp_type.value }}" readonly>
                     </div>
                 </div>
                 <div class="form-row-large">
@@ -771,18 +772,13 @@ tbody tr:nth-child(even) {
                 <section class="section-list-of-modules">
                     <div class="modules-table">
                         <div class="table-header">
-                            <div class="th">
-                            </div>
                             <div class="th">Código</div>
                             <div class="th">Nombre</div>
                             <div class="th">Curso</div>
                         </div>
     
                         {% for module in modules %}
-                        <div class="row" id="module-{{ module.id }}">
-                            <div class="cell">
-                                
-                            </div>
+                        <div class="row module-row" id="module-{{ module.id }}">
                             <div class="cell">{{ module.code }}</div>
                             <div class="cell">{{ module.name }}</div>
                             <div class="cell">{{ module.course }}º</div>
@@ -803,26 +799,53 @@ tbody tr:nth-child(even) {
 <script>
     const formElements = document.querySelectorAll('.info-fp input, .info-fp select, .info-fp textarea');
 
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        console.log(`${key}: ${localStorage.getItem(key)}`);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let selectedModules = JSON.parse(localStorage.getItem("selectedModules")) || [];
+
+        if (selectedModules.length === 0) {
+            alert("No hay módulos seleccionados.");
+            return;
+        }
+
+        document.querySelectorAll(".module-row").forEach(row => {
+            let moduleId = row.id.replace("module-", ""); 
+            if (!selectedModules.includes(`module-${moduleId}`) && !selectedModules.includes(moduleId)) {
+                row.remove(); 
+            }
+        });
+    })
+
     formElements.forEach(element => {
             element.disabled = true;
     });
 
-    const fp_id = document.getElementById('confirmar-matricula').getAttribute('data-fpId');
-
     document.getElementById('confirmar-matricula').addEventListener('click', (e) => {
         e.preventDefault();
 
-        const moduleIds = [];
+        const fp_id = document.getElementById('confirmar-matricula').getAttribute('data-fpId');
 
-        document.querySelectorAll('.modules-table .row').forEach(row => {
-            const moduleId = row.id.split('-')[1];
-            moduleIds.push(moduleId);
-        });
+        let selectedModules = JSON.parse(localStorage.getItem('selectedModules')) || [];
+
+        if (selectedModules.length == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'No has seleccionado ningún módulo',
+            });
+            return;
+        }
+
+        const moduleIds = selectedModules.map(id => id.replace("module-", ""));
 
         const data = {
             modules: moduleIds,
             fp_id: fp_id
-        };
+        };        
 
         fetch("{% url 'make_tuition' %}", {
             method: 'POST',
@@ -833,15 +856,35 @@ tbody tr:nth-child(even) {
             body: JSON.stringify(data)
         })
         .then(response => {
-            console.log(response);
-            response.json();
+            return response.json();
         })
         .then(data => {
             if (data.success) {
-                window.location.href = "{% url 'my_tuitions' %}";
+                localStorage.removeItem('selectedModules');
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Matrícula realizada!',
+                    text: 'Te has matriculado con éxito.',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    window.location.href = "{% url 'my_tuitions' %}";
+                });
+
             } else {
-                alert('Error al realizar la matrícula');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo realizar la matrícula. Intenta de nuevo.',
+                });
             }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema en la conexión. Intenta nuevamente.',
+            });
         });
     });
 </script>
