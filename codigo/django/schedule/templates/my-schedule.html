@@ -285,15 +285,6 @@
             <!-- filtros -->
             <div class="action_section_filters">
                 <div class="action_section_filter">
-                    <label for="schedule_template">Plantilla: </label>
-                    <select id="schedule_template" name="schedule_template" class="options_selector">
-                        <option value="1">Por defecto</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">son unha opcion estupidamente enormisimaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
-                        <option value="option4">Option 4</option>
-                    </select>
-                </div>
-                <div class="action_section_filter">
                     <label for="select_course">Curso: </label>
                     <select id="select_course" name="schedule_template" class="options_selector" data-fp-id="{{ fp.id }}">
                         <option value="1" {% if selected_course == 1 %}selected{% endif %}>1</option>
@@ -370,7 +361,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                este ciclo no tiene ninguna plantilla asignada
+                Este ciclo no dispone de una plantilla para mostrar el horario. Contacte con el administrador: admin@xunta.gal
             {% endif %}
         </section>
     </article>
@@ -384,7 +375,7 @@
 
     selectCurso.addEventListener('change', () => {
         let course_value = selectCurso.value;
-        let newUrl = `/schedule/view-schedule/${fpId}/${course_value}`;
+        let newUrl = `/schedule/my-schedule/${fpId}/${course_value}`;
 
         window.location.href = newUrl;
     });

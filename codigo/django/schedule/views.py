@@ -69,6 +69,8 @@ def view_schedule(request, fp_id, curso=None):
 def my_schedules(request):    
     student = request.user
     fps = FP.objects.filter(modulos__enrolled__student=student).distinct()
+    if fps.count() == 1:
+        return redirect(f'/schedule/my-schedule/{fps[0].id}/1') #redireccionase directamente ao horario
 
     data = {
         'title': 'Mis horarios',

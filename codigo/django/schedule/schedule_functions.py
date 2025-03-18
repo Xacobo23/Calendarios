@@ -6,6 +6,9 @@ from collections import defaultdict
 from session.models import Session
 from session.models import Weekday, WEEKDAYS
 
+import random
+
+
 #genera
 def generate_schedule_hours(scheduleConfig):
     scheduleHours = {}
@@ -41,6 +44,21 @@ def generate_schedule_hours(scheduleConfig):
 
 #generar as sesións de cada día
 def generate_schedule_sessions(modules, scheduleConfig, scheduleHours):
+    #camio de colores dos modulos das sesions
+    # colores disponibles
+    pastel_colors = [
+        "#FAD9D6", "#FFE2E2", "#FFD6E0", "#FDE2E4", "#FFDFD3",
+        "#FCE8CB", "#F8ECD5", "#F5F7DC", "#E9F7EF", "#D8F3DC",
+        "#B7E4C7", "#A0C4FF", "#CAE4DB", "#BEE9E8", "#B9FBC0",
+        "#C2E9FB", "#E3F2FD", "#CFE2F3", "#EADFFD",
+        "#D4BEEB", "#DAC7FF", "#F3D5F4", "#F9CFEF", "#E8D3F9",
+        "#FFE4E1", "#FFEEDD", "#FFF9E6", "#E3EDCD", "#C4F1F9",
+        "#E3FFF4", "#DAE5D6", "#D8E1D4", "#D9F4FF", "#C6E9FF",
+        "#F2F7FF", "#FCE4EC", "#F9E4D7", "#F6E8EA", "#FBE7C6"
+    ]
+    #modulos aos que lles cambiei o color
+    changed_module_ids = {}
+
     module_ids = modules.values_list('id', flat=True) #array cos ids dos modulos pa filtrar sesions
     savedSessionsByDay = defaultdict(list) #sesions da bd separadas por día
 
@@ -48,6 +66,17 @@ def generate_schedule_sessions(modules, scheduleConfig, scheduleHours):
     savedSessions = Session.objects.filter(module__id__in=module_ids).order_by('week_day', 'position')
     for session in savedSessions:
         savedSessionsByDay[session.week_day].append(session)
+
+        #cambio o color do modulo pa que se ciña a paleta
+        if session.module:
+            if session.module.id not in changed_module_ids:
+                color = pastel_colors.pop(random.randrange(len(pastel_colors)))
+                changed_module_ids[session.module.id] = color
+            else:
+                color = changed_module_ids[session.module.id]
+            session.module.color = color
+
+
     savedSessionsByDay = dict(savedSessionsByDay)
 
     # pillo de que día a que día vai a plantilla
