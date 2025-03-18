@@ -17,7 +17,7 @@
 {% block tableHeader %}
 <tr>
     <th class="noMostrarMovil">ID</th>
-    <th>Nombre Completo</th>
+    <th><span class="noMostrarPc">Nombre</span><span class="noMostrarMovil">Nombre Completo</span></th>
     <th>DNI</th>
     <th class="noMostrarMovil">Email</th>
     <th class="noMostrarMovil">Teléfono</th>
@@ -31,7 +31,11 @@
 <tr class="{% if forloop.counter|divisibleby:2 %}evenRow{% else %}oddRow{% endif %}">
     <td class="noMostrarMovil">{{ teacher.id }}</td>
     <td>
-        <span class="teacherName">{{ teacher.name }}</span> <span class="teacherLastName">{{ teacher.last_name }}</span>
+        <div class="teacherContainer">
+            <span class="teacherName">{{ teacher.name }}</span>
+            <span class="puntoyespacio">.&nbsp;</span>
+            <span class="teacherLastName">{{ teacher.last_name }}</span>
+        </div>
     </td>
     <td>{{ teacher.dni }}</td>
     <td class="noMostrarMovil">{{ teacher.email }}</td>
@@ -137,4 +141,44 @@
         });
     });
 </script>
+
+<style>
+    .puntoyespacio {
+        display: none;
+    }
+
+    @media (max-width: 700px) {
+        .puntoyespacio {
+            display: inline;
+        }
+
+        .teacherContainer {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .teacherName {
+            white-space: nowrap;
+            /* Evita que el nombre se divida en varias líneas */
+            overflow: hidden;
+            /* Oculta cualquier contenido que se desborde */
+            width: 1ch;
+            /* Limita el ancho a una sola letra */
+            display: inline-block;
+            /* Asegura que el nombre y el apellido estén en línea */
+        }
+
+        /* Añadir el punto y el espacio después de la inicial */
+        .teacherName::after {
+            content: ". ";
+            /* Añade un punto y un espacio al final */
+            display: inline;
+        }
+
+        .teacherLastName {
+            display: inline;
+            /* El apellido se muestra completo */
+        }
+    }
+</style>
 {% endblock %}
