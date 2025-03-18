@@ -34,7 +34,6 @@
     #multiple-courses-body{
         display: flex;
         flex-direction: column;
-        padding: 10% 5% 15% 10%;
         gap: 20px;
     }
         #multiple-courses-title{
@@ -153,7 +152,7 @@
                                 <div class="course-duration">Duración: <b>{{ fp.duration }}</b> años</div>
                             </div>
                             <div class="course-body-action-buttons">
-                                <a href=""><div class="btn-primary">Ver horario</div></a>
+                                <a href="/schedule/my-schedule/{{ fp.id }}/1"><div class="btn-primary">Ver horario</div></a>
                             </div>
                         </div>
                     </div>
