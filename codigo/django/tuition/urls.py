@@ -8,4 +8,5 @@ urlpatterns = [
     path('create-tuition/<int:fp_id>/', views.create_tuition, name='create_tuition'),
     path('review-tuition/<int:fp_id>/', views.review_tuition, name='review_tuition'),
     path('make-tuition/', views.make_tuition, name='make_tuition'),
+    path("import/", views.tuition_import, name="tuition_import"),
 ]

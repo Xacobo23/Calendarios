@@ -512,6 +512,15 @@ thead tr th span{
   border-radius: 0.5em;
 }
 
+.import-tuition-btn {
+  background-color: #448AA6;
+  color: white;
+  padding: 1em 2em;
+  z-index: 100;
+  border: none;
+  border-radius: 0.5em;
+}
+
 .hidden {
   display: none;
 }
