@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import get_user_model
 from collections import defaultdict
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 
 from fp.models import FP
 from session.models import Weekday, WEEKDAYS
@@ -81,12 +82,15 @@ def my_schedules(request):
 
 def my_schedule(request, fp_id, curso=None):
     selected_course = int(curso) if curso else 1
+    student = request.user
 
     fp = get_object_or_404(FP, id=fp_id)
 
     fpScheduleConfig = FPScheduleConfig.objects.filter(fp=fp, fp_course=selected_course).first()
     scheduleConfig = fpScheduleConfig.schedule_config if fpScheduleConfig else None
-    modules = Module.objects.filter(fp=fp, course=selected_course) #modulos
+    enrolled_modules = Enrolled.objects.filter(student=student, course=selected_course)
+    modules_id = enrolled_modules.values_list('module', flat=True)
+    modules = Module.objects.filter(fp=fp, course=selected_course, id__in=modules_id) #modulos
     classrooms = Classroom.objects.all()
 
     scheduleHours = None #lista de horas
