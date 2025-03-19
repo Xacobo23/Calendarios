@@ -213,6 +213,122 @@
         padding: 1em;
     }
 
+    @media (max-width: 700px) {
+        .section-list-of-fps {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        #titleCard {
+            border-radius: .5em;
+            border-radius: .5em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #468DAE;
+        }
+
+        #titleCard.is-active {
+            border-top-left-radius: .5em;
+            border-top-right-radius: .5em;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #468DAE;
+        }
+
+        .expand {
+            background-color: transparent;
+            height: 34px;
+            width: 30px;
+            margin-right: .5em;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transition: -webkit-transform 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+            transition: transform 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expand.is-active {
+            background-color: none;
+        }
+
+        ._layerm {
+            position: absolute;
+            background: white;
+            margin-bottom: 4px;
+            border-radius: 2px;
+            width: 28px;
+            height: 4px;
+            opacity: 1;
+            margin: 0;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transition: all 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+            transition: all 0.25s cubic-bezier(0.05, 1.04, 0.72, 0.98);
+        }
+
+        .-vertical {
+            transform: rotate(90deg) translate3d(0, 0, 0);
+        }
+
+        .-horizontal {
+            transform: rotate();
+        }
+
+        .noTitleGroup {
+            opacity: 0;
+            /* Empieza invisible */
+            visibility: hidden;
+            /* Hace que el elemento sea completamente inaccesible */
+            max-height: 0;
+            /* Inicia con altura 0 */
+            overflow: hidden;
+            /* Evita que el contenido se vea fuera de la caja */
+            transition: opacity 0.2s ease, max-height 0.2s ease, visibility 0s linear 0.2s;
+            /* Transición de opacidad y altura */
+        }
+
+        /* Cuando la clase .is-active se añade, el elemento se muestra con animación */
+        .noTitleGroup.is-active {
+            opacity: 1;
+            /* Vuelve visible */
+            visibility: visible;
+            /* Hace que el elemento sea accesible */
+            max-height: 1000px;
+            /* Ajusta la altura máxima al valor necesario (puedes ajustarlo según el contenido) */
+            transition: opacity 0.7s ease, max-height 0.7s ease, visibility 0s linear 0s;
+            /* La transición para la visibilidad y altura */
+        }
+
+        .expand.is-active .-vertical {
+            opacity: 1;
+            transform: translateY(0%) translateX(0%) rotate(45deg) !important;
+        }
+
+
+        .expand.is-active .-horizontal {
+            transform: translateY(0%) translateX(0%) rotate(-45deg) !important;
+        }
+
+        .card-content {
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+
+            padding: .5em;
+        }
+
+    }
 </style>
 {% endblock %}
 
@@ -255,7 +371,7 @@
                         <div class="_layerm -horizontal"></div>
                     </div>
                 </div>
-                <div class="card-content">
+                <div class="card-content noTitleGroup">
                     <p class="fp-name">{{ fp.short_name }}</p>
                     <p class="total-modules">Módulos disponibles: {{ fp.modulos.count }}</p>
                     <p class="see-fp" data-fp-id="{{ fp.id }}"><button class="btn-see">Matricular</button></p>
@@ -269,14 +385,28 @@
 <script defer>
     const buttons = document.querySelectorAll('.btn-see');
 
-        buttons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const fpId = event.target.closest('.card-content').querySelector('.see-fp').getAttribute('data-fp-id');
+    buttons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const fpId = event.target.closest('.card-content').querySelector('.see-fp').getAttribute('data-fp-id');
 
-                const url = `/tuition/create-tuition/${fpId}`;
+            const url = `/tuition/create-tuition/${fpId}`;
 
-                window.location.href = url;
-            });
+            window.location.href = url;
         });
+    });
+
+    const expandElements = document.querySelectorAll("#titleCard");
+
+    function toggleExpand(event) {
+        // Aquí, el 'this' se refiere al elemento clickeado
+        this.classList.toggle('is-active');
+        this.closest(".tuition-card").querySelector(".expand").classList.toggle("is-active");
+        this.closest(".tuition-card").querySelector(".noTitleGroup").classList.toggle("is-active");
+        this.closest(".tuition-card").querySelector("#titleCard").classList.toggle("is-active");
+    }
+
+    expandElements.forEach(expand => {
+        expand.addEventListener('click', toggleExpand, false);
+    });
 </script>
 {% endblock %}

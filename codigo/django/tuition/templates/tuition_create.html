@@ -179,6 +179,46 @@
         grid-template-columns: 2fr 1fr;
     }
 
+    @media (max-width:700px) {
+        .main-module-tables {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        .section-list-of-modules{
+            order: 2;
+        }
+        .enrolled-modules{
+            order: 1;
+        }
+
+        .modules-table{
+            min-height: 100px !important;
+        }
+        #selected-modules-list .row{
+            grid-template-columns: 0.5fr 1fr 1.5fr 1fr;
+        }
+        .buttons-section{
+            margin-top: 5%;
+            padding-right: 5%;
+        }
+        .buttons-section button:last-child{
+            margin-right: 15%;
+        }
+
+        .table-header{
+            grid-template-columns: 0.5fr 1fr 1.5fr 1fr !important;
+        }
+        .modules-table .row{
+            grid-template-columns: 0.5fr 1fr 1.5fr 1fr !important;
+        }
+    }
+
+    .cell{
+        display: flex;
+        align-self: center;
+        justify-self: center;
+    }
+
     .modules-table {
         margin-top: 2em;
         margin-right: 1em;
@@ -194,8 +234,7 @@
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
-    .enrolled-table-header {
-    }
+    .enrolled-table-header {}
 
     .th {
         background-color: #468DAE;
@@ -216,7 +255,7 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    .enrolled-row:nth-child(even) .cell {
+    .enrolled-row:nth-child(even)  {
         background-color: #f9f9f9;
     }
 
@@ -226,7 +265,7 @@
         text-align: center;
     }
 
-    .row:nth-child(even) .cell {
+    .row:nth-child(even)  {
         background-color: #f9f9f9;
     }
 
@@ -323,7 +362,7 @@
                         <div class="cell">{{ module.name }}</div>
                         <div class="cell">{{ module.course }}º</div>
                     </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
             </section>
             <section class="enrolled-modules">
@@ -339,7 +378,8 @@
 
                 <div class="buttons-section">
                     <button id="btn-cancel" class="btn-cancel"><i class="fa-solid fa-arrow-left"></i></button>
-                    <a href="{% url 'review_tuition' fp_id %}"><button id="btn-next" class="btn-next">Siguiente</button></a>
+                    <a href="{% url 'review_tuition' fp_id %}"><button id="btn-next"
+                            class="btn-next">Siguiente</button></a>
                 </div>
             </section>
 
@@ -349,79 +389,79 @@
 
 <script defer>
     document.addEventListener('DOMContentLoaded', function () {
-    const selectButtons = document.querySelectorAll('.select-module');
-    const selectedModulesList = document.getElementById('selected-modules-list');
-    const mensajeSinModulos = document.querySelector('.mensaje-sin-modulos');
-    const cancelButton = document.getElementById('btn-cancel');
-    const nextButton = document.getElementById('btn-next');
+        const selectButtons = document.querySelectorAll('.select-module');
+        const selectedModulesList = document.getElementById('selected-modules-list');
+        const mensajeSinModulos = document.querySelector('.mensaje-sin-modulos');
+        const cancelButton = document.getElementById('btn-cancel');
+        const nextButton = document.getElementById('btn-next');
 
-    function actualizarMensaje() {
-        if (selectedModulesList.querySelectorAll('.row').length > 0) {
-            mensajeSinModulos.style.display = 'none';
-        } else {
-            mensajeSinModulos.style.display = 'block';
-        }
-    }
-
-    function guardarEnLocalStorage() {
-        const selectedModules = [];
-        selectedModulesList.querySelectorAll('.row').forEach(row => {
-            selectedModules.push(row.id);
-        });
-        localStorage.setItem('selectedModules', JSON.stringify(selectedModules));
-    }
-
-    function cargarDesdeLocalStorage() {
-        const storedModules = JSON.parse(localStorage.getItem('selectedModules')) || [];
-        storedModules.forEach(moduleId => {
-            const moduleRow = document.getElementById(moduleId);
-            if (moduleRow) {
-                agregarModulo(moduleRow);
+        function actualizarMensaje() {
+            if (selectedModulesList.querySelectorAll('.row').length > 0) {
+                mensajeSinModulos.style.display = 'none';
+            } else {
+                mensajeSinModulos.style.display = 'block';
             }
-        });
-    }
+        }
 
-    function agregarModulo(moduleRow) {
-        const clonedRow = moduleRow.cloneNode(true);
-        const iconCell = clonedRow.querySelector('.cell a');
-        iconCell.innerHTML = '<i class="fa-solid fa-user-minus"></i>';
-        iconCell.classList.remove('select-module');
+        function guardarEnLocalStorage() {
+            const selectedModules = [];
+            selectedModulesList.querySelectorAll('.row').forEach(row => {
+                selectedModules.push(row.id);
+            });
+            localStorage.setItem('selectedModules', JSON.stringify(selectedModules));
+        }
 
-        iconCell.addEventListener('click', function (event) {
-            event.preventDefault();
-            moduleRow.style.display = 'grid'; 
-            clonedRow.remove();
+        function cargarDesdeLocalStorage() {
+            const storedModules = JSON.parse(localStorage.getItem('selectedModules')) || [];
+            storedModules.forEach(moduleId => {
+                const moduleRow = document.getElementById(moduleId);
+                if (moduleRow) {
+                    agregarModulo(moduleRow);
+                }
+            });
+        }
+
+        function agregarModulo(moduleRow) {
+            const clonedRow = moduleRow.cloneNode(true);
+            const iconCell = clonedRow.querySelector('.cell a');
+            iconCell.innerHTML = '<i class="fa-solid fa-user-minus"></i>';
+            iconCell.classList.remove('select-module');
+
+            iconCell.addEventListener('click', function (event) {
+                event.preventDefault();
+                moduleRow.style.display = 'grid';
+                clonedRow.remove();
+                guardarEnLocalStorage();
+                actualizarMensaje();
+            });
+
+            selectedModulesList.appendChild(clonedRow);
+            moduleRow.style.display = 'none';
             guardarEnLocalStorage();
+            actualizarMensaje();
+        }
+
+        selectButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const moduleId = this.getAttribute('data-id');
+                const moduleRow = document.getElementById(`module-${moduleId}`);
+                agregarModulo(moduleRow);
+            });
+        });
+
+        cancelButton.addEventListener('click', function () {
+            selectedModulesList.querySelectorAll('.row').forEach(moduleRow => {
+                const moduleId = moduleRow.id;
+                document.getElementById(moduleId).style.display = 'grid';
+                moduleRow.remove();
+            });
+            localStorage.removeItem('selectedModules');
             actualizarMensaje();
         });
 
-        selectedModulesList.appendChild(clonedRow);
-        moduleRow.style.display = 'none'; 
-        guardarEnLocalStorage();
-        actualizarMensaje();
-    }
-
-    selectButtons.forEach(button => {
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
-            const moduleId = this.getAttribute('data-id');
-            const moduleRow = document.getElementById(`module-${moduleId}`);
-            agregarModulo(moduleRow);
-        });
+        cargarDesdeLocalStorage();
     });
-
-    cancelButton.addEventListener('click', function () {
-        selectedModulesList.querySelectorAll('.row').forEach(moduleRow => {
-            const moduleId = moduleRow.id;
-            document.getElementById(moduleId).style.display = 'grid';
-            moduleRow.remove();
-        });
-        localStorage.removeItem('selectedModules');
-        actualizarMensaje();
-    });
-
-    cargarDesdeLocalStorage();
-});
 
 
 </script>
